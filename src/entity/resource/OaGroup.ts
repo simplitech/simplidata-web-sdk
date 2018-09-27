@@ -1,0 +1,66 @@
+/**
+ * OaGroup
+ * @author Simpli© CLI generator
+ */
+import { ID, Resource, TAG } from 'simpli-ts-vue'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
+import { bool } from 'simpli-ts-vue'
+import { ObjectOfAnalysis } from './ObjectOfAnalysis'
+
+/* TODO: review generated class */
+export class OaGroup extends Resource {
+  readonly $name: string = 'OaGroup'
+  readonly $endpoint: string = '/User/OaGroup{/id}'
+
+  get $id() {
+    return this.idOaGroupPk
+  }
+  set $id(val: ID) {
+    this.idOaGroupPk = val
+  }
+  get $tag() {
+    return this.title
+  }
+  set $tag(val: TAG) {
+    this.title = val
+  }
+
+  @ResponseSerialize(OaGroup) parentGroup: OaGroup | null = null
+
+  @ResponseSerialize(ObjectOfAnalysis) objectOfAnalysisOaGroup: ObjectOfAnalysis[] = []
+
+  idOaGroupPk: ID = 0
+
+  @ValidationRequired()
+  @ValidationMaxLength(100)
+  title: string = ''
+
+  @ValidationRequired() active: boolean = false
+
+  get idParentGroupFk() {
+    if (!this.parentGroup) return 0
+    return this.parentGroup.$id
+  }
+  set idParentGroupFk(idParentGroupFk: ID) {
+    if (!this.parentGroup) this.parentGroup = new OaGroup()
+    this.parentGroup.$id = idParentGroupFk
+  }
+
+  scheme() {
+    return {
+      parentGroup: this.parentGroup && this.parentGroup.$id,
+      idOaGroupPk: this.idOaGroupPk,
+      title: this.title,
+      active: bool(this.active),
+    }
+  }
+
+  csvScheme() {
+    return {
+      parentGroup: this.parentGroup && this.parentGroup.$id,
+      idOaGroupPk: this.idOaGroupPk,
+      title: this.title,
+      active: bool(this.active),
+    }
+  }
+}

@@ -1,0 +1,1 @@
+# Simplidata Web SDK

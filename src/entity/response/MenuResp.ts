@@ -1,0 +1,22 @@
+/**
+ * MenuResp
+ * @author Simpli© CLI generator
+ */
+import { Model, Resp, ResponseSerialize } from 'simpli-ts-vue'
+import { OaCategory } from '../resource/OaCategory'
+import { Collection } from '../resource/Collection'
+import { ObjectOfAnalysis } from '../resource/ObjectOfAnalysis'
+
+export class MenuResp extends Model {
+  @ResponseSerialize(OaCategory) categories: OaCategory[] = []
+
+  @ResponseSerialize(Collection) collections: Collection[] = []
+
+  @ResponseSerialize(ObjectOfAnalysis) recentObjectOfAnalysis: ObjectOfAnalysis[] = []
+
+  @ResponseSerialize(ObjectOfAnalysis) sentObjectOfAnalysis: ObjectOfAnalysis[] = []
+
+  async getMenu(): Promise<Resp<any>> {
+    return await this.GET(`/User/Menu`)
+  }
+}
