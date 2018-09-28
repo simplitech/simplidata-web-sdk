@@ -10,7 +10,7 @@ import { bool, cep } from 'simpli-ts-vue'
 export class Address extends Resource {
   readonly $name: string = 'Address'
   readonly $endpoint: string = '/User/Address{/id}'
-  readonly $googleApiKey = `AIzaSyBlx9aOau9G-Y66iDjM2_eCKAm_3b-Zpmk`
+  readonly $googleApiKey: string = `AIzaSyBlx9aOau9G-Y66iDjM2_eCKAm_3b-Zpmk`
 
   get $id() {
     return this.idAddressPk
@@ -44,9 +44,11 @@ export class Address extends Resource {
   @ValidationMaxLength(255)
   state: string = ''
 
-  @ValidationRequired() latitude: number = 0
+  @ValidationRequired()
+  latitude: number = 0
 
-  @ValidationRequired() longitude: number = 0
+  @ValidationRequired()
+  longitude: number = 0
 
   active: boolean | null = null
 
