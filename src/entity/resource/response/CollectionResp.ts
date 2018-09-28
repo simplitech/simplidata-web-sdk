@@ -24,15 +24,17 @@ export class CollectionResp extends Resource {
     this.collection.$tag = val
   }
 
-  @ResponseSerialize(Collection) collection: Collection = new Collection()
+  @ResponseSerialize(Collection)
+  collection: Collection = new Collection()
 
-  @ResponseSerialize(User) allUser: User[] = []
+  @ResponseSerialize(User)
+  allUser: User[] = []
 
-  async persistCollection(model: Collection): Promise<Resp<any>> {
+  async persistCollection(model: Collection): Promise<Resp<Number>> {
     return await this.POST(`/User/Collection`, model)
   }
 
-  async getCollection(id: number): Promise<Resp<any>> {
+  async getCollection(id: number): Promise<Resp<CollectionResp>> {
     return await this.GET(`/User/Collection/${id}`)
   }
 

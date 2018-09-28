@@ -23,13 +23,14 @@ export class DownloadTypeResp extends Resource {
     this.downloadType.$tag = val
   }
 
-  @ResponseSerialize(DownloadType) downloadType: DownloadType = new DownloadType()
+  @ResponseSerialize(DownloadType)
+  downloadType: DownloadType = new DownloadType()
 
-  async persistDownloadType(model: DownloadType): Promise<Resp<any>> {
+  async persistDownloadType(model: DownloadType): Promise<Resp<Number>> {
     return await this.POST(`/User/DownloadType`, model)
   }
 
-  async getDownloadType(id: number): Promise<Resp<any>> {
+  async getDownloadType(id: number): Promise<Resp<DownloadTypeResp>> {
     return await this.GET(`/User/DownloadType/${id}`)
   }
 

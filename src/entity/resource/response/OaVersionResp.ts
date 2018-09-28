@@ -25,17 +25,20 @@ export class OaVersionResp extends Resource {
     this.oaVersion.$tag = val
   }
 
-  @ResponseSerialize(OaVersion) oaVersion: OaVersion = new OaVersion()
+  @ResponseSerialize(OaVersion)
+  oaVersion: OaVersion = new OaVersion()
 
-  @ResponseSerialize(OaVersionStatus) allOaVersionStatus: OaVersionStatus[] = []
+  @ResponseSerialize(OaVersionStatus)
+  allOaVersionStatus: OaVersionStatus[] = []
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistOaVersion(model: OaVersion): Promise<Resp<any>> {
+  async persistOaVersion(model: OaVersion): Promise<Resp<Number>> {
     return await this.POST(`/User/OaVersion`, model)
   }
 
-  async getOaVersion(id: number): Promise<Resp<any>> {
+  async getOaVersion(id: number): Promise<Resp<OaVersionResp>> {
     return await this.GET(`/User/OaVersion/${id}`)
   }
 

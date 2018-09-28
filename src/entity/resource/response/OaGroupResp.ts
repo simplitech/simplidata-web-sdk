@@ -24,17 +24,20 @@ export class OaGroupResp extends Resource {
     this.oaGroup.$tag = val
   }
 
-  @ResponseSerialize(OaGroup) oaGroup: OaGroup = new OaGroup()
+  @ResponseSerialize(OaGroup)
+  oaGroup: OaGroup = new OaGroup()
 
-  @ResponseSerialize(OaGroup) allOaGroup: OaGroup[] = []
+  @ResponseSerialize(OaGroup)
+  allOaGroup: OaGroup[] = []
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistOaGroup(model: OaGroup): Promise<Resp<any>> {
+  async persistOaGroup(model: OaGroup): Promise<Resp<Number>> {
     return await this.POST(`/User/OaGroup`, model)
   }
 
-  async getOaGroup(id: number): Promise<Resp<any>> {
+  async getOaGroup(id: number): Promise<Resp<OaGroupResp>> {
     return await this.GET(`/User/OaGroup/${id}`)
   }
 

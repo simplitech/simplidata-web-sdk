@@ -23,13 +23,14 @@ export class OaPeriodicityResp extends Resource {
     this.oaPeriodicity.$tag = val
   }
 
-  @ResponseSerialize(OaPeriodicity) oaPeriodicity: OaPeriodicity = new OaPeriodicity()
+  @ResponseSerialize(OaPeriodicity)
+  oaPeriodicity: OaPeriodicity = new OaPeriodicity()
 
-  async persistOaPeriodicity(model: OaPeriodicity): Promise<Resp<any>> {
+  async persistOaPeriodicity(model: OaPeriodicity): Promise<Resp<Number>> {
     return await this.POST(`/User/OaPeriodicity`, model)
   }
 
-  async getOaPeriodicity(id: number): Promise<Resp<any>> {
+  async getOaPeriodicity(id: number): Promise<Resp<OaPeriodicityResp>> {
     return await this.GET(`/User/OaPeriodicity/${id}`)
   }
 

@@ -24,15 +24,17 @@ export class ModelResp extends Resource {
     this.model.$tag = val
   }
 
-  @ResponseSerialize(Model) model: Model = new Model()
+  @ResponseSerialize(Model)
+  model: Model = new Model()
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistModel(model: Model): Promise<Resp<any>> {
+  async persistModel(model: Model): Promise<Resp<Number>> {
     return await this.POST(`/User/Model`, model)
   }
 
-  async getModel(id: number): Promise<Resp<any>> {
+  async getModel(id: number): Promise<Resp<ModelResp>> {
     return await this.GET(`/User/Model/${id}`)
   }
 

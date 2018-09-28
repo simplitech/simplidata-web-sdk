@@ -23,13 +23,14 @@ export class OaSourceResp extends Resource {
     this.oaSource.$tag = val
   }
 
-  @ResponseSerialize(OaSource) oaSource: OaSource = new OaSource()
+  @ResponseSerialize(OaSource)
+  oaSource: OaSource = new OaSource()
 
-  async persistOaSource(model: OaSource): Promise<Resp<any>> {
+  async persistOaSource(model: OaSource): Promise<Resp<Number>> {
     return await this.POST(`/User/OaSource`, model)
   }
 
-  async getOaSource(id: number): Promise<Resp<any>> {
+  async getOaSource(id: number): Promise<Resp<OaSourceResp>> {
     return await this.GET(`/User/OaSource/${id}`)
   }
 

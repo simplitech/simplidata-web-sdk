@@ -8,15 +8,19 @@ import { Collection } from '../resource/Collection'
 import { ObjectOfAnalysis } from '../resource/ObjectOfAnalysis'
 
 export class MenuResp extends Model {
-  @ResponseSerialize(OaCategory) categories: OaCategory[] = []
+  @ResponseSerialize(OaCategory)
+  categories: OaCategory[] = []
 
-  @ResponseSerialize(Collection) collections: Collection[] = []
+  @ResponseSerialize(Collection)
+  collections: Collection[] = []
 
-  @ResponseSerialize(ObjectOfAnalysis) recentObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  recentObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  @ResponseSerialize(ObjectOfAnalysis) sentObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  sentObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async getMenu(): Promise<Resp<any>> {
+  async getMenu(): Promise<Resp<MenuResp>> {
     return await this.GET(`/User/Menu`)
   }
 }

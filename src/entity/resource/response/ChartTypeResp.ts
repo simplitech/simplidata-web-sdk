@@ -24,15 +24,17 @@ export class ChartTypeResp extends Resource {
     this.chartType.$tag = val
   }
 
-  @ResponseSerialize(ChartType) chartType: ChartType = new ChartType()
+  @ResponseSerialize(ChartType)
+  chartType: ChartType = new ChartType()
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistChartType(model: ChartType): Promise<Resp<any>> {
+  async persistChartType(model: ChartType): Promise<Resp<Number>> {
     return await this.POST(`/User/ChartType`, model)
   }
 
-  async getChartType(id: number): Promise<Resp<any>> {
+  async getChartType(id: number): Promise<Resp<ChartTypeResp>> {
     return await this.GET(`/User/ChartType/${id}`)
   }
 

@@ -24,15 +24,17 @@ export class ValueTypeResp extends Resource {
     this.valueType.$tag = val
   }
 
-  @ResponseSerialize(ValueType) valueType: ValueType = new ValueType()
+  @ResponseSerialize(ValueType)
+  valueType: ValueType = new ValueType()
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistValueType(model: ValueType): Promise<Resp<any>> {
+  async persistValueType(model: ValueType): Promise<Resp<Number>> {
     return await this.POST(`/User/ValueType`, model)
   }
 
-  async getValueType(id: number): Promise<Resp<any>> {
+  async getValueType(id: number): Promise<Resp<ValueTypeResp>> {
     return await this.GET(`/User/ValueType/${id}`)
   }
 

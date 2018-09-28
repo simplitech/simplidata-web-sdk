@@ -25,17 +25,20 @@ export class UserUsedOaResp extends Resource {
     this.userUsedOa.$tag = val
   }
 
-  @ResponseSerialize(UserUsedOa) userUsedOa: UserUsedOa = new UserUsedOa()
+  @ResponseSerialize(UserUsedOa)
+  userUsedOa: UserUsedOa = new UserUsedOa()
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  @ResponseSerialize(User) allUser: User[] = []
+  @ResponseSerialize(User)
+  allUser: User[] = []
 
-  async persistUserUsedOa(model: UserUsedOa): Promise<Resp<any>> {
+  async persistUserUsedOa(model: UserUsedOa): Promise<Resp<Number>> {
     return await this.POST(`/User/UserUsedOa`, model)
   }
 
-  async getUserUsedOa(idUserFk: number, idObjectOfAnalysisFk: number): Promise<Resp<any>> {
+  async getUserUsedOa(idUserFk: number, idObjectOfAnalysisFk: number): Promise<Resp<UserUsedOaResp>> {
     return await this.GET(`/User/UserUsedOa/${idUserFk}/${idObjectOfAnalysisFk}`)
   }
 

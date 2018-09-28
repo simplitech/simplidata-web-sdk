@@ -23,13 +23,14 @@ export class AddressResp extends Resource {
     this.address.$tag = val
   }
 
-  @ResponseSerialize(Address) address: Address = new Address()
+  @ResponseSerialize(Address)
+  address: Address = new Address()
 
-  async persistAddress(model: Address): Promise<Resp<any>> {
+  async persistAddress(model: Address): Promise<Resp<Number>> {
     return await this.POST(`/User/Address`, model)
   }
 
-  async getAddress(id: number): Promise<Resp<any>> {
+  async getAddress(id: number): Promise<Resp<AddressResp>> {
     return await this.GET(`/User/Address/${id}`)
   }
 

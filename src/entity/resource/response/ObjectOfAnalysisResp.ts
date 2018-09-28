@@ -33,35 +33,47 @@ export class ObjectOfAnalysisResp extends Resource {
     this.objectOfAnalysis.$tag = val
   }
 
-  @ResponseSerialize(ObjectOfAnalysis) objectOfAnalysis: ObjectOfAnalysis = new ObjectOfAnalysis()
+  @ResponseSerialize(ObjectOfAnalysis)
+  objectOfAnalysis: ObjectOfAnalysis = new ObjectOfAnalysis()
 
-  @ResponseSerialize(ChartType) allChartType: ChartType[] = []
+  @ResponseSerialize(ChartType)
+  allChartType: ChartType[] = []
 
-  @ResponseSerialize(OaCategory) allOaCategory: OaCategory[] = []
+  @ResponseSerialize(OaCategory)
+  allOaCategory: OaCategory[] = []
 
-  @ResponseSerialize(OaPeriodicity) allOaPeriodicity: OaPeriodicity[] = []
+  @ResponseSerialize(OaPeriodicity)
+  allOaPeriodicity: OaPeriodicity[] = []
 
-  @ResponseSerialize(OaSource) allOaSource: OaSource[] = []
+  @ResponseSerialize(OaSource)
+  allOaSource: OaSource[] = []
 
-  @ResponseSerialize(OaUnity) allOaUnity: OaUnity[] = []
+  @ResponseSerialize(OaUnity)
+  allOaUnity: OaUnity[] = []
 
-  @ResponseSerialize(Plan) allPlan: Plan[] = []
+  @ResponseSerialize(Plan)
+  allPlan: Plan[] = []
 
-  @ResponseSerialize(User) allUser: User[] = []
+  @ResponseSerialize(User)
+  allUser: User[] = []
 
-  @ResponseSerialize(Model) allModel: Model[] = []
+  @ResponseSerialize(Model)
+  allModel: Model[] = []
 
-  @ResponseSerialize(ObjectOfAnalysis) allObjectOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  @ResponseSerialize(ValueType) allValueType: ValueType[] = []
+  @ResponseSerialize(ValueType)
+  allValueType: ValueType[] = []
 
-  @ResponseSerialize(OaGroup) allOaGroup: OaGroup[] = []
+  @ResponseSerialize(OaGroup)
+  allOaGroup: OaGroup[] = []
 
-  async persistObjectOfAnalysis(model: ObjectOfAnalysis): Promise<Resp<any>> {
+  async persistObjectOfAnalysis(model: ObjectOfAnalysis): Promise<Resp<Number>> {
     return await this.POST(`/User/ObjectOfAnalysis`, model)
   }
 
-  async getObjectOfAnalysis(id: number): Promise<Resp<any>> {
+  async getObjectOfAnalysis(id: number): Promise<Resp<ObjectOfAnalysisResp>> {
     return await this.GET(`/User/ObjectOfAnalysis/${id}`)
   }
 

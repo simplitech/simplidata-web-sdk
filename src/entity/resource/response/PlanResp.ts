@@ -23,13 +23,14 @@ export class PlanResp extends Resource {
     this.plan.$tag = val
   }
 
-  @ResponseSerialize(Plan) plan: Plan = new Plan()
+  @ResponseSerialize(Plan)
+  plan: Plan = new Plan()
 
-  async persistPlan(model: Plan): Promise<Resp<any>> {
+  async persistPlan(model: Plan): Promise<Resp<Number>> {
     return await this.POST(`/User/Plan`, model)
   }
 
-  async getPlan(id: number): Promise<Resp<any>> {
+  async getPlan(id: number): Promise<Resp<PlanResp>> {
     return await this.GET(`/User/Plan/${id}`)
   }
 

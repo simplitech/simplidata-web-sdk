@@ -23,13 +23,14 @@ export class OaVersionStatusResp extends Resource {
     this.oaVersionStatus.$tag = val
   }
 
-  @ResponseSerialize(OaVersionStatus) oaVersionStatus: OaVersionStatus = new OaVersionStatus()
+  @ResponseSerialize(OaVersionStatus)
+  oaVersionStatus: OaVersionStatus = new OaVersionStatus()
 
-  async persistOaVersionStatus(model: OaVersionStatus): Promise<Resp<any>> {
+  async persistOaVersionStatus(model: OaVersionStatus): Promise<Resp<Number>> {
     return await this.POST(`/User/OaVersionStatus`, model)
   }
 
-  async getOaVersionStatus(id: number): Promise<Resp<any>> {
+  async getOaVersionStatus(id: number): Promise<Resp<OaVersionStatusResp>> {
     return await this.GET(`/User/OaVersionStatus/${id}`)
   }
 

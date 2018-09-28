@@ -22,13 +22,14 @@ export class UserResp extends Resource {
     this.user.$tag = val
   }
 
-  @ResponseSerialize(User) user: User = new User()
+  @ResponseSerialize(User)
+  user: User = new User()
 
-  async persistUser(model: User): Promise<Resp<any>> {
+  async persistUser(model: User): Promise<Resp<Number>> {
     return await this.POST(`/User/User`, model)
   }
 
-  async getUser(id: number): Promise<Resp<any>> {
+  async getUser(id: number): Promise<Resp<UserResp>> {
     return await this.GET(`/User/User/${id}`)
   }
 

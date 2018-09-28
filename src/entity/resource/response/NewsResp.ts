@@ -24,15 +24,17 @@ export class NewsResp extends Resource {
     this.news.$tag = val
   }
 
-  @ResponseSerialize(News) news: News = new News()
+  @ResponseSerialize(News)
+  news: News = new News()
 
-  @ResponseSerialize(OaCategory) allOaCategory: OaCategory[] = []
+  @ResponseSerialize(OaCategory)
+  allOaCategory: OaCategory[] = []
 
-  async persistNews(model: News): Promise<Resp<any>> {
+  async persistNews(model: News): Promise<Resp<Number>> {
     return await this.POST(`/User/News`, model)
   }
 
-  async getNews(id: number): Promise<Resp<any>> {
+  async getNews(id: number): Promise<Resp<NewsResp>> {
     return await this.GET(`/User/News/${id}`)
   }
 

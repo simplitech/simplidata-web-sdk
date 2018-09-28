@@ -14,13 +14,14 @@ export class LoginResp extends Model {
 
   id: ID = 0
 
-  @ResponseSerialize(User) user: User = new User()
+  @ResponseSerialize(User)
+  user: User = new User()
 
-  async auth(): Promise<Resp<any>> {
+  async auth(): Promise<Resp<LoginResp>> {
     return await this.GET(`/User/Auth`)
   }
 
-  async recoverPassword(model: LoginSerialized): Promise<Resp<any>> {
+  async recoverPassword(model: LoginSerialized): Promise<Resp<String>> {
     const email = (model.email = 'xx@xx.co')
     const password = encrypt(model.password || '')
     const hash = model.hash
@@ -29,7 +30,7 @@ export class LoginResp extends Model {
     return await this.POST(`/User/RecoverPassword`, { email, password, hash } as LoginSerialized)
   }
 
-  async resetPassword(model: LoginSerialized): Promise<Resp<any>> {
+  async resetPassword(model: LoginSerialized): Promise<Resp<Number>> {
     const email = model.email
     const password = (model.password = '######')
     const hash = (model.hash = '')
@@ -38,7 +39,7 @@ export class LoginResp extends Model {
     return await this.POST(`/User/ResetPassword`, { email, password, hash } as LoginSerialized)
   }
 
-  async signIn(model: LoginSerialized): Promise<Resp<any>> {
+  async signIn(model: LoginSerialized): Promise<Resp<LoginResp>> {
     const email = model.email
     const password = encrypt(model.password || '')
     const hash = (model.hash = '')

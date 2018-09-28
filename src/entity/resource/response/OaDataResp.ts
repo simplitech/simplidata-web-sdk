@@ -24,15 +24,17 @@ export class OaDataResp extends Resource {
     this.oaData.$tag = val
   }
 
-  @ResponseSerialize(OaData) oaData: OaData = new OaData()
+  @ResponseSerialize(OaData)
+  oaData: OaData = new OaData()
 
-  @ResponseSerialize(OaDataset) allOaDataset: OaDataset[] = []
+  @ResponseSerialize(OaDataset)
+  allOaDataset: OaDataset[] = []
 
-  async persistOaData(model: OaData): Promise<Resp<any>> {
+  async persistOaData(model: OaData): Promise<Resp<Number>> {
     return await this.POST(`/User/OaData`, model)
   }
 
-  async getOaData(id: number): Promise<Resp<any>> {
+  async getOaData(id: number): Promise<Resp<OaDataResp>> {
     return await this.GET(`/User/OaData/${id}`)
   }
 

@@ -17,17 +17,21 @@ export class OaCategoryResp extends Resource {
     /**/
   }
 
-  @ResponseSerialize(OaCategory) categories: OaCategory[] = []
+  @ResponseSerialize(OaCategory)
+  category: OaCategory | null = null
 
-  async persistOaCategory(model: OaCategory): Promise<Resp<any>> {
+  @ResponseSerialize(OaCategory)
+  categories: OaCategory[] = []
+
+  async persistOaCategory(model: OaCategory): Promise<Resp<Number>> {
     return await this.POST(`/User/OaCategory`, model)
   }
 
-  async getOaCategory(id: number): Promise<Resp<any>> {
+  async getOaCategory(id: number): Promise<Resp<OaCategoryResp>> {
     return await this.GET(`/User/OaCategory/${id}`)
   }
 
-  async listOaCategory(query?: string): Promise<Resp<any>> {
+  async listOaCategory(query?: string): Promise<Resp<OaCategoryResp>> {
     const params = { query }
     const fetch = async () => await this.GET(`/User/OaCategory`, { params })
     return await $.await.run(fetch, 'listOaCategory')

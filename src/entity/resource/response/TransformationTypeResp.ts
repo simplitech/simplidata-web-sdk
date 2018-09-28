@@ -23,13 +23,14 @@ export class TransformationTypeResp extends Resource {
     this.transformationType.$tag = val
   }
 
-  @ResponseSerialize(TransformationType) transformationType: TransformationType = new TransformationType()
+  @ResponseSerialize(TransformationType)
+  transformationType: TransformationType = new TransformationType()
 
-  async persistTransformationType(model: TransformationType): Promise<Resp<any>> {
+  async persistTransformationType(model: TransformationType): Promise<Resp<Number>> {
     return await this.POST(`/User/TransformationType`, model)
   }
 
-  async getTransformationType(id: number): Promise<Resp<any>> {
+  async getTransformationType(id: number): Promise<Resp<TransformationTypeResp>> {
     return await this.GET(`/User/TransformationType/${id}`)
   }
 

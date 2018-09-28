@@ -23,13 +23,14 @@ export class OaUnityResp extends Resource {
     this.oaUnity.$tag = val
   }
 
-  @ResponseSerialize(OaUnity) oaUnity: OaUnity = new OaUnity()
+  @ResponseSerialize(OaUnity)
+  oaUnity: OaUnity = new OaUnity()
 
-  async persistOaUnity(model: OaUnity): Promise<Resp<any>> {
+  async persistOaUnity(model: OaUnity): Promise<Resp<Number>> {
     return await this.POST(`/User/OaUnity`, model)
   }
 
-  async getOaUnity(id: number): Promise<Resp<any>> {
+  async getOaUnity(id: number): Promise<Resp<OaUnityResp>> {
     return await this.GET(`/User/OaUnity/${id}`)
   }
 

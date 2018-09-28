@@ -26,19 +26,23 @@ export class UserSavedChartResp extends Resource {
     this.userSavedChart.$tag = val
   }
 
-  @ResponseSerialize(UserSavedChart) userSavedChart: UserSavedChart = new UserSavedChart()
+  @ResponseSerialize(UserSavedChart)
+  userSavedChart: UserSavedChart = new UserSavedChart()
 
-  @ResponseSerialize(Collection) allCollection: Collection[] = []
+  @ResponseSerialize(Collection)
+  allCollection: Collection[] = []
 
-  @ResponseSerialize(DownloadType) allDownloadType: DownloadType[] = []
+  @ResponseSerialize(DownloadType)
+  allDownloadType: DownloadType[] = []
 
-  @ResponseSerialize(User) allUser: User[] = []
+  @ResponseSerialize(User)
+  allUser: User[] = []
 
-  async persistUserSavedChart(model: UserSavedChart): Promise<Resp<any>> {
+  async persistUserSavedChart(model: UserSavedChart): Promise<Resp<Number>> {
     return await this.POST(`/User/UserSavedChart`, model)
   }
 
-  async getUserSavedChart(id: number): Promise<Resp<any>> {
+  async getUserSavedChart(id: number): Promise<Resp<UserSavedChartResp>> {
     return await this.GET(`/User/UserSavedChart/${id}`)
   }
 

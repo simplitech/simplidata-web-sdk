@@ -1,5 +1,7 @@
+/* *** Collection *** */
 export { PagedResp } from './collection/PagedResp'
 
+/* *** Resource Response *** */
 export { AddressResp } from './resource/response/AddressResp'
 export { ChartTypeResp } from './resource/response/ChartTypeResp'
 export { CollectionResp } from './resource/response/CollectionResp'
@@ -23,6 +25,7 @@ export { UserSavedChartResp } from './resource/response/UserSavedChartResp'
 export { UserUsedOaResp } from './resource/response/UserUsedOaResp'
 export { ValueTypeResp } from './resource/response/ValueTypeResp'
 
+/* *** Resource *** */
 export { Address } from './resource/Address'
 export { ChartType } from './resource/ChartType'
 export { Collection } from './resource/Collection'
@@ -46,7 +49,9 @@ export { UserSavedChart } from './resource/UserSavedChart'
 export { UserUsedOa } from './resource/UserUsedOa'
 export { ValueType } from './resource/ValueType'
 
+/* *** Model Response *** */
 export { LoginResp } from './response/LoginResp'
 export { MenuResp } from './response/MenuResp'
 
+/* *** Model *** */
 export { LoginSerialized } from './LoginSerialized'
