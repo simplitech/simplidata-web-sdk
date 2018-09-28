@@ -33,8 +33,7 @@ export class OaCategoryResp extends Resource {
 
   async listOaCategory(query?: string): Promise<Resp<OaCategoryResp>> {
     const params = { query }
-    const fetch = async () => await this.GET(`/User/OaCategory`, { params })
-    return await $.await.run(fetch, 'listOaCategory')
+    return await this.GET(`/User/OaCategory`, { params })
   }
 
   async removeOaCategory(id: number): Promise<Resp<any>> {
