@@ -2,9 +2,9 @@
  * UserUsedOa
  * @author Simpli© CLI generator
  */
-import { ID, Resource } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationRequired } from 'simpli-ts-vue'
-import { datetime } from 'simpli-ts-vue'
+import { ID, Resource } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
+import { datetime } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { User } from './User'
 
@@ -21,11 +21,14 @@ export class UserUsedOa extends Resource {
     /* TODO: define the ID */
   }
 
-  @ResponseSerialize(ObjectOfAnalysis) objectOfAnalysis: ObjectOfAnalysis | null = null
+  @ResponseSerialize(ObjectOfAnalysis)
+  objectOfAnalysis: ObjectOfAnalysis | null = null
 
-  @ResponseSerialize(User) user: User | null = null
+  @ResponseSerialize(User)
+  user: User | null = null
 
-  @ValidationRequired() usedDate: string = ''
+  @ValidationRequired()
+  usedDate: string = ''
 
   get idUserFk() {
     if (!this.user) return 0

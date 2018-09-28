@@ -2,8 +2,8 @@
  * OaGroupResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-ts-vue'
-import { ResponseSerialize } from 'simpli-ts-vue'
+import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaGroup } from '../OaGroup'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
 

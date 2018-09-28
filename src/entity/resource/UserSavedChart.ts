@@ -2,9 +2,9 @@
  * UserSavedChart
  * @author Simpli© CLI generator
  */
-import { ID, Resource } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool, datetime } from 'simpli-ts-vue'
+import { ID, Resource } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool, datetime } from 'simpli-web-sdk'
 import { Collection } from './Collection'
 import { DownloadType } from './DownloadType'
 import { User } from './User'
@@ -21,11 +21,14 @@ export class UserSavedChart extends Resource {
     this.idUserChartPk = val
   }
 
-  @ResponseSerialize(Collection) collection: Collection | null = null
+  @ResponseSerialize(Collection)
+  collection: Collection | null = null
 
-  @ResponseSerialize(DownloadType) downloadType: DownloadType | null = null
+  @ResponseSerialize(DownloadType)
+  downloadType: DownloadType | null = null
 
-  @ResponseSerialize(User) user: User | null = null
+  @ResponseSerialize(User)
+  user: User | null = null
 
   idUserChartPk: ID = 0
 
@@ -33,9 +36,11 @@ export class UserSavedChart extends Resource {
   @ValidationMaxLength(255)
   json: string = ''
 
-  @ValidationRequired() creationDate: string = ''
+  @ValidationRequired()
+  creationDate: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   get idUserFk() {
     if (!this.user) return 0

@@ -2,9 +2,9 @@
  * OaData
  * @author Simpli© CLI generator
  */
-import { ID, Resource } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationRequired } from 'simpli-ts-vue'
-import { bool, datetime } from 'simpli-ts-vue'
+import { ID, Resource } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
+import { bool, datetime } from 'simpli-web-sdk'
 import { OaDataset } from './OaDataset'
 
 /* TODO: review generated class */
@@ -19,15 +19,19 @@ export class OaData extends Resource {
     this.idOaDataPk = val
   }
 
-  @ResponseSerialize(OaDataset) oaDataset: OaDataset | null = null
+  @ResponseSerialize(OaDataset)
+  oaDataset: OaDataset | null = null
 
   idOaDataPk: ID = 0
 
-  @ValidationRequired() value: number = 0
+  @ValidationRequired()
+  value: number = 0
 
-  @ValidationRequired() dt: string = ''
+  @ValidationRequired()
+  dt: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   get idOaDatasetFk() {
     if (!this.oaDataset) return 0

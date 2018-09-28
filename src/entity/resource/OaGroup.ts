@@ -2,9 +2,9 @@
  * OaGroup
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 
 /* TODO: review generated class */
@@ -25,9 +25,11 @@ export class OaGroup extends Resource {
     this.title = val
   }
 
-  @ResponseSerialize(OaGroup) parentGroup: OaGroup | null = null
+  @ResponseSerialize(OaGroup)
+  parentGroup: OaGroup | null = null
 
-  @ResponseSerialize(ObjectOfAnalysis) objectOfAnalysisOaGroup: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  objectOfAnalysisOaGroup: ObjectOfAnalysis[] = []
 
   idOaGroupPk: ID = 0
 
@@ -35,7 +37,8 @@ export class OaGroup extends Resource {
   @ValidationMaxLength(100)
   title: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   get idParentGroupFk() {
     if (!this.parentGroup) return 0

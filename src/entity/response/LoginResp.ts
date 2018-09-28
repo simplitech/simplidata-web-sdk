@@ -2,8 +2,8 @@
  * LoginResp
  * @author Simpli© CLI generator
  */
-import { ID, Model, encrypt, Resp } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationMaxLength } from 'simpli-ts-vue'
+import { ID, Model, encrypt, Resp } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationMaxLength } from 'simpli-web-sdk'
 import { User } from '../resource/User'
 import { LoginSerialized } from '../LoginSerialized'
 

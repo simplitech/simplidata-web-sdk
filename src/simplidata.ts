@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { $, HttpStatus, Lang } from 'simpli-ts-vue'
+import { $, HttpStatus, Lang } from 'simpli-web-sdk'
 import VueResource, { HttpInterceptor, HttpOptions, HttpResponse } from 'vue-resource'
 
 Vue.use(VueResource)

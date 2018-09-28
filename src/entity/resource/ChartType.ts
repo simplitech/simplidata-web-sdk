@@ -2,9 +2,9 @@
  * ChartType
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 
 /* TODO: review generated class */
@@ -25,7 +25,8 @@ export class ChartType extends Resource {
     this.title = val
   }
 
-  @ResponseSerialize(ObjectOfAnalysis) oaChartTypeAvailability: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  oaChartTypeAvailability: ObjectOfAnalysis[] = []
 
   idChartTypePk: ID = 0
 
@@ -33,7 +34,8 @@ export class ChartType extends Resource {
   @ValidationMaxLength(100)
   title: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   scheme() {
     return {

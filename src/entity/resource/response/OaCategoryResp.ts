@@ -2,8 +2,8 @@
  * OaCategoryResp
  * @author Simpli© CLI generator
  */
-import { $, ID, Resource, Resp } from 'simpli-ts-vue'
-import { ResponseSerialize } from 'simpli-ts-vue'
+import { $, ID, Resource, Resp } from 'simpli-web-sdk'
+import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaCategory } from '../OaCategory'
 
 export class OaCategoryResp extends Resource {

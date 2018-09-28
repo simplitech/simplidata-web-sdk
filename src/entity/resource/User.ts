@@ -2,7 +2,7 @@
  * User
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
 import {
   ResponseHidden,
   ResponseSerialize,
@@ -10,8 +10,8 @@ import {
   ValidationMaxLength,
   ValidationPasswordLength,
   ValidationRequired,
-} from 'simpli-ts-vue'
-import { bool, datetime } from 'simpli-ts-vue'
+} from 'simpli-web-sdk'
+import { bool, datetime } from 'simpli-web-sdk'
 import { Address } from './Address'
 
 /* TODO: review generated class */
@@ -32,7 +32,8 @@ export class User extends Resource {
     this.name = val
   }
 
-  @ResponseSerialize(Address) address: Address | null = new Address()
+  @ResponseSerialize(Address)
+  address: Address | null = new Address()
 
   idUserPk: ID = 0
 

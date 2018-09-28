@@ -2,9 +2,9 @@
  * Address
  * @author Simpli© CLI generator
  */
-import { ID, Resource, HttpBody, Resp } from 'simpli-ts-vue'
-import { ValidationCEP, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool, cep } from 'simpli-ts-vue'
+import { ID, Resource, HttpBody, Resp } from 'simpli-web-sdk'
+import { ValidationCEP, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool, cep } from 'simpli-web-sdk'
 
 /* TODO: review generated class */
 export class Address extends Resource {

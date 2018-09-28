@@ -2,9 +2,9 @@
  * News
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { AnchorRender, bool, datetime } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { AnchorRender, bool, datetime } from 'simpli-web-sdk'
 // import {OaCategory} from './OaCategory'
 
 /* TODO: review generated class */
@@ -38,9 +38,11 @@ export class News extends Resource {
   @ValidationMaxLength(255)
   link: string = ''
 
-  @ValidationRequired() dataCreation: string = ''
+  @ValidationRequired()
+  dataCreation: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   // get idOaCategoryFk() {
   //   if (!this.oaCategory) return 0

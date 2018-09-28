@@ -2,9 +2,9 @@
  * Plan
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool } from 'simpli-web-sdk'
 
 /* TODO: review generated class */
 export class Plan extends Resource {
@@ -34,7 +34,8 @@ export class Plan extends Resource {
   @ValidationMaxLength(255)
   gatewayId: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   scheme() {
     return {

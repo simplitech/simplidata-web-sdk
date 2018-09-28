@@ -2,9 +2,9 @@
  * OaSource
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { AnchorRender, bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { AnchorRender, bool } from 'simpli-web-sdk'
 
 /* TODO: review generated class */
 export class OaSource extends Resource {
@@ -34,7 +34,8 @@ export class OaSource extends Resource {
   @ValidationMaxLength(255)
   link: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   scheme() {
     return {

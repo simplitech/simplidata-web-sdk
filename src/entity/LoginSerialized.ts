@@ -2,8 +2,8 @@
  * LoginHolder
  * @author Simpli© CLI generator
  */
-import { Model } from 'simpli-ts-vue'
-import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from 'simpli-ts-vue'
+import { Model } from 'simpli-web-sdk'
+import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from 'simpli-web-sdk'
 
 /* TODO: review generated class */
 export class LoginSerialized extends Model {

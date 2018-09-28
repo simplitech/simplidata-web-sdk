@@ -2,9 +2,9 @@
  * OaVersionStatus
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool } from 'simpli-web-sdk'
 
 /* TODO: review generated class */
 export class OaVersionStatus extends Resource {
@@ -30,7 +30,8 @@ export class OaVersionStatus extends Resource {
   @ValidationMaxLength(100)
   title: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   scheme() {
     return {

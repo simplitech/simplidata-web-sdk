@@ -2,9 +2,9 @@
  * OaVersion
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool } from 'simpli-web-sdk'
 import { OaVersionStatus } from './OaVersionStatus'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { OaDataset } from './OaDataset'
@@ -27,11 +27,14 @@ export class OaVersion extends Resource {
     this.title = val
   }
 
-  @ResponseSerialize(OaVersionStatus) oaVersionStatus: OaVersionStatus | null = null
+  @ResponseSerialize(OaVersionStatus)
+  oaVersionStatus: OaVersionStatus | null = null
 
-  @ResponseSerialize(ObjectOfAnalysis) objectOfAnalysis: ObjectOfAnalysis | null = null
+  @ResponseSerialize(ObjectOfAnalysis)
+  objectOfAnalysis: ObjectOfAnalysis | null = null
 
-  @ResponseSerialize(OaDataset) lastDataset: OaDataset | null = null // last dataset saved for this version
+  @ResponseSerialize(OaDataset)
+  lastDataset: OaDataset | null = null // last dataset saved for this version
 
   idOaVersionPk: ID = 0
 
@@ -39,7 +42,8 @@ export class OaVersion extends Resource {
   @ValidationMaxLength(100)
   title: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   get idOaVersionStatusFk() {
     if (!this.oaVersionStatus) return 0

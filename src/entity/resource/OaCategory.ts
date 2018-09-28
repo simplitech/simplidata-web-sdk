@@ -2,9 +2,9 @@
  * OaCategory
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ValidationMaxLength, ValidationRequired, ResponseSerialize } from 'simpli-ts-vue'
-import { bool } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ValidationMaxLength, ValidationRequired, ResponseSerialize } from 'simpli-web-sdk'
+import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { News } from './News'
 
@@ -31,11 +31,14 @@ export class OaCategory extends Resource {
   @ValidationMaxLength(100)
   title: string = ''
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
-  @ResponseSerialize(ObjectOfAnalysis) objectsOfAnalysis: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  objectsOfAnalysis: ObjectOfAnalysis[] = []
 
-  @ResponseSerialize(News) news: News[] = []
+  @ResponseSerialize(News)
+  news: News[] = []
 
   scheme() {
     return {

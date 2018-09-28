@@ -2,9 +2,9 @@
  * ObjectOfAnalysis
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-ts-vue'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-ts-vue'
-import { bool, datetime } from 'simpli-ts-vue'
+import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { bool, datetime } from 'simpli-web-sdk'
 import { ChartType } from './ChartType'
 // import {OaCategory} from './OaCategory'
 import { OaPeriodicity } from './OaPeriodicity'
@@ -41,32 +41,44 @@ export class ObjectOfAnalysis extends Resource {
     return this.urlThumbnail || ObjectOfAnalysis.$placeholder
   }
 
-  @ResponseSerialize(ChartType) recommendedChart: ChartType | null = null
+  @ResponseSerialize(ChartType)
+  recommendedChart: ChartType | null = null
 
   // @ResponseSerialize(OaCategory)
   // category: OaCategory | null = null
 
-  @ResponseSerialize(OaPeriodicity) periodicity: OaPeriodicity | null = null
+  @ResponseSerialize(OaPeriodicity)
+  periodicity: OaPeriodicity | null = null
 
-  @ResponseSerialize(OaSource) source: OaSource | null = null
+  @ResponseSerialize(OaSource)
+  source: OaSource | null = null
 
-  @ResponseSerialize(OaUnity) unity: OaUnity | null = null
+  @ResponseSerialize(OaUnity)
+  unity: OaUnity | null = null
 
-  @ResponseSerialize(Plan) plan: Plan | null = null
+  @ResponseSerialize(Plan)
+  plan: Plan | null = null
 
-  @ResponseSerialize(User) user: User | null = null
+  @ResponseSerialize(User)
+  user: User | null = null
 
-  @ResponseSerialize(OaVersion) oaVersions: OaVersion[] = []
+  @ResponseSerialize(OaVersion)
+  oaVersions: OaVersion[] = []
 
-  @ResponseSerialize(ChartType) oaChartTypeAvailability: ChartType[] = []
+  @ResponseSerialize(ChartType)
+  oaChartTypeAvailability: ChartType[] = []
 
-  @ResponseSerialize(Model) oaMatchModel: Model[] = []
+  @ResponseSerialize(Model)
+  oaMatchModel: Model[] = []
 
-  @ResponseSerialize(ObjectOfAnalysis) oaMatchOa: ObjectOfAnalysis[] = []
+  @ResponseSerialize(ObjectOfAnalysis)
+  oaMatchOa: ObjectOfAnalysis[] = []
 
-  @ResponseSerialize(ValueType) oaValueTypeAvailability: ValueType[] = []
+  @ResponseSerialize(ValueType)
+  oaValueTypeAvailability: ValueType[] = []
 
-  @ResponseSerialize(OaGroup) objectOfAnalysisOaGroup: OaGroup[] = []
+  @ResponseSerialize(OaGroup)
+  objectOfAnalysisOaGroup: OaGroup[] = []
 
   idObjectOfAnalysisPk: ID = 0
 
@@ -85,7 +97,8 @@ export class ObjectOfAnalysis extends Resource {
 
   lastUpdate: string | null = null
 
-  @ValidationRequired() active: boolean = false
+  @ValidationRequired()
+  active: boolean = false
 
   get idUserFk() {
     if (!this.user) return 0
