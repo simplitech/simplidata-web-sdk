@@ -1,54 +1,73 @@
-import Vue from 'vue'
-import { $, HttpStatus, Lang } from 'simpli-web-sdk'
-import VueResource, { HttpInterceptor, HttpOptions, HttpResponse } from 'vue-resource'
+import Simpli, { HttpStatus, Lang, LocaleOptions } from 'simpli-web-sdk'
+import { HttpOptions, HttpResponse } from 'vue-resource'
 
-Vue.use(VueResource)
+import enUs from './locale/en-US/lang'
+import ptBr from './locale/pt-BR/lang'
+
+const merge = require('lodash.merge')
 
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
 const defaultLang = Lang.EN_US
 const defaultVersion = '1.0.0'
+
+const defaultLocale = {
+  [Lang.EN_US]: enUs,
+  [Lang.PT_BR]: ptBr,
+}
+
+const defaultHttpInterception = (request: HttpOptions, next: any) => {
+  const { apiURL, lang, version, getToken, catchHandle } = Simplidata
+
+  const regex = new RegExp(`^${apiURL}\\S*$`, 'g')
+  const match = regex.exec(request.url || '')
+
+  if (match) {
+    request.headers.set('Accept-Language', lang)
+    request.headers.set('X-Client-Version', `w${version}`) // w = web
+
+    if (getToken()) request.headers.set('Authorization', `Bearer ${getToken()}`)
+  }
+
+  next(catchHandle)
+}
+
+const defaultCatchHandle = (resp: HttpResponse) => {
+  if (!resp.status) throw Error('Could not connect to server')
+  else if (resp.status >= 400) {
+    if (resp.status === HttpStatus.UNAUTHORIZED) {
+      Simplidata.signOut()
+      throw Error('Restricted Access')
+    }
+
+    throw Error(`${resp.status.toString()} - ${resp.data.message || resp.statusText}`)
+  }
+}
+
 /******************************************************************/
 
 export abstract class Simplidata {
-  private static $apiURL: string = defaultApiURL
-  private static $lang: Lang = defaultLang
-  private static $version: string = defaultVersion
   private static $token?: string
 
-  static init(httpInterceptor?: Function) {
-    if (httpInterceptor) Simplidata.$httpInterceptor = httpInterceptor
-    Vue.http.interceptors[7] = Simplidata.$httpInterceptor as HttpInterceptor
+  static apiURL: string = defaultApiURL
+  static lang: Lang = defaultLang
+  static locale: LocaleOptions = {}
+  static version: string = defaultVersion
+  static httpInterceptor: Function = defaultHttpInterception
+  static catchHandle: Function = defaultCatchHandle
+
+  static init() {
+    const { apiURL, lang, locale, httpInterceptor } = Simplidata
+
+    Simpli.apiURL = apiURL
+    Simpli.lang = lang
+    Simpli.locale = merge(locale, defaultLocale)
+    Simpli.httpInterceptor = httpInterceptor
+
+    Simpli.init()
   }
 
-  static get apiURL() {
-    return Simplidata.$apiURL
-  }
-
-  static set apiURL(apiURL: string) {
-    Simplidata.$apiURL = apiURL
-
-    const regex = apiURL.match(/(.*)[^\/$]/g)
-    if (regex) $.apiURL = regex[0] || ''
-  }
-
-  static get lang() {
-    return Simplidata.$lang
-  }
-
-  static set lang(lang: Lang) {
-    Simplidata.$lang = lang
-  }
-
-  static get version() {
-    return Simplidata.$version
-  }
-
-  static set version(version: string) {
-    Simplidata.$version = version
-  }
-
-  static get token() {
+  static getToken() {
     return Simplidata.$token
   }
 
@@ -58,45 +77,5 @@ export abstract class Simplidata {
 
   static signOut() {
     Simplidata.$token = undefined
-  }
-
-  static get httpInterceptor() {
-    return Simplidata.$httpInterceptor
-  }
-
-  static get catchHandle() {
-    return Simplidata.$catchHandle
-  }
-
-  static set catchHandle(catchHandle: Function) {
-    Simplidata.$catchHandle = catchHandle
-  }
-
-  private static $httpInterceptor: Function = (request: HttpOptions, next: any) => {
-    const { apiURL, lang, version, token, catchHandle } = Simplidata
-
-    const regex = new RegExp(`^${apiURL}\\S*$`, 'g')
-    const match = regex.exec(request.url || '')
-
-    if (match) {
-      request.headers.set('Accept-Language', lang)
-      request.headers.set('X-Client-Version', `w${version}`) // w = web
-
-      if (token) request.headers.set('Authorization', `Bearer ${token}`)
-    }
-
-    next(catchHandle)
-  }
-
-  private static $catchHandle: Function = (resp: HttpResponse) => {
-    if (!resp.status) throw Error('Could not connect to server')
-    else if (resp.status >= 400) {
-      if (resp.status === HttpStatus.UNAUTHORIZED) {
-        Simplidata.signOut()
-        throw Error('Restricted Access')
-      }
-
-      throw Error(`${resp.status.toString()} - ${resp.data.message || resp.statusText}`)
-    }
   }
 }

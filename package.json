@@ -71,40 +71,11 @@
       "git add"
     ]
   },
-  "jest": {
-    "roots": [
-      "<rootDir>/src"
-    ],
-    "transform": {
-      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
-    },
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
-    "moduleFileExtensions": [
-      "ts",
-      "tsx",
-      "js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "<rootDir>/node_modules/",
-      "<rootDir>/lib/",
-      "<rootDir>/lib-esm/",
-      "<rootDir>/umd/",
-      "<rootDir>/src/.*(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 80,
-        "functions": 80,
-        "lines": 80,
-        "statements": 85
-      }
-    }
-  },
   "dependencies": {
     "@types/lodash": "^4.14.106",
     "class-transformer": "^0.1.9",
     "class-validator": "^0.9.1",
-    "lodash": "^4.17.5",
+    "lodash.merge": "4.6.1",
     "moment": "^2.21.0",
     "simpli-web-sdk": "0.1.1",
     "vue": "^2.5.16",
@@ -113,6 +84,7 @@
   "devDependencies": {
     "@types/jest": "23.3.2",
     "@types/node": "10.11.2",
+    "@vue/test-utils": "^1.0.0-beta.20",
     "awesome-typescript-loader": "5.2.1",
     "commitizen": "2.10.1",
     "cross-var": "1.1.0",
@@ -123,6 +95,7 @@
     "husky": "1.0.1",
     "irish-pub": "0.2.0",
     "jest": "23.6.0",
+    "jest-serializer-vue": "2.0.2",
     "lint-staged": "7.3.0",
     "mini-css-extract-plugin": "0.4.3",
     "node-sass": "4.9.3",
@@ -142,6 +115,7 @@
     "typedoc": "0.12.0",
     "typescript": "3.1.1",
     "validate-commit-msg": "2.14.0",
+    "vue-jest": "2.6.0",
     "vue-loader": "15.4.2",
     "vue-template-compiler": "^2.5.16",
     "webpack": "4.20.2",
