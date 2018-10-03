@@ -2,7 +2,7 @@
  * OaDatasetResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaDataset } from '../OaDataset'
 import { OaVersion } from '../OaVersion'
@@ -30,16 +30,22 @@ export class OaDatasetResp extends Resource {
   @ResponseSerialize(OaVersion)
   allOaVersion: OaVersion[] = []
 
-  async persistOaDataset(model: OaDataset): Promise<Resp<Number>> {
-    return await this.POST(`/User/OaDataset`, model)
+  async persistOaDataset(model: OaDataset, spinner = 'persistOaDataset'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/OaDataset`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getOaDataset(id: number): Promise<Resp<OaDatasetResp>> {
-    return await this.GET(`/User/OaDataset/${id}`)
+  async getOaDataset(id: number, spinner = 'getOaDataset'): Promise<Resp<OaDatasetResp>> {
+    const fetch = async () => await this.GET(`/User/OaDataset/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeOaDataset(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/OaDataset/${id}`)
+  async removeOaDataset(id: number, spinner = 'removeOaDataset'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/OaDataset/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

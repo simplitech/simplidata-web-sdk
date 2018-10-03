@@ -2,7 +2,7 @@
  * AddressResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { Address } from '../Address'
 
@@ -26,16 +26,22 @@ export class AddressResp extends Resource {
   @ResponseSerialize(Address)
   address: Address = new Address()
 
-  async persistAddress(model: Address): Promise<Resp<Number>> {
-    return await this.POST(`/User/Address`, model)
+  async persistAddress(model: Address, spinner = 'persistAddress'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/Address`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getAddress(id: number): Promise<Resp<AddressResp>> {
-    return await this.GET(`/User/Address/${id}`)
+  async getAddress(id: number, spinner = 'getAddress'): Promise<Resp<AddressResp>> {
+    const fetch = async () => await this.GET(`/User/Address/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeAddress(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/Address/${id}`)
+  async removeAddress(id: number, spinner = 'removeAddress'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/Address/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

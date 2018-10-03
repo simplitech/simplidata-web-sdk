@@ -2,7 +2,7 @@
  * OaGroupResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaGroup } from '../OaGroup'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
@@ -33,16 +33,22 @@ export class OaGroupResp extends Resource {
   @ResponseSerialize(ObjectOfAnalysis)
   allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistOaGroup(model: OaGroup): Promise<Resp<Number>> {
-    return await this.POST(`/User/OaGroup`, model)
+  async persistOaGroup(model: OaGroup, spinner = 'persistOaGroup'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/OaGroup`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getOaGroup(id: number): Promise<Resp<OaGroupResp>> {
-    return await this.GET(`/User/OaGroup/${id}`)
+  async getOaGroup(id: number, spinner = 'getOaGroup'): Promise<Resp<OaGroupResp>> {
+    const fetch = async () => await this.GET(`/User/OaGroup/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeOaGroup(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/OaGroup/${id}`)
+  async removeOaGroup(id: number, spinner = 'removeOaGroup'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/OaGroup/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

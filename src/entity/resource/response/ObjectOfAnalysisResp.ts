@@ -2,7 +2,7 @@
  * ObjectOfAnalysisResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
 import { ChartType } from '../ChartType'
@@ -69,16 +69,22 @@ export class ObjectOfAnalysisResp extends Resource {
   @ResponseSerialize(OaGroup)
   allOaGroup: OaGroup[] = []
 
-  async persistObjectOfAnalysis(model: ObjectOfAnalysis): Promise<Resp<Number>> {
-    return await this.POST(`/User/ObjectOfAnalysis`, model)
+  async persistObjectOfAnalysis(model: ObjectOfAnalysis, spinner = 'persistObjectOfAnalysis'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/ObjectOfAnalysis`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getObjectOfAnalysis(id: number): Promise<Resp<ObjectOfAnalysisResp>> {
-    return await this.GET(`/User/ObjectOfAnalysis/${id}`)
+  async getObjectOfAnalysis(id: number, spinner = 'getObjectOfAnalysis'): Promise<Resp<ObjectOfAnalysisResp>> {
+    const fetch = async () => await this.GET(`/User/ObjectOfAnalysis/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeObjectOfAnalysis(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/ObjectOfAnalysis/${id}`)
+  async removeObjectOfAnalysis(id: number, spinner = 'removeObjectOfAnalysis'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/ObjectOfAnalysis/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

@@ -2,7 +2,7 @@
  * OaSourceResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaSource } from '../OaSource'
 
@@ -26,16 +26,22 @@ export class OaSourceResp extends Resource {
   @ResponseSerialize(OaSource)
   oaSource: OaSource = new OaSource()
 
-  async persistOaSource(model: OaSource): Promise<Resp<Number>> {
-    return await this.POST(`/User/OaSource`, model)
+  async persistOaSource(model: OaSource, spinner = 'persistOaSource'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/OaSource`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getOaSource(id: number): Promise<Resp<OaSourceResp>> {
-    return await this.GET(`/User/OaSource/${id}`)
+  async getOaSource(id: number, spinner = 'getOaSource'): Promise<Resp<OaSourceResp>> {
+    const fetch = async () => await this.GET(`/User/OaSource/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeOaSource(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/OaSource/${id}`)
+  async removeOaSource(id: number, spinner = 'removeOaSource'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/OaSource/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

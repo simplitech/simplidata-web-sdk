@@ -2,7 +2,7 @@
  * PlanResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { Plan } from '../Plan'
 
@@ -26,16 +26,22 @@ export class PlanResp extends Resource {
   @ResponseSerialize(Plan)
   plan: Plan = new Plan()
 
-  async persistPlan(model: Plan): Promise<Resp<Number>> {
-    return await this.POST(`/User/Plan`, model)
+  async persistPlan(model: Plan, spinner = 'persistPlan'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/Plan`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getPlan(id: number): Promise<Resp<PlanResp>> {
-    return await this.GET(`/User/Plan/${id}`)
+  async getPlan(id: number, spinner = 'getPlan'): Promise<Resp<PlanResp>> {
+    const fetch = async () => await this.GET(`/User/Plan/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removePlan(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/Plan/${id}`)
+  async removePlan(id: number, spinner = 'removePlan'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/Plan/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

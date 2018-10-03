@@ -2,7 +2,7 @@
  * OaVersionStatusResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaVersionStatus } from '../OaVersionStatus'
 
@@ -26,16 +26,22 @@ export class OaVersionStatusResp extends Resource {
   @ResponseSerialize(OaVersionStatus)
   oaVersionStatus: OaVersionStatus = new OaVersionStatus()
 
-  async persistOaVersionStatus(model: OaVersionStatus): Promise<Resp<Number>> {
-    return await this.POST(`/User/OaVersionStatus`, model)
+  async persistOaVersionStatus(model: OaVersionStatus, spinner = 'persistOaVersionStatus'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/OaVersionStatus`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getOaVersionStatus(id: number): Promise<Resp<OaVersionStatusResp>> {
-    return await this.GET(`/User/OaVersionStatus/${id}`)
+  async getOaVersionStatus(id: number, spinner = 'getOaVersionStatus'): Promise<Resp<OaVersionStatusResp>> {
+    const fetch = async () => await this.GET(`/User/OaVersionStatus/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeOaVersionStatus(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/OaVersionStatus/${id}`)
+  async removeOaVersionStatus(id: number, spinner = 'removeOaVersionStatus'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/OaVersionStatus/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

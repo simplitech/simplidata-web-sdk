@@ -2,7 +2,7 @@
  * UserSavedChartResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { UserSavedChart } from '../UserSavedChart'
 import { Collection } from '../Collection'
@@ -38,16 +38,22 @@ export class UserSavedChartResp extends Resource {
   @ResponseSerialize(User)
   allUser: User[] = []
 
-  async persistUserSavedChart(model: UserSavedChart): Promise<Resp<Number>> {
-    return await this.POST(`/User/UserSavedChart`, model)
+  async persistUserSavedChart(model: UserSavedChart, spinner = 'persistUserSavedChart'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/UserSavedChart`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getUserSavedChart(id: number): Promise<Resp<UserSavedChartResp>> {
-    return await this.GET(`/User/UserSavedChart/${id}`)
+  async getUserSavedChart(id: number, spinner = 'getUserSavedChart'): Promise<Resp<UserSavedChartResp>> {
+    const fetch = async () => await this.GET(`/User/UserSavedChart/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeUserSavedChart(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/UserSavedChart/${id}`)
+  async removeUserSavedChart(id: number, spinner = 'removeUserSavedChart'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/UserSavedChart/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

@@ -2,7 +2,7 @@
  * Address
  * @author Simpli© CLI generator
  */
-import { ID, Resource, HttpBody, Resp } from 'simpli-web-sdk'
+import { $, ID, Resource, HttpBody, Resp } from 'simpli-web-sdk'
 import { ValidationCEP, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
 import { bool, cep } from 'simpli-web-sdk'
 
@@ -56,39 +56,51 @@ export class Address extends Resource {
     return `${this.street}, ${this.number} ${this.complement} - ${this.zipcode} / ${this.city} - ${this.state} Brasil`
   }
 
-  async populateFromCEP(): Promise<Resp<any>> {
+  async populateFromCEP(spinner = 'populateFromCEP'): Promise<Resp<any>> {
     if (this.zipcode.length !== 8) throw new Error('Invalid CEP')
 
-    const resp = await new HttpBody(Object).GET(`//viacep.com.br/ws/${this.zipcode}/json/`, {}, false)
-    const data = resp.data
+    const fetch = async () => {
+      const resp = await new HttpBody(Object).GET(`//viacep.com.br/ws/${this.zipcode}/json/`, {}, false)
+      const data = resp.data
 
-    if (!this.street) this.street = data.logradouro || ''
-    if (!this.city) this.city = data.localidade || ''
-    if (!this.state) this.state = data.uf || ''
+      if (!this.street) this.street = data.logradouro || ''
+      if (!this.city) this.city = data.localidade || ''
+      if (!this.state) this.state = data.uf || ''
 
-    return resp
+      return resp
+    }
+
+    return await $.await.run(fetch, spinner)
   }
 
-  async populateLatLng(): Promise<Resp<any>> {
+  async populateLatLng(spinner = 'populateLatLng'): Promise<Resp<any>> {
     const params = {
       address: this.stringfy,
       key: this.$googleApiKey,
       sensor: false,
     }
 
-    const resp = await new HttpBody(Object).GET(`https://maps.googleapis.com/maps/api/geocode/json`, { params }, false)
-    const data = resp.data
+    const fetch = async () => {
+      const resp = await new HttpBody(Object).GET(
+        `https://maps.googleapis.com/maps/api/geocode/json`,
+        { params },
+        false
+      )
+      const data = resp.data
 
-    if (data && data.results.length) {
-      const lat = data.results[0].geometry.location.lat
-      const lng = data.results[0].geometry.location.lng
+      if (data && data.results.length) {
+        const lat = data.results[0].geometry.location.lat
+        const lng = data.results[0].geometry.location.lng
 
-      this.latitude = lat
-      this.longitude = lng
-      return resp
+        this.latitude = lat
+        this.longitude = lng
+        return resp
+      }
+
+      throw new Error('Error in getting latitude and longitude')
     }
 
-    throw new Error('Error in getting latitude and longitude')
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

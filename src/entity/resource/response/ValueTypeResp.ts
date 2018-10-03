@@ -2,7 +2,7 @@
  * ValueTypeResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { ValueType } from '../ValueType'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
@@ -30,16 +30,22 @@ export class ValueTypeResp extends Resource {
   @ResponseSerialize(ObjectOfAnalysis)
   allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistValueType(model: ValueType): Promise<Resp<Number>> {
-    return await this.POST(`/User/ValueType`, model)
+  async persistValueType(model: ValueType, spinner = 'persistValueType'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/ValueType`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getValueType(id: number): Promise<Resp<ValueTypeResp>> {
-    return await this.GET(`/User/ValueType/${id}`)
+  async getValueType(id: number, spinner = 'getValueType'): Promise<Resp<ValueTypeResp>> {
+    const fetch = async () => await this.GET(`/User/ValueType/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeValueType(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/ValueType/${id}`)
+  async removeValueType(id: number, spinner = 'removeValueType'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/ValueType/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

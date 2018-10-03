@@ -2,7 +2,7 @@
  * DownloadTypeResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { DownloadType } from '../DownloadType'
 
@@ -26,16 +26,22 @@ export class DownloadTypeResp extends Resource {
   @ResponseSerialize(DownloadType)
   downloadType: DownloadType = new DownloadType()
 
-  async persistDownloadType(model: DownloadType): Promise<Resp<Number>> {
-    return await this.POST(`/User/DownloadType`, model)
+  async persistDownloadType(model: DownloadType, spinner = 'persistDownloadType'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/DownloadType`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getDownloadType(id: number): Promise<Resp<DownloadTypeResp>> {
-    return await this.GET(`/User/DownloadType/${id}`)
+  async getDownloadType(id: number, spinner = 'getDownloadType'): Promise<Resp<DownloadTypeResp>> {
+    const fetch = async () => await this.GET(`/User/DownloadType/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeDownloadType(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/DownloadType/${id}`)
+  async removeDownloadType(id: number, spinner = 'removeDownloadType'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/DownloadType/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

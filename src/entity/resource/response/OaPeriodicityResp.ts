@@ -2,7 +2,7 @@
  * OaPeriodicityResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaPeriodicity } from '../OaPeriodicity'
 
@@ -26,16 +26,22 @@ export class OaPeriodicityResp extends Resource {
   @ResponseSerialize(OaPeriodicity)
   oaPeriodicity: OaPeriodicity = new OaPeriodicity()
 
-  async persistOaPeriodicity(model: OaPeriodicity): Promise<Resp<Number>> {
-    return await this.POST(`/User/OaPeriodicity`, model)
+  async persistOaPeriodicity(model: OaPeriodicity, spinner = 'persistOaPeriodicity'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/OaPeriodicity`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getOaPeriodicity(id: number): Promise<Resp<OaPeriodicityResp>> {
-    return await this.GET(`/User/OaPeriodicity/${id}`)
+  async getOaPeriodicity(id: number, spinner = 'getOaPeriodicity'): Promise<Resp<OaPeriodicityResp>> {
+    const fetch = async () => await this.GET(`/User/OaPeriodicity/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeOaPeriodicity(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/OaPeriodicity/${id}`)
+  async removeOaPeriodicity(id: number, spinner = 'removeOaPeriodicity'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/OaPeriodicity/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

@@ -2,7 +2,7 @@
  * OaUnityResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { OaUnity } from '../OaUnity'
 
@@ -26,16 +26,22 @@ export class OaUnityResp extends Resource {
   @ResponseSerialize(OaUnity)
   oaUnity: OaUnity = new OaUnity()
 
-  async persistOaUnity(model: OaUnity): Promise<Resp<Number>> {
-    return await this.POST(`/User/OaUnity`, model)
+  async persistOaUnity(model: OaUnity, spinner = 'persistOaUnity'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/OaUnity`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getOaUnity(id: number): Promise<Resp<OaUnityResp>> {
-    return await this.GET(`/User/OaUnity/${id}`)
+  async getOaUnity(id: number, spinner = 'getOaUnity'): Promise<Resp<OaUnityResp>> {
+    const fetch = async () => await this.GET(`/User/OaUnity/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeOaUnity(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/OaUnity/${id}`)
+  async removeOaUnity(id: number, spinner = 'removeOaUnity'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/OaUnity/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

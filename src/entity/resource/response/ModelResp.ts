@@ -2,7 +2,7 @@
  * ModelResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { Model } from '../Model'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
@@ -30,16 +30,22 @@ export class ModelResp extends Resource {
   @ResponseSerialize(ObjectOfAnalysis)
   allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistModel(model: Model): Promise<Resp<Number>> {
-    return await this.POST(`/User/Model`, model)
+  async persistModel(model: Model, spinner = 'persistModel'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/Model`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getModel(id: number): Promise<Resp<ModelResp>> {
-    return await this.GET(`/User/Model/${id}`)
+  async getModel(id: number, spinner = 'getModel'): Promise<Resp<ModelResp>> {
+    const fetch = async () => await this.GET(`/User/Model/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeModel(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/Model/${id}`)
+  async removeModel(id: number, spinner = 'removeModel'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/Model/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

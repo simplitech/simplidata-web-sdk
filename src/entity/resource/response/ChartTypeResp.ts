@@ -2,7 +2,7 @@
  * ChartTypeResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { ChartType } from '../ChartType'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
@@ -30,16 +30,22 @@ export class ChartTypeResp extends Resource {
   @ResponseSerialize(ObjectOfAnalysis)
   allObjectOfAnalysis: ObjectOfAnalysis[] = []
 
-  async persistChartType(model: ChartType): Promise<Resp<Number>> {
-    return await this.POST(`/User/ChartType`, model)
+  async persistChartType(model: ChartType, spinner = 'persistChartType'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/ChartType`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getChartType(id: number): Promise<Resp<ChartTypeResp>> {
-    return await this.GET(`/User/ChartType/${id}`)
+  async getChartType(id: number, spinner = 'getChartType'): Promise<Resp<ChartTypeResp>> {
+    const fetch = async () => await this.GET(`/User/ChartType/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeChartType(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/ChartType/${id}`)
+  async removeChartType(id: number, spinner = 'removeChartType'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/ChartType/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

@@ -2,7 +2,7 @@
  * UserUsedOaResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { UserUsedOa } from '../UserUsedOa'
 import { ObjectOfAnalysis } from '../ObjectOfAnalysis'
@@ -34,12 +34,21 @@ export class UserUsedOaResp extends Resource {
   @ResponseSerialize(User)
   allUser: User[] = []
 
-  async persistUserUsedOa(model: UserUsedOa): Promise<Resp<Number>> {
-    return await this.POST(`/User/UserUsedOa`, model)
+  async persistUserUsedOa(model: UserUsedOa, spinner = 'persistUserUsedOa'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/UserUsedOa`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getUserUsedOa(idUserFk: number, idObjectOfAnalysisFk: number): Promise<Resp<UserUsedOaResp>> {
-    return await this.GET(`/User/UserUsedOa/${idUserFk}/${idObjectOfAnalysisFk}`)
+  async getUserUsedOa(
+    idUserFk: number,
+    idObjectOfAnalysisFk: number,
+    spinner = 'getUserUsedOa'
+  ): Promise<Resp<UserUsedOaResp>> {
+    const fetch = async () => await this.GET(`/User/UserUsedOa/${idUserFk}/${idObjectOfAnalysisFk}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {

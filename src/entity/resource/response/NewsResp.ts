@@ -2,7 +2,7 @@
  * NewsResp
  * @author Simpli© CLI generator
  */
-import { ID, Resource, Resp, TAG } from 'simpli-web-sdk'
+import { $, ID, Resource, Resp, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { News } from '../News'
 import { OaCategory } from '../OaCategory'
@@ -30,16 +30,22 @@ export class NewsResp extends Resource {
   @ResponseSerialize(OaCategory)
   allOaCategory: OaCategory[] = []
 
-  async persistNews(model: News): Promise<Resp<Number>> {
-    return await this.POST(`/User/News`, model)
+  async persistNews(model: News, spinner = 'persistNews'): Promise<Resp<Number>> {
+    const fetch = async () => {
+      await model.validate()
+      return await this.POST(`/User/News`, model)
+    }
+    return await $.await.run(fetch, spinner)
   }
 
-  async getNews(id: number): Promise<Resp<NewsResp>> {
-    return await this.GET(`/User/News/${id}`)
+  async getNews(id: number, spinner = 'getNews'): Promise<Resp<NewsResp>> {
+    const fetch = async () => await this.GET(`/User/News/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
-  async removeNews(id: number): Promise<Resp<any>> {
-    return await this.DELETE(`/User/News/${id}`)
+  async removeNews(id: number, spinner = 'removeNews'): Promise<Resp<any>> {
+    const fetch = async () => await this.DELETE(`/User/News/${id}`)
+    return await $.await.run(fetch, spinner)
   }
 
   scheme() {
