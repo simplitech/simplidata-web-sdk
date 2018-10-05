@@ -1,5 +1,6 @@
-import Simpli, { HttpStatus, Lang, LocaleOptions } from 'simpli-web-sdk'
+import Simpli, { Lang, Currency, HttpStatus, FilterOptions, ComponentOptions, LocaleOptions } from 'simpli-web-sdk'
 import { HttpOptions, HttpResponse } from 'vue-resource'
+import { RouterOptions } from 'vue-router'
 
 import enUs from './locale/en-US/lang'
 import ptBr from './locale/pt-BR/lang'
@@ -9,6 +10,7 @@ const merge = require('lodash.merge')
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
 const defaultLang = Lang.EN_US
+const defaultCurrency: Currency = Currency.USD
 const defaultVersion = '1.0.0'
 
 const defaultLocale = {
@@ -50,19 +52,27 @@ export abstract class Simplidata {
   private static $token?: string
 
   static apiURL: string = defaultApiURL
-  static lang: Lang = defaultLang
-  static locale: LocaleOptions = {}
-  static version: string = defaultVersion
   static httpInterceptor: Function = defaultHttpInterception
+  static lang: Lang = defaultLang
+  static currency: Currency = defaultCurrency
+  static components: ComponentOptions = {}
+  static filters: FilterOptions = {}
+  static locale: LocaleOptions = {}
+  static router?: RouterOptions
+  static version: string = defaultVersion
   static catchHandle: Function = defaultCatchHandle
 
   static init() {
-    const { apiURL, lang, locale, httpInterceptor } = Simplidata
+    const { apiURL, httpInterceptor, lang, currency, components, filters, router, locale } = Simplidata
 
     Simpli.apiURL = apiURL
-    Simpli.lang = lang
-    Simpli.locale = merge(locale, defaultLocale)
     Simpli.httpInterceptor = httpInterceptor
+    Simpli.lang = lang
+    Simpli.currency = currency
+    Simpli.components = components
+    Simpli.filters = filters
+    Simpli.locale = merge(locale, defaultLocale)
+    Simpli.router = router
 
     Simpli.init()
   }
