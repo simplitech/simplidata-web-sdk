@@ -1,6 +1,6 @@
 {
   "name": "simplidata-web-sdk",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Simplidata Web SDK",
   "main": "umd/simplidata-web-sdk.js",
   "module": "lib/main.js",
