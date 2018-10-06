@@ -20,9 +20,6 @@ export class OaCategoryResp extends Resource {
   @ResponseSerialize(OaCategory)
   category: OaCategory | null = null
 
-  @ResponseSerialize(OaCategory)
-  categories: OaCategory[] = []
-
   async persistOaCategory(model: OaCategory, spinner = 'persistOaCategory'): Promise<Resp<Number>> {
     const fetch = async () => {
       await model.validate()
@@ -33,12 +30,6 @@ export class OaCategoryResp extends Resource {
 
   async getOaCategory(id: number, spinner = 'getOaCategory'): Promise<Resp<OaCategoryResp>> {
     const fetch = async () => await this.GET(`/User/OaCategory/${id}`)
-    return await $.await.run(fetch, spinner)
-  }
-
-  async listOaCategory(query?: string, spinner = 'listOaCategory'): Promise<Resp<OaCategoryResp>> {
-    const params = { query }
-    const fetch = async () => await this.GET(`/User/OaCategory`, { params })
     return await $.await.run(fetch, spinner)
   }
 

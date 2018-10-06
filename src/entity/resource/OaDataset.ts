@@ -6,6 +6,7 @@ import { ID, Resource } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
 import { bool, datetime } from 'simpli-web-sdk'
 import { OaVersion } from './OaVersion'
+import { OaData } from './OaData'
 
 /* TODO: review generated class */
 export class OaDataset extends Resource {
@@ -21,6 +22,9 @@ export class OaDataset extends Resource {
 
   @ResponseSerialize(OaVersion)
   oaVersion: OaVersion | null = null
+
+  @ResponseSerialize(OaData)
+  oaDataList: OaData[] | null = null
 
   idOaDatasetPk: ID = 0
 

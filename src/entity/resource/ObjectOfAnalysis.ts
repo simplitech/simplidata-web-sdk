@@ -87,6 +87,9 @@ export class ObjectOfAnalysis extends Resource {
   title: string = ''
 
   @ValidationMaxLength(511)
+  urlFile: string | null = null
+
+  @ValidationMaxLength(511)
   urlThumbnail: string | null = null
 
   @ValidationMaxLength(255)
