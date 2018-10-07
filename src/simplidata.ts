@@ -19,7 +19,7 @@ const defaultLocale = {
 }
 
 const defaultHttpInterception = (request: HttpOptions, next: any) => {
-  const { apiURL, lang, version, getToken, catchHandle } = Simplidata
+  const { apiURL, lang, version, getToken, catchHandle } = SimpliData
 
   const regex = new RegExp(`^${apiURL}\\S*$`, 'g')
   const match = regex.exec(request.url || '')
@@ -38,7 +38,7 @@ const defaultCatchHandle = (resp: HttpResponse) => {
   if (!resp.status) throw Error('Could not connect to server')
   else if (resp.status >= 400) {
     if (resp.status === HttpStatus.UNAUTHORIZED) {
-      Simplidata.signOut()
+      SimpliData.signOut()
       throw Error('Restricted Access')
     }
 
@@ -48,7 +48,7 @@ const defaultCatchHandle = (resp: HttpResponse) => {
 
 /******************************************************************/
 
-export abstract class Simplidata {
+export abstract class SimpliData {
   private static $token?: string
 
   static apiURL: string = defaultApiURL
@@ -63,7 +63,7 @@ export abstract class Simplidata {
   static catchHandle: Function = defaultCatchHandle
 
   static init() {
-    const { apiURL, httpInterceptor, lang, currency, components, filters, router, locale } = Simplidata
+    const { apiURL, httpInterceptor, lang, currency, components, filters, router, locale } = SimpliData
 
     Simpli.apiURL = apiURL
     Simpli.httpInterceptor = httpInterceptor
@@ -78,14 +78,14 @@ export abstract class Simplidata {
   }
 
   static getToken() {
-    return Simplidata.$token
+    return SimpliData.$token
   }
 
   static signIn(token: string) {
-    Simplidata.$token = token
+    SimpliData.$token = token
   }
 
   static signOut() {
-    Simplidata.$token = undefined
+    SimpliData.$token = undefined
   }
 }

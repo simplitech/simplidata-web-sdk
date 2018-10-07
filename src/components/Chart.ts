@@ -5,7 +5,7 @@ const template = `
 `
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { UserSavedChart } from '../entity/resource/UserSavedChart'
+import { UserSavedChart } from '../models'
 
 @Component({ template })
 export class Chart extends Vue {

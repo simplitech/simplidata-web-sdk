@@ -1,4 +1,4 @@
-export { Simplidata as default } from './simplidata'
+export { SimpliData as default } from './simplidata'
 
-export * from './entity'
+export * from './models'
 export * from './components'
