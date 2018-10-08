@@ -20,7 +20,7 @@
     "emitDecoratorMetadata": true,
     "outDir": "lib",
     "declaration": true,
-    "declarationDir": "typings",
+    "declarationDir": "lib",
     "stripInternal": true,
     "baseUrl": "."
   },

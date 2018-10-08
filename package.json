@@ -2,10 +2,10 @@
   "name": "simplidata-web-sdk",
   "version": "0.3.3",
   "description": "Simplidata Web SDK",
-  "main": "umd/simplidata-web-sdk.js",
+  "main": "lib/main.js",
+  "typings": "lib/main.d.ts",
   "module": "lib/main.js",
   "es2015": "lib-esm/main.js",
-  "typings": "typings/main.d.ts",
   "author": "Felipe Gibran Eleuterio Toledo",
   "license": "MIT",
   "homepage": "https://github.com/simplitech/simplidata-web-sdk#readme",
@@ -15,6 +15,7 @@
   },
   "keywords": [
     "simplidata",
+    "simpli",
     "web",
     "sdk",
     "analytics"
