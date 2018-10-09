@@ -24,6 +24,10 @@
     "stripInternal": true,
     "baseUrl": "."
   },
+  "types": [
+    "node",
+    "jest"
+  ],
   "include": [
     "src/**/*.ts"
   ],
