@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/simplitech/simplidata-web-sdk/compare/v0.3.4...v0.5.0) (2018-10-09)
+
+
+### Features
+
+* Removed Resp Resources ([4fd7603](https://github.com/simplitech/simplidata-web-sdk/commit/4fd7603))
+* **chart:** implementing the chart ([2b2d4ea](https://github.com/simplitech/simplidata-web-sdk/commit/2b2d4ea))
+
+
+
 <a name="0.3.4"></a>
 ## [0.3.4](https://github.com/simplitech/simplidata-web-sdk/compare/v0.3.3...v0.3.4) (2018-10-08)
 
