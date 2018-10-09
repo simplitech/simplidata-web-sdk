@@ -33,7 +33,7 @@ export class User extends Resource {
   }
 
   @ResponseSerialize(Address)
-  address: Address | null = new Address()
+  address: Address = new Address()
 
   idUserPk: ID = 0
 
