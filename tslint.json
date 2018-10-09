@@ -4,7 +4,11 @@
     "tslint-config-standard",
     "tslint-config-prettier"
   ],
-  "jsRules": {},
+  "linterOptions": {
+    "exclude": [
+      "node_modules/**"
+    ]
+  },
   "rules": {
     "quotemark": [true, "single"],
     "indent": [true, "spaces", 2],
@@ -23,6 +27,5 @@
     "await-promise": [true, "PromiseLike"],
     "no-duplicate-imports": false,
     "no-unnecessary-type-assertion": false
-  },
-  "rulesDirectory": []
+  }
 }
