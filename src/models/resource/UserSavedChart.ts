@@ -6,8 +6,12 @@ import { ID, Resource } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
 import { bool, datetime } from 'simpli-web-sdk'
 import { Collection } from './Collection'
-import { DownloadType } from './DownloadType'
-import { User } from './User'
+import {ChartType} from './ChartType'
+import {ValueType} from './ValueType'
+import {DownloadType} from './DownloadType'
+import {TransformationType} from './TransformationType'
+import {User} from './User'
+import {ChartGraphic} from './ChartGraphic'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -26,6 +30,11 @@ export class UserSavedChart extends Resource {
 
   @ResponseSerialize(DownloadType)
   downloadType: DownloadType | null = null
+
+  graphics: ChartGraphic[] = []
+  chartType = new ChartType()
+  valueType = new ValueType()
+  transformationType = new TransformationType()
 
   @ResponseSerialize(User)
   user: User | null = null

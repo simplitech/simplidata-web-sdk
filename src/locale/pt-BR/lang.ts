@@ -281,4 +281,22 @@ export default {
       },
     },
   },
+
+  view: {
+    chart: {
+      chartAs: 'Chart as',
+      line: 'line',
+      valuesOfType: 'Values of type',
+      allPeriod: 'All period',
+      transformation: 'Transformation',
+      none: 'None',
+      advancedAnalysis: 'Advanced Analysis',
+      periodicity: 'Periodicity',
+      unity: 'Unity',
+      source: 'Source',
+      lastUpdate: 'Last Update',
+      version: 'Version',
+      status: 'Status',
+    },
+  },
 }

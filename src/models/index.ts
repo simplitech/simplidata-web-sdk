@@ -27,6 +27,7 @@ export { ValueTypeResp } from './resource/response/ValueTypeResp'
 
 /* *** Resource *** */
 export { Address } from './resource/Address'
+export { ChartGraphic } from './resource/ChartGraphic'
 export { ChartType } from './resource/ChartType'
 export { Collection } from './resource/Collection'
 export { DownloadType } from './resource/DownloadType'
