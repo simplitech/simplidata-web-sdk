@@ -189,7 +189,7 @@ export class Chart extends Vue {
     this.updateChartData()
   }
 
-  //    @Watch('value') // TODO: observar uma lista de WithDataset (ObjectOfAnalysis, Model)
+  // @Watch('value.datasets')
   updateChartData() {
     if (!this.echart) {
       return
@@ -197,9 +197,35 @@ export class Chart extends Vue {
 
     this.echart.setOption({
       dataset: {
-        source: [['Mon', 820], ['Tue', 932], ['Wed', 901], ['Thu', 934], ['Fri', 1290], ['Sat', 1330], ['Sun', 1320]],
+        source: this.transformDatasets(),
       },
     })
+  }
+
+  transformDatasets() {
+    if (!this.value || !this.value.datasets || !this.value.datasets.length) {
+      return
+    }
+
+    const map = {}
+
+    this.value.datasets.forEach(item => {
+      if (!item || !item.$dataset || !item.$dataset.oaDataList) {
+        return
+      }
+      item.$dataset.oaDataList.forEach(data => {
+        if (!map[data.dt]) map[data.dt] = []
+        map[data.dt].push(data.value)
+      })
+    })
+
+    const result: any[] = []
+
+    Object.keys(map).forEach(i => {
+      result.push([i, ...map[i]])
+    })
+
+    return result
   }
 
   initEChart() {
@@ -218,7 +244,7 @@ export class Chart extends Vue {
         splitLine: { lineStyle: { opacity: 0.1 } },
         boundaryGap: false,
       },
-      color: ['#29FD34'],
+      color: ['#29FD34', '#ffa800', '#78cdff'],
       series: [
         {
           type: 'line',

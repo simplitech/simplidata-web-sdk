@@ -16,9 +16,11 @@ import { User } from './User'
 import { Model } from './Model'
 import { ValueType } from './ValueType'
 import { OaGroup } from './OaGroup'
+import {WithDataset} from './WithDataset'
+import {OaDataset} from './OaDataset'
 
 /* TODO: review generated class */
-export class ObjectOfAnalysis extends Resource {
+export class ObjectOfAnalysis extends WithDataset {
   static $placeholder: string = 'img/placeholder/graph.png'
 
   readonly $name: string = 'ObjectOfAnalysis'
@@ -35,6 +37,13 @@ export class ObjectOfAnalysis extends Resource {
   }
   set $tag(val: TAG) {
     this.title = val
+  }
+  get $dataset() {
+    if (this.oaVersions.length) {
+      return this.oaVersions[0].lastDataset || new OaDataset()
+    } else {
+      return new OaDataset()
+    }
   }
 
   get $thumbnail() {

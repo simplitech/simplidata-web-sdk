@@ -12,6 +12,7 @@ import {DownloadType} from './DownloadType'
 import {TransformationType} from './TransformationType'
 import {User} from './User'
 import {ChartGraphic} from './ChartGraphic'
+import {WithDataset} from './WithDataset'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -35,6 +36,7 @@ export class UserSavedChart extends Resource {
   chartType = new ChartType()
   valueType = new ValueType()
   transformationType = new TransformationType()
+  datasets: WithDataset[] = []
 
   @ResponseSerialize(User)
   user: User | null = null
