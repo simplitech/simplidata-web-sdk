@@ -1,5 +1,5 @@
 const template = `
-  <div class="selectGroup horiz items-center no-wrap">
+  <div v-popover="{ name: 'sg' + _uid }" class="selectGroup horiz items-center no-wrap">
     <span class="label">{{ label }}</span>
     <span class="value weight-1 mx-10">
       <template v-if="computedModel.$tag">
@@ -9,7 +9,19 @@ const template = `
         {{ empty }}
       </template>
     </span>
-    <img class="h-4" src="../assets/img/select.svg"/>
+    <div class="chevron w-8 h-5"></div>
+
+    <popover :name="'sg' + _uid">
+      <div class="p-30">
+        <div v-for="i in computedItems"
+        :key="i.$id"
+        class="liSg"
+        :class="{ selected: computedModel.$id === i.$id }"
+        @click="computedModel = i">
+         {{ i.$tag }}
+        </div>
+      </div>
+    </popover>
   </div>
 `
 

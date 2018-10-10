@@ -16,7 +16,7 @@ declare module 'vue-resource' {
         put: $http
         patch: $http
         delete: $http
-        jsonp: $http
+        jsonp: $http,
       }
       $resource: $resource
     }

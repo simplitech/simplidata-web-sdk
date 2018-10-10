@@ -298,5 +298,5 @@ export default {
       version: 'Version',
       status: 'Status',
     },
-  }
+  },
 }

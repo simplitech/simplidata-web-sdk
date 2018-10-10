@@ -25,6 +25,7 @@ export { User } from './resource/User'
 export { UserSavedChart } from './resource/UserSavedChart'
 export { UserUsedOa } from './resource/UserUsedOa'
 export { ValueType } from './resource/ValueType'
+export { WithDataset } from './resource/WithDataset'
 
 /* *** Model Response *** */
 export { LoginResp } from './response/LoginResp'

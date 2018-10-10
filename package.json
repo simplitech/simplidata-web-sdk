@@ -79,7 +79,8 @@
     "lodash.merge": "^4.6.1",
     "moment": "^2.21.0",
     "simpli-web-sdk": "^0.1.8",
-    "vue": "^2.5.16"
+    "vue": "^2.5.16",
+    "vue-js-popover": "1.1.7"
   },
   "devDependencies": {
     "@types/jest": "23.3.2",

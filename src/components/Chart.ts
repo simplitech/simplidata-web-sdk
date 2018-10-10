@@ -5,45 +5,47 @@ const template = `
 
       <div class="verti w-40 mt-60">
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-save.svg"/>
-        </div>
+        <div v-if="showSaveButton" class="chart-save h-40 mb-8 items-center"></div>
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-draw-line.svg"/>
-        </div>
+        <template v-if="showDrawingButtons">
+          <div class="chart-line h-40 mb-8 items-center"></div>
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-pencil.svg"/>
-        </div>
+          <div class="chart-pencil h-40 mb-8 items-center"></div>
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-text.svg"/>
-        </div>
+          <div class="chart-text h-40 mb-8 items-center"></div>
+        </template>
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-measure.svg"/>
-        </div>
+        <div v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"></div>
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-calc.svg"/>
-        </div>
+        <div v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></div>
 
-        <div class="chart-button h-40 mb-8 items-center">
-          <img class="w-20" src="../assets/img/chart-comment.svg"/>
-        </div>
+        <div v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"></div>
 
       </div>
 
       <div class="verti weight-1 mx-5">
 
         <div class="horiz">
-          <select-group class="w-130 mr-40 my-5" :label="$t('view.chart.chartAs')"
-                        v-model="value.chartType" :items="allChartTypes"/>
-          <select-group class="w-200 mr-40 my-5" :label="$t('view.chart.valuesOfType')" :empty="$t('view.chart.allPeriod')"
-                        v-model="value.valueType" :items="allValueTypes"/>
-          <select-group class="w-160 mr-40 my-5" :label="$t('view.chart.transformation')" :empty="$t('view.chart.none')"
-                        v-model="value.transformationType" :items="allTransformationTypes"/>
+
+          <select-group v-if="showChartTypeControl"
+            class="w-130 mr-40 my-5"
+            :label="$t('view.chart.chartAs')"
+            v-model="value.chartType"
+            :items="allChartTypes"/>
+
+          <select-group v-if="showValueTypeControl"
+            class="w-200 mr-40 my-5"
+            :label="$t('view.chart.valuesOfType')"
+            :empty="$t('view.chart.allPeriod')"
+            v-model="value.valueType"
+            :items="allValueTypes"/>
+
+          <select-group v-if="showTransformationTypeControl"
+            class="w-160 mr-40 my-5"
+            :label="$t('view.chart.transformation')"
+            :empty="$t('view.chart.none')"
+            v-model="value.transformationType"
+            :items="allTransformationTypes.items"/>
 
           <button class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
         </div>
@@ -52,7 +54,8 @@ const template = `
 
       </div>
 
-      <div v-if="selectedOa" class="rightpanel verti w-300 pl-30">
+      <div v-if="selectedOa.$id && showObjectOfAnalysisInfo"
+      class="rightpanel verti w-300 pl-30">
 
         <h1 class="mb-10">{{ selectedOa.title }}</h1>
 
@@ -84,9 +87,14 @@ const template = `
           <div class="label weight-1 text-right">{{ $t('view.chart.status') }}</div>
         </div>
 
-        <div v-for="version in selectedOa.oaVersions" :key="version.idOaVersionPk" class="horiz mb-9">
+        <div v-if="showOaVersionControl"
+          v-for="version in selectedOa.oaVersions"
+          :key="version.idOaVersionPk"
+          class="horiz mb-9">
           <div class="value weight-1">{{ version.title }}</div>
-          <div class="value weight-1 text-center">{{ version.lastDataset.creationDate | moment($t('dateFormat.datesimple')) }}</div>
+          <div class="value weight-1 text-center">
+            {{ version.lastDataset.creationDate | moment($t('dateFormat.datesimple')) }}
+          </div>
           <div class="value weight-1 text-right">{{ version.oaVersionStatus.title }}</div>
         </div>
 
@@ -113,22 +121,29 @@ import {
   OaVersionStatus,
   ChartGraphic,
   UserSavedChart,
+  WithDataset,
+  OaData,
 } from '../models'
+import { Collection } from 'simpli-web-sdk'
 import SelectGroup from './SelectGroup'
+
+export interface ChartDataset {
+  [key: string]: number[]
+}
 
 @Component({
   template,
   components: { SelectGroup },
 })
 export class Chart extends Vue {
-  @Prop({ type: Array })
-  objectOfAnalysisIds?: number[]
+  @Prop({ type: Object, default: () => new UserSavedChart() })
+  value?: UserSavedChart
 
   @Prop({ type: Number })
   savedChartId?: number
 
-  @Prop({ type: Object, default: () => new UserSavedChart() })
-  value?: UserSavedChart
+  @Prop({ type: Array })
+  objectOfAnalysisIds?: number[]
 
   @Prop({ type: Boolean, default: true })
   showSaveButton: boolean = true
@@ -154,11 +169,11 @@ export class Chart extends Vue {
   @Prop({ type: Boolean, default: true })
   showTransformationTypeControl: boolean = true
 
-  @Prop({ type: Boolean, default: false })
-  showOaVersionControl: boolean = false
-
   @Prop({ type: Boolean, default: true })
   showObjectOfAnalysisInfo: boolean = true
+
+  @Prop({ type: Boolean, default: false })
+  showOaVersionControl: boolean = false
 
   @Prop({ type: Number })
   chartTypeId?: number
@@ -174,22 +189,48 @@ export class Chart extends Vue {
 
   allChartTypes: ChartType[] = []
   allValueTypes: ValueType[] = []
-  allTransformationTypes: TransformationType[] = []
+  allTransformationTypes = new Collection(TransformationType)
 
-  selectedOa?: ObjectOfAnalysis
+  selectedOa = new ObjectOfAnalysis()
 
-  echart?: echarts.ECharts
+  echart: echarts.ECharts | null = null
 
   created() {
-    this.mockAll()
+    // this.mockAll()
   }
 
-  mounted() {
+  async mounted() {
     this.initEChart()
-    this.updateChartData()
+    await this.populateData()
   }
 
-  // @Watch('value.datasets')
+  async populateData() {
+    await this.allTransformationTypes.query()
+
+    if (this.value && !this.value.$id) {
+      if (this.savedChartId) {
+        await this.value.find(this.savedChartId)
+      } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
+        let firstOa: ObjectOfAnalysis | null = null
+        for (const id of this.objectOfAnalysisIds) {
+          if (id) {
+            const oa = new ObjectOfAnalysis()
+            await oa.find(id)
+            if (!firstOa) {
+              firstOa = oa
+            }
+            this.value.datasets.push(oa)
+          }
+        }
+        if (firstOa) {
+          this.allChartTypes = firstOa.oaChartTypeAvailability
+          this.allValueTypes = firstOa.oaValueTypeAvailability
+        }
+      }
+    }
+  }
+
+  @Watch('value.datasets')
   updateChartData() {
     if (!this.echart) {
       return
@@ -207,13 +248,13 @@ export class Chart extends Vue {
       return
     }
 
-    const map = {}
+    const map: ChartDataset = {}
 
-    this.value.datasets.forEach(item => {
+    this.value.datasets.forEach((item: WithDataset) => {
       if (!item || !item.$dataset || !item.$dataset.oaDataList) {
         return
       }
-      item.$dataset.oaDataList.forEach(data => {
+      item.$dataset.oaDataList.forEach((data: OaData) => {
         if (!map[data.dt]) map[data.dt] = []
         map[data.dt].push(data.value)
       })
@@ -221,15 +262,18 @@ export class Chart extends Vue {
 
     const result: any[] = []
 
-    Object.keys(map).forEach(i => {
-      result.push([i, ...map[i]])
-    })
+    for (const i in map) {
+      if (i) {
+        result.push([i, ...map[i]])
+      }
+    }
 
     return result
   }
 
   initEChart() {
     const el = this.$refs.echart as HTMLDivElement
+
     this.echart = echarts.init(el)
 
     this.echart.setOption({
@@ -330,14 +374,18 @@ export class Chart extends Vue {
     // })
   }
 
-  mockAll() {
+  async mockAll() {
     if (!this.value) {
       return
     }
 
     this.value.chartType.$id = 1
     this.value.chartType.$tag = 'linha'
-    this.allChartTypes.push(this.value.chartType)
+
+    const newCT = new ChartType()
+    newCT.$id = 1
+    newCT.$tag = 'linha'
+    this.allChartTypes.push(newCT)
 
     this.value.graphics.push(new ChartGraphic())
 
@@ -371,5 +419,23 @@ export class Chart extends Vue {
     const oaVersionStatus = new OaVersionStatus()
     oaVersionStatus.title = 'Ok'
     this.selectedOa.oaVersions[0].oaVersionStatus = oaVersionStatus
+
+    const oa = new ObjectOfAnalysis()
+    oa.oaVersions = []
+    oa.oaVersions[0] = new OaVersion()
+    oa.oaVersions[0].lastDataset = new OaDataset()
+    oa.$dataset.oaDataList = []
+
+    let oaData = new OaData()
+    oaData.dt = 'mon'
+    oaData.value = 3
+    oa.$dataset.oaDataList.push(oaData)
+
+    oaData = new OaData()
+    oaData.dt = 'tue'
+    oaData.value = 5
+    oa.$dataset.oaDataList.push(oaData)
+
+    this.value.datasets.push(oa)
   }
 }

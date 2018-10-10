@@ -84,7 +84,7 @@ export class Address extends Resource {
       const resp = await new HttpBody(Object).GET(
         `https://maps.googleapis.com/maps/api/geocode/json`,
         { params },
-        false
+        false,
       )
       const data = resp.data
 

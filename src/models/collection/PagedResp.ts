@@ -7,7 +7,7 @@ import { Type } from 'class-transformer'
 
 export class PagedResp<T extends Resource> extends PageCollection<T> {
   @ResponseFill('list')
-  @Type(options => (options!.newObject as PagedResp<T>).type)
+  @Type((options) => (options!.newObject as PagedResp<T>).type)
   items: T[] = []
 
   set recordsTotal(val: number) {
