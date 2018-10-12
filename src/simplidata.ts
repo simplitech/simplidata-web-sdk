@@ -1,11 +1,10 @@
 import Simpli, { Lang, Currency, HttpStatus, FilterOptions, ComponentOptions, LocaleOptions } from 'simpli-web-sdk'
-import VueResource, { HttpOptions, HttpResponse } from 'vue-resource'
+import VueResource from 'vue-resource'
 import { RouterOptions } from 'vue-router'
+import { merge } from 'lodash'
 
 import enUs from './locale/en-US/lang'
 import ptBr from './locale/pt-BR/lang'
-
-const merge = require('lodash.merge')
 
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
@@ -18,7 +17,7 @@ const defaultLocale = {
   [Lang.PT_BR]: ptBr,
 }
 
-const defaultHttpInterception = (request: HttpOptions, next: any) => {
+const defaultHttpInterception = (request: VueResource.HttpOptions, next: any) => {
   const { apiURL, lang, version, getToken, catchHandle } = SimpliData
 
   const regex = new RegExp(`^${apiURL}\\S*$`, 'g')
@@ -34,7 +33,7 @@ const defaultHttpInterception = (request: HttpOptions, next: any) => {
   next(catchHandle)
 }
 
-const defaultCatchHandle = (resp: HttpResponse) => {
+const defaultCatchHandle = (resp: VueResource.HttpResponse) => {
   if (!resp.status) throw Error('Could not connect to server')
   else if (resp.status >= 400) {
     if (resp.status === HttpStatus.UNAUTHORIZED) {
