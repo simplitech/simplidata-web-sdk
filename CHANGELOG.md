@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.6.0"></a>
+# [0.6.0](https://github.com/simplitech/simplidata-web-sdk/compare/v0.5.6...v0.6.0) (2018-10-12)
+
+
+### Features
+
+* **chart:** chart component definition ([433598a](https://github.com/simplitech/simplidata-web-sdk/commit/433598a))
+
+
+
 <a name="0.5.6"></a>
 ## [0.5.6](https://github.com/simplitech/simplidata-web-sdk/compare/v0.5.5...v0.5.6) (2018-10-12)
 
