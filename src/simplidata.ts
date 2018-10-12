@@ -1,3 +1,5 @@
+import Vue from 'vue'
+import Popover from 'vue-js-popover'
 import Simpli, { Lang, Currency, HttpStatus, FilterOptions, ComponentOptions, LocaleOptions } from 'simpli-web-sdk'
 import VueResource from 'vue-resource'
 import { RouterOptions } from 'vue-router'
@@ -5,6 +7,8 @@ import { merge } from 'lodash'
 
 import enUs from './locale/en-US/lang'
 import ptBr from './locale/pt-BR/lang'
+
+Vue.use(Popover)
 
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
@@ -48,8 +52,6 @@ const defaultCatchHandle = (resp: VueResource.HttpResponse) => {
 /******************************************************************/
 
 export abstract class SimpliData {
-  private static $token?: string
-
   static apiURL: string = defaultApiURL
   static httpInterceptor: Function = defaultHttpInterception
   static lang: Lang = defaultLang
@@ -87,4 +89,5 @@ export abstract class SimpliData {
   static signOut() {
     SimpliData.$token = undefined
   }
+  private static $token?: string
 }

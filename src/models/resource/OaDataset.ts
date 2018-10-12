@@ -24,7 +24,7 @@ export class OaDataset extends Resource {
   oaVersion: OaVersion | null = null
 
   @ResponseSerialize(OaData)
-  oaDataList: OaData[] | null = null
+  oaDataList: OaData[] = []
 
   idOaDatasetPk: ID = 0
 
