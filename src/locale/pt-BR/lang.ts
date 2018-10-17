@@ -297,6 +297,7 @@ export default {
       lastUpdate: 'Last Update',
       version: 'Version',
       status: 'Status',
+      accessAnalysis: 'Acessar Análise',
     },
   },
 }

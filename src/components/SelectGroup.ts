@@ -11,17 +11,23 @@ const template = `
     </span>
     <div class="chevron w-8 h-5"></div>
 
-    <popover :name="'sg' + _uid">
-      <div class="p-30">
+    <transition name="fade-down" mode="out-in">
+      <popover :name="'sg' + _uid" ref="popover">
+        <div 
+        class="liSg px-15 py-10"
+        :class="{ selected: !computedModel.$id }"
+        @click="computedModel = null">
+         {{ empty }}
+        </div>
         <div v-for="i in computedItems"
         :key="i.$id"
-        class="liSg"
+        class="liSg px-15 py-10"
         :class="{ selected: computedModel.$id === i.$id }"
         @click="computedModel = i">
          {{ i.$tag }}
         </div>
-      </div>
-    </popover>
+      </popover>
+    </transition>
   </div>
 `
 
@@ -62,6 +68,8 @@ export default class SelectGroup extends Vue {
     if (!this.value) {
       return
     }
+
+    (this.$refs.popover as HTMLElement).visible = false
 
     const nullOption = {
       $id: 0,

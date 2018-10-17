@@ -16,10 +16,9 @@ import { User } from './User'
 import { Model } from './Model'
 import { ValueType } from './ValueType'
 import { OaGroup } from './OaGroup'
-import {WithDataset} from './WithDataset'
-import {OaDataset} from './OaDataset'
+import { WithDataset } from './WithDataset'
+import { OaDataset } from './OaDataset'
 
-/* TODO: review generated class */
 export class ObjectOfAnalysis extends WithDataset {
   static $placeholder: string = 'img/placeholder/graph.png'
 
@@ -38,12 +37,19 @@ export class ObjectOfAnalysis extends WithDataset {
   set $tag(val: TAG) {
     this.title = val
   }
-  get $dataset() {
-    if (this.oaVersions.length) {
-      return this.oaVersions[0].lastDataset || new OaDataset()
-    } else {
+
+  $dataset(idVersion: number) {
+    if (!this.oaVersions.length) {
       return new OaDataset()
     }
+
+    const version = this.getVersionById(idVersion)
+
+    if (!version) {
+      return new OaDataset()
+    }
+
+    return version.lastDataset || new OaDataset()
   }
 
   get $thumbnail() {
@@ -173,6 +179,10 @@ export class ObjectOfAnalysis extends WithDataset {
   set idPlanFk(idPlanFk: ID) {
     if (!this.plan) this.plan = new Plan()
     this.plan.$id = idPlanFk
+  }
+
+  getVersionById(idVersion: number) {
+    return this.oaVersions.find(v => v.$id === idVersion)
   }
 
   scheme() {

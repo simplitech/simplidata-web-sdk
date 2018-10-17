@@ -1,7 +1,7 @@
 const template = `
-  <div class="simplidata-chart">
+  <div class="simplidata-chart verti">
 
-    <div class="horiz">
+    <div class="horiz weight-1">
 
       <div class="verti w-40 mt-60">
 
@@ -31,14 +31,14 @@ const template = `
             class="w-130 mr-40 my-5"
             :label="$t('view.chart.chartAs')"
             v-model="value.chartType"
-            :items="allChartTypes"/>
+            :items="allChartTypes.items"/>
 
           <select-group v-if="showValueTypeControl"
             class="w-200 mr-40 my-5"
             :label="$t('view.chart.valuesOfType')"
             :empty="$t('view.chart.allPeriod')"
             v-model="value.valueType"
-            :items="allValueTypes"/>
+            :items="allValueTypes.items"/>
 
           <select-group v-if="showTransformationTypeControl"
             class="w-160 mr-40 my-5"
@@ -50,7 +50,7 @@ const template = `
           <button class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
         </div>
 
-        <div class="min-h-400" id="echart" ref="echart"></div>
+        <div class="weight-1 min-h-400" id="echart" ref="echart"></div>
 
       </div>
 
@@ -81,22 +81,22 @@ const template = `
           <div class="value">{{ selectedOa.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
         </div>
 
-        <div class="horiz mb-15 items-center-bottom">
-          <div class="label weight-1">{{ $t('view.chart.version') }}</div>
-          <div class="label weight-1 text-center">{{ $t('view.chart.lastUpdate') }}</div>
-          <div class="label weight-1 text-right">{{ $t('view.chart.status') }}</div>
-        </div>
-
         <div v-if="showOaVersionControl"
           v-for="version in selectedOa.oaVersions"
           :key="version.idOaVersionPk"
-          class="horiz mb-9">
-          <div class="value weight-1">{{ version.title }}</div>
-          <div class="value weight-1 text-center">
+          class="version horiz items-center mb-9 pl-30"
+          :class="{ selected: version.$id === selectedOaSelectedVersionId }"
+          @click="selectVersion(version.$id)">
+          <div class="weight-1">{{ version.title }}</div>
+          <div class="weight-1 text-center">
             {{ version.lastDataset.creationDate | moment($t('dateFormat.datesimple')) }}
           </div>
-          <div class="value weight-1 text-right">{{ version.oaVersionStatus.title }}</div>
+          <div class="weight-1 text-right">{{ version.oaVersionStatus.title }}</div>
         </div>
+        
+        <div class="weight-1"></div>
+        
+        <a v-if="showVisitButton" class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</a>
 
       </div>
 
@@ -146,34 +146,37 @@ export class Chart extends Vue {
   objectOfAnalysisIds?: number[]
 
   @Prop({ type: Boolean, default: true })
-  showSaveButton: boolean = true
+  showSaveButton?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showDrawingButtons: boolean = true
+  showDrawingButtons?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showMeasureButton: boolean = true
+  showMeasureButton?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showCalcButton: boolean = true
+  showCalcButton?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showCommentButton: boolean = true
+  showCommentButton?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showChartTypeControl: boolean = true
+  showChartTypeControl?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showValueTypeControl: boolean = true
+  showValueTypeControl?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showTransformationTypeControl: boolean = true
+  showTransformationTypeControl?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showObjectOfAnalysisInfo: boolean = true
+  showObjectOfAnalysisInfo?: boolean
 
   @Prop({ type: Boolean, default: false })
-  showOaVersionControl: boolean = false
+  showOaVersionControl?: boolean
+
+  @Prop({ type: Boolean, default: true })
+  showVisitButton?: boolean
 
   @Prop({ type: Number })
   chartTypeId?: number
@@ -184,53 +187,31 @@ export class Chart extends Vue {
   @Prop({ type: Number })
   transformationTypeId?: number
 
-  @Prop({ type: Number })
-  oaVersionId?: number
+  @Prop({ type: Array, default: () => [] })
+  oaVersionIds?: number[]
 
-  allChartTypes: ChartType[] = []
-  allValueTypes: ValueType[] = []
+  allChartTypes = new Collection(ChartType)
+  allValueTypes = new Collection(ValueType)
   allTransformationTypes = new Collection(TransformationType)
 
-  selectedOa = new ObjectOfAnalysis()
+  selectedDatasetIndex = 0
 
   echart: echarts.ECharts | null = null
 
-  created() {
-    // this.mockAll()
+  get selectedOa() {
+    return this.getDatasetAsOa(this.selectedDatasetIndex)
   }
 
-  async mounted() {
-    this.initEChart()
-    await this.populateData()
-  }
-
-  async populateData() {
-    await this.allTransformationTypes.query()
-
-    if (this.value && !this.value.$id) {
-      if (this.savedChartId) {
-        await this.value.find(this.savedChartId)
-      } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
-        let firstOa: ObjectOfAnalysis | null = null
-        for (const id of this.objectOfAnalysisIds) {
-          if (id) {
-            const oa = new ObjectOfAnalysis()
-            await oa.find(id)
-            if (!firstOa) {
-              firstOa = oa
-            }
-            this.value.datasets.push(oa)
-          }
-        }
-        if (firstOa) {
-          this.allChartTypes = firstOa.oaChartTypeAvailability
-          this.allValueTypes = firstOa.oaValueTypeAvailability
-        }
-      }
+  get selectedOaSelectedVersionId() {
+    if (!this.oaVersionIds) {
+      return null
     }
+
+    return this.oaVersionIds[this.selectedDatasetIndex]
   }
 
   @Watch('value.datasets')
+  @Watch('oaVersionIds')
   updateChartData() {
     if (!this.echart) {
       return
@@ -243,6 +224,74 @@ export class Chart extends Vue {
     })
   }
 
+  @Watch('selectedOa.idObjectOfAnalysisPk')
+  @Watch('showObjectOfAnalysisInfo')
+  async resizeChartOnSelectOa() {
+    await this.$nextTick()
+    this.echart && this.echart.resize()
+  }
+
+  async mounted() {
+    this.initEChart()
+    await this.populateData()
+  }
+
+  selectVersion(id: number) {
+    if (!this.oaVersionIds) {
+      return
+    }
+
+    this.$set(this.oaVersionIds, this.selectedDatasetIndex, id)
+  }
+
+  getDatasetAsOa(index: number) {
+    if (!this.value) {
+      return
+    }
+
+    const dataset: WithDataset = this.value.datasets[index]
+
+    if (dataset instanceof ObjectOfAnalysis) {
+      return dataset as ObjectOfAnalysis
+    } else {
+      return new ObjectOfAnalysis()
+    }
+  }
+
+  async populateData() {
+    if (!this.value || !this.oaVersionIds) {
+      return
+    }
+
+    await this.allTransformationTypes.query()
+    await this.allValueTypes.query()
+    await this.allChartTypes.query()
+    this.value.chartType = this.allChartTypes.items[0]
+
+    if (!this.value.$id) {
+      if (this.savedChartId) {
+        await this.value.find(this.savedChartId)
+      } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
+        for (const id of this.objectOfAnalysisIds) {
+          if (id) {
+            const oa = new ObjectOfAnalysis()
+            await oa.find(id)
+            this.value.datasets.push(oa)
+          }
+        }
+      }
+    }
+
+    const diff = this.value.datasets.length - this.oaVersionIds.length
+
+    for (let i = this.oaVersionIds.length; i < diff; i++) {
+      const oa = this.getDatasetAsOa(i)
+      if (oa) {
+        this.oaVersionIds.push(oa.idObjectOfAnalysisPk as number)
+      }
+    }
+  }
+
   transformDatasets() {
     if (!this.value || !this.value.datasets || !this.value.datasets.length) {
       return
@@ -250,11 +299,19 @@ export class Chart extends Vue {
 
     const map: ChartDataset = {}
 
-    this.value.datasets.forEach((item: WithDataset) => {
-      if (!item || !item.$dataset || !item.$dataset.oaDataList) {
+    this.value.datasets.forEach((item: WithDataset, index: number) => {
+      if (!this.oaVersionIds) {
         return
       }
-      item.$dataset.oaDataList.forEach((data: OaData) => {
+
+      const idVersion = this.oaVersionIds[this.selectedDatasetIndex]
+      const dataset = item.$dataset(idVersion)
+
+      if (!item || !dataset || !dataset.oaDataList) {
+        return
+      }
+
+      dataset.oaDataList.forEach((data: OaData) => {
         if (!map[data.dt]) map[data.dt] = []
         map[data.dt].push(data.value)
       })
@@ -372,70 +429,5 @@ export class Chart extends Vue {
     //     position: this.value.graphics[0].getPosition(this.echart),
     //   },
     // })
-  }
-
-  async mockAll() {
-    if (!this.value) {
-      return
-    }
-
-    this.value.chartType.$id = 1
-    this.value.chartType.$tag = 'linha'
-
-    const newCT = new ChartType()
-    newCT.$id = 1
-    newCT.$tag = 'linha'
-    this.allChartTypes.push(newCT)
-
-    this.value.graphics.push(new ChartGraphic())
-
-    this.selectedOa = new ObjectOfAnalysis()
-    this.selectedOa.title = 'Estoque de Crédito - PF'
-    this.selectedOa.comment =
-      'Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum ' +
-      'rutrum, neque sem pretium metus, quis mollis nisl nunc et massa.  ' +
-      'Nam dapibus nisl vitae elit fringilla rutrum. '
-
-    this.selectedOa.periodicity = new OaPeriodicity()
-    this.selectedOa.periodicity.title = 'Trimestral'
-
-    this.selectedOa.unity = new OaUnity()
-    this.selectedOa.unity.title = 'Toneladas'
-
-    this.selectedOa.source = new OaSource()
-    this.selectedOa.source.title = 'Ipeadata'
-
-    this.selectedOa.lastUpdate = moment().format()
-
-    const oaVersion = new OaVersion()
-    oaVersion.idOaVersionPk = 1
-    oaVersion.title = 'Release'
-    this.selectedOa.oaVersions.push(oaVersion)
-
-    const lastDataset = new OaDataset()
-    lastDataset.creationDate = moment().format()
-    this.selectedOa.oaVersions[0].lastDataset = lastDataset
-
-    const oaVersionStatus = new OaVersionStatus()
-    oaVersionStatus.title = 'Ok'
-    this.selectedOa.oaVersions[0].oaVersionStatus = oaVersionStatus
-
-    const oa = new ObjectOfAnalysis()
-    oa.oaVersions = []
-    oa.oaVersions[0] = new OaVersion()
-    oa.oaVersions[0].lastDataset = new OaDataset()
-    oa.$dataset.oaDataList = []
-
-    let oaData = new OaData()
-    oaData.dt = 'mon'
-    oaData.value = 3
-    oa.$dataset.oaDataList.push(oaData)
-
-    oaData = new OaData()
-    oaData.dt = 'tue'
-    oaData.value = 5
-    oa.$dataset.oaDataList.push(oaData)
-
-    this.value.datasets.push(oa)
   }
 }
