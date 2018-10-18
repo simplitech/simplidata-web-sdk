@@ -34,6 +34,7 @@ const template = `
 import { Component, Prop, Vue } from 'vue-property-decorator'
 import { Resource } from 'simpli-web-sdk'
 import { plainToClassFromExist } from 'class-transformer'
+import { Popover } from 'vue-js-popover'
 
 @Component({ template })
 export default class SelectGroup extends Vue {
@@ -69,7 +70,8 @@ export default class SelectGroup extends Vue {
       return
     }
 
-    (this.$refs.popover as HTMLElement).visible = false
+    /* tslint:disable-next-line */
+    this.$refs.popover['visible'] = false
 
     const nullOption = {
       $id: 0,

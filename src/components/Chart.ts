@@ -190,8 +190,8 @@ export class Chart extends Vue {
   @Prop({ type: Array, default: () => [] })
   oaVersionIds?: number[]
 
-  allChartTypes = new Collection(ChartType)
-  allValueTypes = new Collection(ValueType)
+  allChartTypes = new Collection<ChartType>(ChartType)
+  allValueTypes = new Collection<ValueType>(ValueType)
   allTransformationTypes = new Collection(TransformationType)
 
   selectedDatasetIndex = 0
