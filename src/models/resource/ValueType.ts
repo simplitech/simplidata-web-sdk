@@ -37,7 +37,7 @@ export class ValueType extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idValueTypePk: this.idValueTypePk,
       title: this.title,
@@ -45,7 +45,7 @@ export class ValueType extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idValueTypePk: this.idValueTypePk,
       title: this.title,

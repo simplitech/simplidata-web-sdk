@@ -103,7 +103,7 @@ export class Address extends Resource {
     return await $.await.run(fetch, spinner)
   }
 
-  scheme() {
+  scheme(): any {
     return {
       idAddressPk: this.idAddressPk,
       zipcode: cep(this.zipcode),
@@ -118,7 +118,7 @@ export class Address extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idAddressPk: this.idAddressPk,
       zipcode: cep(this.zipcode),

@@ -49,7 +49,7 @@ export class Collection extends Resource {
     this.user.$id = idUserFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       user: this.user && this.user.$id,
       idCollectionPk: this.idCollectionPk,
@@ -59,7 +59,7 @@ export class Collection extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       user: this.user && this.user.$id,
       idCollectionPk: this.idCollectionPk,

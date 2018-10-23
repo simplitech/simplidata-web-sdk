@@ -33,7 +33,7 @@ export class OaPeriodicity extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idOaPeriodicityPk: this.idOaPeriodicityPk,
       title: this.title,
@@ -41,7 +41,7 @@ export class OaPeriodicity extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idOaPeriodicityPk: this.idOaPeriodicityPk,
       title: this.title,

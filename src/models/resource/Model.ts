@@ -37,7 +37,7 @@ export class Model extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idModelPk: this.idModelPk,
       title: this.title,
@@ -45,7 +45,7 @@ export class Model extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idModelPk: this.idModelPk,
       title: this.title,

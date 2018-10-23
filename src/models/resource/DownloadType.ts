@@ -33,7 +33,7 @@ export class DownloadType extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idDownloadTypePk: this.idDownloadTypePk,
       title: this.title,
@@ -41,7 +41,7 @@ export class DownloadType extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idDownloadTypePk: this.idDownloadTypePk,
       title: this.title,

@@ -76,7 +76,7 @@ export class User extends Resource {
     this.address.$id = idAddressFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       address: this.address && this.address.$id,
       idUserPk: this.idUserPk,
@@ -91,7 +91,7 @@ export class User extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       address: this.address && this.address.$id,
       idUserPk: this.idUserPk,

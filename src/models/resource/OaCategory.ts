@@ -40,7 +40,7 @@ export class OaCategory extends Resource {
   @ResponseSerialize(News)
   news: News[] = []
 
-  scheme() {
+  scheme(): any {
     return {
       idOaCategoryPk: this.idOaCategoryPk,
       title: this.title,
@@ -48,7 +48,7 @@ export class OaCategory extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idOaCategoryPk: this.idOaCategoryPk,
       title: this.title,

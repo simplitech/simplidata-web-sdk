@@ -42,7 +42,7 @@ export class OaData extends Resource {
     this.oaDataset.$id = idOaDatasetFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       oaDataset: this.oaDataset && this.oaDataset.$id,
       idOaDataPk: this.idOaDataPk,
@@ -52,7 +52,7 @@ export class OaData extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       oaDataset: this.oaDataset && this.oaDataset.$id,
       idOaDataPk: this.idOaDataPk,

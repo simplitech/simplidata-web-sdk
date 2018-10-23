@@ -43,7 +43,7 @@ export class OaDataset extends Resource {
     this.oaVersion.$id = idOaVersionFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       oaVersion: this.oaVersion && this.oaVersion.$id,
       idOaDatasetPk: this.idOaDatasetPk,
@@ -52,7 +52,7 @@ export class OaDataset extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       oaVersion: this.oaVersion && this.oaVersion.$id,
       idOaDatasetPk: this.idOaDatasetPk,

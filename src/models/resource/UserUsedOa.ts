@@ -48,7 +48,7 @@ export class UserUsedOa extends Resource {
     this.objectOfAnalysis.$id = idObjectOfAnalysisFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
       user: this.user && this.user.$id,
@@ -56,7 +56,7 @@ export class UserUsedOa extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
       user: this.user && this.user.$id,

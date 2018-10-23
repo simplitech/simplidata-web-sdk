@@ -37,7 +37,7 @@ export class Plan extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idPlanPk: this.idPlanPk,
       title: this.title,
@@ -46,7 +46,7 @@ export class Plan extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idPlanPk: this.idPlanPk,
       title: this.title,

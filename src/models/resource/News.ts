@@ -53,7 +53,7 @@ export class News extends Resource {
   //   this.oaCategory.$id = idOaCategoryFk
   // }
 
-  scheme() {
+  scheme(): any {
     return {
       // oaCategory: this.oaCategory && this.oaCategory.$id,
       idNewsPk: this.idNewsPk,
@@ -64,7 +64,7 @@ export class News extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       // oaCategory: this.oaCategory && this.oaCategory.$id,
       idNewsPk: this.idNewsPk,

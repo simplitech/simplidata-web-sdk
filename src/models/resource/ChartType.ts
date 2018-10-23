@@ -37,7 +37,7 @@ export class ChartType extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idChartTypePk: this.idChartTypePk,
       title: this.title,
@@ -45,7 +45,7 @@ export class ChartType extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idChartTypePk: this.idChartTypePk,
       title: this.title,

@@ -49,7 +49,7 @@ export class OaGroup extends Resource {
     this.parentGroup.$id = idParentGroupFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       parentGroup: this.parentGroup && this.parentGroup.$id,
       idOaGroupPk: this.idOaGroupPk,
@@ -58,7 +58,7 @@ export class OaGroup extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       parentGroup: this.parentGroup && this.parentGroup.$id,
       idOaGroupPk: this.idOaGroupPk,

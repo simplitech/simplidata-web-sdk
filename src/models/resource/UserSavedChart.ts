@@ -6,13 +6,13 @@ import { ID, Resource } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
 import { bool, datetime } from 'simpli-web-sdk'
 import { Collection } from './Collection'
-import {ChartType} from './ChartType'
-import {ValueType} from './ValueType'
-import {DownloadType} from './DownloadType'
-import {TransformationType} from './TransformationType'
-import {User} from './User'
-import {ChartGraphic} from './ChartGraphic'
-import {WithDataset} from './WithDataset'
+import { ChartType } from './ChartType'
+import { ValueType } from './ValueType'
+import { DownloadType } from './DownloadType'
+import { TransformationType } from './TransformationType'
+import { User } from './User'
+import { ChartGraphic } from './ChartGraphic'
+import { WithDataset } from './WithDataset'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -80,7 +80,7 @@ export class UserSavedChart extends Resource {
     this.downloadType.$id = idDownloadTypeFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       collection: this.collection && this.collection.$id,
       downloadType: this.downloadType && this.downloadType.$id,
@@ -92,7 +92,7 @@ export class UserSavedChart extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       collection: this.collection && this.collection.$id,
       downloadType: this.downloadType && this.downloadType.$id,

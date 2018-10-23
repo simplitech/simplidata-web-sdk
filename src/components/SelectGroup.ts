@@ -70,8 +70,9 @@ export default class SelectGroup extends Vue {
       return
     }
 
-    /* tslint:disable-next-line */
-    this.$refs.popover['visible'] = false
+    // @ts-ignore
+    const component = this.$refs.popover as Popover
+    component.visible = false
 
     const nullOption = {
       $id: 0,

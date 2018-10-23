@@ -63,7 +63,7 @@ export class OaVersion extends Resource {
     this.objectOfAnalysis.$id = idObjectOfAnalysisFk
   }
 
-  scheme() {
+  scheme(): any {
     return {
       oaVersionStatus: this.oaVersionStatus && this.oaVersionStatus.$id,
       objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
@@ -73,7 +73,7 @@ export class OaVersion extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       oaVersionStatus: this.oaVersionStatus && this.oaVersionStatus.$id,
       objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,

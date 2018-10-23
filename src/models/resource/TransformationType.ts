@@ -33,7 +33,7 @@ export class TransformationType extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idTransformationTypePk: this.idTransformationTypePk,
       title: this.title,
@@ -41,7 +41,7 @@ export class TransformationType extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idTransformationTypePk: this.idTransformationTypePk,
       title: this.title,

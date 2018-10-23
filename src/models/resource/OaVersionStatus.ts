@@ -33,7 +33,7 @@ export class OaVersionStatus extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idOaVersionStatusPk: this.idOaVersionStatusPk,
       title: this.title,
@@ -41,7 +41,7 @@ export class OaVersionStatus extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idOaVersionStatusPk: this.idOaVersionStatusPk,
       title: this.title,

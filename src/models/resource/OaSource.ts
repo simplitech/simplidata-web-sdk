@@ -37,7 +37,7 @@ export class OaSource extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  scheme() {
+  scheme(): any {
     return {
       idSourcePk: this.idSourcePk,
       title: this.title,
@@ -46,7 +46,7 @@ export class OaSource extends Resource {
     }
   }
 
-  csvScheme() {
+  csvScheme(): any {
     return {
       idSourcePk: this.idSourcePk,
       title: this.title,
