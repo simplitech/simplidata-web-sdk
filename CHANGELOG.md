@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.7.0"></a>
+# [0.7.0](https://github.com/simplitech/simplidata-web-sdk/compare/v0.6.0...v0.7.0) (2018-10-23)
+
+
+### Features
+
+* MCR-107 Web - gráfico de linha ([2dbe38c](https://github.com/simplitech/simplidata-web-sdk/commit/2dbe38c))
+* **chart:** MCR-107 Web - gráfico de linha ([3455ca9](https://github.com/simplitech/simplidata-web-sdk/commit/3455ca9))
+
+
+
 <a name="0.6.0"></a>
 # [0.6.0](https://github.com/simplitech/simplidata-web-sdk/compare/v0.5.6...v0.6.0) (2018-10-12)
 
