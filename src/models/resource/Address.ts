@@ -60,7 +60,7 @@ export class Address extends Resource {
     if (this.zipcode.length !== 8) throw new Error('Invalid CEP')
 
     const fetch = async () => {
-      const resp = await new HttpBody(Object).GET(`//viacep.com.br/ws/${this.zipcode}/json/`, {}, false)
+      const resp = await new HttpBody<any>(Object).GET(`//viacep.com.br/ws/${this.zipcode}/json/`, {}, false)
       const data = resp.data
 
       if (!this.street) this.street = data.logradouro || ''
@@ -81,7 +81,7 @@ export class Address extends Resource {
     }
 
     const fetch = async () => {
-      const resp = await new HttpBody(Object).GET(
+      const resp = await new HttpBody<any>(Object).GET(
         `https://maps.googleapis.com/maps/api/geocode/json`,
         { params },
         false
