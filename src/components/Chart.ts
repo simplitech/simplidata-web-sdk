@@ -107,7 +107,6 @@ const template = `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
-import moment from 'moment'
 import {
   ChartType,
   ValueType,
