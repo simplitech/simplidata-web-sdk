@@ -54,7 +54,7 @@ const template = `
 
       </div>
 
-      <div v-if="selectedOa.$id && showObjectOfAnalysisInfo"
+      <div v-if="selectedOa && selectedOa.$id && showObjectOfAnalysisInfo"
       class="rightpanel verti w-300 pl-30">
 
         <h1 class="mb-10">{{ selectedOa.title }}</h1>
@@ -126,7 +126,7 @@ import {
 import { Collection } from 'simpli-web-sdk'
 import SelectGroup from './SelectGroup'
 
-export interface ChartDataset {
+export interface MapOfDateAndValues {
   [key: string]: number[]
 }
 
@@ -193,23 +193,28 @@ export class Chart extends Vue {
   allValueTypes = new Collection<ValueType>(ValueType)
   allTransformationTypes = new Collection(TransformationType)
 
-  selectedDatasetIndex = 0
+  @Prop({ type: Number })
+  selectedDatasetIndex?: number
 
   echart: echarts.ECharts | null = null
 
   get selectedOa() {
-    return this.getDatasetAsOa(this.selectedDatasetIndex)
+    return this.getDatasetAsOa(this.selectedDatasetIndexOrTheOnly)
   }
 
   get selectedOaSelectedVersionId() {
-    if (!this.oaVersionIds) {
+    if (!this.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
       return null
     }
 
-    return this.oaVersionIds[this.selectedDatasetIndex]
+    return this.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
   }
 
-  @Watch('value.datasets')
+  get selectedDatasetIndexOrTheOnly() {
+    return this.value && this.value.datasetHolders.length === 1 ? 0 : this.selectedDatasetIndex
+  }
+
+  @Watch('value.datasetHolders')
   @Watch('oaVersionIds')
   updateChartData() {
     if (!this.echart) {
@@ -218,7 +223,7 @@ export class Chart extends Vue {
 
     this.echart.setOption({
       dataset: {
-        source: this.transformDatasets(),
+        source: this.prepareDatasetsToChart(),
       },
     })
   }
@@ -236,24 +241,26 @@ export class Chart extends Vue {
   }
 
   selectVersion(id: number) {
-    if (!this.oaVersionIds) {
+    if (!this.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
       return
     }
 
-    this.$set(this.oaVersionIds, this.selectedDatasetIndex, id)
+    this.$set(this.oaVersionIds, this.selectedDatasetIndexOrTheOnly, id)
   }
 
-  getDatasetAsOa(index: number) {
-    if (!this.value) {
-      return
+  getDatasetAsOa(index?: number) {
+    const defaultResp = new ObjectOfAnalysis()
+
+    if (index === undefined || !this.value) {
+      return defaultResp
     }
 
-    const dataset: WithDataset = this.value.datasets[index]
+    const dataset: WithDataset = this.value.datasetHolders[index]
 
     if (dataset instanceof ObjectOfAnalysis) {
       return dataset as ObjectOfAnalysis
     } else {
-      return new ObjectOfAnalysis()
+      return defaultResp
     }
   }
 
@@ -275,13 +282,13 @@ export class Chart extends Vue {
           if (id) {
             const oa = new ObjectOfAnalysis()
             await oa.find(id)
-            this.value.datasets.push(oa)
+            this.value.datasetHolders.push(oa)
           }
         }
       }
     }
 
-    const diff = this.value.datasets.length - this.oaVersionIds.length
+    const diff = this.value.datasetHolders.length - this.oaVersionIds.length
 
     for (let i = this.oaVersionIds.length; i < diff; i++) {
       const oa = this.getDatasetAsOa(i)
@@ -291,19 +298,19 @@ export class Chart extends Vue {
     }
   }
 
-  transformDatasets() {
-    if (!this.value || !this.value.datasets || !this.value.datasets.length) {
+  prepareDatasetsToChart() {
+    if (!this.value || !this.value.datasetHolders || !this.value.datasetHolders.length) {
       return
     }
 
-    const map: ChartDataset = {}
+    const map: MapOfDateAndValues = {}
 
-    this.value.datasets.forEach((item: WithDataset, index: number) => {
-      if (!this.oaVersionIds) {
+    this.value.datasetHolders.forEach((item: WithDataset, index: number) => {
+      if (!this.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
         return
       }
 
-      const idVersion = this.oaVersionIds[this.selectedDatasetIndex]
+      const idVersion = this.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
       const dataset = item.$dataset(idVersion)
 
       if (!item || !dataset || !dataset.oaDataList) {

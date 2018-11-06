@@ -36,7 +36,7 @@ export class UserSavedChart extends Resource {
   chartType = new ChartType()
   valueType = new ValueType()
   transformationType = new TransformationType()
-  datasets: WithDataset[] = []
+  datasetHolders: WithDataset[] = []
 
   @ResponseSerialize(User)
   user: User | null = null

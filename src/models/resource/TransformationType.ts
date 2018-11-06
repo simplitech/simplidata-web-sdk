@@ -6,7 +6,6 @@ import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
 import { bool } from 'simpli-web-sdk'
 
-/* TODO: review generated class */
 export class TransformationType extends Resource {
   readonly $name: string = 'TransformationType'
   readonly $endpoint: string = '/User/TransformationType{/id}'
