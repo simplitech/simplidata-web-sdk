@@ -57,7 +57,7 @@ const template = `
       <div v-if="selectedOa && selectedOa.$id && showObjectOfAnalysisInfo"
       class="rightpanel verti w-300 pl-30">
 
-        <h1 class="mb-10">{{ selectedOa.title }}</h1>
+        <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOa.title }}</h1>
 
         <div class="description mb-25">{{ selectedOa.comment }}</div>
 
@@ -125,6 +125,7 @@ import {
 } from '../models'
 import { Collection } from 'simpli-web-sdk'
 import SelectGroup from './SelectGroup'
+import { colors } from '../const/colors.const'
 
 export interface MapOfDateAndValues {
   [key: string]: number[]
@@ -189,12 +190,14 @@ export class Chart extends Vue {
   @Prop({ type: Array, default: () => [] })
   oaVersionIds?: number[]
 
+  @Prop({ type: Number })
+  selectedDatasetIndex?: number
+
   allChartTypes = new Collection<ChartType>(ChartType)
   allValueTypes = new Collection<ValueType>(ValueType)
   allTransformationTypes = new Collection(TransformationType)
 
-  @Prop({ type: Number })
-  selectedDatasetIndex?: number
+  colors = colors
 
   echart: echarts.ECharts | null = null
 
@@ -351,7 +354,7 @@ export class Chart extends Vue {
         splitLine: { lineStyle: { opacity: 0.1 } },
         boundaryGap: false,
       },
-      color: ['#29FD34', '#ffa800', '#78cdff'],
+      color: this.colors,
       series: [
         {
           type: 'line',

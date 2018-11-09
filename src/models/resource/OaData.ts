@@ -42,6 +42,12 @@ export class OaData extends Resource {
     this.oaDataset.$id = idOaDatasetFk
   }
 
+  constructor(dt: string = '', value: number = 0) {
+    super()
+    this.value = value
+    this.dt = dt
+  }
+
   scheme(): any {
     return {
       oaDataset: this.oaDataset && this.oaDataset.$id,
