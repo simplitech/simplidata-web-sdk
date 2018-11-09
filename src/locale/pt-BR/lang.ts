@@ -200,6 +200,8 @@ export default {
         email: 'E-Mail',
         password: 'Senha',
         name: 'Nome Completo',
+        primaryPhoneRegion: 'DDD',
+        primaryPhoneNumber: 'Telefone',
         personalDocument: 'CPF',
         corporateDocument: 'CNPJ',
         corporateName: 'Razão Social',

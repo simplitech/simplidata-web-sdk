@@ -51,6 +51,14 @@ export class User extends Resource {
   @ValidationMaxLength(100)
   name: string = ''
 
+  @ValidationRequired()
+  @ValidationMaxLength(7)
+  primaryPhoneRegion: string = ''
+
+  @ValidationRequired()
+  @ValidationMaxLength(31)
+  primaryPhoneNumber: string = ''
+
   @ValidationMaxLength(255)
   personalDocument: string = ''
 
@@ -74,6 +82,25 @@ export class User extends Resource {
   set idAddressFk(idAddressFk: ID) {
     if (!this.address) this.address = new Address()
     this.address.$id = idAddressFk
+  }
+
+  private _primaryPhone: string = ''
+  get primaryPhone() {
+    return this._primaryPhone
+  }
+  set primaryPhone(val: string) {
+    const regex = /^\((\d+)\)\s?(\d{4,5})-?(\d{3,4})$/g
+    const match = regex.exec(val)
+
+    if (match) {
+      this.primaryPhoneRegion = match[1] || ''
+      this.primaryPhoneNumber = `${match[2] || ''}${match[3] || ''}`
+    } else {
+      this.primaryPhoneRegion = ''
+      this.primaryPhoneNumber = ''
+    }
+
+    this._primaryPhone = val
   }
 
   scheme(): any {

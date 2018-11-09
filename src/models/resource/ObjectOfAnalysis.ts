@@ -6,7 +6,7 @@ import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
 import { bool, datetime } from 'simpli-web-sdk'
 import { ChartType } from './ChartType'
-import { OaCategory } from './OaCategory'
+// import { OaCategory } from './OaCategory'
 import { OaPeriodicity } from './OaPeriodicity'
 import { OaSource } from './OaSource'
 import { OaUnity } from './OaUnity'
@@ -59,8 +59,8 @@ export class ObjectOfAnalysis extends WithDataset {
   @ResponseSerialize(ChartType)
   recommendedChart: ChartType | null = null
 
-  @ResponseSerialize(OaCategory)
-  category: OaCategory | null = null
+  // @ResponseSerialize(OaCategory)
+  // category: OaCategory | null = null
 
   @ResponseSerialize(OaPeriodicity)
   periodicity: OaPeriodicity | null = null
@@ -127,14 +127,14 @@ export class ObjectOfAnalysis extends WithDataset {
     this.user.$id = idUserFk
   }
 
-  get idCategoryFk() {
-    if (!this.category) return 0
-    return this.category.$id
-  }
-  set idCategoryFk(idCategoryFk: ID) {
-    if (!this.category) this.category = new OaCategory()
-    this.category.$id = idCategoryFk
-  }
+  // get idCategoryFk() {
+  //   if (!this.category) return 0
+  //   return this.category.$id
+  // }
+  // set idCategoryFk(idCategoryFk: ID) {
+  //   if (!this.category) this.category = new OaCategory()
+  //   this.category.$id = idCategoryFk
+  // }
 
   get idPeriodicityFk() {
     if (!this.periodicity) return 0
@@ -188,7 +188,7 @@ export class ObjectOfAnalysis extends WithDataset {
   scheme(): any {
     return {
       recommendedChart: this.recommendedChart && this.recommendedChart.$id,
-      category: this.category && this.category.$id,
+      // category: this.category && this.category.$id,
       periodicity: this.periodicity && this.periodicity.$id,
       source: this.source && this.source.$id,
       unity: this.unity && this.unity.$id,
@@ -206,7 +206,7 @@ export class ObjectOfAnalysis extends WithDataset {
   csvScheme(): any {
     return {
       recommendedChart: this.recommendedChart && this.recommendedChart.$id,
-      category: this.category && this.category.$id,
+      // category: this.category && this.category.$id,
       periodicity: this.periodicity && this.periodicity.$id,
       source: this.source && this.source.$id,
       unity: this.unity && this.unity.$id,

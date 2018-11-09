@@ -200,6 +200,8 @@ export default {
         email: 'Email',
         password: 'Password',
         name: 'Full Name',
+        primaryPhoneRegion: 'Phone Region',
+        primaryPhoneNumber: 'Phone Number',
         personalDocument: 'Personal Document',
         corporateDocument: 'Corporate Document',
         corporateName: 'Corporate Name',
