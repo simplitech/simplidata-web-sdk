@@ -260,7 +260,7 @@ export class Chart extends Vue {
 
     const dataset: WithDataset = this.value.datasetHolders[index]
 
-    if (dataset instanceof ObjectOfAnalysis) {
+    if (dataset && dataset.$name === 'ObjectOfAnalysis') {
       return dataset as ObjectOfAnalysis
     } else {
       return defaultResp
@@ -299,6 +299,8 @@ export class Chart extends Vue {
         this.oaVersionIds.push(oa.idObjectOfAnalysisPk as number)
       }
     }
+
+    this.$emit('dataLoaded')
   }
 
   prepareDatasetsToChart() {

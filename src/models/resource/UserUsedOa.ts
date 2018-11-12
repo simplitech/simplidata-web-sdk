@@ -27,9 +27,6 @@ export class UserUsedOa extends Resource {
   @ResponseSerialize(User)
   user: User | null = null
 
-  @ValidationRequired()
-  usedDate: string = ''
-
   get idUserFk() {
     if (!this.user) return 0
     return this.user.$id
@@ -52,7 +49,6 @@ export class UserUsedOa extends Resource {
     return {
       objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
       user: this.user && this.user.$id,
-      usedDate: datetime(this.usedDate),
     }
   }
 
@@ -60,7 +56,6 @@ export class UserUsedOa extends Resource {
     return {
       objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
       user: this.user && this.user.$id,
-      usedDate: datetime(this.usedDate),
     }
   }
 }
