@@ -7,7 +7,6 @@ import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simp
 import { bool, datetime } from 'simpli-web-sdk'
 import { Collection } from './Collection'
 import { ChartType } from './ChartType'
-import { ValueType } from './ValueType'
 import { DownloadType } from './DownloadType'
 import { TransformationType } from './TransformationType'
 import { User } from './User'
@@ -34,7 +33,6 @@ export class UserSavedChart extends Resource {
 
   graphics: ChartGraphic[] = []
   chartType = new ChartType()
-  valueType = new ValueType()
   transformationType = new TransformationType()
   datasetHolders: WithDataset[] = []
 

@@ -75,7 +75,6 @@ export default {
         oaChartTypeAvailability: 'Disponibilidade de Tipo de Chart',
         oaMatchModel: 'Modelo',
         oaMatchOa: 'Match',
-        oaValueTypeAvailability: 'Disponibilidade de Tipo de Valor',
         objectOfAnalysisOaGroup: 'Grupo de Objeto de Análise',
         idObjectOfAnalysisPk: 'ID',
         title: 'Título',
@@ -243,15 +242,6 @@ export default {
       title: 'Oa Category',
       columns: {
         idOaCategoryPk: 'Id Oa Category Pk',
-        title: 'Title',
-        active: 'Active',
-      },
-    },
-    ValueType: {
-      title: 'Value Type',
-      columns: {
-        oaValueTypeAvailability: 'Oa Value Type Availability',
-        idValueTypePk: 'Id Value Type Pk',
         title: 'Title',
         active: 'Active',
       },

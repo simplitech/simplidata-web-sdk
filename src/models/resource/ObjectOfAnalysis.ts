@@ -14,7 +14,6 @@ import { OaVersion } from './OaVersion'
 import { Plan } from './Plan'
 import { User } from './User'
 import { Model } from './Model'
-import { ValueType } from './ValueType'
 import { OaGroup } from './OaGroup'
 import { WithDataset } from './WithDataset'
 import { OaDataset } from './OaDataset'
@@ -88,9 +87,6 @@ export class ObjectOfAnalysis extends WithDataset {
 
   @ResponseSerialize(ObjectOfAnalysis)
   oaMatchOa: ObjectOfAnalysis[] = []
-
-  @ResponseSerialize(ValueType)
-  oaValueTypeAvailability: ValueType[] = []
 
   @ResponseSerialize(OaGroup)
   objectOfAnalysisOaGroup: OaGroup[] = []

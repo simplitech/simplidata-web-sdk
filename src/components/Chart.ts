@@ -33,13 +33,6 @@ const template = `
             v-model="value.chartType"
             :items="allChartTypes.items"/>
 
-          <select-group v-if="showValueTypeControl"
-            class="w-200 mr-40 my-5"
-            :label="$t('view.chart.valuesOfType')"
-            :empty="$t('view.chart.allPeriod')"
-            v-model="value.valueType"
-            :items="allValueTypes.items"/>
-
           <select-group v-if="showTransformationTypeControl"
             class="w-160 mr-40 my-5"
             :label="$t('view.chart.transformation')"
@@ -109,7 +102,6 @@ import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
 import {
   ChartType,
-  ValueType,
   TransformationType,
   ObjectOfAnalysis,
   OaPeriodicity,
@@ -164,9 +156,6 @@ export class Chart extends Vue {
   showChartTypeControl?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showValueTypeControl?: boolean
-
-  @Prop({ type: Boolean, default: true })
   showTransformationTypeControl?: boolean
 
   @Prop({ type: Boolean, default: true })
@@ -182,9 +171,6 @@ export class Chart extends Vue {
   chartTypeId?: number
 
   @Prop({ type: Number })
-  valueTypeId?: number
-
-  @Prop({ type: Number })
   transformationTypeId?: number
 
   @Prop({ type: Array, default: () => [] })
@@ -194,7 +180,6 @@ export class Chart extends Vue {
   selectedDatasetIndex?: number
 
   allChartTypes = new Collection<ChartType>(ChartType)
-  allValueTypes = new Collection<ValueType>(ValueType)
   allTransformationTypes = new Collection(TransformationType)
 
   colors = colors
@@ -273,7 +258,6 @@ export class Chart extends Vue {
     }
 
     await this.allTransformationTypes.query()
-    await this.allValueTypes.query()
     await this.allChartTypes.query()
     this.value.chartType = this.allChartTypes.items[0]
 
