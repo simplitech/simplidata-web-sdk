@@ -199,6 +199,7 @@ export default {
         email: 'Email',
         password: 'Password',
         name: 'Full Name',
+        primaryPhone: 'Phone',
         primaryPhoneRegion: 'Phone Region',
         primaryPhoneNumber: 'Phone Number',
         personalDocument: 'Personal Document',

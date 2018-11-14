@@ -4,13 +4,17 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
+import ChartTypeSchema from '../../schemas/ChartType.schema'
 
 /* TODO: review generated class */
 export class ChartType extends Resource {
   readonly $name: string = 'ChartType'
   readonly $endpoint: string = '/User/ChartType{/id}'
+
+  get $schema() {
+    return ChartTypeSchema(this)
+  }
 
   get $id() {
     return this.idChartTypePk
@@ -36,20 +40,4 @@ export class ChartType extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idChartTypePk: this.idChartTypePk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idChartTypePk: this.idChartTypePk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

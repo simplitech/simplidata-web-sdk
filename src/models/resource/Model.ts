@@ -4,13 +4,17 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
+import ModelSchema from '../../schemas/Model.schema'
 
 /* TODO: review generated class */
 export class Model extends Resource {
   readonly $name: string = 'Model'
   readonly $endpoint: string = '/User/Model{/id}'
+
+  get $schema() {
+    return ModelSchema(this)
+  }
 
   get $id() {
     return this.idModelPk
@@ -36,20 +40,4 @@ export class Model extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idModelPk: this.idModelPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idModelPk: this.idModelPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

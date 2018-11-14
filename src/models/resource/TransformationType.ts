@@ -4,11 +4,15 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
+import TransformationTypeSchema from '../../schemas/TransformationType.schema'
 
 export class TransformationType extends Resource {
   readonly $name: string = 'TransformationType'
   readonly $endpoint: string = '/User/TransformationType{/id}'
+
+  get $schema() {
+    return TransformationTypeSchema(this)
+  }
 
   get $id() {
     return this.idTransformationTypePk
@@ -31,20 +35,4 @@ export class TransformationType extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idTransformationTypePk: this.idTransformationTypePk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idTransformationTypePk: this.idTransformationTypePk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

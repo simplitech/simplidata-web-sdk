@@ -4,13 +4,17 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired, ResponseSerialize } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { News } from './News'
+import OaCategorySchema from '../../schemas/OaCategory.schema'
 
 export class OaCategory extends Resource {
   readonly $name: string = 'OaCategory'
   readonly $endpoint: string = '/User/OaCategory{/id}'
+
+  get $schema() {
+    return OaCategorySchema(this)
+  }
 
   get $id() {
     return this.idOaCategoryPk
@@ -39,20 +43,4 @@ export class OaCategory extends Resource {
 
   @ResponseSerialize(News)
   news: News[] = []
-
-  scheme(): any {
-    return {
-      idOaCategoryPk: this.idOaCategoryPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idOaCategoryPk: this.idOaCategoryPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

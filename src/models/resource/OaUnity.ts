@@ -4,12 +4,16 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
+import OaUnitySchema from '../../schemas/OaUnity.schema'
 
 /* TODO: review generated class */
 export class OaUnity extends Resource {
   readonly $name: string = 'OaUnity'
   readonly $endpoint: string = '/User/OaUnity{/id}'
+
+  get $schema() {
+    return OaUnitySchema(this)
+  }
 
   get $id() {
     return this.idOaUnityPk
@@ -32,20 +36,4 @@ export class OaUnity extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idOaUnityPk: this.idOaUnityPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idOaUnityPk: this.idOaUnityPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

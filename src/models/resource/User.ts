@@ -11,13 +11,19 @@ import {
   ValidationPasswordLength,
   ValidationRequired,
 } from 'simpli-web-sdk'
-import { bool, datetime } from 'simpli-web-sdk'
 import { Address } from './Address'
+import UserSchema from '../../schemas/User.schema'
 
 /* TODO: review generated class */
 export class User extends Resource {
+  static $placeholder: string = 'img/placeholder/avatar.png'
+
   readonly $name: string = 'User'
   readonly $endpoint: string = '/User/User{/id}'
+
+  get $schema() {
+    return UserSchema(this)
+  }
 
   get $id() {
     return this.idUserPk
@@ -32,6 +38,10 @@ export class User extends Resource {
     this.name = val
   }
 
+  get $avatar() {
+    return this.urlAvatar || User.$placeholder
+  }
+
   @ResponseSerialize(Address)
   address: Address = new Address()
 
@@ -43,13 +53,13 @@ export class User extends Resource {
   email: string = ''
 
   @ResponseHidden()
-  @ValidationRequired()
-  @ValidationPasswordLength(6, 100)
   password: string = ''
 
   @ValidationRequired()
   @ValidationMaxLength(100)
   name: string = ''
+
+  urlAvatar: string | null = null
 
   @ValidationRequired()
   @ValidationMaxLength(7)
@@ -84,12 +94,11 @@ export class User extends Resource {
     this.address.$id = idAddressFk
   }
 
-  private _primaryPhone: string = ''
   get primaryPhone() {
-    return this._primaryPhone
+    return `${this.primaryPhoneRegion}${this.primaryPhoneNumber}`
   }
   set primaryPhone(val: string) {
-    const regex = /^\((\d+)\)\s?(\d{4,5})-?(\d{3,4})$/g
+    const regex = /^\((\d+)\)\s?(\d{0,5})-?(\d{0,4})$/g
     const match = regex.exec(val)
 
     if (match) {
@@ -98,38 +107,6 @@ export class User extends Resource {
     } else {
       this.primaryPhoneRegion = ''
       this.primaryPhoneNumber = ''
-    }
-
-    this._primaryPhone = val
-  }
-
-  scheme(): any {
-    return {
-      address: this.address && this.address.$id,
-      idUserPk: this.idUserPk,
-      email: this.email,
-      name: this.name,
-      personalDocument: this.personalDocument,
-      corporateDocument: this.corporateDocument,
-      corporateName: this.corporateName,
-      tradingName: this.tradingName,
-      creationDate: datetime(this.creationDate),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      address: this.address && this.address.$id,
-      idUserPk: this.idUserPk,
-      email: this.email,
-      name: this.name,
-      personalDocument: this.personalDocument,
-      corporateDocument: this.corporateDocument,
-      corporateName: this.corporateName,
-      tradingName: this.tradingName,
-      creationDate: datetime(this.creationDate),
-      active: bool(this.active),
     }
   }
 }

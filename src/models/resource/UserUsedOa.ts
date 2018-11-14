@@ -4,14 +4,18 @@
  */
 import { ID, Resource } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
-import { datetime } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { User } from './User'
+import UserUsedOaSchema from '../../schemas/UserUsedOa.schema'
 
 /* TODO: review generated class */
 export class UserUsedOa extends Resource {
   readonly $name: string = 'UserUsedOa'
   readonly $endpoint: string = '/User/UserUsedOa{/idUserFk}{/idObjectOfAnalysisFk}'
+
+  get $schema() {
+    return UserUsedOaSchema(this)
+  }
 
   get $id() {
     /* TODO: define the ID */
@@ -26,6 +30,9 @@ export class UserUsedOa extends Resource {
 
   @ResponseSerialize(User)
   user: User | null = null
+
+  // @ValidationRequired()
+  // usedDate: string = ''
 
   get idUserFk() {
     if (!this.user) return 0
@@ -43,19 +50,5 @@ export class UserUsedOa extends Resource {
   set idObjectOfAnalysisFk(idObjectOfAnalysisFk: ID) {
     if (!this.objectOfAnalysis) this.objectOfAnalysis = new ObjectOfAnalysis()
     this.objectOfAnalysis.$id = idObjectOfAnalysisFk
-  }
-
-  scheme(): any {
-    return {
-      objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
-      user: this.user && this.user.$id,
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
-      user: this.user && this.user.$id,
-    }
   }
 }

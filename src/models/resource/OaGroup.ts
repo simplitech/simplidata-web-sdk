@@ -4,13 +4,17 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
+import OaGroupSchema from '../../schemas/OaGroup.schema'
 
 /* TODO: review generated class */
 export class OaGroup extends Resource {
   readonly $name: string = 'OaGroup'
   readonly $endpoint: string = '/User/OaGroup{/id}'
+
+  get $schema() {
+    return OaGroupSchema(this)
+  }
 
   get $id() {
     return this.idOaGroupPk
@@ -47,23 +51,5 @@ export class OaGroup extends Resource {
   set idParentGroupFk(idParentGroupFk: ID) {
     if (!this.parentGroup) this.parentGroup = new OaGroup()
     this.parentGroup.$id = idParentGroupFk
-  }
-
-  scheme(): any {
-    return {
-      parentGroup: this.parentGroup && this.parentGroup.$id,
-      idOaGroupPk: this.idOaGroupPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      parentGroup: this.parentGroup && this.parentGroup.$id,
-      idOaGroupPk: this.idOaGroupPk,
-      title: this.title,
-      active: bool(this.active),
-    }
   }
 }
