@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v0.7.1...v1.0.0) (2018-11-14)
+
+
+### Bug Fixes
+
+* **Chart:** MCR-128 Web - Tela detalhes do Objeto de análise + poder selecionar uma linha do gráfico ([a2c4ae8](https://github.com/simplitech/simplidata-web-sdk/commit/a2c4ae8))
+* **ValueType:** remover "value type" do sistema, vai ser tudo "transformation type" ([bb0fcf0](https://github.com/simplitech/simplidata-web-sdk/commit/bb0fcf0))
+
+
+### Features
+
+* MCR-130 simplidata-web-sdk - criar classe em TS de como serão os parametros e resposta do requ ([4f9f795](https://github.com/simplitech/simplidata-web-sdk/commit/4f9f795))
+* **datasetTransformer:** MCR-129 Chart.vue - criar todas as implementações de "tipos de valores"  e ([3e99f12](https://github.com/simplitech/simplidata-web-sdk/commit/3e99f12))
+* Separated Schema from Resource ([6e2fa8c](https://github.com/simplitech/simplidata-web-sdk/commit/6e2fa8c))
+
+
+### BREAKING CHANGES
+
+* **ValueType:** ValueType was removed
+
+fix MCR-140
+
+
+
 <a name="0.7.1"></a>
 ## [0.7.1](https://github.com/simplitech/simplidata-web-sdk/compare/v0.7.0...v0.7.1) (2018-10-24)
 
