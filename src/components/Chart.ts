@@ -32,13 +32,20 @@ const template = `
             :label="$t('view.chart.chartAs')"
             v-model="value.chartType"
             :items="allChartTypes.items"/>
-
-          <select-group v-if="showTransformationTypeControl"
-            class="w-160 mr-40 my-5"
-            :label="$t('view.chart.transformation')"
-            :empty="$t('view.chart.none')"
-            v-model="value.transformationType"
-            :items="allTransformationTypes.items"/>
+          
+          <input-group
+            v-model="value.startDtLimiter"
+            type="datetime"
+            class="w-190 mr-10"
+            :placeholder="$t('view.chart.start')"/>
+          
+          <input-group
+            v-model="value.endDtLimiter"
+            type="datetime"
+            class="w-190"
+            :placeholder="$t('view.chart.end')"/>
+            
+          <div class="weight-1"></div>
 
           <button class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
         </div>
@@ -53,6 +60,13 @@ const template = `
         <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOa.title }}</h1>
 
         <div class="description mb-25">{{ selectedOa.comment }}</div>
+
+        <select-group v-if="showTransformationControl"
+          class="mb-40"
+          :label="$t('view.chart.transformation')"
+          :empty="$t('view.chart.none')"
+          v-model="value.transformationType"
+          :items="allTransformationTypes.items"/>
 
         <div class="horiz mb-10">
           <div class="label weight-1">{{ $t('view.chart.periodicity') }}</div>
@@ -98,6 +112,7 @@ const template = `
   </div>
 `
 
+import moment from 'moment'
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
 import {
@@ -156,10 +171,10 @@ export class Chart extends Vue {
   showChartTypeControl?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showTransformationTypeControl?: boolean
+  showObjectOfAnalysisInfo?: boolean
 
   @Prop({ type: Boolean, default: true })
-  showObjectOfAnalysisInfo?: boolean
+  showTransformationControl?: boolean
 
   @Prop({ type: Boolean, default: false })
   showOaVersionControl?: boolean
@@ -169,9 +184,6 @@ export class Chart extends Vue {
 
   @Prop({ type: Number })
   chartTypeId?: number
-
-  @Prop({ type: Number })
-  transformationTypeId?: number
 
   @Prop({ type: Array, default: () => [] })
   oaVersionIds?: number[]
@@ -198,21 +210,89 @@ export class Chart extends Vue {
     return this.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
   }
 
-  get selectedDatasetIndexOrTheOnly() {
-    return this.value && this.value.datasetHolders.length === 1 ? 0 : this.selectedDatasetIndex
+  get selectedDatasetIndexOrTheOnly(): number {
+    return this.value && this.value.datasetHolders.length === 1 ? 0 : this.selectedDatasetIndex || 0
   }
 
-  @Watch('value.datasetHolders')
-  @Watch('oaVersionIds')
+  get chartData() {
+    if (!this.value || !this.value.datasetHolders || !this.value.datasetHolders.length) {
+      return
+    }
+
+    const map: MapOfDateAndValues = {}
+
+    this.value.datasetHolders.forEach((item: WithDataset, index: number) => {
+      if (!this.oaVersionIds) {
+        return
+      }
+
+      const idVersion = this.oaVersionIds[index || 0]
+      const dataset = item.$dataset(idVersion)
+
+      if (!item || !dataset || !dataset.oaDataList) {
+        return
+      }
+
+      dataset.oaDataList.forEach((data: OaData) => {
+        if (!map[data.dt]) {
+          map[data.dt] = Array(index).fill(null)
+        }
+
+        map[data.dt].push(data.value)
+      })
+    })
+
+    const result: any[] = []
+
+    for (const i in map) {
+      if (i) {
+        const spaceLeft = this.value.datasetHolders.length - map[i].length
+        result.push([i, ...map[i], ...Array(spaceLeft).fill(null)])
+      }
+    }
+
+    return result
+  }
+
+  get startIndexLimiter() {
+    return this.value ? this.indexLimiterFromDt(this.value.startDtLimiter, true) : 0
+  }
+
+  set startIndexLimiter(val) {
+    if (!this.value || !val) {
+      return
+    }
+
+    // TODO: talvez precise: this.$set(this.value, 'startDtLimiter',
+    this.value.startDtLimiter = this.dtLimiterFromIndex(val)
+  }
+
+  get endIndexLimiter() {
+    return this.value ? this.indexLimiterFromDt(this.value.endDtLimiter, false) : 0
+  }
+
+  set endIndexLimiter(val) {
+    if (!this.value || !val) {
+      return
+    }
+
+    this.value.endDtLimiter = this.dtLimiterFromIndex(val)
+  }
+
+  @Watch('chartData')
   updateChartData() {
-    if (!this.echart) {
+    if (!this.echart || !this.value) {
       return
     }
 
     this.echart.setOption({
       dataset: {
-        source: this.prepareDatasetsToChart(),
+        source: this.chartData,
       },
+      series: this.value.datasetHolders.map(d => ({
+        type: 'line',
+        smooth: true,
+      })),
     })
   }
 
@@ -279,48 +359,50 @@ export class Chart extends Vue {
 
     for (let i = this.oaVersionIds.length; i < diff; i++) {
       const oa = this.getDatasetAsOa(i)
-      if (oa) {
-        this.oaVersionIds.push(oa.idObjectOfAnalysisPk as number)
+      if (oa && oa.oaVersions.length) {
+        this.oaVersionIds.push(oa.oaVersions[0].idOaVersionPk as number)
+      } else {
+        this.oaVersionIds.push(0)
       }
     }
 
     this.$emit('dataLoaded')
   }
 
-  prepareDatasetsToChart() {
-    if (!this.value || !this.value.datasetHolders || !this.value.datasetHolders.length) {
-      return
+  indexLimiterFromDt(dt: string | null, after: boolean) {
+    if (!this.chartData || !dt) {
+      return 0
     }
 
-    const map: MapOfDateAndValues = {}
+    const dtMoment = moment(dt)
 
-    this.value.datasetHolders.forEach((item: WithDataset, index: number) => {
-      if (!this.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
-        return
-      }
+    const indexedChartData = this.chartData
+      .map((c, i) => ({ ind: i, val: c[0] }))
+      .filter(c => dtMoment.isSame(c.val) || dtMoment.isAfter(c.val) !== after)
 
-      const idVersion = this.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
-      const dataset = item.$dataset(idVersion)
-
-      if (!item || !dataset || !dataset.oaDataList) {
-        return
-      }
-
-      dataset.oaDataList.forEach((data: OaData) => {
-        if (!map[data.dt]) map[data.dt] = []
-        map[data.dt].push(data.value)
-      })
+    indexedChartData.sort((x, y) => {
+      const diffXFromDt = Math.abs(dtMoment.diff(x.val, 'minutes'))
+      const diffYFromDt = Math.abs(dtMoment.diff(y.val, 'minutes'))
+      return diffXFromDt > diffYFromDt ? 1 : diffXFromDt === diffYFromDt ? 0 : -1
     })
 
-    const result: any[] = []
+    if (indexedChartData.length) {
+      const index = indexedChartData[0].ind
 
-    for (const i in map) {
-      if (i) {
-        result.push([i, ...map[i]])
+      if (index !== -1) {
+        return index
       }
     }
 
-    return result
+    return 0
+  }
+
+  dtLimiterFromIndex(index: number) {
+    if (this.chartData && this.chartData[index]) {
+      return this.chartData[index][0]
+    } else {
+      return null
+    }
   }
 
   initEChart() {
@@ -341,12 +423,6 @@ export class Chart extends Vue {
         boundaryGap: false,
       },
       color: this.colors,
-      series: [
-        {
-          type: 'line',
-          smooth: true,
-        },
-      ],
       dataZoom: [
         {
           type: 'slider',
@@ -357,17 +433,7 @@ export class Chart extends Vue {
           fillerColor: 'rgba(255,255,255,0.1)',
           height: 10,
         },
-        {
-          type: 'slider',
-          show: true,
-          yAxisIndex: [0],
-          handleStyle: { opacity: 0 },
-          borderColor: 'rgba(0,0,0,0)',
-          fillerColor: 'rgba(255,255,255,0.1)',
-          width: 10,
-        },
         { type: 'inside', show: true, xAxisIndex: [0] },
-        { type: 'inside', show: true, yAxisIndex: [0] },
       ],
     })
 
@@ -392,6 +458,12 @@ export class Chart extends Vue {
     // }, 0)
 
     this.echart.on('dataZoom', (e: echarts.EChartsDataZoomEvent) => {
+      if (!this.echart || !this.echart.getModel() || !this.value) {
+        return
+      }
+      const axis = this.echart.getModel().option.xAxis[0]
+      this.startIndexLimiter = axis.rangeStart
+      this.endIndexLimiter = axis.rangeEnd
       this.updateGraphicPos()
     })
 
@@ -412,6 +484,25 @@ export class Chart extends Vue {
     //
     //   this.updateGraphicPos()
     // }
+  }
+
+  @Watch('startIndexLimiter')
+  @Watch('endIndexLimiter')
+  updateDataZoom() {
+    if (!this.echart || !this.value) {
+      return
+    }
+
+    const dataZoom: any = {
+      xAxisIndex: [0],
+    }
+
+    dataZoom.startValue = this.startIndexLimiter
+    dataZoom.endValue = this.endIndexLimiter
+
+    this.echart.setOption({
+      dataZoom,
+    })
   }
 
   updateGraphicPos() {

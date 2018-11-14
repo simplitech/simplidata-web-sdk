@@ -33,6 +33,8 @@ export class UserSavedChart extends Resource {
 
   graphics: ChartGraphic[] = []
   chartType = new ChartType()
+  startDtLimiter: string | null = null
+  endDtLimiter: string | null = null
   transformationType = new TransformationType()
   datasetHolders: WithDataset[] = []
 

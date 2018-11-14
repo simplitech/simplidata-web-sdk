@@ -178,7 +178,7 @@ export class ObjectOfAnalysis extends WithDataset {
   }
 
   getVersionById(idVersion: number) {
-    return this.oaVersions.find(v => v.$id === idVersion)
+    return this.oaVersions.find(v => v.idOaVersionPk === idVersion)
   }
 
   scheme(): any {

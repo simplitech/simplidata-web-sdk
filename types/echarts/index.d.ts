@@ -381,6 +381,8 @@ declare namespace echarts {
      * Disposes instance. Once disposed, the instance can not be used again.
      */
     dispose(): void
+
+    getModel(): any
   }
 
   type TypedArray =

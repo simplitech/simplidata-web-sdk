@@ -301,6 +301,8 @@ export default {
       version: 'Version',
       status: 'Status',
       accessAnalysis: 'Acessar Análise',
+      start: 'Início',
+      end: 'Fim',
     },
   },
 }
