@@ -33,13 +33,13 @@ const template = `
             v-model="value.chartType"
             :items="allChartTypes.items"/>
           
-          <input-group
+          <input-text
             v-model="value.startDtLimiter"
             type="datetime"
             class="w-190 mr-10"
             :placeholder="$t('view.chart.start')"/>
           
-          <input-group
+          <input-text
             v-model="value.endDtLimiter"
             type="datetime"
             class="w-190"
