@@ -4,13 +4,17 @@
  */
 import { $, ID, Resource, HttpBody, Resp } from 'simpli-web-sdk'
 import { ValidationCEP, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool, cep } from 'simpli-web-sdk'
+import AddressSchema from '../../schemas/Address.schema'
 
 /* TODO: review generated class */
 export class Address extends Resource {
   readonly $name: string = 'Address'
   readonly $endpoint: string = '/User/Address{/id}'
   readonly $googleApiKey: string = `AIzaSyBlx9aOau9G-Y66iDjM2_eCKAm_3b-Zpmk`
+
+  get $schema() {
+    return AddressSchema(this)
+  }
 
   get $id() {
     return this.idAddressPk
@@ -101,35 +105,5 @@ export class Address extends Resource {
     }
 
     return await $.await.run(fetch, spinner)
-  }
-
-  scheme(): any {
-    return {
-      idAddressPk: this.idAddressPk,
-      zipcode: cep(this.zipcode),
-      street: this.street,
-      number: this.number,
-      complement: this.complement,
-      city: this.city,
-      state: this.state,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idAddressPk: this.idAddressPk,
-      zipcode: cep(this.zipcode),
-      street: this.street,
-      number: this.number,
-      complement: this.complement,
-      city: this.city,
-      state: this.state,
-      latitude: this.latitude,
-      longitude: this.longitude,
-      active: bool(this.active),
-    }
   }
 }

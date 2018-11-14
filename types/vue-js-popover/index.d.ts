@@ -1,4 +1,5 @@
 declare module 'vue-js-popover' {
+  import {PluginFunction} from 'vue/types/plugin'
   import {Component, Vue} from 'vue-property-decorator'
 
   @Component
@@ -10,4 +11,7 @@ declare module 'vue-js-popover' {
       top: number
     }
   }
+
+  const Popover: PluginFunction<{}>
+  export default Popover
 }

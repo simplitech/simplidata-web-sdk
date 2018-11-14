@@ -4,13 +4,17 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { AnchorRender, bool, datetime } from 'simpli-web-sdk'
 // import {OaCategory} from './OaCategory'
+import NewsSchema from '../../schemas/News.schema'
 
 /* TODO: review generated class */
 export class News extends Resource {
   readonly $name: string = 'News'
   readonly $endpoint: string = '/User/News{/id}'
+
+  get $schema() {
+    return NewsSchema(this)
+  }
 
   get $id() {
     return this.idNewsPk
@@ -52,26 +56,4 @@ export class News extends Resource {
   //   if (!this.oaCategory) this.oaCategory = new OaCategory()
   //   this.oaCategory.$id = idOaCategoryFk
   // }
-
-  scheme(): any {
-    return {
-      // oaCategory: this.oaCategory && this.oaCategory.$id,
-      idNewsPk: this.idNewsPk,
-      title: this.title,
-      link: new AnchorRender(this.link, this.link, '_blank').toHtml(),
-      dataCreation: datetime(this.dataCreation),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      // oaCategory: this.oaCategory && this.oaCategory.$id,
-      idNewsPk: this.idNewsPk,
-      title: this.title,
-      link: this.link,
-      dataCreation: datetime(this.dataCreation),
-      active: bool(this.active),
-    }
-  }
 }

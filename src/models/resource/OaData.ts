@@ -4,13 +4,17 @@
  */
 import { ID, Resource } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
-import { bool, datetime } from 'simpli-web-sdk'
 import { OaDataset } from './OaDataset'
+import OaDataSchema from '../../schemas/OaData.schema'
 
 /* TODO: review generated class */
 export class OaData extends Resource {
   readonly $name: string = 'OaData'
   readonly $endpoint: string = '/User/OaData{/id}'
+
+  get $schema() {
+    return OaDataSchema(this)
+  }
 
   get $id() {
     return this.idOaDataPk
@@ -46,25 +50,5 @@ export class OaData extends Resource {
     super()
     this.value = value
     this.dt = dt
-  }
-
-  scheme(): any {
-    return {
-      oaDataset: this.oaDataset && this.oaDataset.$id,
-      idOaDataPk: this.idOaDataPk,
-      value: this.value,
-      dt: datetime(this.dt),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      oaDataset: this.oaDataset && this.oaDataset.$id,
-      idOaDataPk: this.idOaDataPk,
-      value: this.value,
-      dt: datetime(this.dt),
-      active: bool(this.active),
-    }
   }
 }

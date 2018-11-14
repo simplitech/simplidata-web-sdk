@@ -4,15 +4,19 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
 import { OaVersionStatus } from './OaVersionStatus'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { OaDataset } from './OaDataset'
+import OaVersionSchema from '../../schemas/OaVersion.schema'
 
 /* TODO: review generated class */
 export class OaVersion extends Resource {
   readonly $name: string = 'OaVersion'
   readonly $endpoint: string = '/User/OaVersion{/id}'
+
+  get $schema() {
+    return OaVersionSchema(this)
+  }
 
   get $id() {
     return this.idOaVersionPk
@@ -61,25 +65,5 @@ export class OaVersion extends Resource {
   set idObjectOfAnalysisFk(idObjectOfAnalysisFk: ID) {
     if (!this.objectOfAnalysis) this.objectOfAnalysis = new ObjectOfAnalysis()
     this.objectOfAnalysis.$id = idObjectOfAnalysisFk
-  }
-
-  scheme(): any {
-    return {
-      oaVersionStatus: this.oaVersionStatus && this.oaVersionStatus.$id,
-      objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
-      idOaVersionPk: this.idOaVersionPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      oaVersionStatus: this.oaVersionStatus && this.oaVersionStatus.$id,
-      objectOfAnalysis: this.objectOfAnalysis && this.objectOfAnalysis.$id,
-      idOaVersionPk: this.idOaVersionPk,
-      title: this.title,
-      active: bool(this.active),
-    }
   }
 }

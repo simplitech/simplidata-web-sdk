@@ -4,12 +4,16 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
+import OaPeriodicitySchema from '../../schemas/OaPeriodicity.schema'
 
 /* TODO: review generated class */
 export class OaPeriodicity extends Resource {
   readonly $name: string = 'OaPeriodicity'
   readonly $endpoint: string = '/User/OaPeriodicity{/id}'
+
+  get $schema() {
+    return OaPeriodicitySchema(this)
+  }
 
   get $id() {
     return this.idOaPeriodicityPk
@@ -32,20 +36,4 @@ export class OaPeriodicity extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idOaPeriodicityPk: this.idOaPeriodicityPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idOaPeriodicityPk: this.idOaPeriodicityPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

@@ -26,9 +26,10 @@ export { UserSavedChart } from './resource/UserSavedChart'
 export { UserUsedOa } from './resource/UserUsedOa'
 export { WithDataset } from './resource/WithDataset'
 
-/* *** Model Response *** */
-export { LoginResp } from './response/LoginResp'
-export { MenuResp } from './response/MenuResp'
+/* *** Response *** */
+export { AuthRequest } from './request/AuthRequest'
+export { ChangePasswordRequest } from './request/ChangePasswordRequest'
 
-/* *** Model *** */
-export { LoginSerialized } from './LoginSerialized'
+/* *** Response *** */
+export { AuthResponse } from './response/AuthResponse'
+export { MenuResponse } from './response/MenuResponse'

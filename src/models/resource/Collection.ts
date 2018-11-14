@@ -4,13 +4,17 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool, datetime } from 'simpli-web-sdk'
 import { User } from './User'
+import CollectionSchema from '../../schemas/Collection.schema'
 
 /* TODO: review generated class */
 export class Collection extends Resource {
   readonly $name: string = 'Collection'
   readonly $endpoint: string = '/User/Collection{/id}'
+
+  get $schema() {
+    return CollectionSchema(this)
+  }
 
   get $id() {
     return this.idCollectionPk
@@ -47,25 +51,5 @@ export class Collection extends Resource {
   set idUserFk(idUserFk: ID) {
     if (!this.user) this.user = new User()
     this.user.$id = idUserFk
-  }
-
-  scheme(): any {
-    return {
-      user: this.user && this.user.$id,
-      idCollectionPk: this.idCollectionPk,
-      title: this.title,
-      creationDate: datetime(this.creationDate),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      user: this.user && this.user.$id,
-      idCollectionPk: this.idCollectionPk,
-      title: this.title,
-      creationDate: datetime(this.creationDate),
-      active: bool(this.active),
-    }
   }
 }

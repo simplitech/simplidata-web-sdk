@@ -4,12 +4,16 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { AnchorRender, bool } from 'simpli-web-sdk'
+import OaSourceSchema from '../../schemas/OaSource.schema'
 
 /* TODO: review generated class */
 export class OaSource extends Resource {
   readonly $name: string = 'OaSource'
   readonly $endpoint: string = '/User/OaSource{/id}'
+
+  get $schema() {
+    return OaSourceSchema(this)
+  }
 
   get $id() {
     return this.idSourcePk
@@ -36,22 +40,4 @@ export class OaSource extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idSourcePk: this.idSourcePk,
-      title: this.title,
-      link: new AnchorRender(this.link, this.link, '_blank').toHtml(),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idSourcePk: this.idSourcePk,
-      title: this.title,
-      link: this.link,
-      active: bool(this.active),
-    }
-  }
 }

@@ -4,12 +4,16 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
+import OaVersionStatusSchema from '../../schemas/OaVersionStatus.schema'
 
 /* TODO: review generated class */
 export class OaVersionStatus extends Resource {
   readonly $name: string = 'OaVersionStatus'
   readonly $endpoint: string = '/User/OaVersionStatus{/id}'
+
+  get $schema() {
+    return OaVersionStatusSchema(this)
+  }
 
   get $id() {
     return this.idOaVersionStatusPk
@@ -32,20 +36,4 @@ export class OaVersionStatus extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idOaVersionStatusPk: this.idOaVersionStatusPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idOaVersionStatusPk: this.idOaVersionStatusPk,
-      title: this.title,
-      active: bool(this.active),
-    }
-  }
 }

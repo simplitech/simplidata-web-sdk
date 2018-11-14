@@ -4,12 +4,16 @@
  */
 import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool } from 'simpli-web-sdk'
+import PlanSchema from '../../schemas/Plan.schema'
 
 /* TODO: review generated class */
 export class Plan extends Resource {
   readonly $name: string = 'Plan'
   readonly $endpoint: string = '/User/Plan{/id}'
+
+  get $schema() {
+    return PlanSchema(this)
+  }
 
   get $id() {
     return this.idPlanPk
@@ -36,22 +40,4 @@ export class Plan extends Resource {
 
   @ValidationRequired()
   active: boolean = false
-
-  scheme(): any {
-    return {
-      idPlanPk: this.idPlanPk,
-      title: this.title,
-      gatewayId: this.gatewayId,
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      idPlanPk: this.idPlanPk,
-      title: this.title,
-      gatewayId: this.gatewayId,
-      active: bool(this.active),
-    }
-  }
 }

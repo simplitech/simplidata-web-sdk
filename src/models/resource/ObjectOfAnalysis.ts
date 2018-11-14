@@ -17,12 +17,17 @@ import { Model } from './Model'
 import { OaGroup } from './OaGroup'
 import { WithDataset } from './WithDataset'
 import { OaDataset } from './OaDataset'
+import ObjectOfAnalysisSchema from '../../schemas/ObjectOfAnalysis.schema'
 
 export class ObjectOfAnalysis extends WithDataset {
   static $placeholder: string = 'img/placeholder/graph.png'
 
   readonly $name: string = 'ObjectOfAnalysis'
   readonly $endpoint: string = '/User/ObjectOfAnalysis{/id}'
+
+  get $schema() {
+    return ObjectOfAnalysisSchema(this)
+  }
 
   get $id() {
     return this.idObjectOfAnalysisPk
@@ -179,41 +184,5 @@ export class ObjectOfAnalysis extends WithDataset {
 
   getVersionById(idVersion: number) {
     return this.oaVersions.find(v => v.idOaVersionPk === idVersion)
-  }
-
-  scheme(): any {
-    return {
-      recommendedChart: this.recommendedChart && this.recommendedChart.$id,
-      // category: this.category && this.category.$id,
-      periodicity: this.periodicity && this.periodicity.$id,
-      source: this.source && this.source.$id,
-      unity: this.unity && this.unity.$id,
-      plan: this.plan && this.plan.$id,
-      user: this.user && this.user.$id,
-      idObjectOfAnalysisPk: this.idObjectOfAnalysisPk,
-      title: this.title,
-      comment: this.comment,
-      idFromSource: this.idFromSource,
-      lastUpdate: datetime(this.lastUpdate),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      recommendedChart: this.recommendedChart && this.recommendedChart.$id,
-      // category: this.category && this.category.$id,
-      periodicity: this.periodicity && this.periodicity.$id,
-      source: this.source && this.source.$id,
-      unity: this.unity && this.unity.$id,
-      plan: this.plan && this.plan.$id,
-      user: this.user && this.user.$id,
-      idObjectOfAnalysisPk: this.idObjectOfAnalysisPk,
-      title: this.title,
-      comment: this.comment,
-      idFromSource: this.idFromSource,
-      lastUpdate: datetime(this.lastUpdate),
-      active: bool(this.active),
-    }
   }
 }

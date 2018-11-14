@@ -4,7 +4,6 @@
  */
 import { ID, Resource } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool, datetime } from 'simpli-web-sdk'
 import { Collection } from './Collection'
 import { ChartType } from './ChartType'
 import { DownloadType } from './DownloadType'
@@ -12,11 +11,16 @@ import { TransformationType } from './TransformationType'
 import { User } from './User'
 import { ChartGraphic } from './ChartGraphic'
 import { WithDataset } from './WithDataset'
+import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
   readonly $name: string = 'UserSavedChart'
   readonly $endpoint: string = '/User/UserSavedChart{/id}'
+
+  get $schema() {
+    return UserSavedChartSchema(this)
+  }
 
   get $id() {
     return this.idUserChartPk
@@ -78,29 +82,5 @@ export class UserSavedChart extends Resource {
   set idDownloadTypeFk(idDownloadTypeFk: ID) {
     if (!this.downloadType) this.downloadType = new DownloadType()
     this.downloadType.$id = idDownloadTypeFk
-  }
-
-  scheme(): any {
-    return {
-      collection: this.collection && this.collection.$id,
-      downloadType: this.downloadType && this.downloadType.$id,
-      user: this.user && this.user.$id,
-      idUserChartPk: this.idUserChartPk,
-      json: this.json,
-      creationDate: datetime(this.creationDate),
-      active: bool(this.active),
-    }
-  }
-
-  csvScheme(): any {
-    return {
-      collection: this.collection && this.collection.$id,
-      downloadType: this.downloadType && this.downloadType.$id,
-      user: this.user && this.user.$id,
-      idUserChartPk: this.idUserChartPk,
-      json: this.json,
-      creationDate: datetime(this.creationDate),
-      active: bool(this.active),
-    }
   }
 }
