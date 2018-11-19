@@ -10,7 +10,7 @@ import { OaData } from '../models'
 export default (model: OaData): Schema => ({
   oaDataset: {
     content: model.oaDataset && model.oaDataset.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idOaDataPk: {
@@ -20,7 +20,7 @@ export default (model: OaData): Schema => ({
 
   value: {
     content: model.value,
-    inputType: InputType.CURRENCY,
+    input: InputType.CURRENCY,
     meta: {
       required: true,
     },
@@ -28,7 +28,7 @@ export default (model: OaData): Schema => ({
 
   dt: {
     content: datetime(model.dt),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
     meta: {
       required: true,
     },

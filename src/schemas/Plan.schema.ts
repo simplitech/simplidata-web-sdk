@@ -15,7 +15,7 @@ export default (model: Plan): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -24,7 +24,7 @@ export default (model: Plan): Schema => ({
 
   gatewayId: {
     content: model.gatewayId,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

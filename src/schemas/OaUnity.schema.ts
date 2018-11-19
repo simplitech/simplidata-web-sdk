@@ -15,7 +15,7 @@ export default (model: OaUnity): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

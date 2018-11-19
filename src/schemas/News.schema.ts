@@ -10,7 +10,7 @@ import { News } from '../models'
 export default (model: News): Schema => ({
   // oaCategory: {
   //   content: model.oaCategory && model.oaCategory.$id,
-  //   inputType: InputType.SELECT,
+  //   input: InputType.SELECT,
   // },
 
   idNewsPk: {
@@ -20,7 +20,7 @@ export default (model: News): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -37,7 +37,7 @@ export default (model: News): Schema => ({
       },
     },
     textContent: model.link,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -46,7 +46,7 @@ export default (model: News): Schema => ({
 
   dataCreation: {
     content: datetime(model.dataCreation),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
     meta: {
       required: true,
     },

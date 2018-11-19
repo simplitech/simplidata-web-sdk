@@ -10,12 +10,12 @@ import { OaVersion } from '../models'
 export default (model: OaVersion): Schema => ({
   oaVersionStatus: {
     content: model.oaVersionStatus && model.oaVersionStatus.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   objectOfAnalysis: {
     content: model.objectOfAnalysis && model.objectOfAnalysis.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idOaVersionPk: {
@@ -25,7 +25,7 @@ export default (model: OaVersion): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

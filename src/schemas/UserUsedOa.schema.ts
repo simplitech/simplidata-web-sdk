@@ -10,11 +10,11 @@ import { UserUsedOa } from '../models'
 export default (model: UserUsedOa): Schema => ({
   objectOfAnalysis: {
     content: model.objectOfAnalysis && model.objectOfAnalysis.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   user: {
     content: model.user && model.user.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 })

@@ -10,7 +10,7 @@ import { Model } from '../models'
 export default (model: Model): Schema => ({
   oaMatchModel: {
     hidden: true,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idModelPk: {
@@ -20,7 +20,7 @@ export default (model: Model): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

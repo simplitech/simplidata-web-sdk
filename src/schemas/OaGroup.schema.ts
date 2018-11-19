@@ -10,7 +10,7 @@ import { OaGroup } from '../models'
 export default (model: OaGroup): Schema => ({
   // oaGroup: {
   //   content: model.oaGroup && model.oaGroup.$id,
-  //   inputType: InputType.SELECT,
+  //   input: InputType.SELECT,
   // },
 
   idOaGroupPk: {
@@ -20,7 +20,7 @@ export default (model: OaGroup): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

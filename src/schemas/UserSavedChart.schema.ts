@@ -10,17 +10,17 @@ import { UserSavedChart } from '../models'
 export default (model: UserSavedChart): Schema => ({
   collection: {
     content: model.collection && model.collection.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   downloadType: {
     content: model.downloadType && model.downloadType.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   user: {
     content: model.user && model.user.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idUserChartPk: {
@@ -30,7 +30,7 @@ export default (model: UserSavedChart): Schema => ({
 
   json: {
     content: model.json,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -39,7 +39,7 @@ export default (model: UserSavedChart): Schema => ({
 
   creationDate: {
     content: datetime(model.creationDate),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
     meta: {
       required: true,
     },

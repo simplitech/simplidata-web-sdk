@@ -15,7 +15,7 @@ export default (model: OaSource): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -32,7 +32,7 @@ export default (model: OaSource): Schema => ({
       },
     },
     textContent: model.link,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

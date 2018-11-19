@@ -10,7 +10,7 @@ import { ChartType } from '../models'
 export default (model: ChartType): Schema => ({
   oaChartTypeAvailability: {
     hidden: true,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idChartTypePk: {
@@ -20,7 +20,7 @@ export default (model: ChartType): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',

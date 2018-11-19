@@ -10,7 +10,7 @@ import { User } from '../models'
 export default (model: User): Schema => ({
   address: {
     content: model.address && model.address.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idUserPk: {
@@ -20,7 +20,7 @@ export default (model: User): Schema => ({
 
   email: {
     content: model.email,
-    inputType: InputType.EMAIL,
+    input: InputType.EMAIL,
     meta: {
       required: true,
     },
@@ -29,7 +29,7 @@ export default (model: User): Schema => ({
   password: {
     content: model.password,
     hidden: true,
-    inputType: InputType.PASSWORD,
+    input: InputType.PASSWORD,
     meta: {
       required: true,
     },
@@ -37,7 +37,7 @@ export default (model: User): Schema => ({
 
   name: {
     content: model.name,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -46,7 +46,7 @@ export default (model: User): Schema => ({
 
   primaryPhone: {
     content: model.primaryPhone,
-    inputType: InputType.PHONE,
+    input: InputType.PHONE,
     meta: {
       required: true,
     },
@@ -54,7 +54,7 @@ export default (model: User): Schema => ({
 
   primaryPhoneRegion: {
     content: model.primaryPhoneRegion,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -63,7 +63,7 @@ export default (model: User): Schema => ({
 
   primaryPhoneNumber: {
     content: model.primaryPhoneNumber,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -72,7 +72,7 @@ export default (model: User): Schema => ({
 
   personalDocument: {
     content: model.personalDocument,
-    inputType: InputType.CPF,
+    input: InputType.CPF,
     meta: {
       maxlength: '255',
     },
@@ -80,7 +80,7 @@ export default (model: User): Schema => ({
 
   corporateDocument: {
     content: model.corporateDocument,
-    inputType: InputType.CNPJ,
+    input: InputType.CNPJ,
     meta: {
       maxlength: '255',
     },
@@ -88,7 +88,7 @@ export default (model: User): Schema => ({
 
   corporateName: {
     content: model.corporateName,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -96,7 +96,7 @@ export default (model: User): Schema => ({
 
   tradingName: {
     content: model.tradingName,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -104,7 +104,7 @@ export default (model: User): Schema => ({
 
   creationDate: {
     content: datetime(model.creationDate),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
     meta: {
       required: true,
     },

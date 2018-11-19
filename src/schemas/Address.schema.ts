@@ -15,7 +15,7 @@ export default (model: Address): Schema => ({
 
   zipcode: {
     content: cep(model.zipcode),
-    inputType: InputType.CEP,
+    input: InputType.CEP,
     meta: {
       required: true,
     },
@@ -23,7 +23,7 @@ export default (model: Address): Schema => ({
 
   street: {
     content: model.street,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -32,7 +32,7 @@ export default (model: Address): Schema => ({
 
   number: {
     content: model.number,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -40,7 +40,7 @@ export default (model: Address): Schema => ({
 
   complement: {
     content: model.complement,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -48,7 +48,7 @@ export default (model: Address): Schema => ({
 
   city: {
     content: model.city,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -57,7 +57,7 @@ export default (model: Address): Schema => ({
 
   state: {
     content: model.state,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -66,7 +66,7 @@ export default (model: Address): Schema => ({
 
   latitude: {
     content: model.latitude,
-    inputType: InputType.NUMBER,
+    input: InputType.NUMBER,
     meta: {
       required: true,
       step: 'any',
@@ -75,7 +75,7 @@ export default (model: Address): Schema => ({
 
   longitude: {
     content: model.longitude,
-    inputType: InputType.NUMBER,
+    input: InputType.NUMBER,
     meta: {
       required: true,
       step: 'any',

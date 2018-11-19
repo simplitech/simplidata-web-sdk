@@ -10,7 +10,7 @@ import { Collection } from '../models'
 export default (model: Collection): Schema => ({
   user: {
     content: model.user && model.user.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idCollectionPk: {
@@ -20,7 +20,7 @@ export default (model: Collection): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -29,7 +29,7 @@ export default (model: Collection): Schema => ({
 
   creationDate: {
     content: datetime(model.creationDate),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
     meta: {
       required: true,
     },

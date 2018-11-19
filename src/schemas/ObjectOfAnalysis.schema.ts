@@ -10,47 +10,47 @@ import { ObjectOfAnalysis } from '../models'
 export default (model: ObjectOfAnalysis): Schema => ({
   // category: {
   //   content: model.category && model.category.$id,
-  //   inputType: InputType.SELECT,
+  //   input: InputType.SELECT,
   // },
 
   periodicity: {
     content: model.periodicity && model.periodicity.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   source: {
     content: model.source && model.source.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   unity: {
     content: model.unity && model.unity.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   plan: {
     content: model.plan && model.plan.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   user: {
     content: model.user && model.user.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   oaChartTypeAvailability: {
     hidden: true,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   oaMatchModel: {
     hidden: true,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   oaMatchOa: {
     hidden: true,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idObjectOfAnalysisPk: {
@@ -60,7 +60,7 @@ export default (model: ObjectOfAnalysis): Schema => ({
 
   title: {
     content: model.title,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       required: true,
       maxlength: '255',
@@ -69,7 +69,7 @@ export default (model: ObjectOfAnalysis): Schema => ({
 
   urlFile: {
     content: model.urlFile,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -77,7 +77,7 @@ export default (model: ObjectOfAnalysis): Schema => ({
 
   urlThumbnail: {
     content: model.urlThumbnail,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -85,7 +85,7 @@ export default (model: ObjectOfAnalysis): Schema => ({
 
   comment: {
     content: model.comment,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -93,7 +93,7 @@ export default (model: ObjectOfAnalysis): Schema => ({
 
   idFromSource: {
     content: model.idFromSource,
-    inputType: InputType.TEXT,
+    input: InputType.TEXT,
     meta: {
       maxlength: '255',
     },
@@ -101,7 +101,7 @@ export default (model: ObjectOfAnalysis): Schema => ({
 
   lastUpdate: {
     content: datetime(model.lastUpdate),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
   },
 
   active: {

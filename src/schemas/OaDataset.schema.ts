@@ -10,7 +10,7 @@ import { OaDataset } from '../models'
 export default (model: OaDataset): Schema => ({
   oaVersion: {
     content: model.oaVersion && model.oaVersion.$id,
-    inputType: InputType.SELECT,
+    input: InputType.SELECT,
   },
 
   idOaDatasetPk: {
@@ -20,7 +20,7 @@ export default (model: OaDataset): Schema => ({
 
   creationDate: {
     content: datetime(model.creationDate),
-    inputType: InputType.DATETIME,
+    input: InputType.DATETIME,
     meta: {
       required: true,
     },
