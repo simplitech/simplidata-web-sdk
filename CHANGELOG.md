@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v1.0.0...v1.1.0) (2018-11-19)
+
+
+### Bug Fixes
+
+* Renamed input-group to input-text (new version in simpli-web-sdk) ([c89cf61](https://github.com/simplitech/simplidata-web-sdk/commit/c89cf61))
+
+
+### Features
+
+* **Chart:** poder filtrar o período do gráfico por data inicio e fim a tem o mesmo efeito de seleci ([ac31e26](https://github.com/simplitech/simplidata-web-sdk/commit/ac31e26))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v0.7.1...v1.0.0) (2018-11-14)
 
