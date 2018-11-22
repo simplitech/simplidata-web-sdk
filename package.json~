@@ -6,7 +6,7 @@
   "typings": "lib/main.d.ts",
   "module": "lib/main.js",
   "es2015": "lib-esm/main.js",
-  "author": "Felipe Gibran Eleuterio Toledo",
+  "author": ["Felipe Gibran Eleuterio Toledo","Gil Lopes Bueno"],
   "license": "MIT",
   "homepage": "https://github.com/simplitech/simplidata-web-sdk#readme",
   "repository": {
@@ -20,7 +20,6 @@
     "sdk",
     "analytics"
   ],
-
   "bugs": {
     "url": "https://github.com/simplitech/simplidata-web-sdk/issues"
   },
