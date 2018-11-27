@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.0"></a>
+# [2.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v1.1.2...v2.0.0) (2018-11-27)
+
+
+### Features
+
+* **Chart:** Multiplas transformations para cada indicador do gráfico ([2abc8d1](https://github.com/simplitech/simplidata-web-sdk/commit/2abc8d1))
+
+
+### BREAKING CHANGES
+
+* **Chart:** datasetHolder refactored to itensRFU
+
+fix MCR-141
+
+
+
 <a name="1.1.2"></a>
 ## [1.1.2](https://github.com/simplitech/simplidata-web-sdk/compare/v1.1.1...v1.1.2) (2018-11-22)
 
