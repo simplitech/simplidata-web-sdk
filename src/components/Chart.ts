@@ -54,42 +54,65 @@ const template = `
 
       </div>
 
-      <div v-if="selectedOa && selectedOa.$id && showObjectOfAnalysisInfo"
+      <div v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.$id && showObjectOfAnalysisInfo"
       class="rightpanel verti w-300 pl-30">
 
-        <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOa.title }}</h1>
+        <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.objectOfAnalysis.title }}</h1>
 
-        <div class="description mb-25">{{ selectedOa.comment }}</div>
+        <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
 
-        <select-group v-if="showTransformationControl"
-          class="mb-40"
-          :label="$t('view.chart.transformation')"
-          :empty="$t('view.chart.none')"
-          v-model="value.transformationType"
-          :items="allTransformationTypes.items"/>
+        <div v-if="showTransformationControl" class="transformations mb-30 py-10 verti">
+        
+          <div class="horiz items-center">
+            <div class="transformationTitle weight-1">{{ $t('view.chart.transformation') }}</div>
+            <a class="addTransformation" v-popover="{ name: 'sg' + _uid }">{{ $t('view.chart.add') }}</a>
+          </div>
+          
+          <transition name="fade-down" mode="out-in">
+            <popover :name="'sg' + _uid" ref="popover">
+              <div v-for="i in allTransformationTypes.items"
+              :key="i.$id"
+              class="liTC px-15 py-10"
+              @click="addTransformation(i)">
+               {{ i.$tag }}
+              </div>
+            </popover>
+          </transition>
+          
+          <div class="horiz items-left-center">
+            <div v-for="(t, i) in selectedOaRfu.orderedTransformations" :key="i.$id"
+                 class="transformationItem h-25 horiz items-left-center pl-10 pr-10 m-5">
+              <div class="weight-1 mr-10">
+                 {{ t.title }}
+              </div>
+              <a class="removeTransformation w-8 h-8" @click="removeTransformation(i)"></a>
+            </div>
+          </div>
+          
+        </div>
 
         <div class="horiz mb-10">
           <div class="label weight-1">{{ $t('view.chart.periodicity') }}</div>
-          <div class="value">{{ selectedOa.periodicity.title }}</div>
+          <div class="value">{{ selectedOaRfu.objectOfAnalysis.periodicity.title }}</div>
         </div>
 
         <div class="horiz mb-10">
           <div class="label weight-1">{{ $t('view.chart.unity') }}</div>
-          <div class="value">{{ selectedOa.unity.title }}</div>
+          <div class="value">{{ selectedOaRfu.objectOfAnalysis.unity.title }}</div>
         </div>
 
         <div class="horiz mb-10">
           <div class="label weight-1">{{ $t('view.chart.source') }}</div>
-          <div class="value">{{ selectedOa.source.title }}</div>
+          <div class="value">{{ selectedOaRfu.objectOfAnalysis.source.title }}</div>
         </div>
 
         <div class="horiz mb-30">
           <div class="label weight-1">{{ $t('view.chart.lastUpdate') }}</div>
-          <div class="value">{{ selectedOa.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
+          <div class="value">{{ selectedOaRfu.objectOfAnalysis.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
         </div>
 
         <div v-if="showOaVersionControl"
-          v-for="version in selectedOa.oaVersions"
+          v-for="version in selectedOaRfu.objectOfAnalysis.oaVersions"
           :key="version.idOaVersionPk"
           class="version horiz items-center mb-9 pl-30"
           :class="{ selected: version.$id === selectedOaSelectedVersionId }"
@@ -115,6 +138,7 @@ const template = `
 import moment from 'moment'
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
+import { Popover } from 'vue-js-popover'
 import {
   ChartType,
   TransformationType,
@@ -127,15 +151,17 @@ import {
   OaVersionStatus,
   ChartGraphic,
   UserSavedChart,
-  WithDataset,
   OaData,
+  ItemRFU,
+  ObjectOfAnalysisRFU,
 } from '../models'
+
 import { Collection } from 'simpli-web-sdk'
 import SelectGroup from './SelectGroup'
 import { colors } from '../const/colors.const'
 
 export interface MapOfDateAndValues {
-  [key: string]: number[]
+  [key: string]: (number | null | undefined)[]
 }
 
 @Component({
@@ -198,8 +224,8 @@ export class Chart extends Vue {
 
   echart: echarts.ECharts | null = null
 
-  get selectedOa() {
-    return this.getDatasetAsOa(this.selectedDatasetIndexOrTheOnly)
+  get selectedOaRfu() {
+    return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
   }
 
   get selectedOaSelectedVersionId() {
@@ -211,29 +237,22 @@ export class Chart extends Vue {
   }
 
   get selectedDatasetIndexOrTheOnly(): number {
-    return this.value && this.value.datasetHolders.length === 1 ? 0 : this.selectedDatasetIndex || 0
+    return this.value && this.value.itensRFU.length === 1 ? 0 : this.selectedDatasetIndex || 0
   }
 
   get chartData() {
-    if (!this.value || !this.value.datasetHolders || !this.value.datasetHolders.length) {
+    if (!this.value || !this.value.itensRFU || !this.value.itensRFU.length) {
       return
     }
 
     const map: MapOfDateAndValues = {}
 
-    this.value.datasetHolders.forEach((item: WithDataset, index: number) => {
+    this.value.itensRFU.forEach((item: ItemRFU, index: number) => {
       if (!this.oaVersionIds) {
         return
       }
 
-      const idVersion = this.oaVersionIds[index || 0]
-      const dataset = item.$dataset(idVersion)
-
-      if (!item || !dataset || !dataset.oaDataList) {
-        return
-      }
-
-      dataset.oaDataList.forEach((data: OaData) => {
+      item.dataListRFU.forEach((data: OaData) => {
         if (!map[data.dt]) {
           map[data.dt] = Array(index).fill(null)
         }
@@ -246,7 +265,7 @@ export class Chart extends Vue {
 
     for (const i in map) {
       if (i) {
-        const spaceLeft = this.value.datasetHolders.length - map[i].length
+        const spaceLeft = this.value.itensRFU.length - map[i].length
         result.push([i, ...map[i], ...Array(spaceLeft).fill(null)])
       }
     }
@@ -263,7 +282,6 @@ export class Chart extends Vue {
       return
     }
 
-    // TODO: talvez precise: this.$set(this.value, 'startDtLimiter',
     this.value.startDtLimiter = this.dtLimiterFromIndex(val)
   }
 
@@ -289,18 +307,40 @@ export class Chart extends Vue {
       dataset: {
         source: this.chartData,
       },
-      series: this.value.datasetHolders.map(d => ({
+      series: this.value.itensRFU.map(d => ({
         type: 'line',
         smooth: true,
       })),
     })
   }
 
-  @Watch('selectedOa.idObjectOfAnalysisPk')
+  @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
   @Watch('showObjectOfAnalysisInfo')
   async resizeChartOnSelectOa() {
     await this.$nextTick()
     this.echart && this.echart.resize()
+  }
+
+  @Watch('selectedOaRfu.orderedTransformations')
+  @Watch('oaVersionIds')
+  @Watch('value.startDtLimiter')
+  @Watch('value.endDtLimiter')
+  refreshDataListRFU() {
+    if (!this.value) {
+      return
+    }
+
+    this.value.itensRFU.forEach((irfu, i) => {
+      if (irfu && irfu instanceof ObjectOfAnalysisRFU) {
+        const oarfu = irfu as ObjectOfAnalysisRFU
+        if (oarfu.objectOfAnalysis && this.oaVersionIds) {
+          oarfu.oaVersion = oarfu.objectOfAnalysis.getVersionById(this.oaVersionIds[i])
+          if (this.value) {
+            oarfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter)
+          }
+        }
+      }
+    })
   }
 
   async mounted() {
@@ -316,20 +356,21 @@ export class Chart extends Vue {
     this.$set(this.oaVersionIds, this.selectedDatasetIndexOrTheOnly, id)
   }
 
-  getDatasetAsOa(index?: number) {
-    const defaultResp = new ObjectOfAnalysis()
-
+  getRfuAsOaRfu(index?: number) {
     if (index === undefined || !this.value) {
-      return defaultResp
+      return null
     }
 
-    const dataset: WithDataset = this.value.datasetHolders[index]
+    const itemRfu: ItemRFU = this.value.itensRFU[index]
 
-    if (dataset && dataset.$name === 'ObjectOfAnalysis') {
-      return dataset as ObjectOfAnalysis
-    } else {
-      return defaultResp
+    if (itemRfu && itemRfu instanceof ObjectOfAnalysisRFU) {
+      const oaRfu = itemRfu as ObjectOfAnalysisRFU
+      if (oaRfu) {
+        return oaRfu
+      }
     }
+
+    return null
   }
 
   async populateData() {
@@ -345,28 +386,47 @@ export class Chart extends Vue {
       if (this.savedChartId) {
         await this.value.find(this.savedChartId)
       } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
-        for (const id of this.objectOfAnalysisIds) {
-          if (id) {
+        for (const i in this.objectOfAnalysisIds) {
+          const oaId = this.objectOfAnalysisIds[i]
+          if (oaId) {
             const oa = new ObjectOfAnalysis()
-            await oa.find(id)
-            this.value.datasetHolders.push(oa)
+            await oa.find(oaId)
+            const version = oa.getVersionById(this.oaVersionIds[i])
+            this.value.itensRFU.push(
+              new ObjectOfAnalysisRFU(oa, version, this.value.startDtLimiter, this.value.endDtLimiter)
+            )
           }
         }
       }
     }
 
-    const diff = this.value.datasetHolders.length - this.oaVersionIds.length
+    const diff = this.value.itensRFU.length - this.oaVersionIds.length
 
     for (let i = this.oaVersionIds.length; i < diff; i++) {
-      const oa = this.getDatasetAsOa(i)
-      if (oa && oa.oaVersions.length) {
-        this.oaVersionIds.push(oa.oaVersions[0].idOaVersionPk as number)
+      const oarfu = this.getRfuAsOaRfu(i)
+      if (oarfu && oarfu.objectOfAnalysis && oarfu.objectOfAnalysis.oaVersions.length) {
+        this.oaVersionIds.push(oarfu.objectOfAnalysis.oaVersions[0].idOaVersionPk as number)
       } else {
         this.oaVersionIds.push(0)
       }
     }
 
     this.$emit('dataLoaded')
+  }
+
+  addTransformation(transformation: TransformationType) {
+    // @ts-ignore
+    const component = this.$refs.popover as Popover
+    component.visible = false
+    if (this.selectedOaRfu) {
+      this.selectedOaRfu.orderedTransformations.push(transformation)
+    }
+  }
+
+  removeTransformation(index: number) {
+    if (this.selectedOaRfu) {
+      this.selectedOaRfu.orderedTransformations.splice(index, 1)
+    }
   }
 
   indexLimiterFromDt(dt: string | null, after: boolean) {
@@ -428,7 +488,7 @@ export class Chart extends Vue {
           type: 'slider',
           show: true,
           xAxisIndex: [0],
-          handleStyle: { opacity: 0 },
+          handleStyle: { opacity: 10 },
           borderColor: 'rgba(0,0,0,0)',
           fillerColor: 'rgba(255,255,255,0.1)',
           height: 10,

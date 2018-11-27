@@ -25,6 +25,8 @@ export { User } from './resource/User'
 export { UserSavedChart } from './resource/UserSavedChart'
 export { UserUsedOa } from './resource/UserUsedOa'
 export { WithDataset } from './resource/WithDataset'
+export { ItemRFU } from './resource/ItemRFU'
+export { ObjectOfAnalysisRFU } from './resource/ObjectOfAnalysisRFU'
 
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'

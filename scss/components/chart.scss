@@ -87,4 +87,52 @@
     margin-bottom: 0 !important;
     margin-top: 5px;
   }
+
+  .transformations {
+    border-top: 1px solid #242424;
+    border-bottom: 1px solid #242424;
+
+    .transformationTitle {
+      color: white;
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    .addTransformation {
+      text-transform: uppercase;
+      font-size: 10px;
+    }
+
+    .transformationItem {
+      background: #29FD34;
+      border-radius: 16px;
+      font-size: 10px;
+
+      .removeTransformation {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cpath fill='%231A1A1A' fill-rule='nonzero' d='M7.795 1.195L4.99 4l2.806 2.805a.7.7 0 0 1-.99.99L4 4.989 1.195 7.795a.699.699 0 1 1-.99-.99L3.012 4 .205 1.195a.7.7 0 0 1 .99-.99L4 3.01 6.805.205a.7.7 0 0 1 .99.99z' opacity='.232'/%3E%3C/svg%3E");
+      }
+    }
+
+    .liTC {
+      cursor: pointer;
+      border-radius: 3px;
+      transition: background ease-in-out 400ms;
+
+      &.selected {
+        color: white;
+      }
+      &:hover {
+        background: #1a1a1a;
+      }
+    }
+
+    .vue-popover {
+      background: rgb(36, 36, 36);
+      box-shadow: 0 40px 80px 0 rgba(20, 20, 20, 0.9);
+      color: #acacac;
+      &.dropdown-position-bottom:before {
+        border-bottom-color: rgb(36, 36, 36);
+      }
+    }
+  }
 }

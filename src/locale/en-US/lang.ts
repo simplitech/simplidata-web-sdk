@@ -304,6 +304,7 @@ export default {
       accessAnalysis: 'Access Analysis',
       start: 'Start',
       end: 'End',
+      add: 'Add',
     },
   },
 }

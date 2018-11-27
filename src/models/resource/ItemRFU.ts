@@ -1,9 +1,15 @@
 import { TransformationType } from './TransformationType'
-import { OaDataset } from './OaDataset'
+import { OaData } from './OaData'
 import { BasicLag } from './BasicLag'
+import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
 
 export class ItemRFU {
-  orderedTransformations?: TransformationType[]
-  lag?: BasicLag | number[]
-  datasetRFU?: OaDataset // watch para atualizar conforme objectOfAnalysis, oaVersion, orderedTransformations, lag e periodicityTransformationType
+  readonly $name: string = 'ItemRFU'
+  orderedTransformations: TransformationType[] = []
+  lag?: BasicLag | number[] = []
+  dataListRFU: OaData[] = [] // watch para atualizar conforme objectOfAnalysis, oaVersion, orderedTransformations, lag e periodicityTransformationType
+
+  constructor() {
+    /**/
+  }
 }

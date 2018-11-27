@@ -12,6 +12,7 @@ import { User } from './User'
 import { ChartGraphic } from './ChartGraphic'
 import { WithDataset } from './WithDataset'
 import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
+import { ItemRFU } from './ItemRFU'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -39,8 +40,7 @@ export class UserSavedChart extends Resource {
   chartType = new ChartType()
   startDtLimiter: string | null = null
   endDtLimiter: string | null = null
-  transformationType = new TransformationType()
-  datasetHolders: WithDataset[] = []
+  itensRFU: ItemRFU[] = []
 
   @ResponseSerialize(User)
   user: User | null = null

@@ -304,6 +304,7 @@ export default {
       accessAnalysis: 'Acessar Análise',
       start: 'Início',
       end: 'Fim',
+      add: 'Adicionar',
     },
   },
 }

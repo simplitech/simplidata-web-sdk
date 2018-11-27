@@ -1,4 +1,4 @@
-import { OaDataset } from './OaDataset'
+import { OaData } from './OaData'
 import { ModellingResultRoot } from './ModellingResultRoot'
 import { ModellingResultItem } from './ModellingResultItem'
 
@@ -36,6 +36,6 @@ export class ModellingResult {
   // nos modelos: mqo
   durbinsH?: number
 
-  forecast?: OaDataset
+  forecast?: OaData[] = []
   itemsResults?: ModellingResultItem[]
 }

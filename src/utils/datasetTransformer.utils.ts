@@ -71,7 +71,7 @@ export function sum(dataLists: OaData[][]): OaData[] {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((sum, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return sum + (found ? found.value : 0)
+      return sum + (found && found.value ? found.value : 0)
     }, 0)
     return data
   })
@@ -86,7 +86,7 @@ export function sub(dataLists: OaData[][]) {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((sub, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return sub - (found ? found.value : 0)
+      return sub - (found && found.value ? found.value : 0)
     }, 0)
     return data
   })
@@ -101,7 +101,7 @@ export function division(dataLists: OaData[][]) {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((division, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return division / (found ? found.value : 0)
+      return division / (found && found.value ? found.value : 0)
     }, 0)
     return data
   })
@@ -116,7 +116,7 @@ export function multiply(dataLists: OaData[][]) {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((multiplication, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return multiplication * (found ? found.value : 0)
+      return multiplication * (found && found.value ? found.value : 0)
     }, 0)
     return data
   })
@@ -127,7 +127,7 @@ export function differential(dataList: OaData[]) {
     const data = new OaData(d.dt)
 
     if (i > 0) {
-      data.value = d.value - dataList[i - 1].value
+      data.value = (d.value || 0) - (dataList[i - 1].value || 0)
     }
 
     return data
@@ -135,19 +135,22 @@ export function differential(dataList: OaData[]) {
 }
 
 export function log(dataList: OaData[]) {
-  return dataList.map(d => new OaData(d.dt, Math.log(d.value)))
+  return dataList.map(d => new OaData(d.dt, d.value ? Math.log(d.value) : null))
 }
 
 export function exponential(dataList: OaData[]) {
-  return dataList.map(d => new OaData(d.dt, Math.exp(d.value)))
+  return dataList.map(d => new OaData(d.dt, d.value ? Math.exp(d.value) : null))
 }
 
 export function periodOverPeriodVariation(dataList: OaData[]) {
   return dataList.map((d, i) => {
     const data = new OaData(d.dt)
 
-    if (i > 0) {
-      data.value = d.value / dataList[i - 1].value - 1
+    if (i > 0 && d.value != null) {
+      const d2val = dataList[i - 1].value
+      if (d2val != null) {
+        data.value = d.value / d2val - 1
+      }
     }
 
     return data
@@ -165,7 +168,9 @@ export function monthSpaceVariation(dataList: OaData[], months: number) {
       const djMoment = moment(dj.dt)
 
       if (diMoment.diff(djMoment, 'month') === months) {
-        data.value = di.value / dj.value - 1
+        if (di.value != null && dj.value != null) {
+          data.value = di.value / dj.value - 1
+        }
         break
       }
     }
@@ -175,7 +180,9 @@ export function monthSpaceVariation(dataList: OaData[], months: number) {
 }
 
 export function avgTotal(dataList: OaData[]) {
-  const finalUniqueValue = dataList.reduce((a, b) => a + b.value, 0) / dataList.length
+  const dataListNotNull = dataList.filter(d => d.value != null)
+
+  const finalUniqueValue = dataListNotNull.reduce((a, b) => a + (b.value || 0), 0) / dataListNotNull.length
 
   return dataList.map(d => new OaData(d.dt, finalUniqueValue))
 }
@@ -185,7 +192,10 @@ export function medianTotal(dataList: OaData[]) {
     return dataList
   }
 
-  const orderedValues = dataList.map(d => d.value).sort((a, b) => a - b)
+  const orderedValues = dataList
+    .filter(d => d.value != null)
+    .map(d => d.value || 0)
+    .sort((a, b) => a - b)
 
   const mid = orderedValues.length / 2
 
@@ -195,22 +205,24 @@ export function medianTotal(dataList: OaData[]) {
 }
 
 export function max(dataList: OaData[]) {
-  const finalUniqueValue = dataList.reduce((a, b) => Math.max(a, b.value), 0)
+  const finalUniqueValue = dataList.reduce((a, b) => Math.max(a, b.value || Number.MIN_SAFE_INTEGER), 0)
 
   return dataList.map(d => new OaData(d.dt, finalUniqueValue))
 }
 
 export function min(dataList: OaData[]) {
-  const finalUniqueValue = dataList.reduce((a, b) => Math.min(a, b.value), 0)
+  const finalUniqueValue = dataList.reduce((a, b) => Math.min(a, b.value || Number.MAX_SAFE_INTEGER), 0)
 
   return dataList.map(d => new OaData(d.dt, finalUniqueValue))
 }
 
 export function standardDeviation(dataList: OaData[]) {
-  const avg = dataList.reduce((a, b) => a + b.value, 0) / dataList.length
+  const dataListNotNull = dataList.filter(d => d.value != null)
 
-  const squareDiffs = dataList.map(d => {
-    const diff = d.value - avg
+  const avg = dataListNotNull.reduce((a, b) => a + (b.value || 0), 0) / dataListNotNull.length
+
+  const squareDiffs = dataListNotNull.map(d => {
+    const diff = (d.value || 0) - avg
     return diff * diff
   })
 
@@ -223,6 +235,7 @@ export function standardDeviation(dataList: OaData[]) {
 
 export function mode(dataList: OaData[]) {
   const finalUniqueValue = dataList
+    .filter(d => d.value != null)
     .map(d => d.value)
     .sort((a, b) => {
       const countEqualToA = dataList.filter(d => d.value === a).length
@@ -240,7 +253,7 @@ export function movingAvg(dataList: OaData[], periods: number) {
     const data = new OaData(d.dt)
 
     if (i >= periods - 1) {
-      data.value = dataList.slice(i - (periods - 1), i + 1).reduce<number>((a, b) => a + b.value, 0) / periods
+      data.value = dataList.slice(i - (periods - 1), i + 1).reduce<number>((a, b) => a + (b.value || 0), 0) / periods
     }
 
     return data
@@ -252,7 +265,7 @@ export function cagr(dataList: OaData[], periods: number) {
     const data = new OaData(d.dt)
 
     if (i >= periods) {
-      data.value = Math.pow(d.value / dataList[i - (periods - 1)].value, 1 / 11) - 1
+      data.value = Math.pow((d.value || 0) / (dataList[i - (periods - 1)].value || 0), 1 / 11) - 1
     }
 
     return data
