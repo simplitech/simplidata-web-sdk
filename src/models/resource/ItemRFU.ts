@@ -9,7 +9,7 @@ export class ItemRFU {
   lag?: BasicLag | number[] = []
   dataListRFU: OaData[] = [] // watch para atualizar conforme objectOfAnalysis, oaVersion, orderedTransformations, lag e periodicityTransformationType
 
-  constructor() {
-    /**/
+  get $contentTitle() {
+    return ''
   }
 }

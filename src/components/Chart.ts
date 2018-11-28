@@ -1,25 +1,39 @@
 const template = `
-  <div class="simplidata-chart verti">
+  <div class="simplidata-chart">
 
     <div class="horiz weight-1">
 
       <div class="verti w-40 mt-60">
 
-        <div v-if="showSaveButton" class="chart-save h-40 mb-8 items-center"></div>
+        <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
+          :title="$t('view.chart.saveChartOnCollection')"></a>
+
+        <popover :name="'sg-save' + _uid" ref="popover">
+          <div class="verti">
+            <div v-if="myCollections.items.length" class="saved-collections verti mt-20 mx-10">
+              <a v-for="c in myCollections.items" @click="persistUserSavedChart(c.idCollectionPk)" class="h-30 line-h-30">
+                {{ c.title }}
+              </a>
+              <div class="divisor my-15"></div>
+            </div>
+            <a class="new-collection pl-40 pr-10 h-40 line-h-40" @click="openNewCollection">{{ $t('view.chart.newCollection') }}</a>
+            <a class="download-collection pl-40 pr-10 h-40 line-h-40" @click="downloadCollectionOpen = true">{{ $t('view.chart.download') }}</a>
+          </div>
+        </popover>
 
         <template v-if="showDrawingButtons">
-          <div class="chart-line h-40 mb-8 items-center"></div>
+          <a class="chart-line h-40 mb-8 items-center"></a>
 
-          <div class="chart-pencil h-40 mb-8 items-center"></div>
+          <a class="chart-pencil h-40 mb-8 items-center"></a>
 
-          <div class="chart-text h-40 mb-8 items-center"></div>
+          <a class="chart-text h-40 mb-8 items-center"></a>
         </template>
 
-        <div v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"></div>
+        <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"></a>
 
-        <div v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></div>
+        <a v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></a>
 
-        <div v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"></div>
+        <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"></a>
 
       </div>
 
@@ -65,11 +79,11 @@ const template = `
         
           <div class="horiz items-center">
             <div class="transformationTitle weight-1">{{ $t('view.chart.transformation') }}</div>
-            <a class="addTransformation" v-popover="{ name: 'sg' + _uid }">{{ $t('view.chart.add') }}</a>
+            <a class="addTransformation" v-popover="{ name: 'sg-tc' + _uid }">{{ $t('view.chart.add') }}</a>
           </div>
           
           <transition name="fade-down" mode="out-in">
-            <popover :name="'sg' + _uid" ref="popover">
+            <popover :name="'sg-tc' + _uid" ref="popover">
               <div v-for="i in allTransformationTypes.items"
               :key="i.$id"
               class="liTC px-15 py-10"
@@ -131,11 +145,29 @@ const template = `
       </div>
 
     </div>
+    
+    <div v-if="newCollection" class="scrim fixed top-0 left-0 w-window h-window items-center">
+      <form @submit.prevent="persistCollection" class="popup p-20 w-450 verti items-center">
+        <a @click="newCollection = null" class="close w-20 h-20 self-right"></a>
+        <h1 class="mt-0 mb-40">{{ $t('view.chart.newCollection') }}</h1>
+        <input type="text" v-model="newCollection.title" class="w-300" :placeholder="$t('view.chart.collectionName')"/>
+        <button type="submit" class="submit mt-40 w-300 h-50 mb-30">{{ $t('view.chart.save') }}</button>
+      </form>
+    </div>
+    
+    <div v-if="downloadCollectionOpen" class="scrim fixed top-0 left-0 w-window h-window items-center">
+      <div class="popup p-20 w-450 verti items-center">
+        <a @click="downloadCollectionOpen = false" class="close w-20 h-20 self-right"></a>
+        <h1 class="mt-0 mb-40">{{ $t('view.chart.contentDownload') }}</h1>
+        <a class="squared w-60 h-60 line-h-60 text-center" @click="downloadXls">{{ $t('view.chart.xls') }}</a>
+      </div>
+    </div>
 
   </div>
 `
 
 import moment from 'moment'
+import zipcelx from 'zipcelx'
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
 import { Popover } from 'vue-js-popover'
@@ -154,6 +186,7 @@ import {
   OaData,
   ItemRFU,
   ObjectOfAnalysisRFU,
+  Collection as SDCollection,
 } from '../models'
 
 import { Collection } from 'simpli-web-sdk'
@@ -219,10 +252,14 @@ export class Chart extends Vue {
 
   allChartTypes = new Collection<ChartType>(ChartType)
   allTransformationTypes = new Collection(TransformationType)
+  myCollections = new Collection(SDCollection)
 
   colors = colors
 
   echart: echarts.ECharts | null = null
+
+  newCollection: SDCollection | null = null
+  downloadCollectionOpen = false
 
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
@@ -295,6 +332,10 @@ export class Chart extends Vue {
     }
 
     this.value.endDtLimiter = this.dtLimiterFromIndex(val)
+  }
+
+  openNewCollection() {
+    this.newCollection = new SDCollection()
   }
 
   @Watch('chartData')
@@ -380,11 +421,13 @@ export class Chart extends Vue {
 
     await this.allTransformationTypes.query()
     await this.allChartTypes.query()
+    await this.myCollections.query()
     this.value.chartType = this.allChartTypes.items[0]
 
     if (!this.value.$id) {
       if (this.savedChartId) {
         await this.value.find(this.savedChartId)
+        this.value.parseJson()
       } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
         for (const i in this.objectOfAnalysisIds) {
           const oaId = this.objectOfAnalysisIds[i]
@@ -427,6 +470,84 @@ export class Chart extends Vue {
     if (this.selectedOaRfu) {
       this.selectedOaRfu.orderedTransformations.splice(index, 1)
     }
+  }
+
+  async persistCollection() {
+    if (!this.newCollection || !this.value) {
+      return
+    }
+
+    const resp = await this.newCollection.save<number>()
+    this.newCollection.idCollectionPk = resp.data
+    this.myCollections.items.push(this.newCollection)
+    this.newCollection = null
+    await this.persistUserSavedChart(resp.data)
+  }
+
+  async persistUserSavedChart(idCollection: number | null, idDownloadType: number | null = null) {
+    if (!this.value) {
+      return
+    }
+
+    if (idCollection) {
+      this.value.idCollectionFk = idCollection
+    } else {
+      this.value.collection = null
+    }
+
+    if (idDownloadType) {
+      this.value.idDownloadTypeFk = idDownloadType
+    } else {
+      this.value.downloadType = null
+    }
+
+    this.value.buildJson()
+    await this.value.save()
+    this.$emit('userSavedChart')
+  }
+
+  async downloadXls() {
+    if (!this.value || !this.chartData) {
+      return
+    }
+
+    const data = this.chartData.map(item => {
+      return item.map((value: any, i: number) => {
+        return {
+          value,
+          type: i === 0 ? 'string' : 'number',
+        }
+      })
+    })
+
+    const names = this.value.itensRFU.map((itemrfu, i) => {
+      return {
+        value: itemrfu.$contentTitle,
+        type: 'string',
+      }
+    })
+
+    const filename = this.value.itensRFU.reduce((name, itemrfu) => {
+      return name + (name.length ? ' + ' : '') + itemrfu.$contentTitle
+    }, '')
+
+    await zipcelx({
+      filename,
+      sheet: {
+        data: [
+          [
+            {
+              value: this.$t('view.chart.date'),
+              type: 'string',
+            },
+            ...names,
+          ],
+          ...data,
+        ],
+      },
+    })
+
+    await this.persistUserSavedChart(null, 1)
   }
 
   indexLimiterFromDt(dt: string | null, after: boolean) {

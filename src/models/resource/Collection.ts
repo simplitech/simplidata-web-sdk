@@ -39,7 +39,7 @@ export class Collection extends Resource {
   title: string = ''
 
   @ValidationRequired()
-  creationDate: string = ''
+  creationDate: string | null = null
 
   @ValidationRequired()
   active: boolean = false

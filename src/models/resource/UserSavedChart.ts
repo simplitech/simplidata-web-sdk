@@ -13,6 +13,7 @@ import { ChartGraphic } from './ChartGraphic'
 import { WithDataset } from './WithDataset'
 import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
 import { ItemRFU } from './ItemRFU'
+import { version } from '../../utils'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -36,26 +37,47 @@ export class UserSavedChart extends Resource {
   @ResponseSerialize(DownloadType)
   downloadType: DownloadType | null = null
 
-  graphics: ChartGraphic[] = []
-  chartType = new ChartType()
-  startDtLimiter: string | null = null
-  endDtLimiter: string | null = null
-  itensRFU: ItemRFU[] = []
-
   @ResponseSerialize(User)
   user: User | null = null
 
   idUserChartPk: ID = 0
 
   @ValidationRequired()
-  @ValidationMaxLength(255)
-  json: string = ''
-
-  @ValidationRequired()
-  creationDate: string = ''
+  creationDate: string | null = null
 
   @ValidationRequired()
   active: boolean = false
+
+  @ValidationRequired()
+  @ValidationMaxLength(255)
+  json: string = ''
+
+  // json properties
+  graphics: ChartGraphic[] = []
+  chartType = new ChartType()
+  startDtLimiter: string | null = null
+  endDtLimiter: string | null = null
+  itensRFU: ItemRFU[] = []
+
+  buildJson() {
+    this.json = JSON.stringify({
+      version,
+      graphics: this.graphics,
+      chartType: this.chartType,
+      startDtLimiter: this.startDtLimiter,
+      endDtLimiter: this.endDtLimiter,
+      itensRFU: this.itensRFU,
+    })
+  }
+
+  parseJson() {
+    const jsonParsed = JSON.parse(this.json)
+    this.graphics = jsonParsed.graphics
+    this.chartType = jsonParsed.chartType
+    this.startDtLimiter = jsonParsed.startDtLimiter
+    this.endDtLimiter = jsonParsed.endDtLimiter
+    this.itensRFU = jsonParsed.itensRFU
+  }
 
   get idUserFk() {
     if (!this.user) return 0

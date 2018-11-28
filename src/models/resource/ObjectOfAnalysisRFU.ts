@@ -18,6 +18,14 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     this.refreshDataListRFU(start, end)
   }
 
+  get $contentTitle() {
+    let title = this.objectOfAnalysis ? this.objectOfAnalysis.title : ''
+
+    return this.orderedTransformations.reduce((title, transf) => {
+      return title + ' (' + transf.title + ')'
+    }, title)
+  }
+
   refreshDataListRFU(start?: string | null, end?: string | null) {
     if (!this.oaVersion || !this.oaVersion.lastDataset) {
       return
