@@ -379,7 +379,8 @@ export class Chart extends Vue {
       return
     }
 
-    this.echart.setOption({
+    const option = {
+      ...this.chartOptions, // echarts bug: we need to merge manually instead of merging on setOptions
       dataset: {
         source: this.chartData,
       },
@@ -387,7 +388,9 @@ export class Chart extends Vue {
         type: 'line',
         smooth: true,
       })),
-    })
+    }
+
+    this.echart.setOption(option, true)
   }
 
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
@@ -639,12 +642,8 @@ export class Chart extends Vue {
     return dtMoment.format()
   }
 
-  initEChart() {
-    const el = this.$refs.echart as HTMLDivElement
-
-    this.echart = echarts.init(el)
-
-    this.echart.setOption({
+  get chartOptions() {
+    return {
       grid: { right: 25, left: '7%', top: '5%' },
       tooltip: { trigger: 'axis' },
       xAxis: {
@@ -670,7 +669,15 @@ export class Chart extends Vue {
         },
         { type: 'inside', show: true, xAxisIndex: [0] },
       ],
-    })
+    }
+  }
+
+  initEChart() {
+    const el = this.$refs.echart as HTMLDivElement
+
+    this.echart = echarts.init(el)
+
+    this.echart.setOption(this.chartOptions)
 
     // setTimeout(() => {
     //   if (!this.echart) {
