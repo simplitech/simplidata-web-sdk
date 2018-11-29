@@ -47,15 +47,15 @@ const template = `
             v-model="value.chartType"
             :items="allChartTypes.items"/>
           
-          <input-text
-            v-model="value.startDtLimiter"
-            type="datetime"
+          <input
+            v-model="startStrLimiter"
+            type="date"
             class="w-190 mr-10"
             :placeholder="$t('view.chart.start')"/>
           
-          <input-text
-            v-model="value.endDtLimiter"
-            type="datetime"
+          <input
+            v-model="endStrLimiter"
+            type="date"
             class="w-190"
             :placeholder="$t('view.chart.end')"/>
             
@@ -290,11 +290,14 @@ export class Chart extends Vue {
       }
 
       item.dataListRFU.forEach((data: OaData) => {
-        if (!map[data.dt]) {
-          map[data.dt] = Array(index).fill(null)
+        const dtFormat: string = this.$t('system.format.date').toString()
+        const formattedDate = moment(data.dt).format(dtFormat)
+
+        if (!map[formattedDate]) {
+          map[formattedDate] = Array(index).fill(null)
         }
 
-        map[data.dt].push(data.value)
+        map[formattedDate].push(data.value)
       })
     })
 
@@ -332,6 +335,38 @@ export class Chart extends Vue {
     }
 
     this.value.endDtLimiter = this.dtLimiterFromIndex(val)
+  }
+
+  get startStrLimiter() {
+    return this.value ? this.strLimiterFromDt(this.value.startDtLimiter) : null
+  }
+
+  set startStrLimiter(val) {
+    if (!this.value || !val) {
+      return
+    }
+
+    const dt = this.dtLimiterFromStr(val)
+
+    if (dt) {
+      this.value.startDtLimiter = dt
+    }
+  }
+
+  get endStrLimiter() {
+    return this.value ? this.strLimiterFromDt(this.value.endDtLimiter) : null
+  }
+
+  set endStrLimiter(val) {
+    if (!this.value || !val) {
+      return
+    }
+
+    const dt = this.dtLimiterFromStr(val)
+
+    if (dt) {
+      this.value.endDtLimiter = dt
+    }
   }
 
   openNewCollection() {
@@ -586,6 +621,24 @@ export class Chart extends Vue {
     }
   }
 
+  strLimiterFromDt(dt: string | null) {
+    return dt ? moment(dt).format('YYYY-MM-DD') : null
+  }
+
+  dtLimiterFromStr(dt: string | null) {
+    if (!dt) {
+      return null
+    }
+
+    const dtMoment = moment(dt)
+
+    if (dtMoment.year() < 1000) {
+      return null
+    }
+
+    return dtMoment.format()
+  }
+
   initEChart() {
     const el = this.$refs.echart as HTMLDivElement
 
@@ -593,6 +646,7 @@ export class Chart extends Vue {
 
     this.echart.setOption({
       grid: { right: 25, left: '7%', top: '5%' },
+      tooltip: { trigger: 'axis' },
       xAxis: {
         type: 'category',
         boundaryGap: false,

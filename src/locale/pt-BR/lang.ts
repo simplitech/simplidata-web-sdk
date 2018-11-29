@@ -24,6 +24,10 @@ export default {
       cpfFormat: 'O CPF está com a formatação errada',
       cnpjFormat: 'O CNPJ está com a formatação errada',
     },
+
+    format: {
+      date: 'DD/MM/YYYY',
+    },
   },
 
   classes: {

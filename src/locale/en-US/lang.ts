@@ -24,6 +24,10 @@ export default {
       cpfFormat: 'Wrong format for CPF document',
       cnpjFormat: 'Wrong format for CNPJ document',
     },
+
+    format: {
+      date: 'YYYY/MM/DD',
+    },
   },
 
   classes: {
