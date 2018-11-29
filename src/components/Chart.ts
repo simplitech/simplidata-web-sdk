@@ -68,7 +68,7 @@ const template = `
 
       </div>
 
-      <div v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.$id && showObjectOfAnalysisInfo"
+      <div v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk && showObjectOfAnalysisInfo"
       class="rightpanel verti w-300 pl-30">
 
         <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.objectOfAnalysis.title }}</h1>
@@ -84,17 +84,17 @@ const template = `
           
           <transition name="fade-down" mode="out-in">
             <popover :name="'sg-tc' + _uid" ref="popover">
-              <div v-for="i in allTransformationTypes.items"
-              :key="i.$id"
+              <div v-for="t in allTransformationTypes.items"
+              :key="t.idTransformationTypePk"
               class="liTC px-15 py-10"
-              @click="addTransformation(i)">
-               {{ i.$tag }}
+              @click="addTransformation(t)">
+               {{ t.title }}
               </div>
             </popover>
           </transition>
           
           <div class="horiz items-left-center">
-            <div v-for="(t, i) in selectedOaRfu.orderedTransformations" :key="i.$id"
+            <div v-for="(t, i) in selectedOaRfu.orderedTransformations" :key="i.idTransformationTypePk"
                  class="transformationItem h-25 horiz items-left-center pl-10 pr-10 m-5">
               <div class="weight-1 mr-10">
                  {{ t.title }}
@@ -129,8 +129,8 @@ const template = `
           v-for="version in selectedOaRfu.objectOfAnalysis.oaVersions"
           :key="version.idOaVersionPk"
           class="version horiz items-center mb-9 pl-30"
-          :class="{ selected: version.$id === selectedOaSelectedVersionId }"
-          @click="selectVersion(version.$id)">
+          :class="{ selected: version.idOaVersionPk === selectedOaSelectedVersionId }"
+          @click="selectVersion(version.idOaVersionPk)">
           <div class="weight-1">{{ version.title }}</div>
           <div class="weight-1 text-center">
             {{ version.lastDataset.creationDate | moment($t('dateFormat.datesimple')) }}
@@ -266,7 +266,7 @@ export class Chart extends Vue {
   }
 
   get selectedOaSelectedVersionId() {
-    if (!this.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
+    if (!this.oaVersionIds) {
       return null
     }
 
@@ -459,7 +459,7 @@ export class Chart extends Vue {
     await this.myCollections.query()
     this.value.chartType = this.allChartTypes.items[0]
 
-    if (!this.value.$id) {
+    if (!this.value.idUserChartPk) {
       if (this.savedChartId) {
         await this.value.find(this.savedChartId)
         this.value.parseJson()
