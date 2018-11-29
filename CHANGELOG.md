@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.2"></a>
+## [2.1.2](https://github.com/simplitech/simplidata-web-sdk/compare/v2.1.1...v2.1.2) (2018-11-29)
+
+
+### Bug Fixes
+
+* **CHart:** corrigir seleção de versão (radio não está selecionado por padrão) ([3db00f4](https://github.com/simplitech/simplidata-web-sdk/commit/3db00f4))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v2.1.0...v2.1.1) (2018-11-29)
 
