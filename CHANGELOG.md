@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.1.1"></a>
+## [2.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v2.1.0...v2.1.1) (2018-11-29)
+
+
+### Bug Fixes
+
+* **Chart:** remover hora da seleção de datas + corrigir bug de navegação de período + arrumar format ([a036eb9](https://github.com/simplitech/simplidata-web-sdk/commit/a036eb9))
+
+
+
 <a name="2.1.0"></a>
 # [2.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.0.0...v2.1.0) (2018-11-28)
 
