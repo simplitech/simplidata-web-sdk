@@ -15,11 +15,9 @@ import { Plan } from './Plan'
 import { User } from './User'
 import { Model } from './Model'
 import { OaGroup } from './OaGroup'
-import { WithDataset } from './WithDataset'
-import { OaDataset } from './OaDataset'
 import ObjectOfAnalysisSchema from '../../schemas/ObjectOfAnalysis.schema'
 
-export class ObjectOfAnalysis extends WithDataset {
+export class ObjectOfAnalysis extends Resource {
   static $placeholder: string = 'img/placeholder/graph.png'
 
   readonly $name: string = 'ObjectOfAnalysis'
@@ -40,20 +38,6 @@ export class ObjectOfAnalysis extends WithDataset {
   }
   set $tag(val: TAG) {
     this.title = val
-  }
-
-  $dataset(idVersion: number) {
-    if (!this.oaVersions.length) {
-      return new OaDataset()
-    }
-
-    const version = this.getVersionById(idVersion)
-
-    if (!version) {
-      return new OaDataset()
-    }
-
-    return version.lastDataset || new OaDataset()
   }
 
   get $thumbnail() {

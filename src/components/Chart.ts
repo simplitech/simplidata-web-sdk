@@ -48,20 +48,31 @@ const template = `
             :items="allChartTypes.items"/>
           
           <input
+            v-if="showDateNavigator"
             v-model="startStrLimiter"
             type="date"
             class="w-190 mr-10"
             :placeholder="$t('view.chart.start')"/>
           
           <input
+            v-if="showDateNavigator"
             v-model="endStrLimiter"
             type="date"
             class="w-190"
             :placeholder="$t('view.chart.end')"/>
             
+          <div v-if="showLegend" class="legend p-5 horiz items-left-center">
+            <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="selectedDatasetIndex = i" class="item horiz items-left-center mr-10">
+              <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': colors[i] }"></div>
+              <div class="weight-1">
+                {{ itemRfu.$contentTitle }}
+              </div>
+            </a>
+          </div>
+            
           <div class="weight-1"></div>
 
-          <button class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
+          <button v-if="showAdvancedAnalysisButton" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
         </div>
 
         <div class="weight-1 min-h-400" id="echart" ref="echart"></div>
@@ -140,7 +151,8 @@ const template = `
         
         <div class="weight-1"></div>
         
-        <a v-if="showVisitButton" class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</a>
+        <button v-if="showVisitButton" @click="visit"
+        class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</button>
 
       </div>
 
@@ -238,8 +250,17 @@ export class Chart extends Vue {
   @Prop({ type: Boolean, default: false })
   showOaVersionControl?: boolean
 
+  @Prop({ type: Boolean, default: false })
+  showAdvancedAnalysisButton?: boolean
+
   @Prop({ type: Boolean, default: true })
   showVisitButton?: boolean
+
+  @Prop({ type: Boolean, default: true })
+  showDateNavigator?: boolean
+
+  @Prop({ type: Boolean, default: true })
+  showLegend?: boolean
 
   @Prop({ type: Number })
   chartTypeId?: number
@@ -371,6 +392,10 @@ export class Chart extends Vue {
 
   openNewCollection() {
     this.newCollection = new SDCollection()
+  }
+
+  visit() {
+    this.$emit('visit', this.value)
   }
 
   @Watch('chartData')

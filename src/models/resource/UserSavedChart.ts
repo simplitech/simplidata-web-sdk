@@ -10,10 +10,11 @@ import { DownloadType } from './DownloadType'
 import { TransformationType } from './TransformationType'
 import { User } from './User'
 import { ChartGraphic } from './ChartGraphic'
-import { WithDataset } from './WithDataset'
 import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
 import { ItemRFU } from './ItemRFU'
 import { version } from '../../utils'
+import { plainToClass } from 'class-transformer'
+import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -72,11 +73,23 @@ export class UserSavedChart extends Resource {
 
   parseJson() {
     const jsonParsed = JSON.parse(this.json)
-    this.graphics = jsonParsed.graphics
-    this.chartType = jsonParsed.chartType
+    this.chartType = plainToClass<ChartType, object>(ChartType, jsonParsed.chartType)
     this.startDtLimiter = jsonParsed.startDtLimiter
     this.endDtLimiter = jsonParsed.endDtLimiter
-    this.itensRFU = jsonParsed.itensRFU
+    this.itensRFU = []
+    this.graphics = []
+
+    jsonParsed.itensRFU.forEach((irfu: any) => {
+      if (irfu.$name === 'ObjectOfAnalysisRFU') {
+        this.itensRFU.push(plainToClass<ObjectOfAnalysisRFU, object>(ObjectOfAnalysisRFU, irfu))
+      } else {
+        this.itensRFU.push(plainToClass<ItemRFU, object>(ItemRFU, irfu))
+      }
+    })
+
+    jsonParsed.graphics.forEach((g: any) => {
+      this.graphics.push(plainToClass<ChartGraphic, object>(ChartGraphic, g))
+    })
   }
 
   get idUserFk() {

@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { ResponseSerialize } from 'simpli-web-sdk'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { OaVersion } from './OaVersion'
 import { ItemRFU } from './ItemRFU'
@@ -7,8 +8,14 @@ import { transform } from '../../utils/datasetTransformer.utils'
 
 export class ObjectOfAnalysisRFU extends ItemRFU {
   readonly $name: string = 'ObjectOfAnalysisRFU'
+
+  @ResponseSerialize(ObjectOfAnalysis)
   objectOfAnalysis?: ObjectOfAnalysis
+
+  @ResponseSerialize(OaVersion)
   oaVersion?: OaVersion
+
+  @ResponseSerialize(PeriodicityTransformationType)
   periodicityTransformationType?: PeriodicityTransformationType
 
   constructor(oa?: ObjectOfAnalysis, version?: OaVersion, start?: string | null, end?: string | null) {

@@ -6,6 +6,7 @@ import { ID, Resource, TAG } from 'simpli-web-sdk'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
 import { User } from './User'
 import CollectionSchema from '../../schemas/Collection.schema'
+import { UserSavedChart } from './UserSavedChart'
 
 /* TODO: review generated class */
 export class Collection extends Resource {
@@ -43,6 +44,9 @@ export class Collection extends Resource {
 
   @ValidationRequired()
   active: boolean = false
+
+  @ResponseSerialize(UserSavedChart)
+  userSavedCharts: UserSavedChart[] = []
 
   get idUserFk() {
     if (!this.user) return 0
