@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.1.3...v2.2.0) (2018-11-30)
+
+
+### Features
+
+* **Chart:** legend, more options for hiding parts, event on click to visit; WithDataset removed; bu ([5bca45b](https://github.com/simplitech/simplidata-web-sdk/commit/5bca45b))
+* **Chart:** legend, more options for hiding parts, event on click to visit; WithDataset removed; bu ([4c00e17](https://github.com/simplitech/simplidata-web-sdk/commit/4c00e17))
+
+
+
 <a name="2.1.3"></a>
 ## [2.1.3](https://github.com/simplitech/simplidata-web-sdk/compare/v2.1.2...v2.1.3) (2018-11-29)
 
