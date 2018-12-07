@@ -2,8 +2,9 @@
  * Plan
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource, ResponseSerialize, TAG, ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { PagarmePlan } from '../pagarme/PagarmePlan'
+import { PlanID } from '../../enums/PlanID'
 import PlanSchema from '../../schemas/Plan.schema'
 
 /* TODO: review generated class */
@@ -19,7 +20,7 @@ export class Plan extends Resource {
     return this.idPlanPk
   }
   set $id(val: ID) {
-    this.idPlanPk = val
+    this.idPlanPk = val as PlanID
   }
   get $tag() {
     return this.title
@@ -28,7 +29,10 @@ export class Plan extends Resource {
     this.title = val
   }
 
-  idPlanPk: ID = 0
+  @ResponseSerialize(PagarmePlan)
+  pagarmePlan: PagarmePlan = new PagarmePlan()
+
+  idPlanPk: PlanID = PlanID.NO_PLAN
 
   @ValidationRequired()
   @ValidationMaxLength(100)

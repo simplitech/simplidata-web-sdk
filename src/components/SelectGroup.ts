@@ -32,7 +32,7 @@ const template = `
 `
 
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { Resource } from 'simpli-web-sdk'
+import { Resource } from '../simpli'
 import { plainToClassFromExist } from 'class-transformer'
 import { Popover } from 'vue-js-popover'
 

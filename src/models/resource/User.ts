@@ -2,7 +2,7 @@
  * User
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
+import { $, encrypt, ID, Resource, TAG, Resp } from '../../simpli'
 import {
   ResponseHidden,
   ResponseSerialize,
@@ -10,8 +10,12 @@ import {
   ValidationMaxLength,
   ValidationPasswordLength,
   ValidationRequired,
-} from 'simpli-web-sdk'
+} from '../../simpli'
 import { Address } from './Address'
+import { PagarmeSubscription } from '../pagarme/PagarmeSubscription'
+import { PagarmeCard } from '../pagarme/PagarmeCard'
+import { SubscriptionRequest } from '../request/SubscriptionRequest'
+import { SubscriptionResponse } from '../response/SubscriptionResponse'
 import UserSchema from '../../schemas/User.schema'
 
 /* TODO: review generated class */
@@ -44,6 +48,12 @@ export class User extends Resource {
 
   @ResponseSerialize(Address)
   address: Address = new Address()
+
+  @ResponseSerialize(PagarmeSubscription)
+  pagarmeSubscription: PagarmeSubscription = new PagarmeSubscription()
+
+  @ResponseSerialize(PagarmeCard)
+  pagarmeCard: PagarmeCard = new PagarmeCard()
 
   idUserPk: ID = 0
 
@@ -108,5 +118,22 @@ export class User extends Resource {
       this.primaryPhoneRegion = ''
       this.primaryPhoneNumber = ''
     }
+  }
+
+  async persistSubscription(request: SubscriptionRequest): Promise<Resp<SubscriptionResponse>> {
+    const fetch = async () => {
+      await request.validate()
+      return await this.POST(`/User/Subscription`, request)
+    }
+    return await $.await.run(fetch, 'persistSubscription')
+  }
+
+  async cancelSubscription(password: string) {
+    const body = encrypt(password)
+
+    const fetch = async () => {
+      return await this.DELETE(`/User/Subscription`, { body })
+    }
+    return await $.await.run(fetch, 'cancelSubscription')
   }
 }

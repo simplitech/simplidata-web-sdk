@@ -1,0 +1,7 @@
+export enum PlanID {
+  NO_PLAN = 0,
+  GOLD_MONTHLY = 1,
+  GOLD_YEARLY = 2,
+  PLATINUM_MONTHLY = 3,
+  PLATINUM_YEARLY = 4,
+}

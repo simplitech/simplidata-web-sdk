@@ -1,5 +1,5 @@
 import moment from 'moment'
-import { ResponseSerialize } from 'simpli-web-sdk'
+import { ResponseSerialize } from '../../simpli'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { OaVersion } from './OaVersion'
 import { ItemRFU } from './ItemRFU'

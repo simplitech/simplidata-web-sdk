@@ -2,8 +2,8 @@
  * AuthResponse
  * @author Simpli© CLI generator
  */
-import { $, ID, Model, encrypt, Resp, abort, clone } from 'simpli-web-sdk'
-import { ResponseSerialize, ValidationMaxLength } from 'simpli-web-sdk'
+import { $, ID, Model, encrypt, Resp, abort, clone } from '../../simpli'
+import { ResponseSerialize, ValidationMaxLength } from '../../simpli'
 import { plainToClass } from 'class-transformer'
 import { User } from '../resource/User'
 import { Plan } from '../resource/Plan'
@@ -15,13 +15,15 @@ export class AuthResponse extends Model {
   @ValidationMaxLength(255)
   token: string = ''
 
-  id: ID = 0
+  get id() {
+    return this.user.$id
+  }
 
   @ResponseSerialize(User)
   user: User = new User()
 
   @ResponseSerialize(Plan)
-  plan: Plan = new Plan()
+  plan: Plan | null = null
 
   async auth(spinner = 'auth', delay = 0): Promise<Resp<AuthResponse>> {
     const fetch = async () => await this.GET(`/User/Auth`)

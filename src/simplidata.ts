@@ -1,6 +1,6 @@
+import Simpli, { Lang, Currency, HttpStatus, FilterOptions, ComponentOptions, LocaleOptions } from 'simpli-web-sdk'
 import Vue from 'vue'
 import Popover from 'vue-js-popover'
-import Simpli, { Lang, Currency, HttpStatus, FilterOptions, ComponentOptions, LocaleOptions } from 'simpli-web-sdk'
 import VueResource from 'vue-resource'
 import { RouterOptions } from 'vue-router'
 import { merge } from 'lodash'

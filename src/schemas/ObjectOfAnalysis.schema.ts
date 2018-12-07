@@ -2,8 +2,8 @@
  * Schema of ObjectOfAnalysis
  * @author Simpli© CLI generator
  */
-import { InputType, Schema } from 'simpli-web-sdk'
-import { bool, datetime } from 'simpli-web-sdk'
+import { InputType, Schema } from '../simpli'
+import { bool, datetime } from '../simpli'
 import { ObjectOfAnalysis } from '../models'
 
 /* TODO: review generated schema */

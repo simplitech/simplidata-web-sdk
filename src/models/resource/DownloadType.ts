@@ -2,8 +2,8 @@
  * DownloadType
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource, TAG } from '../../simpli'
+import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 import DownloadTypeSchema from '../../schemas/DownloadType.schema'
 
 /* TODO: review generated class */

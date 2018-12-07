@@ -178,9 +178,9 @@ const template = `
   </div>
 `
 
+import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import moment from 'moment'
 import zipcelx from 'zipcelx'
-import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
 import { Popover } from 'vue-js-popover'
 import {
@@ -200,8 +200,7 @@ import {
   ObjectOfAnalysisRFU,
   Collection as SDCollection,
 } from '../models'
-
-import { Collection } from 'simpli-web-sdk'
+import { Collection } from '../simpli'
 import SelectGroup from './SelectGroup'
 import { colors } from '../const/colors.const'
 

@@ -2,8 +2,8 @@
  * UserSavedChart
  * @author Simpli© CLI generator
  */
-import { ID, Resource } from 'simpli-web-sdk'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource } from '../../simpli'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { Collection } from './Collection'
 import { ChartType } from './ChartType'
 import { DownloadType } from './DownloadType'

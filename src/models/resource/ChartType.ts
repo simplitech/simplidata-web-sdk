@@ -2,8 +2,8 @@
  * ChartType
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource, TAG } from '../../simpli'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import ChartTypeSchema from '../../schemas/ChartType.schema'
 
