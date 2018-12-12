@@ -10,7 +10,6 @@ import { PaymentMethod } from '../../enums/PaymentMethod'
 export class PagarmePlan extends Model {
   id: string | null = null
 
-  @ValidationMaxLength(255)
   name: string | null = null
 
   @ValidationMax(1000000)

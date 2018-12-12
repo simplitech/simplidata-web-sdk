@@ -10,7 +10,6 @@ export class PagarmePhone extends Model {
   ddi: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(7)
   ddd: string | null = null
 
   @ValidationRequired()

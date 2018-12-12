@@ -8,17 +8,14 @@ import { ValidationRequired, ValidationMax, ValidationMaxLength } from '../../si
 /* tslint:disable:variable-name */
 export class PagarmeAddress extends Model {
   @ValidationRequired()
-  @ValidationMaxLength(255)
   street: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(255)
   street_number: string | null = null
 
   complementary: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(255)
   neighborhood: string | null = null
 
   @ValidationRequired()

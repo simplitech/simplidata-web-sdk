@@ -3,7 +3,13 @@
  * @author ftgibran
  */
 import { $, Model, ResourceObject } from '../../simpli'
-import { ResponseSerialize, ValidationRequired, ValidationMaxLength, ValidationPasswordLength } from '../../simpli'
+import {
+  ResponseSerialize,
+  ValidationRequired,
+  ValidationEmail,
+  ValidationMaxLength,
+  ValidationPasswordLength,
+} from '../../simpli'
 import { DocumentType } from '../../enums/DocumentType'
 import { PagarmePhone } from './PagarmePhone'
 import { PagarmeAddress } from './PagarmeAddress'
@@ -15,19 +21,18 @@ export class PagarmeCustomer extends Model {
   type: DocumentType | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(255)
   name: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(255)
+  @ValidationEmail()
   email: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(127)
   document_number: string | null = null
 
   document_type: string | null = null
 
+  @ValidationRequired()
   sex: string | null = null
 
   born_at_format: object | null = null
@@ -47,7 +52,7 @@ export class PagarmeCustomer extends Model {
   }
 
   set sexSelected(val: ResourceObject) {
-    this.sex = val.$tag || null
+    this.sex = val.$tag || ''
   }
 
   get sexOptions(): ResourceObject[] {

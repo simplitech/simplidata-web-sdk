@@ -22,19 +22,15 @@ export class PagarmeCard extends Model {
   last_digits: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(63)
   holder_name: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(31)
   card_number: string | null = null
 
   @ValidationRequired()
-  @ValidationMax(10000)
-  cvv: number | null = null
+  cvv: string | null = null
 
   @ValidationRequired()
-  @ValidationMaxLength(7)
   card_expiration_date: string | null = null
 
   date_updated: string | null = null
@@ -60,10 +56,10 @@ export class PagarmeCard extends Model {
       return `${parts[0]} ${parts[1]} ${parts[2]} ${parts[3]}`
     }
 
-    return null
+    return ''
   }
 
-  set cardNumber(val: string | null) {
+  set cardNumber(val: string) {
     this.card_number = val && val.replace(/ /g, '')
   }
 

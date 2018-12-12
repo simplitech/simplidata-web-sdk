@@ -120,9 +120,22 @@ export class User extends Resource {
     }
   }
 
+  async persistSubscriptionWithValidation(request: SubscriptionRequest): Promise<Resp<SubscriptionResponse>> {
+    const fetch = async () => {
+      if (request.card) {
+        await request.card.customer.validate()
+        await request.card.customer.phone.validate()
+        await request.card.validate()
+        await request.card.customer.address.validate()
+      }
+
+      return await this.POST(`/User/Subscription`, request)
+    }
+    return await $.await.run(fetch, 'persistSubscription')
+  }
+
   async persistSubscription(request: SubscriptionRequest): Promise<Resp<SubscriptionResponse>> {
     const fetch = async () => {
-      await request.validate()
       return await this.POST(`/User/Subscription`, request)
     }
     return await $.await.run(fetch, 'persistSubscription')
