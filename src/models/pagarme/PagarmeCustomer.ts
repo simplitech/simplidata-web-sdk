@@ -16,6 +16,8 @@ import { PagarmeAddress } from './PagarmeAddress'
 
 /* tslint:disable:variable-name */
 export class PagarmeCustomer extends Model {
+  readonly $name: string = 'PagarmeCustomer'
+
   id: string | null = null
 
   type: DocumentType | null = null

@@ -7,6 +7,8 @@ import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswor
 
 /* TODO: review generated class */
 export class AuthRequest extends Model {
+  readonly $name: string = 'AuthRequest'
+
   @ValidationMaxLength(100)
   @ValidationEmail()
   email: string | null = null

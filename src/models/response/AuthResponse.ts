@@ -12,6 +12,8 @@ import { ChangePasswordRequest } from '../request/ChangePasswordRequest'
 
 /* TODO: review generated class */
 export class AuthResponse extends Model {
+  readonly $name: string = 'AuthResponse'
+
   @ValidationMaxLength(255)
   token: string = ''
 

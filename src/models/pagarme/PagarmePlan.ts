@@ -8,6 +8,8 @@ import { PaymentMethod } from '../../enums/PaymentMethod'
 
 /* tslint:disable:variable-name */
 export class PagarmePlan extends Model {
+  readonly $name: string = 'PagarmePlan'
+
   id: string | null = null
 
   name: string | null = null

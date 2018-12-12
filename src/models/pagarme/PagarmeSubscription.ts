@@ -13,6 +13,8 @@ import { PagarmeAddress } from './PagarmeAddress'
 
 /* tslint:disable:variable-name */
 export class PagarmeSubscription extends Model {
+  readonly $name: string = 'PagarmeSubscription'
+
   id: string | null = null
 
   status: SubscriptionStatus | null = null

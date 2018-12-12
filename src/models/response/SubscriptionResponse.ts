@@ -9,6 +9,8 @@ import { PagarmeSubscription } from '../pagarme/PagarmeSubscription'
 
 /* TODO: review generated class */
 export class SubscriptionResponse extends Model {
+  readonly $name: string = 'SubscriptionResponse'
+
   @ResponseSerialize(PagarmeSubscription)
   subscription: PagarmeSubscription = new PagarmeSubscription()
 

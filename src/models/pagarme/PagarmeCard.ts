@@ -12,6 +12,8 @@ const YEAR_RANGE = 15
 
 /* tslint:disable:variable-name */
 export class PagarmeCard extends Model {
+  readonly $name: string = 'PagarmeCard'
+
   id: string | null = null
 
   @ResponseSerialize(PagarmeCustomer)

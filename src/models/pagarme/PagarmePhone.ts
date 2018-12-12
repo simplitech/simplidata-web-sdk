@@ -7,6 +7,8 @@ import { ValidationRequired, ValidationMaxLength, ValidationPhone } from '../../
 
 /* tslint:disable:variable-name */
 export class PagarmePhone extends Model {
+  readonly $name: string = 'PagarmePhone'
+
   ddi: string | null = null
 
   @ValidationRequired()
