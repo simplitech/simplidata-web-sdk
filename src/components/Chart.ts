@@ -1,5 +1,5 @@
 const template = `
-  <div class="simplidata-chart">
+  <div class="simplidata-chart verti">
 
     <div class="horiz weight-1">
 
@@ -72,7 +72,7 @@ const template = `
             
           <div class="weight-1"></div>
 
-          <button v-if="showAdvancedAnalysisButton" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
+          <button v-if="showAdvancedAnalysisButton" @click="$emit('onAdvancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
         </div>
 
         <div class="weight-1 min-h-400" id="echart" ref="echart"></div>
@@ -151,7 +151,7 @@ const template = `
         
         <div class="weight-1"></div>
         
-        <button v-if="showVisitButton" @click="visit"
+        <button v-if="showVisitButton" @click="$emit('onVisitClick')"
         class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</button>
 
       </div>
@@ -392,10 +392,6 @@ export class Chart extends Vue {
 
   openNewCollection() {
     this.newCollection = new SDCollection()
-  }
-
-  visit() {
-    this.$emit('visit', this.value)
   }
 
   @Watch('chartData')

@@ -26,6 +26,8 @@ export { UserSavedChart } from './resource/UserSavedChart'
 export { UserUsedOa } from './resource/UserUsedOa'
 export { ItemRFU } from './resource/ItemRFU'
 export { ObjectOfAnalysisRFU } from './resource/ObjectOfAnalysisRFU'
+export { ModelRFU } from './resource/ModelRFU'
+export { ForecastConfig } from './resource/ForecastConfig'
 
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'
