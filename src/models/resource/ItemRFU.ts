@@ -1,4 +1,4 @@
-import { ResponseSerialize } from 'simpli-web-sdk'
+import { ResponseSerialize } from '../../simpli'
 import { TransformationType } from './TransformationType'
 import { OaData } from './OaData'
 import { BasicLag } from './BasicLag'

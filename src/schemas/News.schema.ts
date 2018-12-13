@@ -2,8 +2,8 @@
  * Schema of News
  * @author Simpli© CLI generator
  */
-import { InputType, Schema } from 'simpli-web-sdk'
-import { RenderAnchor, bool, datetime } from 'simpli-web-sdk'
+import { InputType, Schema } from '../simpli'
+import { RenderAnchor, bool, datetime } from '../simpli'
 import { News } from '../models'
 
 /* TODO: review generated schema */

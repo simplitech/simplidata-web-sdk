@@ -2,8 +2,8 @@
  * OaVersionStatus
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
-import { ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource, TAG } from '../../simpli'
+import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 import OaVersionStatusSchema from '../../schemas/OaVersionStatus.schema'
 
 /* TODO: review generated class */

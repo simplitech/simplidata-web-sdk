@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/simplitech/simplidata-web-sdk/compare/v2.3.2...v2.2.1) (2018-12-13)
+
+
+
+<a name="2.3.2"></a>
+## [2.3.2](https://github.com/simplitech/simplidata-web-sdk/compare/v2.3.1...v2.3.2) (2018-12-12)
+
+
+### Bug Fixes
+
+* Fixed fogotten model names ([8a6e5d8](https://github.com/simplitech/simplidata-web-sdk/commit/8a6e5d8))
+
+
+
+<a name="2.3.1"></a>
+## [2.3.1](https://github.com/simplitech/simplidata-web-sdk/compare/v2.3.0...v2.3.1) (2018-12-12)
+
+
+### Bug Fixes
+
+* Fixed Pagarme validator ([f660146](https://github.com/simplitech/simplidata-web-sdk/commit/f660146))
+
+
+
+<a name="2.3.0"></a>
+# [2.3.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.2.0...v2.3.0) (2018-12-07)
+
+
+### Features
+
+* Pagarme ([cc290e1](https://github.com/simplitech/simplidata-web-sdk/commit/cc290e1))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.1.3...v2.2.0) (2018-11-30)
 

@@ -2,8 +2,8 @@
  * OaCategory
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
-import { ValidationMaxLength, ValidationRequired, ResponseSerialize } from 'simpli-web-sdk'
+import { ID, Resource, TAG } from '../../simpli'
+import { ValidationMaxLength, ValidationRequired, ResponseSerialize } from '../../simpli'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { News } from './News'
 import OaCategorySchema from '../../schemas/OaCategory.schema'

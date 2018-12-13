@@ -2,8 +2,8 @@
  * UserUsedOa
  * @author Simpli© CLI generator
  */
-import { ID, Resource } from 'simpli-web-sdk'
-import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource } from '../../simpli'
+import { ResponseSerialize, ValidationRequired } from '../../simpli'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { User } from './User'
 import UserUsedOaSchema from '../../schemas/UserUsedOa.schema'

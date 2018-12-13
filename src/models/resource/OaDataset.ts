@@ -2,8 +2,8 @@
  * OaDataset
  * @author Simpli© CLI generator
  */
-import { ID, Resource } from 'simpli-web-sdk'
-import { ResponseSerialize, ValidationRequired } from 'simpli-web-sdk'
+import { ID, Resource } from '../../simpli'
+import { ResponseSerialize, ValidationRequired } from '../../simpli'
 import { OaVersion } from './OaVersion'
 import { OaData } from './OaData'
 import OaDatasetSchema from '../../schemas/OaDataset.schema'

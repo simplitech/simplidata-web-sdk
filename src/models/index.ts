@@ -32,7 +32,17 @@ export { ForecastConfig } from './resource/ForecastConfig'
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'
 export { ChangePasswordRequest } from './request/ChangePasswordRequest'
+export { SubscriptionRequest } from './request/SubscriptionRequest'
 
 /* *** Response *** */
 export { AuthResponse } from './response/AuthResponse'
 export { MenuResponse } from './response/MenuResponse'
+export { SubscriptionResponse } from './response/SubscriptionResponse'
+
+/* *** Pagarme *** */
+export { PagarmeAddress } from './pagarme/PagarmeAddress'
+export { PagarmeCard } from './pagarme/PagarmeCard'
+export { PagarmeCustomer } from './pagarme/PagarmeCustomer'
+export { PagarmePhone } from './pagarme/PagarmePhone'
+export { PagarmePlan } from './pagarme/PagarmePlan'
+export { PagarmeSubscription } from './pagarme/PagarmeSubscription'

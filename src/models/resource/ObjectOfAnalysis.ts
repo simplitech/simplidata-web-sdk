@@ -2,9 +2,9 @@
  * ObjectOfAnalysis
  * @author Simpli© CLI generator
  */
-import { ID, Resource, TAG } from 'simpli-web-sdk'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
-import { bool, datetime } from 'simpli-web-sdk'
+import { ID, Resource, TAG } from '../../simpli'
+import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { bool, datetime } from '../../simpli'
 import { ChartType } from './ChartType'
 // import { OaCategory } from './OaCategory'
 import { OaPeriodicity } from './OaPeriodicity'

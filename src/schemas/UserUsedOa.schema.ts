@@ -2,8 +2,8 @@
  * Schema of UserUsedOa
  * @author Simpli© CLI generator
  */
-import { InputType, Schema } from 'simpli-web-sdk'
-import { datetime } from 'simpli-web-sdk'
+import { InputType, Schema } from '../simpli'
+import { datetime } from '../simpli'
 import { UserUsedOa } from '../models'
 
 /* TODO: review generated schema */

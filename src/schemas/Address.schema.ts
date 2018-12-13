@@ -2,8 +2,8 @@
  * Schema of Address
  * @author Simpli© CLI generator
  */
-import { InputType, Schema } from 'simpli-web-sdk'
-import { bool, cep } from 'simpli-web-sdk'
+import { InputType, Schema } from '../simpli'
+import { bool, cep } from '../simpli'
 import { Address } from '../models'
 
 /* TODO: review generated schema */

@@ -2,8 +2,8 @@
  * Schema of OaSource
  * @author Simpli© CLI generator
  */
-import { InputType, Schema } from 'simpli-web-sdk'
-import { RenderAnchor, bool } from 'simpli-web-sdk'
+import { InputType, Schema } from '../simpli'
+import { RenderAnchor, bool } from '../simpli'
 import { OaSource } from '../models'
 
 /* TODO: review generated schema */

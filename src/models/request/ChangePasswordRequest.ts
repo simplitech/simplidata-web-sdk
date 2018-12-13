@@ -2,10 +2,12 @@
  * ChangePasswordRequest
  * @author ftgibran
  */
-import { Model } from 'simpli-web-sdk'
-import { $, Resp, ResponseHidden, ValidationPasswordLength } from 'simpli-web-sdk'
+import { Model } from '../../simpli'
+import { $, Resp, ResponseHidden, ValidationPasswordLength } from '../../simpli'
 
 export class ChangePasswordRequest extends Model {
+  readonly $name: string = 'ChangePasswordRequest'
+
   @ResponseHidden()
   @ValidationPasswordLength(6, 100)
   currentPassword: string | null = null

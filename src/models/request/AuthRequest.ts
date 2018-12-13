@@ -2,11 +2,13 @@
  * AuthRequest
  * @author Simpli© CLI generator
  */
-import { Model } from 'simpli-web-sdk'
-import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from 'simpli-web-sdk'
+import { Model } from '../../simpli'
+import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from '../../simpli'
 
 /* TODO: review generated class */
 export class AuthRequest extends Model {
+  readonly $name: string = 'AuthRequest'
+
   @ValidationMaxLength(100)
   @ValidationEmail()
   email: string | null = null

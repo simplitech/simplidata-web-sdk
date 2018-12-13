@@ -2,8 +2,8 @@
  * Address
  * @author Simpli© CLI generator
  */
-import { $, ID, Resource, HttpBody, Resp } from 'simpli-web-sdk'
-import { ValidationCEP, ValidationMaxLength, ValidationRequired } from 'simpli-web-sdk'
+import { $, ID, Resource, HttpBody, Resp } from '../../simpli'
+import { ValidationCEP, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import AddressSchema from '../../schemas/Address.schema'
 
 /* TODO: review generated class */
