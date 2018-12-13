@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.2.2"></a>
+## [2.2.2](https://github.com/simplitech/simplidata-web-sdk/compare/v2.2.1...v2.2.2) (2018-12-13)
+
+
+### Bug Fixes
+
+* **ChartAndModel:** Chart navigation and model parsing ([502b5c7](https://github.com/simplitech/simplidata-web-sdk/commit/502b5c7))
+
+
+
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/simplitech/simplidata-web-sdk/compare/v2.3.2...v2.2.1) (2018-12-13)
 
