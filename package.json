@@ -1,6 +1,6 @@
 {
   "name": "simplidata-web-sdk",
-  "version": "2.3.2",
+  "version": "2.2.0",
   "description": "Simplidata Web SDK",
   "main": "lib/main.js",
   "typings": "lib/main.d.ts",
@@ -74,7 +74,7 @@
   },
   "dependencies": {
     "echarts": "^4.2.0-rc.1",
-    "simpli-web-sdk": "^1.1.2",
+    "simpli-web-sdk": "^1.1.1",
     "vue": "^2.5.17",
     "vue-js-popover": "1.1.7",
     "vue-ctk-date-time-picker": "1.3.5",
@@ -93,7 +93,6 @@
     "gzip-size-cli": "3.0.0",
     "hoek": "5.0.4",
     "husky": "1.1.2",
-    "irish-pub": "0.2.0",
     "jest": "23.6.0",
     "jest-serializer-vue": "2.0.2",
     "lint-staged": "7.3.0",

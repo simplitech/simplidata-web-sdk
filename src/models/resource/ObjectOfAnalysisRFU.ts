@@ -5,6 +5,7 @@ import { OaVersion } from './OaVersion'
 import { ItemRFU } from './ItemRFU'
 import { PeriodicityTransformationType } from './PeriodicityTransformationType'
 import { transform } from '../../utils/datasetTransformer.utils'
+import { OaPeriodicity } from './OaPeriodicity'
 
 export class ObjectOfAnalysisRFU extends ItemRFU {
   readonly $name: string = 'ObjectOfAnalysisRFU'
@@ -33,11 +34,11 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     }, title)
   }
 
-  refreshDataListRFU(start?: string | null, end?: string | null) {
+  refreshDataListRFU(start?: string | null, end?: string | null, periodicity?: OaPeriodicity | null) {
     if (!this.oaVersion || !this.oaVersion.lastDataset) {
       return
     }
-    // atualizar conforme objectOfAnalysis, oaVersion, orderedTransformations, lag e periodicityTransformationType
+
     let result = this.oaVersion.lastDataset.oaDataList
 
     if (this.orderedTransformations.length && (start || end)) {
@@ -49,6 +50,10 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     this.orderedTransformations.forEach(t => {
       result = transform(result, t)
     })
+
+    // TODO: transformar usando lag
+
+    // TODO: transformar usando periodicityTransformationType e periodicity
 
     this.dataListRFU = result
   }
