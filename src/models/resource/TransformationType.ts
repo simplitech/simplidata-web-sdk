@@ -34,5 +34,8 @@ export class TransformationType extends Resource {
   title: string = ''
 
   @ValidationRequired()
+  combiner: boolean = false
+
+  @ValidationRequired()
   active: boolean = false
 }
