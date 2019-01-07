@@ -42,7 +42,6 @@ export class News extends Resource {
   @ValidationMaxLength(255)
   link: string = ''
 
-  @ValidationRequired()
   dataCreation: string = ''
 
   @ValidationRequired()
