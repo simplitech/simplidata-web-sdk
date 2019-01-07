@@ -346,6 +346,14 @@ export default {
         customer: 'Customer',
       },
     },
+    PeriodicityTransformationType: {
+      title: 'Periodicity Transformation Type',
+      columns: {
+        idPeriodicityTransformationTypePk: 'ID',
+        title: 'Title',
+        active: 'Active',
+      },
+    },
     LoginSerialized: {
       title: 'Login Serialized',
       columns: {
