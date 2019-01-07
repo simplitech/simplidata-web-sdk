@@ -108,6 +108,7 @@ export default {
       columns: {
         idTransformationTypePk: 'Id Transformation Type Pk',
         title: 'Title',
+        combiner: 'Combiner',
         active: 'Active',
       },
     },

@@ -24,8 +24,7 @@ export default (model: TransformationType): Schema => ({
 
   combiner: {
     content: bool(model.combiner),
-    hidden: false,
-    editable: true,
+    input: InputType.CHECKBOX,
   },
 
   active: {
