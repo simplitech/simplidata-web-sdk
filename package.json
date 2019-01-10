@@ -72,7 +72,7 @@
       "git add"
     ]
   },
-  "peerDependencies": {
+  "dependencies": {
     "echarts": "^4.2.0-rc.1",
     "simpli-web-sdk": "^1.1.1",
     "vue": "^2.5.17",

@@ -30,7 +30,7 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     let title = this.objectOfAnalysis ? this.objectOfAnalysis.title : ''
 
     return this.orderedTransformations.reduce((title, transf) => {
-      return title + ' (' + transf.title + ')'
+      return title + ' (' + transf.titleWithCombiner + ')'
     }, title)
   }
 

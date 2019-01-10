@@ -2,64 +2,66 @@ import moment from 'moment'
 import { TransformationType } from '../models/resource/TransformationType'
 import { OaData } from '../models/resource/OaData'
 
-export function transformCombining(dataList: OaData[][], transformationType: TransformationType) {
-  switch (transformationType.$id) {
-    case 1:
-      return sum(dataList)
-    case 2:
-      return sub(dataList)
-    case 3:
-      return division(dataList)
-    case 4:
-      return multiply(dataList)
-  }
-}
-
 export function transform(dataList: OaData[], transformationType: TransformationType) {
-  switch (transformationType.$id) {
-    case 5:
-      return differential(dataList)
-    case 6:
-      return log(dataList)
-    case 7:
-      return exponential(dataList)
-    case 8:
-      return periodOverPeriodVariation(dataList)
-    case 9:
-      return monthSpaceVariation(dataList, 3)
-    case 10:
-      return monthSpaceVariation(dataList, 12)
-    case 11:
-      return avgTotal(dataList)
-    case 12:
-      return medianTotal(dataList)
-    case 13:
-      return max(dataList)
-    case 14:
-      return min(dataList)
-    case 15:
-      return standardDeviation(dataList)
-    case 16:
-      return mode(dataList)
-    case 17:
-      return movingAvg(dataList, 2)
-    case 18:
-      return movingAvg(dataList, 3)
-    case 19:
-      return movingAvg(dataList, 4)
-    case 20:
-      return movingAvg(dataList, 6)
-    case 21:
-      return movingAvg(dataList, 12)
-    case 22:
-      return movingAvg(dataList, 24)
-    case 23:
-      return cagr(dataList, 12)
-    case 24:
-      return cagr(dataList, 24)
-    default:
-      return dataList
+  if (transformationType.combiner && transformationType.combineWith) {
+    const allDataLists = [dataList, transformationType.combineWith.dataListRFU]
+
+    switch (transformationType.$id) {
+      case 1:
+        return sum(allDataLists)
+      case 2:
+        return sub(allDataLists)
+      case 3:
+        return division(allDataLists)
+      case 4:
+        return multiply(allDataLists)
+    }
+  } else {
+    switch (transformationType.$id) {
+      case 5:
+        return differential(dataList)
+      case 6:
+        return log(dataList)
+      case 7:
+        return exponential(dataList)
+      case 8:
+        return periodOverPeriodVariation(dataList)
+      case 9:
+        return monthSpaceVariation(dataList, 3)
+      case 10:
+        return monthSpaceVariation(dataList, 12)
+      case 11:
+        return avgTotal(dataList)
+      case 12:
+        return medianTotal(dataList)
+      case 13:
+        return max(dataList)
+      case 14:
+        return min(dataList)
+      case 15:
+        return standardDeviation(dataList)
+      case 16:
+        return mode(dataList)
+      case 17:
+        return movingAvg(dataList, 2)
+      case 18:
+        return movingAvg(dataList, 3)
+      case 19:
+        return movingAvg(dataList, 4)
+      case 20:
+        return movingAvg(dataList, 6)
+      case 21:
+        return movingAvg(dataList, 12)
+      case 22:
+        return movingAvg(dataList, 24)
+      case 23:
+        return cagr(dataList, 12)
+      case 24:
+        return cagr(dataList, 24)
+    }
   }
+
+  return dataList
 }
 
 export function sum(dataLists: OaData[][]): OaData[] {
@@ -86,8 +88,9 @@ export function sub(dataLists: OaData[][]) {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((sub, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return sub - (found && found.value ? found.value : 0)
-    }, 0)
+      const foundValue = found && found.value ? found.value : 0
+      return sub === Number.MIN_SAFE_INTEGER ? foundValue : sub - foundValue
+    }, Number.MIN_SAFE_INTEGER)
     return data
   })
 }
@@ -101,8 +104,9 @@ export function division(dataLists: OaData[][]) {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((division, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return division / (found && found.value ? found.value : 0)
-    }, 0)
+      const foundValue = found && found.value ? found.value : 0
+      return division === Number.MIN_SAFE_INTEGER ? foundValue : division / foundValue
+    }, Number.MIN_SAFE_INTEGER)
     return data
   })
 }
@@ -116,8 +120,9 @@ export function multiply(dataLists: OaData[][]) {
     const data = new OaData(di.dt)
     data.value = dataLists.reduce((multiplication, dataL) => {
       const found = dataL.find(dj => di.dt === dj.dt)
-      return multiplication * (found && found.value ? found.value : 0)
-    }, 0)
+      const foundValue = found && found.value ? found.value : 0
+      return multiplication === Number.MIN_SAFE_INTEGER ? foundValue : multiplication * foundValue
+    }, Number.MIN_SAFE_INTEGER)
     return data
   })
 }

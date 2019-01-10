@@ -411,6 +411,8 @@ export default {
       contentDownload: 'Content download',
       xls: 'XLS',
       date: 'Date',
+      chooseTheOaToCombineInTheTransformation: 'Choose the indicator to combine in the transformation',
+      search: 'Search',
     },
   },
 }

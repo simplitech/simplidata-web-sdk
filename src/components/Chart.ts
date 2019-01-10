@@ -82,7 +82,7 @@ const template = `
       <div v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk && showObjectOfAnalysisInfo"
       class="rightpanel verti w-300 pl-30">
 
-        <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.objectOfAnalysis.title }}</h1>
+        <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.$contentTitle }}</h1>
 
         <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
 
@@ -108,7 +108,7 @@ const template = `
             <div v-for="(t, i) in selectedOaRfu.orderedTransformations" :key="i.idTransformationTypePk"
                  class="transformationItem h-25 horiz items-left-center pl-10 pr-10 m-5">
               <div class="weight-1 mr-10">
-                 {{ t.title }}
+                 {{ t.titleWithCombiner }}
               </div>
               <a class="removeTransformation w-8 h-8" @click="removeTransformation(i)"></a>
             </div>
@@ -174,6 +174,19 @@ const template = `
         <a class="squared w-60 h-60 line-h-60 text-center" @click="downloadXls">{{ $t('view.chart.xls') }}</a>
       </div>
     </div>
+    
+    <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window items-center" style="z-index: 2">
+      <div class="pt-20 verti items-center max-w-600 h-window">
+        <a @click="transformationToChooseCombiner = null" class="close w-20 h-20 self-right"></a>
+        <h1 class="mt-0 mb-40">{{ $t('view.chart.chooseTheOaToCombineInTheTransformation') }}</h1>
+        <input v-model="queryCombiner" @input="debounceSearchCombiner" type="text" class="searchCombiner w-full" :placeholder="$t('view.chart.search')"/>
+        <await name="searchCombinerResult" class="weight-1 y-scroll horiz mt-20">
+          <a v-for="oa in searchCombinerResult.items" @click="$await.run(() => addCombiner(oa), 'searchCombinerResult')" class="m-5">
+            <thumb-oa :oa="oa" :showPlus="false" :showDownload="false" style="width: 280px"/>
+          </a>
+        </await>
+      </div>
+    </div>
 
   </div>
 `
@@ -182,6 +195,7 @@ import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import moment from 'moment'
 import zipcelx from 'zipcelx'
 import echarts from 'echarts'
+import { debounce } from 'lodash'
 import { Popover } from 'vue-js-popover'
 import {
   ChartType,
@@ -270,16 +284,21 @@ export class Chart extends Vue {
   @Prop({ type: Number })
   selectedDatasetIndex?: number
 
+  readonly DEBOUNCE_TIMER = 300
+
   allChartTypes = new Collection<ChartType>(ChartType)
   allTransformationTypes = new Collection(TransformationType)
   myCollections = new Collection(SDCollection)
 
   colors = colors
-
-  echart: echarts.ECharts | null = null
-
   newCollection: SDCollection | null = null
   downloadCollectionOpen = false
+  transformationToChooseCombiner: TransformationType | null = null
+  queryCombiner: string | null = null
+  searchCombinerResult = new Collection(ObjectOfAnalysis)
+  debounceSearchCombiner = debounce(async () => await this.searchCombiner(), this.DEBOUNCE_TIMER)
+
+  echart: echarts.ECharts | null = null
 
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
@@ -389,10 +408,6 @@ export class Chart extends Vue {
     }
   }
 
-  openNewCollection() {
-    this.newCollection = new SDCollection()
-  }
-
   @Watch('chartData')
   updateChartData() {
     if (!this.echart || !this.value) {
@@ -445,6 +460,10 @@ export class Chart extends Vue {
   async mounted() {
     this.initEChart()
     await this.populateData()
+  }
+
+  openNewCollection() {
+    this.newCollection = new SDCollection()
   }
 
   selectVersion(id: number) {
@@ -519,14 +538,39 @@ export class Chart extends Vue {
     // @ts-ignore
     const component = this.$refs.popover as Popover
     component.visible = false
+
+    if (transformation.combiner && !transformation.combineWith) {
+      this.transformationToChooseCombiner = Object.assign(transformation, {})
+      return
+    }
+
     if (this.selectedOaRfu) {
       this.selectedOaRfu.orderedTransformations.push(transformation)
     }
   }
 
+  async addCombiner(oa: ObjectOfAnalysis) {
+    await oa.find(oa.idObjectOfAnalysisPk)
+    if (!this.transformationToChooseCombiner || !oa.oaVersions.length || !oa.oaVersions[0].lastDataset) {
+      return
+    }
+
+    this.transformationToChooseCombiner.combineWith = new ObjectOfAnalysisRFU(oa, oa.oaVersions[0])
+    this.addTransformation(this.transformationToChooseCombiner)
+    this.transformationToChooseCombiner = null
+  }
+
   removeTransformation(index: number) {
     if (this.selectedOaRfu) {
       this.selectedOaRfu.orderedTransformations.splice(index, 1)
+    }
+  }
+
+  async searchCombiner() {
+    if (!this.queryCombiner || !this.queryCombiner.length) {
+      this.searchCombinerResult.items = []
+    } else {
+      await this.searchCombinerResult.query({ query: this.queryCombiner }, 'searchCombinerResult')
     }
   }
 
@@ -614,10 +658,11 @@ export class Chart extends Vue {
     }
 
     const dtMoment = moment(dt)
+    const dtFormat: string = this.$t('system.format.date').toString()
 
     const indexedChartData = this.chartData
       .map((c, i) => ({ ind: i, val: c[0] }))
-      .filter(c => dtMoment.isSame(c.val) || dtMoment.isAfter(c.val) !== after)
+      .filter(c => dtMoment.isSame(moment(c.val, dtFormat)) || dtMoment.isAfter(moment(c.val, dtFormat)) !== after)
 
     indexedChartData.sort((x, y) => {
       const diffXFromDt = Math.abs(dtMoment.diff(x.val, 'minutes'))
@@ -638,7 +683,8 @@ export class Chart extends Vue {
 
   dtLimiterFromIndex(index: number) {
     if (this.chartData && this.chartData[index]) {
-      return this.chartData[index][0]
+      const dtFormat: string = this.$t('system.format.date').toString()
+      return moment(this.chartData[index][0], dtFormat).format('YYYY-MM-DD')
     } else {
       return null
     }
@@ -680,14 +726,8 @@ export class Chart extends Vue {
       dataZoom: [
         {
           type: 'slider',
-          show: true,
-          xAxisIndex: [0],
-          handleStyle: { opacity: 10 },
-          borderColor: 'rgba(0,0,0,0)',
-          fillerColor: 'rgba(255,255,255,0.1)',
-          height: 10,
+          show: false,
         },
-        { type: 'inside', show: true, xAxisIndex: [0] },
       ],
     }
   }
@@ -759,6 +799,7 @@ export class Chart extends Vue {
       xAxisIndex: [0],
     }
 
+    console.log(this.startIndexLimiter)
     dataZoom.startValue = this.startIndexLimiter
     dataZoom.endValue = this.endIndexLimiter
 

@@ -5,6 +5,7 @@
 import { ID, Resource, TAG } from '../../simpli'
 import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 import TransformationTypeSchema from '../../schemas/TransformationType.schema'
+import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
 
 export class TransformationType extends Resource {
   readonly $name: string = 'TransformationType'
@@ -27,6 +28,12 @@ export class TransformationType extends Resource {
     this.title = val
   }
 
+  get titleWithCombiner() {
+    const combinerStr =
+      !this.combineWith || !this.combineWith.objectOfAnalysis ? '' : `: ${this.combineWith.objectOfAnalysis.title}`
+    return this.title + combinerStr
+  }
+
   idTransformationTypePk: ID = 0
 
   @ValidationRequired()
@@ -38,4 +45,6 @@ export class TransformationType extends Resource {
 
   @ValidationRequired()
   active: boolean = false
+
+  combineWith: ObjectOfAnalysisRFU | null = null
 }

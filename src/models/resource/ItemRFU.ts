@@ -2,7 +2,6 @@ import { ResponseSerialize } from '../../simpli'
 import { TransformationType } from './TransformationType'
 import { OaData } from './OaData'
 import { BasicLag } from './BasicLag'
-import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
 
 export class ItemRFU {
   readonly $name: string = 'ItemRFU'
