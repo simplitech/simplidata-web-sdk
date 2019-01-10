@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.5.0"></a>
+# [2.5.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.4.1...v2.5.0) (2019-01-10)
+
+
+### Bug Fixes
+
+* **MCR-164:** Web Admin - lista/persist transformation type - acrescentar novo campo "combiner" (já tá no BD) ([c479432](https://github.com/simplitech/simplidata-web-sdk/commit/c479432))
+* **MCR-167:** Web admin - crud de nova tabela periodicity_transformation_type (já tá no BD) ([6f13794](https://github.com/simplitech/simplidata-web-sdk/commit/6f13794))
+
+
+### Features
+
+* **Chart:** combining transformations ([ce16b6e](https://github.com/simplitech/simplidata-web-sdk/commit/ce16b6e))
+* **MCR-136:** Admin - crud de news ([87e7941](https://github.com/simplitech/simplidata-web-sdk/commit/87e7941))
+
+
+
 <a name="2.4.1"></a>
 ## [2.4.1](https://github.com/simplitech/simplidata-web-sdk/compare/v2.4.0...v2.4.1) (2018-12-14)
 
