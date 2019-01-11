@@ -2,8 +2,9 @@
  * UserSavedChart
  * @author Simpli© CLI generator
  */
+import moment from 'moment'
 import { ID, Resource } from '../../simpli'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { $, ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { Collection } from './Collection'
 import { ChartType } from './ChartType'
 import { DownloadType } from './DownloadType'
@@ -15,6 +16,11 @@ import { ItemRFU } from './ItemRFU'
 import { version } from '../../utils'
 import { plainToClass } from 'class-transformer'
 import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
+import { OaData } from './OaData'
+
+export interface MapOfDateAndValues {
+  [key: string]: (number | null | undefined)[]
+}
 
 /* TODO: review generated class */
 export class UserSavedChart extends Resource {
@@ -48,6 +54,9 @@ export class UserSavedChart extends Resource {
 
   @ValidationRequired()
   active: boolean = false
+
+  // TODO: should this go to json? it was on Chart.ts props
+  oaVersionIds?: number[] = []
 
   @ValidationRequired()
   @ValidationMaxLength(255)
@@ -117,5 +126,41 @@ export class UserSavedChart extends Resource {
   set idDownloadTypeFk(idDownloadTypeFk: ID) {
     if (!this.downloadType) this.downloadType = new DownloadType()
     this.downloadType.$id = idDownloadTypeFk
+  }
+
+  get chartData() {
+    if (!this.itensRFU || !this.itensRFU.length) {
+      return
+    }
+
+    const map: MapOfDateAndValues = {}
+
+    this.itensRFU.forEach((item: ItemRFU, index: number) => {
+      if (!this.oaVersionIds) {
+        return
+      }
+
+      item.dataListRFU.forEach((data: OaData) => {
+        const dtFormat: string = $.t('system.format.date').toString()
+        const formattedDate = moment(data.dt).format(dtFormat)
+
+        if (!map[formattedDate]) {
+          map[formattedDate] = Array(index).fill(null)
+        }
+
+        map[formattedDate].push(data.value)
+      })
+    })
+
+    const result: any[] = []
+
+    for (const i in map) {
+      if (i) {
+        const spaceLeft = this.itensRFU.length - map[i].length
+        result.push([i, ...map[i], ...Array(spaceLeft).fill(null)])
+      }
+    }
+
+    return result
   }
 }

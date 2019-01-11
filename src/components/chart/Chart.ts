@@ -4,78 +4,22 @@ const template = `
     <div class="horiz weight-1">
 
       <!-- TOOL BUTTONS ON THE LEFT -->
-      <div class="verti w-40 mt-60">
-
-        <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
-          :title="$t('view.chart.saveChartOnCollection')"></a>
-
-        <popover :name="'sg-save' + _uid" ref="popover">
-          <div class="verti">
-            <div v-if="myCollections.items.length" class="saved-collections verti mt-20 mx-10">
-              <a v-for="c in myCollections.items" @click="persistUserSavedChart(c.idCollectionPk)" class="h-30 line-h-30">
-                {{ c.title }}
-              </a>
-              <div class="divisor my-15"></div>
-            </div>
-            <a class="new-collection pl-40 pr-10 h-40 line-h-40" @click="openNewCollection">{{ $t('view.chart.newCollection') }}</a>
-            <a class="download-collection pl-40 pr-10 h-40 line-h-40" @click="downloadCollectionOpen = true">{{ $t('view.chart.download') }}</a>
-          </div>
-        </popover>
-
-        <template v-if="showDrawingButtons">
-          <a class="chart-line h-40 mb-8 items-center"></a>
-
-          <a class="chart-pencil h-40 mb-8 items-center"></a>
-
-          <a class="chart-text h-40 mb-8 items-center"></a>
-        </template>
-
-        <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"></a>
-
-        <a v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></a>
-
-        <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"></a>
-
-      </div>
+      <tool-buttons v-model="value" 
+        :showSaveButton="showSaveButton" :showDrawingButtons="showDrawingButtons"
+        :showMeasureButton="showMeasureButton" :showCalcButton="showCalcButton"
+        :showCommentButton="showCommentButton"
+        @userSavedChart="$emit('userSavedChart')"/>
 
       <div class="verti weight-1 mx-5">
 
         <!-- SELECTS AND BUTTONS ON TOP BAR -->
-        <div class="horiz">
-
-          <select-group v-if="showChartTypeControl"
-            class="w-130 mr-40 my-5"
-            :label="$t('view.chart.chartAs')"
-            v-model="value.chartType"
-            :items="allChartTypes.items"/>
-          
-          <input
-            v-if="showDateNavigator"
-            v-model="startStrLimiter"
-            type="date"
-            class="w-190 mr-10"
-            :placeholder="$t('view.chart.start')"/>
-          
-          <input
-            v-if="showDateNavigator"
-            v-model="endStrLimiter"
-            type="date"
-            class="w-190"
-            :placeholder="$t('view.chart.end')"/>
-            
-          <div v-if="showLegend" class="legend p-5 horiz items-left-center">
-            <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="selectedDatasetIndex = i" class="item horiz items-left-center mr-10">
-              <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': colors[i] }"></div>
-              <div class="weight-1">
-                {{ itemRfu.$contentTitle }}
-              </div>
-            </a>
-          </div>
-            
-          <div class="weight-1"></div>
-
-          <button v-if="showAdvancedAnalysisButton" @click="$emit('onAdvancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
-        </div>
+        <top-bar v-model="value"
+          :showChartTypeControl="showChartTypeControl"
+          :showDateNavigator="showDateNavigator"
+          :showLegend="showLegend"
+          :showAdvancedAnalysisButton="showAdvancedAnalysisButton"
+          :selectedDatasetIndex="selectedDatasetIndex"
+          @onAdvancedClick="$emit('onAdvancedClick')"/>
 
         <!-- CHART -->
         <div id="echart" ref="echart" class="weight-1 min-h-400"></div>
@@ -167,27 +111,8 @@ const template = `
 
     </div>
     
-    <!-- NEW COLLECTION FORM MODAL -->
-    <div v-if="newCollection" class="scrim fixed top-0 left-0 w-window h-window items-center">
-      <form @submit.prevent="persistCollection" class="popup p-20 w-450 verti items-center">
-        <a @click="newCollection = null" class="close w-20 h-20 self-right"></a>
-        <h1 class="mt-0 mb-40">{{ $t('view.chart.newCollection') }}</h1>
-        <input type="text" v-model="newCollection.title" class="w-300" :placeholder="$t('view.chart.collectionName')"/>
-        <button type="submit" class="submit mt-40 w-300 h-50 mb-30">{{ $t('view.chart.save') }}</button>
-      </form>
-    </div>
-    
-    <!-- DOWNLOAD COLLECTION MODAL -->
-    <div v-if="downloadCollectionOpen" class="scrim fixed top-0 left-0 w-window h-window items-center">
-      <div class="popup p-20 w-450 verti items-center">
-        <a @click="downloadCollectionOpen = false" class="close w-20 h-20 self-right"></a>
-        <h1 class="mt-0 mb-40">{{ $t('view.chart.contentDownload') }}</h1>
-        <a class="squared w-60 h-60 line-h-60 text-center" @click="downloadXls">{{ $t('view.chart.xls') }}</a>
-      </div>
-    </div>
-    
     <!-- CHOOSE TRANSFORMATION MODAL -->
-    <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window items-center" style="z-index: 2">
+    <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window z-scrim items-center">
       <div class="pt-20 verti items-center max-w-600 h-window">
         <a @click="transformationToChooseCombiner = null" class="close w-20 h-20 self-right"></a>
         <h1 class="mt-0 mb-40">{{ $t('view.chart.chooseTheOaToCombineInTheTransformation') }}</h1>
@@ -205,38 +130,18 @@ const template = `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import moment from 'moment'
-import zipcelx from 'zipcelx'
 import echarts from 'echarts'
 import { debounce } from 'lodash'
 import { Popover } from 'vue-js-popover'
-import {
-  ChartType,
-  TransformationType,
-  ObjectOfAnalysis,
-  OaPeriodicity,
-  OaUnity,
-  OaSource,
-  OaVersion,
-  OaDataset,
-  OaVersionStatus,
-  ChartGraphic,
-  UserSavedChart,
-  OaData,
-  ItemRFU,
-  ObjectOfAnalysisRFU,
-  Collection as SDCollection,
-} from '../models'
-import { Collection } from '../simpli'
-import SelectGroup from './SelectGroup'
-import { colors } from '../const/colors.const'
-
-export interface MapOfDateAndValues {
-  [key: string]: (number | null | undefined)[]
-}
+import { TransformationType, ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU } from '../../models'
+import { Collection } from '../../simpli'
+import ToolButtons from './ToolButtons'
+import TopBar from './TopBar'
+import { colors } from '../../const/colors.const'
 
 @Component({
   template,
-  components: { SelectGroup },
+  components: { ToolButtons, TopBar },
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -290,21 +195,14 @@ export class Chart extends Vue {
   @Prop({ type: Number })
   chartTypeId?: number
 
-  @Prop({ type: Array, default: () => [] })
-  oaVersionIds?: number[]
-
   @Prop({ type: Number })
   selectedDatasetIndex?: number
 
   readonly DEBOUNCE_TIMER = 300
 
-  allChartTypes = new Collection<ChartType>(ChartType)
   allTransformationTypes = new Collection(TransformationType)
-  myCollections = new Collection(SDCollection)
 
   colors = colors
-  newCollection: SDCollection | null = null
-  downloadCollectionOpen = false
   transformationToChooseCombiner: TransformationType | null = null
   queryCombiner: string | null = null
   searchCombinerResult = new Collection(ObjectOfAnalysis)
@@ -317,51 +215,15 @@ export class Chart extends Vue {
   }
 
   get selectedOaSelectedVersionId() {
-    if (!this.oaVersionIds) {
+    if (!this.value || !this.value.oaVersionIds) {
       return null
     }
 
-    return this.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
+    return this.value.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
   }
 
   get selectedDatasetIndexOrTheOnly(): number {
     return this.value && this.value.itensRFU.length === 1 ? 0 : this.selectedDatasetIndex || 0
-  }
-
-  get chartData() {
-    if (!this.value || !this.value.itensRFU || !this.value.itensRFU.length) {
-      return
-    }
-
-    const map: MapOfDateAndValues = {}
-
-    this.value.itensRFU.forEach((item: ItemRFU, index: number) => {
-      if (!this.oaVersionIds) {
-        return
-      }
-
-      item.dataListRFU.forEach((data: OaData) => {
-        const dtFormat: string = this.$t('system.format.date').toString()
-        const formattedDate = moment(data.dt).format(dtFormat)
-
-        if (!map[formattedDate]) {
-          map[formattedDate] = Array(index).fill(null)
-        }
-
-        map[formattedDate].push(data.value)
-      })
-    })
-
-    const result: any[] = []
-
-    for (const i in map) {
-      if (i) {
-        const spaceLeft = this.value.itensRFU.length - map[i].length
-        result.push([i, ...map[i], ...Array(spaceLeft).fill(null)])
-      }
-    }
-
-    return result
   }
 
   get startIndexLimiter() {
@@ -388,39 +250,7 @@ export class Chart extends Vue {
     this.value.endDtLimiter = this.dtLimiterFromIndex(val)
   }
 
-  get startStrLimiter() {
-    return this.value ? this.strLimiterFromDt(this.value.startDtLimiter) : null
-  }
-
-  set startStrLimiter(val) {
-    if (!this.value || !val) {
-      return
-    }
-
-    const dt = this.dtLimiterFromStr(val)
-
-    if (dt) {
-      this.value.startDtLimiter = dt
-    }
-  }
-
-  get endStrLimiter() {
-    return this.value ? this.strLimiterFromDt(this.value.endDtLimiter) : null
-  }
-
-  set endStrLimiter(val) {
-    if (!this.value || !val) {
-      return
-    }
-
-    const dt = this.dtLimiterFromStr(val)
-
-    if (dt) {
-      this.value.endDtLimiter = dt
-    }
-  }
-
-  @Watch('chartData')
+  @Watch('value.chartData')
   updateChartData() {
     if (!this.echart || !this.value) {
       return
@@ -429,7 +259,7 @@ export class Chart extends Vue {
     const option = {
       ...this.chartOptions, // echarts bug: we need to merge manually instead of merging on setOptions
       dataset: {
-        source: this.chartData,
+        source: this.value.chartData,
       },
       series: this.value.itensRFU.map(d => ({
         type: 'line',
@@ -448,7 +278,7 @@ export class Chart extends Vue {
   }
 
   @Watch('selectedOaRfu.orderedTransformations')
-  @Watch('oaVersionIds')
+  @Watch('value.oaVersionIds')
   @Watch('value.startDtLimiter')
   @Watch('value.endDtLimiter')
   refreshDataListRFU() {
@@ -459,8 +289,8 @@ export class Chart extends Vue {
     this.value.itensRFU.forEach((irfu, i) => {
       if (irfu && irfu instanceof ObjectOfAnalysisRFU) {
         const oarfu = irfu as ObjectOfAnalysisRFU
-        if (oarfu.objectOfAnalysis && this.oaVersionIds) {
-          oarfu.oaVersion = oarfu.objectOfAnalysis.getVersionById(this.oaVersionIds[i])
+        if (oarfu.objectOfAnalysis && this.value && this.value.oaVersionIds) {
+          oarfu.oaVersion = oarfu.objectOfAnalysis.getVersionById(this.value.oaVersionIds[i])
           if (this.value) {
             oarfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter)
           }
@@ -474,16 +304,12 @@ export class Chart extends Vue {
     await this.populateData()
   }
 
-  openNewCollection() {
-    this.newCollection = new SDCollection()
-  }
-
   selectVersion(id: number) {
-    if (!this.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
+    if (!this.value || !this.value.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
       return
     }
 
-    this.$set(this.oaVersionIds, this.selectedDatasetIndexOrTheOnly, id)
+    this.$set(this.value.oaVersionIds, this.selectedDatasetIndexOrTheOnly, id)
   }
 
   getRfuAsOaRfu(index?: number) {
@@ -504,14 +330,11 @@ export class Chart extends Vue {
   }
 
   async populateData() {
-    if (!this.value || !this.oaVersionIds) {
+    if (!this.value || !this.value.oaVersionIds) {
       return
     }
 
     await this.allTransformationTypes.query()
-    await this.allChartTypes.query()
-    await this.myCollections.query()
-    this.value.chartType = this.allChartTypes.items[0]
 
     if (!this.value.idUserChartPk) {
       if (this.savedChartId) {
@@ -523,7 +346,7 @@ export class Chart extends Vue {
           if (oaId) {
             const oa = new ObjectOfAnalysis()
             await oa.find(oaId)
-            const version = oa.getVersionById(this.oaVersionIds[i])
+            const version = oa.getVersionById(this.value.oaVersionIds[i])
             this.value.itensRFU.push(
               new ObjectOfAnalysisRFU(oa, version, this.value.startDtLimiter, this.value.endDtLimiter)
             )
@@ -532,14 +355,14 @@ export class Chart extends Vue {
       }
     }
 
-    const diff = this.value.itensRFU.length - this.oaVersionIds.length
+    const diff = this.value.itensRFU.length - this.value.oaVersionIds.length
 
-    for (let i = this.oaVersionIds.length; i < diff; i++) {
+    for (let i = this.value.oaVersionIds.length; i < diff; i++) {
       const oarfu = this.getRfuAsOaRfu(i)
       if (oarfu && oarfu.objectOfAnalysis && oarfu.objectOfAnalysis.oaVersions.length) {
-        this.oaVersionIds.push(oarfu.objectOfAnalysis.oaVersions[0].idOaVersionPk as number)
+        this.value.oaVersionIds.push(oarfu.objectOfAnalysis.oaVersions[0].idOaVersionPk as number)
       } else {
-        this.oaVersionIds.push(0)
+        this.value.oaVersionIds.push(0)
       }
     }
 
@@ -586,93 +409,15 @@ export class Chart extends Vue {
     }
   }
 
-  async persistCollection() {
-    if (!this.newCollection || !this.value) {
-      return
-    }
-
-    const resp = await this.newCollection.save<number>()
-    this.newCollection.idCollectionPk = resp.data
-    this.myCollections.items.push(this.newCollection)
-    this.newCollection = null
-    await this.persistUserSavedChart(resp.data)
-  }
-
-  async persistUserSavedChart(idCollection: number | null, idDownloadType: number | null = null) {
-    if (!this.value) {
-      return
-    }
-
-    if (idCollection) {
-      this.value.idCollectionFk = idCollection
-    } else {
-      this.value.collection = null
-    }
-
-    if (idDownloadType) {
-      this.value.idDownloadTypeFk = idDownloadType
-    } else {
-      this.value.downloadType = null
-    }
-
-    this.value.buildJson()
-    await this.value.save()
-    this.$emit('userSavedChart')
-  }
-
-  async downloadXls() {
-    if (!this.value || !this.chartData) {
-      return
-    }
-
-    const data = this.chartData.map(item => {
-      return item.map((value: any, i: number) => {
-        return {
-          value,
-          type: i === 0 ? 'string' : 'number',
-        }
-      })
-    })
-
-    const names = this.value.itensRFU.map((itemrfu, i) => {
-      return {
-        value: itemrfu.$contentTitle,
-        type: 'string',
-      }
-    })
-
-    const filename = this.value.itensRFU.reduce((name, itemrfu) => {
-      return name + (name.length ? ' + ' : '') + itemrfu.$contentTitle
-    }, '')
-
-    await zipcelx({
-      filename,
-      sheet: {
-        data: [
-          [
-            {
-              value: this.$t('view.chart.date'),
-              type: 'string',
-            },
-            ...names,
-          ],
-          ...data,
-        ],
-      },
-    })
-
-    await this.persistUserSavedChart(null, 1)
-  }
-
   indexLimiterFromDt(dt: string | null, after: boolean) {
-    if (!this.chartData || !dt) {
+    if (!this.value || !this.value.chartData || !dt) {
       return 0
     }
 
     const dtMoment = moment(dt)
     const dtFormat: string = this.$t('system.format.date').toString()
 
-    const indexedChartData = this.chartData
+    const indexedChartData = this.value.chartData
       .map((c, i) => ({ ind: i, val: c[0] }))
       .filter(c => dtMoment.isSame(moment(c.val, dtFormat)) || dtMoment.isAfter(moment(c.val, dtFormat)) !== after)
 
@@ -694,30 +439,12 @@ export class Chart extends Vue {
   }
 
   dtLimiterFromIndex(index: number) {
-    if (this.chartData && this.chartData[index]) {
+    if (this.value && this.value.chartData && this.value.chartData[index]) {
       const dtFormat: string = this.$t('system.format.date').toString()
-      return moment(this.chartData[index][0], dtFormat).format('YYYY-MM-DD')
+      return moment(this.value.chartData[index][0], dtFormat).format('YYYY-MM-DD')
     } else {
       return null
     }
-  }
-
-  strLimiterFromDt(dt: string | null) {
-    return dt ? moment(dt).format('YYYY-MM-DD') : null
-  }
-
-  dtLimiterFromStr(dt: string | null) {
-    if (!dt) {
-      return null
-    }
-
-    const dtMoment = moment(dt)
-
-    if (dtMoment.year() < 1000) {
-      return null
-    }
-
-    return dtMoment.format()
   }
 
   get chartOptions() {

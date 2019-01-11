@@ -16,14 +16,14 @@ const template = `
         <div 
         class="liSg px-15 py-10"
         :class="{ selected: !computedModel.$id }"
-        @click="computedModel = null">
+        @click="selectEmpty">
          {{ empty }}
         </div>
-        <div v-for="i in computedItems"
-        :key="i.$id"
+        <div v-for="(i, index) in computedItems"
+        :key="index"
         class="liSg px-15 py-10"
         :class="{ selected: computedModel.$id === i.$id }"
-        @click="computedModel = i">
+        @click="selectByIndex(index)">
          {{ i.$tag }}
         </div>
       </popover>
@@ -86,5 +86,23 @@ export default class SelectGroup extends Vue {
       $id: item.$id,
       $tag: item.$tag,
     })) as object[]
+  }
+
+  selectByIndex(index: number) {
+    if (this.items) {
+      // @ts-ignore
+      const component = this.$refs.popover as Popover
+      component.visible = false
+
+      this.$emit('input', this.items[index])
+    }
+  }
+
+  selectEmpty() {
+    // @ts-ignore
+    const component = this.$refs.popover as Popover
+    component.visible = false
+
+    this.$emit('input', null)
   }
 }
