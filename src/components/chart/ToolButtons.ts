@@ -1,5 +1,5 @@
 const template = `
-  <div class="verti w-40 mt-60">
+  <div class="verti w-40">
 
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
       :title="$t('view.chart.saveChartOnCollection')"></a>

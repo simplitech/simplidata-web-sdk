@@ -8,7 +8,8 @@ const template = `
         :showSaveButton="showSaveButton" :showDrawingButtons="showDrawingButtons"
         :showMeasureButton="showMeasureButton" :showCalcButton="showCalcButton"
         :showCommentButton="showCommentButton"
-        @userSavedChart="$emit('userSavedChart')"/>
+        @userSavedChart="$emit('userSavedChart')"
+        class="mt-60"/>
 
       <div class="verti weight-1 mx-5">
 
@@ -22,7 +23,7 @@ const template = `
           @onAdvancedClick="$emit('onAdvancedClick')"/>
 
         <!-- CHART -->
-        <div id="echart" ref="echart" class="weight-1 min-h-400"></div>
+        <e-chart v-model="value" ref="echart" class="min-h-400 weight-1"/>
 
       </div>
 
@@ -129,19 +130,18 @@ const template = `
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
-import moment from 'moment'
-import echarts from 'echarts'
 import { debounce } from 'lodash'
 import { Popover } from 'vue-js-popover'
 import { TransformationType, ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU } from '../../models'
 import { Collection } from '../../simpli'
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
+import EChart from './EChart'
 import { colors } from '../../const/colors.const'
 
 @Component({
   template,
-  components: { ToolButtons, TopBar },
+  components: { ToolButtons, TopBar, EChart },
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -208,8 +208,6 @@ export class Chart extends Vue {
   searchCombinerResult = new Collection(ObjectOfAnalysis)
   debounceSearchCombiner = debounce(async () => await this.searchCombiner(), this.DEBOUNCE_TIMER)
 
-  echart: echarts.ECharts | null = null
-
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
   }
@@ -226,55 +224,14 @@ export class Chart extends Vue {
     return this.value && this.value.itensRFU.length === 1 ? 0 : this.selectedDatasetIndex || 0
   }
 
-  get startIndexLimiter() {
-    return this.value ? this.indexLimiterFromDt(this.value.startDtLimiter, true) : 0
-  }
-
-  set startIndexLimiter(val) {
-    if (!this.value || !val) {
-      return
-    }
-
-    this.value.startDtLimiter = this.dtLimiterFromIndex(val)
-  }
-
-  get endIndexLimiter() {
-    return this.value ? this.indexLimiterFromDt(this.value.endDtLimiter, false) : 0
-  }
-
-  set endIndexLimiter(val) {
-    if (!this.value || !val) {
-      return
-    }
-
-    this.value.endDtLimiter = this.dtLimiterFromIndex(val)
-  }
-
-  @Watch('value.chartData')
-  updateChartData() {
-    if (!this.echart || !this.value) {
-      return
-    }
-
-    const option = {
-      ...this.chartOptions, // echarts bug: we need to merge manually instead of merging on setOptions
-      dataset: {
-        source: this.value.chartData,
-      },
-      series: this.value.itensRFU.map(d => ({
-        type: 'line',
-        smooth: true,
-      })),
-    }
-
-    this.echart.setOption(option, true)
-  }
-
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
   @Watch('showObjectOfAnalysisInfo')
   async resizeChartOnSelectOa() {
+    // @ts-ignore
+    const echart = this.$refs.echart as EChart
+
     await this.$nextTick()
-    this.echart && this.echart.resize()
+    echart.resize()
   }
 
   @Watch('selectedOaRfu.orderedTransformations')
@@ -300,7 +257,6 @@ export class Chart extends Vue {
   }
 
   async mounted() {
-    this.initEChart()
     await this.populateData()
   }
 
@@ -407,155 +363,5 @@ export class Chart extends Vue {
     } else {
       await this.searchCombinerResult.query({ query: this.queryCombiner }, 'searchCombinerResult')
     }
-  }
-
-  indexLimiterFromDt(dt: string | null, after: boolean) {
-    if (!this.value || !this.value.chartData || !dt) {
-      return 0
-    }
-
-    const dtMoment = moment(dt)
-    const dtFormat: string = this.$t('system.format.date').toString()
-
-    const indexedChartData = this.value.chartData
-      .map((c, i) => ({ ind: i, val: c[0] }))
-      .filter(c => dtMoment.isSame(moment(c.val, dtFormat)) || dtMoment.isAfter(moment(c.val, dtFormat)) !== after)
-
-    indexedChartData.sort((x, y) => {
-      const diffXFromDt = Math.abs(dtMoment.diff(x.val, 'minutes'))
-      const diffYFromDt = Math.abs(dtMoment.diff(y.val, 'minutes'))
-      return diffXFromDt > diffYFromDt ? 1 : diffXFromDt === diffYFromDt ? 0 : -1
-    })
-
-    if (indexedChartData.length) {
-      const index = indexedChartData[0].ind
-
-      if (index !== -1) {
-        return index
-      }
-    }
-
-    return 0
-  }
-
-  dtLimiterFromIndex(index: number) {
-    if (this.value && this.value.chartData && this.value.chartData[index]) {
-      const dtFormat: string = this.$t('system.format.date').toString()
-      return moment(this.value.chartData[index][0], dtFormat).format('YYYY-MM-DD')
-    } else {
-      return null
-    }
-  }
-
-  get chartOptions() {
-    return {
-      grid: { right: 25, left: '7%', top: '5%' },
-      tooltip: { trigger: 'axis' },
-      xAxis: {
-        type: 'category',
-        boundaryGap: false,
-      },
-      yAxis: {
-        type: 'value',
-        axisLine: { show: false },
-        splitLine: { lineStyle: { opacity: 0.1 } },
-        boundaryGap: false,
-      },
-      color: this.colors,
-      dataZoom: [
-        {
-          type: 'slider',
-          show: false,
-        },
-      ],
-    }
-  }
-
-  initEChart() {
-    const el = this.$refs.echart as HTMLDivElement
-
-    this.echart = echarts.init(el)
-
-    this.echart.setOption(this.chartOptions)
-
-    // setTimeout(() => {
-    //   if (!this.echart) {
-    //     return
-    //   }
-    //
-    //   this.echart.setOption({
-    //     graphic: [
-    //       {
-    //         type: 'text',
-    //         position: this.value.graphics[0].getPosition(this.echart),
-    //         z: 100,
-    //         style: {
-    //           fill: '#333',
-    //           text: 'Hey dude',
-    //         },
-    //       },
-    //     ],
-    //   })
-    // }, 0)
-
-    this.echart.on('dataZoom', (e: echarts.EChartsDataZoomEvent) => {
-      if (!this.echart || !this.echart.getModel() || !this.value) {
-        return
-      }
-      const axis = this.echart.getModel().option.xAxis[0]
-      this.startIndexLimiter = axis.rangeStart
-      this.endIndexLimiter = axis.rangeEnd
-      this.updateGraphicPos()
-    })
-
-    window.addEventListener('resize', () => {
-      if (!this.echart) {
-        return
-      }
-
-      this.echart.resize()
-    })
-
-    // el.onclick = (e: MouseEvent) => {
-    //   if (!this.echart) {
-    //     return
-    //   }
-    //
-    //   this.value.graphics[0].setPosition(this.echart, e.offsetX, e.offsetY)
-    //
-    //   this.updateGraphicPos()
-    // }
-  }
-
-  @Watch('startIndexLimiter')
-  @Watch('endIndexLimiter')
-  updateDataZoom() {
-    if (!this.echart || !this.value) {
-      return
-    }
-
-    const dataZoom: any = {
-      xAxisIndex: [0],
-    }
-
-    console.log(this.startIndexLimiter)
-    dataZoom.startValue = this.startIndexLimiter
-    dataZoom.endValue = this.endIndexLimiter
-
-    this.echart.setOption({
-      dataZoom,
-    })
-  }
-
-  updateGraphicPos() {
-    if (!this.echart) {
-      return
-    }
-
-    // this.echart.setOption({
-    //   graphic: {
-    //     position: this.value.graphics[0].getPosition(this.echart),
-    //   },
-    // })
   }
 }
