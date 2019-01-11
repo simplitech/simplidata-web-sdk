@@ -28,60 +28,14 @@ const template = `
       </div>
 
       <!-- RIGHTPANEL -->
-      <div v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk && showObjectOfAnalysisInfo"
-        class="rightpanel verti w-300 pl-30">
-
-        <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.$contentTitle }}</h1>
-
-        <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
-
-        <!-- TRANSFORMATIONS EDITOR -->
-        <transformations-editor v-if="showTransformationControl" v-model="value" 
-          :selectedOaRfu="selectedOaRfu" class="mb-30"/>
-
-        <!-- INFOS -->
-        <div class="verti">
-          <div class="horiz mb-10">
-            <div class="label weight-1">{{ $t('view.chart.periodicity') }}</div>
-            <div class="value">{{ selectedOaRfu.objectOfAnalysis.periodicity.title }}</div>
-          </div>
-  
-          <div class="horiz mb-10">
-            <div class="label weight-1">{{ $t('view.chart.unity') }}</div>
-            <div class="value">{{ selectedOaRfu.objectOfAnalysis.unity.title }}</div>
-          </div>
-  
-          <div class="horiz mb-10">
-            <div class="label weight-1">{{ $t('view.chart.source') }}</div>
-            <div class="value">{{ selectedOaRfu.objectOfAnalysis.source.title }}</div>
-          </div>
-  
-          <div class="horiz mb-30">
-            <div class="label weight-1">{{ $t('view.chart.lastUpdate') }}</div>
-            <div class="value">{{ selectedOaRfu.objectOfAnalysis.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
-          </div>
-        </div>
-
-        <!-- VERSION CHOOSER -->
-        <div v-if="showOaVersionControl"
-          v-for="version in selectedOaRfu.objectOfAnalysis.oaVersions"
-          :key="version.idOaVersionPk"
-          class="version horiz items-center mb-9 pl-30"
-          :class="{ selected: version.idOaVersionPk === selectedOaSelectedVersionId }"
-          @click="selectVersion(version.idOaVersionPk)">
-          <div class="weight-1">{{ version.title }}</div>
-          <div class="weight-1 text-center">
-            {{ version.lastDataset.creationDate | moment($t('dateFormat.datesimple')) }}
-          </div>
-          <div class="weight-1 text-right">{{ version.oaVersionStatus.title }}</div>
-        </div>
-        
-        <div class="weight-1"></div>
-        
-        <button v-if="showVisitButton" @click="$emit('onVisitClick')"
-        class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</button>
-
-      </div>
+      <right-panel 
+        v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk && showObjectOfAnalysisInfo"
+        v-model="value"
+        :selectedOaRfu="selectedOaRfu"
+        :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"
+        :showTransformationControl="showTransformationControl"
+        :showVisitButton="showVisitButton"
+        class="w-300"/>
 
     </div>
 
@@ -93,12 +47,11 @@ import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU } from '
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
-import TransformationsEditor from './TransformationsEditor'
-import { colors } from '../../const/colors.const'
+import RightPanel from './RightPanel'
 
 @Component({
   template,
-  components: { ToolButtons, TopBar, EChart, TransformationsEditor },
+  components: { ToolButtons, TopBar, EChart, RightPanel },
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -155,18 +108,8 @@ export class Chart extends Vue {
   @Prop({ type: Number })
   selectedDatasetIndex?: number
 
-  colors = colors
-
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
-  }
-
-  get selectedOaSelectedVersionId() {
-    if (!this.value || !this.value.oaVersionIds) {
-      return null
-    }
-
-    return this.value.oaVersionIds[this.selectedDatasetIndexOrTheOnly]
   }
 
   get selectedDatasetIndexOrTheOnly(): number {
@@ -242,14 +185,6 @@ export class Chart extends Vue {
     }
 
     this.$emit('dataLoaded')
-  }
-
-  selectVersion(id: number) {
-    if (!this.value || !this.value.oaVersionIds || !this.selectedDatasetIndexOrTheOnly) {
-      return
-    }
-
-    this.$set(this.value.oaVersionIds, this.selectedDatasetIndexOrTheOnly, id)
   }
 
   getRfuAsOaRfu(index?: number) {
