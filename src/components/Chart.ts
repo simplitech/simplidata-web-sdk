@@ -3,6 +3,7 @@ const template = `
 
     <div class="horiz weight-1">
 
+      <!-- TOOL BUTTONS ON THE LEFT -->
       <div class="verti w-40 mt-60">
 
         <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
@@ -39,6 +40,7 @@ const template = `
 
       <div class="verti weight-1 mx-5">
 
+        <!-- SELECTS AND BUTTONS ON TOP BAR -->
         <div class="horiz">
 
           <select-group v-if="showChartTypeControl"
@@ -75,17 +77,20 @@ const template = `
           <button v-if="showAdvancedAnalysisButton" @click="$emit('onAdvancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
         </div>
 
-        <div class="weight-1 min-h-400" id="echart" ref="echart"></div>
+        <!-- CHART -->
+        <div id="echart" ref="echart" class="weight-1 min-h-400"></div>
 
       </div>
 
+      <!-- RIGHTPANEL -->
       <div v-if="selectedOaRfu && selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk && showObjectOfAnalysisInfo"
-      class="rightpanel verti w-300 pl-30">
+        class="rightpanel verti w-300 pl-30">
 
         <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.$contentTitle }}</h1>
 
         <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
 
+        <!-- TRANSFORMATION -->
         <div v-if="showTransformationControl" class="transformations mb-30 py-10 verti">
         
           <div class="horiz items-center">
@@ -116,26 +121,30 @@ const template = `
           
         </div>
 
-        <div class="horiz mb-10">
-          <div class="label weight-1">{{ $t('view.chart.periodicity') }}</div>
-          <div class="value">{{ selectedOaRfu.objectOfAnalysis.periodicity.title }}</div>
+        <!-- INFOS -->
+        <div class="verti">
+          <div class="horiz mb-10">
+            <div class="label weight-1">{{ $t('view.chart.periodicity') }}</div>
+            <div class="value">{{ selectedOaRfu.objectOfAnalysis.periodicity.title }}</div>
+          </div>
+  
+          <div class="horiz mb-10">
+            <div class="label weight-1">{{ $t('view.chart.unity') }}</div>
+            <div class="value">{{ selectedOaRfu.objectOfAnalysis.unity.title }}</div>
+          </div>
+  
+          <div class="horiz mb-10">
+            <div class="label weight-1">{{ $t('view.chart.source') }}</div>
+            <div class="value">{{ selectedOaRfu.objectOfAnalysis.source.title }}</div>
+          </div>
+  
+          <div class="horiz mb-30">
+            <div class="label weight-1">{{ $t('view.chart.lastUpdate') }}</div>
+            <div class="value">{{ selectedOaRfu.objectOfAnalysis.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
+          </div>
         </div>
 
-        <div class="horiz mb-10">
-          <div class="label weight-1">{{ $t('view.chart.unity') }}</div>
-          <div class="value">{{ selectedOaRfu.objectOfAnalysis.unity.title }}</div>
-        </div>
-
-        <div class="horiz mb-10">
-          <div class="label weight-1">{{ $t('view.chart.source') }}</div>
-          <div class="value">{{ selectedOaRfu.objectOfAnalysis.source.title }}</div>
-        </div>
-
-        <div class="horiz mb-30">
-          <div class="label weight-1">{{ $t('view.chart.lastUpdate') }}</div>
-          <div class="value">{{ selectedOaRfu.objectOfAnalysis.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
-        </div>
-
+        <!-- VERSION CHOOSER -->
         <div v-if="showOaVersionControl"
           v-for="version in selectedOaRfu.objectOfAnalysis.oaVersions"
           :key="version.idOaVersionPk"
@@ -158,6 +167,7 @@ const template = `
 
     </div>
     
+    <!-- NEW COLLECTION FORM MODAL -->
     <div v-if="newCollection" class="scrim fixed top-0 left-0 w-window h-window items-center">
       <form @submit.prevent="persistCollection" class="popup p-20 w-450 verti items-center">
         <a @click="newCollection = null" class="close w-20 h-20 self-right"></a>
@@ -167,6 +177,7 @@ const template = `
       </form>
     </div>
     
+    <!-- DOWNLOAD COLLECTION MODAL -->
     <div v-if="downloadCollectionOpen" class="scrim fixed top-0 left-0 w-window h-window items-center">
       <div class="popup p-20 w-450 verti items-center">
         <a @click="downloadCollectionOpen = false" class="close w-20 h-20 self-right"></a>
@@ -175,6 +186,7 @@ const template = `
       </div>
     </div>
     
+    <!-- CHOOSE TRANSFORMATION MODAL -->
     <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window items-center" style="z-index: 2">
       <div class="pt-20 verti items-center max-w-600 h-window">
         <a @click="transformationToChooseCombiner = null" class="close w-20 h-20 self-right"></a>
