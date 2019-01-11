@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.0"></a>
+# [3.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.5.0...v3.0.0) (2019-01-11)
+
+
+### Code Refactoring
+
+* **Chart:** extracting ToolButtons and TopBar from Chart ([3cb2582](https://github.com/simplitech/simplidata-web-sdk/commit/3cb2582))
+
+
+### BREAKING CHANGES
+
+* **Chart:** oaVersionIds moved to UserSavedChart
+
+re MCR-169
+
+
+
 <a name="2.5.0"></a>
 # [2.5.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.4.1...v2.5.0) (2019-01-10)
 
