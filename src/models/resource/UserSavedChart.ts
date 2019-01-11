@@ -157,7 +157,8 @@ export class UserSavedChart extends Resource {
     for (const i in map) {
       if (i) {
         const spaceLeft = this.itensRFU.length - map[i].length
-        result.push([i, ...map[i], ...Array(spaceLeft).fill(null)])
+        const spaceArr = spaceLeft > 0 ? Array(spaceLeft).fill(null) : []
+        result.push([i, ...map[i], ...spaceArr])
       }
     }
 

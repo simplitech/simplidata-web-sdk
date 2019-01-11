@@ -1,5 +1,5 @@
 const template = `
-  <div id="echart" ref="echart" class="min-h-400 weight-1"></div>
+  <div id="echart" ref="echart"></div>
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
