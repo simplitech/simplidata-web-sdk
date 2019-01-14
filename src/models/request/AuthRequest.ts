@@ -1,6 +1,6 @@
 /**
  * AuthRequest
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { Model } from '../../simpli'
 import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from '../../simpli'

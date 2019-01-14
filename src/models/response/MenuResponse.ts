@@ -1,6 +1,6 @@
 /**
  * MenuResponse
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { $, Model, Resp, ResponseSerialize } from '../../simpli'
 import { OaCategory } from '../resource/OaCategory'

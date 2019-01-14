@@ -1,6 +1,6 @@
 /**
  * Schema of OaSource
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { InputType, Schema } from '../simpli'
 import { RenderAnchor, bool } from '../simpli'

@@ -1,6 +1,6 @@
 /**
  * SubscriptionRequest
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { Model } from '../../simpli'
 import { ResponseSerialize, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from '../../simpli'

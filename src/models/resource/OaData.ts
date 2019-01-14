@@ -1,6 +1,6 @@
 /**
  * OaData
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { ID, Resource } from '../../simpli'
 import { ResponseSerialize, ValidationRequired } from '../../simpli'

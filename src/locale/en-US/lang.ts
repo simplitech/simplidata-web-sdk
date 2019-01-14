@@ -44,7 +44,7 @@ export default {
     OaSource: {
       title: 'Oa Source',
       columns: {
-        idSourcePk: 'Id Source Pk',
+        idSourcePk: 'ID',
         title: 'Title',
         link: 'Link',
         active: 'Active',
@@ -53,7 +53,7 @@ export default {
     Address: {
       title: 'Address',
       columns: {
-        idAddressPk: 'Id Address Pk',
+        idAddressPk: 'ID',
         zipcode: 'Zipcode',
         street: 'Street',
         number: 'Number',
@@ -97,16 +97,16 @@ export default {
       title: 'Oa Dataset',
       columns: {
         oaVersion: 'Oa Version',
-        idOaDatasetPk: 'Id Oa Dataset Pk',
+        idOaDatasetPk: 'ID Oa Dataset Pk',
         creationDate: 'Creation Date',
         active: 'Active',
-        idOaVersionFk: 'Id Oa Version Fk',
+        idOaVersionFk: 'ID Oa Version',
       },
     },
     TransformationType: {
       title: 'Transformation Type',
       columns: {
-        idTransformationTypePk: 'Id Transformation Type Pk',
+        idTransformationTypePk: 'ID Transformation Type Pk',
         title: 'Title',
         combiner: 'Combiner',
         active: 'Active',
@@ -115,7 +115,7 @@ export default {
     OaPeriodicity: {
       title: 'Oa Periodicity',
       columns: {
-        idOaPeriodicityPk: 'Id Oa Periodicity Pk',
+        idOaPeriodicityPk: 'ID Oa Periodicity Pk',
         title: 'Title',
         active: 'Active',
       },
@@ -125,17 +125,17 @@ export default {
       columns: {
         oaVersionStatus: 'Oa Version Status',
         objectOfAnalysis: 'Object Of Analysis',
-        idOaVersionPk: 'Id Oa Version Pk',
+        idOaVersionPk: 'ID Oa Version Pk',
         title: 'Title',
         active: 'Active',
-        idOaVersionStatusFk: 'Id Oa Version Status Fk',
-        idObjectOfAnalysisFk: 'Id Object Of Analysis Fk',
+        idOaVersionStatusFk: 'ID Oa Version Status',
+        idObjectOfAnalysisFk: 'ID Object Of Analysis',
       },
     },
     OaVersionStatus: {
       title: 'Oa Version Status',
       columns: {
-        idOaVersionStatusPk: 'Id Oa Version Status Pk',
+        idOaVersionStatusPk: 'ID Oa Version Status Pk',
         title: 'Title',
         active: 'Active',
       },
@@ -145,17 +145,17 @@ export default {
       columns: {
         parentGroup: 'Parent Group',
         objectOfAnalysisOaGroup: 'Object Of Analysis Oa Group',
-        idOaGroupPk: 'Id Oa Group Pk',
+        idOaGroupPk: 'ID Oa Group Pk',
         title: 'Title',
         active: 'Active',
-        idParentGroupFk: 'Id Parent Group Fk',
+        idParentGroupFk: 'ID Parent Group',
       },
     },
     ChartType: {
       title: 'Chart Type',
       columns: {
         oaChartTypeAvailability: 'Oa Chart Type Availability',
-        idChartTypePk: 'Id Chart Type Pk',
+        idChartTypePk: 'ID Chart Type Pk',
         title: 'Title',
         active: 'Active',
       },
@@ -166,13 +166,13 @@ export default {
         collection: 'Collection',
         downloadType: 'Download Type',
         user: 'User',
-        idUserChartPk: 'Id User Chart Pk',
+        idUserChartPk: 'ID User Chart Pk',
         json: 'Json',
         creationDate: 'Creation Date',
         active: 'Active',
-        idUserFk: 'Id User Fk',
-        idCollectionFk: 'Id Collection Fk',
-        idDownloadTypeFk: 'Id Download Type Fk',
+        idUserFk: 'ID User',
+        idCollectionFk: 'ID Collection',
+        idDownloadTypeFk: 'ID Download Type',
       },
     },
     UserUsedOa: {
@@ -181,27 +181,27 @@ export default {
         objectOfAnalysis: 'Object Of Analysis',
         user: 'User',
         usedDate: 'Used Date',
-        idUserFk: 'Id User Fk',
-        idObjectOfAnalysisFk: 'Id Object Of Analysis Fk',
+        idUserFk: 'ID User',
+        idObjectOfAnalysisFk: 'ID Object Of Analysis',
       },
     },
     Collection: {
       title: 'Collection',
       columns: {
         user: 'User',
-        idCollectionPk: 'Id Collection Pk',
+        idCollectionPk: 'ID',
         title: 'Title',
         creationDate: 'Creation Date',
         active: 'Active',
-        idUserFk: 'Id User Fk',
+        idUserFk: 'ID User',
       },
     },
     User: {
       title: 'User',
       columns: {
         address: 'Address',
-        idUserPk: 'Id User Pk',
-        email: 'Email',
+        idUserPk: 'ID',
+        email: 'E-Mail',
         password: 'Password',
         name: 'Full Name',
         primaryPhone: 'Phone',
@@ -213,13 +213,13 @@ export default {
         tradingName: 'Trading Name',
         creationDate: 'Creation Date',
         active: 'Active',
-        idAddressFk: 'Id Address Fk',
+        idAddressFk: 'ID Address',
       },
     },
     OaUnity: {
       title: 'Oa Unity',
       columns: {
-        idOaUnityPk: 'Id Oa Unity Pk',
+        idOaUnityPk: 'ID Oa Unity Pk',
         title: 'Title',
         active: 'Active',
       },
@@ -228,18 +228,18 @@ export default {
       title: 'News',
       columns: {
         oaCategory: 'Oa Category',
-        idNewsPk: 'Id News Pk',
+        idNewsPk: 'ID',
         title: 'Title',
         link: 'Link',
         dataCreation: 'Data Creation',
         active: 'Active',
-        idOaCategoryFk: 'Id Oa Category Fk',
+        idOaCategoryFk: 'ID Oa Category',
       },
     },
     DownloadType: {
       title: 'Download Type',
       columns: {
-        idDownloadTypePk: 'Id Download Type Pk',
+        idDownloadTypePk: 'ID Download Type Pk',
         title: 'Title',
         active: 'Active',
       },
@@ -247,7 +247,7 @@ export default {
     OaCategory: {
       title: 'Oa Category',
       columns: {
-        idOaCategoryPk: 'Id Oa Category Pk',
+        idOaCategoryPk: 'ID Oa Category Pk',
         title: 'Title',
         active: 'Active',
       },
@@ -255,9 +255,9 @@ export default {
     Plan: {
       title: 'Plan',
       columns: {
-        idPlanPk: 'Id Plan Pk',
+        idPlanPk: 'ID',
         title: 'Title',
-        gatewayId: 'Gateway Id',
+        gatewayId: 'Pagarme ID',
         active: 'Active',
       },
     },
@@ -357,7 +357,7 @@ export default {
     LoginSerialized: {
       title: 'Login Serialized',
       columns: {
-        email: 'Email',
+        email: 'E-Mail',
         password: 'Password',
         hash: 'Hash',
       },
@@ -366,7 +366,7 @@ export default {
       title: 'Model',
       columns: {
         oaMatchModel: 'Oa Match Model',
-        idModelPk: 'Id Model Pk',
+        idModelPk: 'ID',
         title: 'Title',
         active: 'Active',
       },
@@ -375,11 +375,11 @@ export default {
       title: 'Oa Data',
       columns: {
         oaDataset: 'Oa Dataset',
-        idOaDataPk: 'Id Oa Data Pk',
+        idOaDataPk: 'ID Oa Data Pk',
         value: 'Value',
         dt: 'Dt',
         active: 'Active',
-        idOaDatasetFk: 'Id Oa Dataset Fk',
+        idOaDatasetFk: 'ID Oa Dataset',
       },
     },
   },

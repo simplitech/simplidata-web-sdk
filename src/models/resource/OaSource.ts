@@ -1,9 +1,9 @@
 /**
  * OaSource
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
-import { ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { ValidationMaxLength, ValidationRequired, ValidationMatches } from '../../simpli'
 import OaSourceSchema from '../../schemas/OaSource.schema'
 
 /* TODO: review generated class */
@@ -36,6 +36,7 @@ export class OaSource extends Resource {
 
   @ValidationRequired()
   @ValidationMaxLength(255)
+  @ValidationMatches(/^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/g)
   link: string = ''
 
   @ValidationRequired()

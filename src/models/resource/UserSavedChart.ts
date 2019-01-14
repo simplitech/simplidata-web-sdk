@@ -1,6 +1,6 @@
 /**
  * UserSavedChart
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import moment from 'moment'
 import { ID, Resource } from '../../simpli'
