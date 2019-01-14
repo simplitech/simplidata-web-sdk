@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v3.0.0...v3.0.1) (2019-01-14)
+
+
+### Bug Fixes
+
+* Fixed bad translated words ([f4d7de6](https://github.com/simplitech/simplidata-web-sdk/commit/f4d7de6))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.5.0...v3.0.0) (2019-01-11)
 
