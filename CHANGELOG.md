@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.0.0...v3.1.0) (2019-01-15)
+
+
+### Features
+
+* **Chart:** User tools to Draw line, circle, rectangle and pencil on chart ([e7d3549](https://github.com/simplitech/simplidata-web-sdk/commit/e7d3549))
+
+
+
 <a name="3.0.0"></a>
 # [3.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v2.5.0...v3.0.0) (2019-01-11)
 
