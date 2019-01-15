@@ -72,8 +72,12 @@ export default class TopBar extends Vue {
   }
 
   set startStrLimiter(val) {
-    if (!this.value || !val) {
+    if (!this.value) {
       return
+    }
+
+    if (!val) {
+      this.value.startDtLimiter = null
     }
 
     const dt = this.dtLimiterFromStr(val)
@@ -88,8 +92,12 @@ export default class TopBar extends Vue {
   }
 
   set endStrLimiter(val) {
-    if (!this.value || !val) {
+    if (!this.value) {
       return
+    }
+
+    if (!val) {
+      this.value.endDtLimiter = null
     }
 
     const dt = this.dtLimiterFromStr(val)

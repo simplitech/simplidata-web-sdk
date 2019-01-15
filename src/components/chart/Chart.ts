@@ -9,6 +9,7 @@ const template = `
         :showMeasureButton="showMeasureButton" :showCalcButton="showCalcButton"
         :showCommentButton="showCommentButton"
         @userSavedChart="$emit('userSavedChart')"
+        @selectedDrawingTool="selectedDrawingTool"
         class="mt-60"/>
 
       <div class="verti weight-1 mx-5">
@@ -43,7 +44,16 @@ const template = `
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
-import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU } from '../../models'
+import {
+  ObjectOfAnalysis,
+  UserSavedChart,
+  ItemRFU,
+  ObjectOfAnalysisRFU,
+  LineChartGraphic,
+  EllipseChartGraphic,
+  RectangleChartGraphic,
+  PencilChartGraphic,
+} from '../../models'
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
@@ -202,5 +212,19 @@ export class Chart extends Vue {
     }
 
     return null
+  }
+
+  selectedDrawingTool(drawingTool: string) {
+    // @ts-ignore
+    const echart = this.$refs.echart as EChart
+    if (drawingTool === 'Line') {
+      echart.setGraphicBeingBuilt(new LineChartGraphic())
+    } else if (drawingTool === 'Ellipse') {
+      echart.setGraphicBeingBuilt(new EllipseChartGraphic())
+    } else if (drawingTool === 'Rectangle') {
+      echart.setGraphicBeingBuilt(new RectangleChartGraphic())
+    } else if (drawingTool === 'Pencil') {
+      echart.setGraphicBeingBuilt(new PencilChartGraphic())
+    }
   }
 }

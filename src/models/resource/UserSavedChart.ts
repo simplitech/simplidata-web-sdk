@@ -11,6 +11,10 @@ import { DownloadType } from './DownloadType'
 import { TransformationType } from './TransformationType'
 import { User } from './User'
 import { ChartGraphic } from './ChartGraphic'
+import { LineChartGraphic } from './LineChartGraphic'
+import { EllipseChartGraphic } from './EllipseChartGraphic'
+import { RectangleChartGraphic } from './RectangleChartGraphic'
+import { PencilChartGraphic } from './PencilChartGraphic'
 import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
 import { ItemRFU } from './ItemRFU'
 import { version } from '../../utils'
@@ -97,7 +101,15 @@ export class UserSavedChart extends Resource {
     })
 
     jsonParsed.graphics.forEach((g: any) => {
-      this.graphics.push(plainToClass<ChartGraphic, object>(ChartGraphic, g))
+      if (g.$name === 'LineChartGraphic') {
+        this.graphics.push(plainToClass<LineChartGraphic, object>(LineChartGraphic, g))
+      } else if (g.$name === 'EllipseChartGraphic') {
+        this.graphics.push(plainToClass<EllipseChartGraphic, object>(EllipseChartGraphic, g))
+      } else if (g.$name === 'RectangleChartGraphic') {
+        this.graphics.push(plainToClass<RectangleChartGraphic, object>(RectangleChartGraphic, g))
+      } else if (g.$name === 'PencilChartGraphic') {
+        this.graphics.push(plainToClass<PencilChartGraphic, object>(PencilChartGraphic, g))
+      }
     })
   }
 

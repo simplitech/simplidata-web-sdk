@@ -29,6 +29,10 @@ export { ItemRFU } from './resource/ItemRFU'
 export { ObjectOfAnalysisRFU } from './resource/ObjectOfAnalysisRFU'
 export { ModelRFU } from './resource/ModelRFU'
 export { ForecastConfig } from './resource/ForecastConfig'
+export { LineChartGraphic } from './resource/LineChartGraphic'
+export { EllipseChartGraphic } from './resource/EllipseChartGraphic'
+export { RectangleChartGraphic } from './resource/RectangleChartGraphic'
+export { PencilChartGraphic } from './resource/PencilChartGraphic'
 
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'

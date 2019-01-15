@@ -269,7 +269,7 @@ declare namespace echarts {
      *     coordinate system.
      * @param {string | any[]} value The value to be converted.
      */
-    convertToPixel(finder: string, value: string | any[]): string | any[]
+    convertToPixel(finder: string | any, value: string | any[]): string | any[]
 
     /**
      * Convert a point from pixel coordinate to logical coordinate
@@ -281,7 +281,7 @@ declare namespace echarts {
      *     coordinate system.
      * @param {string | any[]} value The value to be converted.
      */
-    convertFromPixel(finder: string, value: any[] | string): any[] | string
+    convertFromPixel(finder: string | any, value: any[] | string): any[] | string
 
     /**
      * Determine whether the given point is in the given coordinate systems or series.

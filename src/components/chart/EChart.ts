@@ -5,7 +5,7 @@ const template = `
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import echarts from 'echarts'
 import moment from 'moment'
-import { UserSavedChart } from '../../models'
+import { UserSavedChart, ChartGraphic } from '../../models'
 import { colors } from '../../const/colors.const'
 
 @Component({
@@ -17,6 +17,7 @@ export default class EChart extends Vue {
 
   echart: echarts.ECharts | null = null
   colors = colors
+  graphicBeingBuilt: ChartGraphic | null = null
 
   get chartOptions() {
     return {
@@ -33,17 +34,11 @@ export default class EChart extends Vue {
         boundaryGap: false,
       },
       color: this.colors,
-      dataZoom: [
-        {
-          type: 'slider',
-          show: false,
-        },
-      ],
     }
   }
 
   get startIndexLimiter() {
-    return this.value ? this.indexLimiterFromDt(this.value.startDtLimiter, true) : 0
+    return this.value ? this.indexLimiterFromDt(this.value.startDtLimiter, true) : null
   }
 
   set startIndexLimiter(val) {
@@ -55,7 +50,7 @@ export default class EChart extends Vue {
   }
 
   get endIndexLimiter() {
-    return this.value ? this.indexLimiterFromDt(this.value.endDtLimiter, false) : 0
+    return this.value ? this.indexLimiterFromDt(this.value.endDtLimiter, false) : null
   }
 
   set endIndexLimiter(val) {
@@ -67,9 +62,27 @@ export default class EChart extends Vue {
   }
 
   @Watch('value.chartData')
+  @Watch('startIndexLimiter')
+  @Watch('endIndexLimiter')
   updateChartData() {
     if (!this.echart || !this.value) {
       return
+    }
+
+    const dataZoom: any = [
+      {
+        xAxisIndex: [0],
+        type: 'slider',
+        show: false,
+      },
+    ]
+
+    if (this.startIndexLimiter !== null) {
+      dataZoom[0].startValue = this.startIndexLimiter
+    }
+
+    if (this.endIndexLimiter !== null) {
+      dataZoom[0].endValue = this.endIndexLimiter
     }
 
     const option = {
@@ -81,60 +94,21 @@ export default class EChart extends Vue {
         type: 'line',
         smooth: true,
       })),
+      dataZoom,
     }
 
     this.echart.setOption(option, true)
+    setTimeout(() => this.buildGraphics(), 0)
   }
 
-  @Watch('startIndexLimiter')
-  @Watch('endIndexLimiter')
-  updateDataZoom() {
-    if (!this.echart || !this.value) {
-      return
-    }
-
-    const dataZoom: any = {
-      xAxisIndex: [0],
-    }
-
-    dataZoom.startValue = this.startIndexLimiter
-    dataZoom.endValue = this.endIndexLimiter
-
-    this.echart.setOption({
-      dataZoom,
-    })
-  }
-
-  async mounted() {
-    this.initEChart()
-  }
-
-  initEChart() {
+  mounted() {
     const el = this.$refs.echart as HTMLDivElement
 
     this.echart = echarts.init(el)
 
     this.echart.setOption(this.chartOptions)
 
-    // setTimeout(() => {
-    //   if (!this.echart) {
-    //     return
-    //   }
-    //
-    //   this.echart.setOption({
-    //     graphic: [
-    //       {
-    //         type: 'text',
-    //         position: this.value.graphics[0].getPosition(this.echart),
-    //         z: 100,
-    //         style: {
-    //           fill: '#333',
-    //           text: 'Hey dude',
-    //         },
-    //       },
-    //     ],
-    //   })
-    // }, 0)
+    setTimeout(() => this.buildGraphics(), 0)
 
     this.echart.on('dataZoom', (e: echarts.EChartsDataZoomEvent) => {
       if (!this.echart || !this.echart.getModel() || !this.value) {
@@ -143,22 +117,67 @@ export default class EChart extends Vue {
       const axis = this.echart.getModel().option.xAxis[0]
       this.startIndexLimiter = axis.rangeStart
       this.endIndexLimiter = axis.rangeEnd
-      this.updateGraphicPos()
+      this.buildGraphics()
     })
 
     window.addEventListener('resize', () => {
       this.resize()
     })
 
-    // el.onclick = (e: MouseEvent) => {
-    //   if (!this.echart) {
-    //     return
-    //   }
-    //
-    //   this.value.graphics[0].setPosition(this.echart, e.offsetX, e.offsetY)
-    //
-    //   this.updateGraphicPos()
-    // }
+    el.onmousedown = ((e: MouseEvent) => {
+      if (!this.echart || !this.graphicBeingBuilt) {
+        return
+      }
+
+      this.graphicBeingBuilt.mousedown(e.offsetX, e.offsetY)
+
+      this.buildGraphics()
+    }).bind(this)
+
+    el.onmousemove = ((e: MouseEvent) => {
+      if (!this.echart || !this.graphicBeingBuilt) {
+        return
+      }
+
+      const mouseMoveWasRelevant = this.graphicBeingBuilt.mousemove(e.offsetX, e.offsetY)
+
+      if (mouseMoveWasRelevant) {
+        this.buildGraphics()
+      }
+    }).bind(this)
+
+    el.onmouseup = ((e: MouseEvent) => {
+      if (!this.value || !this.echart || !this.graphicBeingBuilt) {
+        return
+      }
+
+      const doneEditing = this.graphicBeingBuilt.mouseup(e.offsetX, e.offsetY)
+
+      if (doneEditing) {
+        this.value.graphics.push(this.graphicBeingBuilt)
+        this.graphicBeingBuilt = this.graphicBeingBuilt.cleanCopy()
+      }
+
+      this.buildGraphics()
+    }).bind(this)
+  }
+
+  buildGraphics() {
+    if (!this.echart || !this.value) {
+      return
+    }
+
+    const ee = this.echart
+
+    const graphic = [...this.value.graphics.map<any>(g => g.build(ee))]
+
+    if (this.graphicBeingBuilt) {
+      graphic.push(this.graphicBeingBuilt.build(this.echart))
+    }
+
+    this.echart.setOption({
+      graphic,
+    })
   }
 
   resize() {
@@ -169,21 +188,9 @@ export default class EChart extends Vue {
     this.echart.resize()
   }
 
-  updateGraphicPos() {
-    if (!this.echart) {
-      return
-    }
-
-    // this.echart.setOption({
-    //   graphic: {
-    //     position: this.value.graphics[0].getPosition(this.echart),
-    //   },
-    // })
-  }
-
   indexLimiterFromDt(dt: string | null, after: boolean) {
     if (!this.value || !this.value.chartData || !dt) {
-      return 0
+      return null
     }
 
     const dtMoment = moment(dt)
@@ -217,5 +224,10 @@ export default class EChart extends Vue {
     } else {
       return null
     }
+  }
+
+  setGraphicBeingBuilt(graphicBeingBuilt: ChartGraphic | null) {
+    this.graphicBeingBuilt = graphicBeingBuilt
+    this.buildGraphics()
   }
 }

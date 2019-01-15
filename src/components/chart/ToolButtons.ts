@@ -4,7 +4,7 @@ const template = `
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
       :title="$t('view.chart.saveChartOnCollection')"></a>
 
-    <popover :name="'sg-save' + _uid" ref="popover">
+    <popover :name="'sg-save' + _uid" ref="savepopover">
       <div class="verti">
         <div v-if="myCollections.items.length" class="saved-collections verti mt-20 mx-10">
           <a v-for="c in myCollections.items" @click="persistUserSavedChart(c.idCollectionPk)" class="h-30 line-h-30">
@@ -18,12 +18,27 @@ const template = `
     </popover>
 
     <template v-if="showDrawingButtons">
-      <a class="chart-line h-40 mb-8 items-center"></a>
+      <div class="mb-8 verti">
+        <div class="relative top-30 left-30">
+          <a class="chart-drop w-7 h-7" v-popover.right="{ name: 'sg-draw' + _uid }"></a>
+        </div>
+        <a v-if="!selectedDrawingTool || selectedDrawingTool === 'Line'" class="chart-line h-40" @click="selectedDrawingTool = 'Line'"></a>
+        <a v-if="selectedDrawingTool === 'Ellipse'" class="chart-ellipse h-40" @click="selectedDrawingTool = 'Ellipse'"></a>
+        <a v-if="selectedDrawingTool === 'Rectangle'" class="chart-rectangle h-40" @click="selectedDrawingTool = 'Rectangle'"></a>
+      </div>
 
-      <a class="chart-pencil h-40 mb-8 items-center"></a>
+      <a class="chart-pencil h-40 mb-8 items-center" @click="$emit('selectedDrawingTool', 'Pencil')"></a>
 
       <a class="chart-text h-40 mb-8 items-center"></a>
     </template>
+    
+    <popover :name="'sg-draw' + _uid" ref="drawpopover" class="force-w-50">
+      <div class="verti">
+        <a class="chart-line h-40 mb-8 items-center" @click="selectedDrawingTool = 'Line'"></a>
+        <a class="chart-ellipse h-40 mb-8 items-center" @click="selectedDrawingTool = 'Ellipse'"></a>
+        <a class="chart-rectangle h-40 items-center" @click="selectedDrawingTool = 'Rectangle'"></a>
+      </div>
+    </popover>
 
     <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"></a>
 
@@ -55,6 +70,7 @@ const template = `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import zipcelx from 'zipcelx'
+import Popover from 'vue-js-popover'
 import { UserSavedChart, Collection as SDCollection } from '../../models'
 import { Collection } from '../../simpli'
 
@@ -83,6 +99,16 @@ export default class ToolButtons extends Vue {
   myCollections = new Collection(SDCollection)
   newCollection: SDCollection | null = null
   downloadCollectionOpen = false
+  selectedDrawingTool: string | null = null
+
+  @Watch('selectedDrawingTool')
+  emitDrawingTool() {
+    // @ts-ignore
+    const component = this.$refs.drawpopover as Popover
+    component.visible = false
+
+    this.$emit('selectedDrawingTool', this.selectedDrawingTool)
+  }
 
   async mounted() {
     await this.populateData()
