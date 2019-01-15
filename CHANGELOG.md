@@ -10,6 +10,14 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **Chart:** User tools to Draw line, circle, rectangle and pencil on chart ([e7d3549](https://github.com/simplitech/simplidata-web-sdk/commit/e7d3549))
 
+<a name="3.0.1"></a>
+## [3.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v3.0.0...v3.0.1) (2019-01-14)
+
+
+### Bug Fixes
+
+* Fixed bad translated words ([f4d7de6](https://github.com/simplitech/simplidata-web-sdk/commit/f4d7de6))
+
 
 
 <a name="3.0.0"></a>

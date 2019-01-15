@@ -1,6 +1,6 @@
 /**
  * AuthResponse
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { $, ID, Model, encrypt, Resp, abort, clone } from '../../simpli'
 import { ResponseSerialize, ValidationMaxLength } from '../../simpli'

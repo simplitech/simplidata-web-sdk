@@ -1,6 +1,6 @@
 /**
  * User
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { $, encrypt, ID, Resource, TAG, Resp } from '../../simpli'
 import {

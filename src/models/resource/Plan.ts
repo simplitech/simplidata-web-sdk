@@ -1,6 +1,6 @@
 /**
  * Plan
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { ID, Resource, ResponseSerialize, TAG, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { PagarmePlan } from '../pagarme/PagarmePlan'

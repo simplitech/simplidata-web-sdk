@@ -1,6 +1,6 @@
 /**
  * Address
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { $, ID, Resource, HttpBody, Resp } from '../../simpli'
 import { ValidationCEP, ValidationMaxLength, ValidationRequired } from '../../simpli'

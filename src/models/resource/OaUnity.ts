@@ -1,6 +1,6 @@
 /**
  * OaUnity
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
 import { ValidationMaxLength, ValidationRequired } from '../../simpli'

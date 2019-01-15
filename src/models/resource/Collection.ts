@@ -1,6 +1,6 @@
 /**
  * Collection
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'

@@ -1,6 +1,6 @@
 /**
  * Schema of User
- * @author Simpli© CLI generator
+ * @author Simpli CLI generator
  */
 import { InputType, Schema } from '../simpli'
 import { bool, datetime } from '../simpli'

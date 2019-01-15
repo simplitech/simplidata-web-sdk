@@ -1,4 +1,5 @@
 /* *** Collection *** */
+export { All } from './collection/All'
 export { PagedResp } from './collection/PagedResp'
 
 /* *** Resource *** */
