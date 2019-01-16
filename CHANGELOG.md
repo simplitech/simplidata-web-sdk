@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.1.0"></a>
+# [3.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.0.2...v3.1.0) (2019-01-16)
+
+
+### Features
+
+* **Chart:** User tool to write on chart ([5425bc9](https://github.com/simplitech/simplidata-web-sdk/commit/5425bc9))
+
+
+
 <a name="3.0.2"></a>
 ## [3.0.2](https://github.com/simplitech/simplidata-web-sdk/compare/v3.1.0...v3.0.2) (2019-01-15)
 
