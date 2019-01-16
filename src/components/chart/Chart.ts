@@ -24,8 +24,16 @@ const template = `
           @onAdvancedClick="$emit('onAdvancedClick')"/>
 
         <!-- CHART -->
-        <e-chart v-model="value" ref="echart" class="min-h-400 weight-1"/>
+        <e-chart v-model="value" 
+          :graphicBeingBuilt="graphicBeingBuilt"
+          @doneEditing="doneEditingDrawing"
+          ref="echart" class="min-h-400 weight-1"/>
 
+        <drawing-editor v-model="value" v-if="graphicBeingBuilt"
+          :graphicBeingBuilt="graphicBeingBuilt"
+          @doneEditing="doneEditingDrawing"
+          @cancelEditing="cancelEditingDrawing"/>
+           
       </div>
 
       <!-- RIGHTPANEL -->
@@ -49,19 +57,22 @@ import {
   UserSavedChart,
   ItemRFU,
   ObjectOfAnalysisRFU,
+  ChartGraphic,
   LineChartGraphic,
   EllipseChartGraphic,
   RectangleChartGraphic,
   PencilChartGraphic,
+  TextChartGraphic,
 } from '../../models'
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
 import RightPanel from './RightPanel'
+import DrawingEditor from './DrawingEditor'
 
 @Component({
   template,
-  components: { ToolButtons, TopBar, EChart, RightPanel },
+  components: { ToolButtons, TopBar, EChart, RightPanel, DrawingEditor },
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -117,6 +128,8 @@ export class Chart extends Vue {
 
   @Prop({ type: Number })
   selectedDatasetIndex?: number
+
+  graphicBeingBuilt: ChartGraphic | null = null
 
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
@@ -214,17 +227,30 @@ export class Chart extends Vue {
     return null
   }
 
+  doneEditingDrawing() {
+    if (this.graphicBeingBuilt) {
+      if (this.value) {
+        this.value.graphics.push(this.graphicBeingBuilt)
+      }
+      this.graphicBeingBuilt = this.graphicBeingBuilt.cleanCopy()
+    }
+  }
+
+  cancelEditingDrawing() {
+    this.graphicBeingBuilt = null
+  }
+
   selectedDrawingTool(drawingTool: string) {
-    // @ts-ignore
-    const echart = this.$refs.echart as EChart
     if (drawingTool === 'Line') {
-      echart.setGraphicBeingBuilt(new LineChartGraphic())
+      this.graphicBeingBuilt = new LineChartGraphic()
     } else if (drawingTool === 'Ellipse') {
-      echart.setGraphicBeingBuilt(new EllipseChartGraphic())
+      this.graphicBeingBuilt = new EllipseChartGraphic()
     } else if (drawingTool === 'Rectangle') {
-      echart.setGraphicBeingBuilt(new RectangleChartGraphic())
+      this.graphicBeingBuilt = new RectangleChartGraphic()
     } else if (drawingTool === 'Pencil') {
-      echart.setGraphicBeingBuilt(new PencilChartGraphic())
+      this.graphicBeingBuilt = new PencilChartGraphic()
+    } else if (drawingTool === 'Text') {
+      this.graphicBeingBuilt = new TextChartGraphic()
     }
   }
 }

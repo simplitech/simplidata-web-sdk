@@ -413,6 +413,7 @@ export default {
       date: 'Date',
       chooseTheOaToCombineInTheTransformation: 'Choose the indicator to combine in the transformation',
       search: 'Search',
+      text: 'Text',
     },
   },
 }

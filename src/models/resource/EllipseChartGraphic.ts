@@ -12,6 +12,10 @@ export class EllipseChartGraphic implements ChartGraphic {
     return new EllipseChartGraphic()
   }
 
+  get $isValidToSave(): boolean {
+    return this.p1 !== null && this.p2 !== null
+  }
+
   build(echart: echarts.ECharts) {
     this.echart = echart
 

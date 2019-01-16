@@ -15,9 +15,11 @@ export default class EChart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
   value?: UserSavedChart
 
+  @Prop({ type: Object })
+  graphicBeingBuilt?: ChartGraphic
+
   echart: echarts.ECharts | null = null
   colors = colors
-  graphicBeingBuilt: ChartGraphic | null = null
 
   get chartOptions() {
     return {
@@ -61,14 +63,7 @@ export default class EChart extends Vue {
     this.value.endDtLimiter = this.dtLimiterFromIndex(val)
   }
 
-  @Watch('value.chartData')
-  @Watch('startIndexLimiter')
-  @Watch('endIndexLimiter')
-  updateChartData() {
-    if (!this.echart || !this.value) {
-      return
-    }
-
+  get dataZoom() {
     const dataZoom: any = [
       {
         xAxisIndex: [0],
@@ -85,6 +80,20 @@ export default class EChart extends Vue {
       dataZoom[0].endValue = this.endIndexLimiter
     }
 
+    return dataZoom
+  }
+
+  @Watch('value.chartData')
+  @Watch('dataZoom')
+  @Watch('chartGraphics')
+  @Watch('graphicBeingBuilt')
+  @Watch('graphicBeingBuilt.text')
+  @Watch('value.graphics')
+  updateChartData() {
+    if (!this.echart || !this.value) {
+      return
+    }
+
     const option = {
       ...this.chartOptions, // echarts bug: we need to merge manually instead of merging on setOptions
       dataset: {
@@ -94,11 +103,11 @@ export default class EChart extends Vue {
         type: 'line',
         smooth: true,
       })),
-      dataZoom,
+      dataZoom: this.dataZoom,
+      graphic: this.buildChartGraphics(),
     }
 
     this.echart.setOption(option, true)
-    setTimeout(() => this.buildGraphics(), 0)
   }
 
   mounted() {
@@ -108,8 +117,6 @@ export default class EChart extends Vue {
 
     this.echart.setOption(this.chartOptions)
 
-    setTimeout(() => this.buildGraphics(), 0)
-
     this.echart.on('dataZoom', (e: echarts.EChartsDataZoomEvent) => {
       if (!this.echart || !this.echart.getModel() || !this.value) {
         return
@@ -117,7 +124,6 @@ export default class EChart extends Vue {
       const axis = this.echart.getModel().option.xAxis[0]
       this.startIndexLimiter = axis.rangeStart
       this.endIndexLimiter = axis.rangeEnd
-      this.buildGraphics()
     })
 
     window.addEventListener('resize', () => {
@@ -130,8 +136,6 @@ export default class EChart extends Vue {
       }
 
       this.graphicBeingBuilt.mousedown(e.offsetX, e.offsetY)
-
-      this.buildGraphics()
     }).bind(this)
 
     el.onmousemove = ((e: MouseEvent) => {
@@ -142,7 +146,7 @@ export default class EChart extends Vue {
       const mouseMoveWasRelevant = this.graphicBeingBuilt.mousemove(e.offsetX, e.offsetY)
 
       if (mouseMoveWasRelevant) {
-        this.buildGraphics()
+        this.updateChartData()
       }
     }).bind(this)
 
@@ -153,16 +157,15 @@ export default class EChart extends Vue {
 
       const doneEditing = this.graphicBeingBuilt.mouseup(e.offsetX, e.offsetY)
 
-      if (doneEditing) {
-        this.value.graphics.push(this.graphicBeingBuilt)
-        this.graphicBeingBuilt = this.graphicBeingBuilt.cleanCopy()
-      }
+      this.updateChartData()
 
-      this.buildGraphics()
+      if (doneEditing) {
+        this.$emit('doneEditing')
+      }
     }).bind(this)
   }
 
-  buildGraphics() {
+  buildChartGraphics() {
     if (!this.echart || !this.value) {
       return
     }
@@ -172,12 +175,13 @@ export default class EChart extends Vue {
     const graphic = [...this.value.graphics.map<any>(g => g.build(ee))]
 
     if (this.graphicBeingBuilt) {
-      graphic.push(this.graphicBeingBuilt.build(this.echart))
+      const newGraphic = this.graphicBeingBuilt.build(this.echart)
+      if (newGraphic) {
+        graphic.push(newGraphic)
+      }
     }
 
-    this.echart.setOption({
-      graphic,
-    })
+    return graphic
   }
 
   resize() {
@@ -224,10 +228,5 @@ export default class EChart extends Vue {
     } else {
       return null
     }
-  }
-
-  setGraphicBeingBuilt(graphicBeingBuilt: ChartGraphic | null) {
-    this.graphicBeingBuilt = graphicBeingBuilt
-    this.buildGraphics()
   }
 }

@@ -12,6 +12,7 @@ import { TransformationType } from './TransformationType'
 import { User } from './User'
 import { ChartGraphic } from './ChartGraphic'
 import { LineChartGraphic } from './LineChartGraphic'
+import { TextChartGraphic } from './TextChartGraphic'
 import { EllipseChartGraphic } from './EllipseChartGraphic'
 import { RectangleChartGraphic } from './RectangleChartGraphic'
 import { PencilChartGraphic } from './PencilChartGraphic'
@@ -109,6 +110,8 @@ export class UserSavedChart extends Resource {
         this.graphics.push(plainToClass<RectangleChartGraphic, object>(RectangleChartGraphic, g))
       } else if (g.$name === 'PencilChartGraphic') {
         this.graphics.push(plainToClass<PencilChartGraphic, object>(PencilChartGraphic, g))
+      } else if (g.$name === 'TextChartGraphic') {
+        this.graphics.push(plainToClass<TextChartGraphic, object>(TextChartGraphic, g))
       }
     })
   }

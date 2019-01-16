@@ -12,6 +12,10 @@ export class LineChartGraphic implements ChartGraphic {
     return new LineChartGraphic()
   }
 
+  get $isValidToSave(): boolean {
+    return this.p1 !== null && this.p2 !== null
+  }
+
   build(echart: echarts.ECharts) {
     this.echart = echart
 

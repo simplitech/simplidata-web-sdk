@@ -11,10 +11,14 @@ export class PencilChartGraphic implements ChartGraphic {
     return new PencilChartGraphic()
   }
 
+  get $isValidToSave() {
+    return this.points.length > 0
+  }
+
   build(echart: echarts.ECharts) {
     this.echart = echart
 
-    if (!this.points.length) {
+    if (!this.$isValidToSave) {
       return null
     }
 

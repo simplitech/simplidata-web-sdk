@@ -22,21 +22,21 @@ const template = `
         <div class="relative top-30 left-30">
           <a class="chart-drop w-7 h-7" v-popover.right="{ name: 'sg-draw' + _uid }"></a>
         </div>
-        <a v-if="!selectedDrawingTool || selectedDrawingTool === 'Line'" class="chart-line h-40" @click="selectedDrawingTool = 'Line'"></a>
-        <a v-if="selectedDrawingTool === 'Ellipse'" class="chart-ellipse h-40" @click="selectedDrawingTool = 'Ellipse'"></a>
-        <a v-if="selectedDrawingTool === 'Rectangle'" class="chart-rectangle h-40" @click="selectedDrawingTool = 'Rectangle'"></a>
+        <a v-if="lastBasicDrawingTool === 'Line'" class="chart-line h-40" @click="selectDrawingTool('Line')"></a>
+        <a v-if="lastBasicDrawingTool === 'Ellipse'" class="chart-ellipse h-40" @click="selectDrawingTool('Ellipse')"></a>
+        <a v-if="lastBasicDrawingTool === 'Rectangle'" class="chart-rectangle h-40" @click="selectDrawingTool('Rectangle')"></a>
       </div>
 
-      <a class="chart-pencil h-40 mb-8 items-center" @click="$emit('selectedDrawingTool', 'Pencil')"></a>
+      <a class="chart-pencil h-40 mb-8 items-center" @click="selectDrawingTool('Pencil')"></a>
 
-      <a class="chart-text h-40 mb-8 items-center"></a>
+      <a class="chart-text h-40 mb-8 items-center" @click="selectDrawingTool('Text')"></a>
     </template>
     
     <popover :name="'sg-draw' + _uid" ref="drawpopover" class="force-w-50">
       <div class="verti">
-        <a class="chart-line h-40 mb-8 items-center" @click="selectedDrawingTool = 'Line'"></a>
-        <a class="chart-ellipse h-40 mb-8 items-center" @click="selectedDrawingTool = 'Ellipse'"></a>
-        <a class="chart-rectangle h-40 items-center" @click="selectedDrawingTool = 'Rectangle'"></a>
+        <a class="chart-line h-40 mb-8 items-center" @click="selectDrawingTool('Line')"></a>
+        <a class="chart-ellipse h-40 mb-8 items-center" @click="selectDrawingTool('Ellipse')"></a>
+        <a class="chart-rectangle h-40 items-center" @click="selectDrawingTool('Rectangle')"></a>
       </div>
     </popover>
 
@@ -96,13 +96,21 @@ export default class ToolButtons extends Vue {
   @Prop({ type: Boolean, default: true })
   showCommentButton?: boolean
 
+  readonly BASIC_DRAWING_TOOLS = ['Line', 'Ellipse', 'Rectangle']
+
   myCollections = new Collection(SDCollection)
   newCollection: SDCollection | null = null
   downloadCollectionOpen = false
   selectedDrawingTool: string | null = null
+  lastBasicDrawingTool = 'Line'
 
-  @Watch('selectedDrawingTool')
-  emitDrawingTool() {
+  selectDrawingTool(newSelected: string) {
+    this.selectedDrawingTool = newSelected
+
+    if (this.BASIC_DRAWING_TOOLS.indexOf(newSelected) > -1) {
+      this.lastBasicDrawingTool = newSelected
+    }
+
     // @ts-ignore
     const component = this.$refs.drawpopover as Popover
     component.visible = false
