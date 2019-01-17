@@ -5,14 +5,14 @@ const template = `
 
       <!-- TOOL BUTTONS ON THE LEFT -->
       <tool-buttons v-model="value" 
-        :showSaveButton="showSaveButton" :showDrawingButtons="showDrawingButtons"
+        :showSaveButton="showSaveButton" :showDrawingButtons="showDrawingButtons && !chartTypeTableSelected"
         :showMeasureButton="showMeasureButton" :showCalcButton="showCalcButton"
         :showCommentButton="showCommentButton"
         @userSavedChart="$emit('userSavedChart')"
         @selectedDrawingTool="selectedDrawingTool"
         class="mt-60"/>
 
-      <div class="verti weight-1 mx-5">
+      <div class="verti weight-1 scroll mx-5">
 
         <!-- SELECTS AND BUTTONS ON TOP BAR -->
         <top-bar v-model="value"
@@ -25,13 +25,18 @@ const template = `
 
         <!-- CHART -->
         <e-chart v-model="value" 
+          v-show="!chartTypeTableSelected"
           :graphicBeingBuilt="graphicBeingBuilt"
-          @doneEditing="doneEditingDrawing"
+          @doneEditingGraphic="doneEditingGraphic"
           ref="echart" class="min-h-400 weight-1"/>
+          
+        <table-chart v-model="value" 
+          v-if="chartTypeTableSelected"
+          class="min-h-400 weight-1"/>
 
-        <drawing-editor v-model="value" v-if="graphicBeingBuilt"
+        <graphic-editor v-model="value" v-if="graphicBeingBuilt"
           :graphicBeingBuilt="graphicBeingBuilt"
-          @doneEditing="doneEditingDrawing"
+          @doneEditingGraphic="doneEditingGraphic"
           @cancelEditing="cancelEditingDrawing"/>
            
       </div>
@@ -57,6 +62,7 @@ import {
   UserSavedChart,
   ItemRFU,
   ObjectOfAnalysisRFU,
+  ChartType,
   ChartGraphic,
   LineChartGraphic,
   EllipseChartGraphic,
@@ -67,12 +73,13 @@ import {
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
+import TableChart from './TableChart'
 import RightPanel from './RightPanel'
-import DrawingEditor from './DrawingEditor'
+import GraphicEditor from './GraphicEditor'
 
 @Component({
   template,
-  components: { ToolButtons, TopBar, EChart, RightPanel, DrawingEditor },
+  components: { ToolButtons, TopBar, EChart, TableChart, RightPanel, GraphicEditor },
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -139,14 +146,19 @@ export class Chart extends Vue {
     return this.value && this.value.itensRFU.length === 1 ? 0 : this.selectedDatasetIndex || 0
   }
 
+  get chartTypeTableSelected() {
+    return this.value && this.value.idChartTypeFk === ChartType.TABLE
+  }
+
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
   @Watch('showObjectOfAnalysisInfo')
-  async resizeChartOnSelectOa() {
+  @Watch('value.idChartTypeFk')
+  async refreshChartOnSelectOa() {
     // @ts-ignore
     const echart = this.$refs.echart as EChart
 
     await this.$nextTick()
-    echart.resize()
+    echart.refresh()
   }
 
   @Watch('selectedOaRfu.orderedTransformations')
@@ -227,7 +239,7 @@ export class Chart extends Vue {
     return null
   }
 
-  doneEditingDrawing() {
+  doneEditingGraphic() {
     if (this.graphicBeingBuilt) {
       if (this.value) {
         this.value.graphics.push(this.graphicBeingBuilt)

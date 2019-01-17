@@ -127,7 +127,7 @@ export default class EChart extends Vue {
     })
 
     window.addEventListener('resize', () => {
-      this.resize()
+      this.refresh()
     })
 
     el.onmousedown = ((e: MouseEvent) => {
@@ -160,7 +160,7 @@ export default class EChart extends Vue {
       this.updateChartData()
 
       if (doneEditing) {
-        this.$emit('doneEditing')
+        this.$emit('doneEditingGraphic')
       }
     }).bind(this)
   }
@@ -184,7 +184,7 @@ export default class EChart extends Vue {
     return graphic
   }
 
-  resize() {
+  refresh() {
     if (!this.echart) {
       return
     }

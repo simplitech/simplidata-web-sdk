@@ -143,6 +143,15 @@ export class UserSavedChart extends Resource {
     this.downloadType.$id = idDownloadTypeFk
   }
 
+  get idChartTypeFk() {
+    if (!this.chartType) return 0
+    return this.chartType.$id
+  }
+  set idChartTypeFk(idChartTypeFk: ID) {
+    if (!this.chartType) this.chartType = new ChartType()
+    this.chartType.$id = idChartTypeFk
+  }
+
   get chartData() {
     if (!this.itensRFU || !this.itensRFU.length) {
       return

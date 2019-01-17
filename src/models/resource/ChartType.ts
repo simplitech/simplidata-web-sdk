@@ -12,6 +12,11 @@ export class ChartType extends Resource {
   readonly $name: string = 'ChartType'
   readonly $endpoint: string = '/User/ChartType{/id}'
 
+  static LINE = 1
+  static BAR = 2
+  static AREA = 3
+  static TABLE = 4
+
   get $schema() {
     return ChartTypeSchema(this)
   }

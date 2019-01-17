@@ -16,7 +16,7 @@ const template = `
         @click="$emit('cancelEditing')"></a>
       <a class="ok-btn w-50 h-30" 
          :class="{ 'opacity-20': !graphicBeingBuilt.$isValidToSave }"
-         @click="$emit('doneEditing')"></a>
+         @click="$emit('doneEditingGraphic')"></a>
         
     </div>
   </div>
@@ -28,7 +28,7 @@ import { UserSavedChart, ChartGraphic, TextChartGraphic } from '../../models'
 @Component({
   template,
 })
-export default class DrawingEditor extends Vue {
+export default class GraphicEditor extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
   value?: UserSavedChart
 

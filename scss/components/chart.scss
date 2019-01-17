@@ -265,4 +265,34 @@
   .opacity-20 {
     opacity: 0.2;
   }
+
+  .table-chart {
+    table {
+      td, th {
+        border: 1px solid transparent;
+        padding: 3px 4px;
+        text-align: center;
+      }
+
+      td {
+        font-size: 13px;
+        color: #acacac;
+
+        &:nth-child(even) {
+          background: #2a2a2a;
+        }
+      }
+
+      thead {
+        border-bottom: 2px solid #606060;
+      }
+
+      th {
+        font-size: 15px;
+        font-weight: bold;
+        color: white;
+        padding: 20px 5px 5px 5px;
+      }
+    }
+  }
 }
