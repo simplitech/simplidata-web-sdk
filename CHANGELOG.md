@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.2.0"></a>
+# [3.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.1.2...v3.2.0) (2019-01-17)
+
+
+### Features
+
+* **TableChart:** create a different visualization type, as a table instead of a chart ([39b3852](https://github.com/simplitech/simplidata-web-sdk/commit/39b3852))
+
+
+
 <a name="3.1.2"></a>
 ## [3.1.2](https://github.com/simplitech/simplidata-web-sdk/compare/v3.1.1...v3.1.2) (2019-01-16)
 
