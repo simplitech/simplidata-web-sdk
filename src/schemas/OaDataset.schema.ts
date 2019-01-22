@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool, datetime } from '../simpli'
 import { OaDataset } from '../models'
 
-/* TODO: review generated schema */
 export default (model: OaDataset): Schema => ({
   oaVersion: {
     content: model.oaVersion && model.oaVersion.$id,

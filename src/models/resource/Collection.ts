@@ -8,7 +8,6 @@ import { User } from './User'
 import CollectionSchema from '../../schemas/Collection.schema'
 import { UserSavedChart } from './UserSavedChart'
 
-/* TODO: review generated class */
 export class Collection extends Resource {
   readonly $name: string = 'Collection'
   readonly $endpoint: string = '/User/Collection{/id}'

@@ -9,7 +9,6 @@ import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { OaDataset } from './OaDataset'
 import OaVersionSchema from '../../schemas/OaVersion.schema'
 
-/* TODO: review generated class */
 export class OaVersion extends Resource {
   readonly $name: string = 'OaVersion'
   readonly $endpoint: string = '/User/OaVersion{/id}'

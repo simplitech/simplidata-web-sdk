@@ -6,7 +6,6 @@ import { $, ID, Resource, HttpBody, Resp } from '../../simpli'
 import { ValidationCEP, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import AddressSchema from '../../schemas/Address.schema'
 
-/* TODO: review generated class */
 export class Address extends Resource {
   readonly $name: string = 'Address'
   readonly $endpoint: string = '/User/Address{/id}'

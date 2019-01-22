@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { RenderAnchor, bool, datetime } from '../simpli'
 import { News } from '../models'
 
-/* TODO: review generated schema */
 export default (model: News): Schema => ({
   // oaCategory: {
   //   content: model.oaCategory && model.oaCategory.$id,

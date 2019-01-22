@@ -6,7 +6,6 @@ import { ID, Resource, TAG } from '../../simpli'
 import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 import DownloadTypeSchema from '../../schemas/DownloadType.schema'
 
-/* TODO: review generated class */
 export class DownloadType extends Resource {
   readonly $name: string = 'DownloadType'
   readonly $endpoint: string = '/User/DownloadType{/id}'

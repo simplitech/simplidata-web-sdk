@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool, cep } from '../simpli'
 import { Address } from '../models'
 
-/* TODO: review generated schema */
 export default (model: Address): Schema => ({
   idAddressPk: {
     content: model.idAddressPk,

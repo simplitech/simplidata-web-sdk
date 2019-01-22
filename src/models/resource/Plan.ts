@@ -7,7 +7,6 @@ import { PagarmePlan } from '../pagarme/PagarmePlan'
 import { PlanID } from '../../enums/PlanID'
 import PlanSchema from '../../schemas/Plan.schema'
 
-/* TODO: review generated class */
 export class Plan extends Resource {
   readonly $name: string = 'Plan'
   readonly $endpoint: string = '/User/Plan{/id}'

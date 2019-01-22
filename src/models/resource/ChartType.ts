@@ -7,7 +7,6 @@ import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../.
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import ChartTypeSchema from '../../schemas/ChartType.schema'
 
-/* TODO: review generated class */
 export class ChartType extends Resource {
   readonly $name: string = 'ChartType'
   readonly $endpoint: string = '/User/ChartType{/id}'

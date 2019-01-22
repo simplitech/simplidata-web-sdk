@@ -8,7 +8,6 @@ import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { User } from './User'
 import UserUsedOaSchema from '../../schemas/UserUsedOa.schema'
 
-/* TODO: review generated class */
 export class UserUsedOa extends Resource {
   readonly $name: string = 'UserUsedOa'
   readonly $endpoint: string = '/User/UserUsedOa{/idUserFk}{/idObjectOfAnalysisFk}'

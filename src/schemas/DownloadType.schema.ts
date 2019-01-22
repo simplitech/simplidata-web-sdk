@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { DownloadType } from '../models'
 
-/* TODO: review generated schema */
 export default (model: DownloadType): Schema => ({
   idDownloadTypePk: {
     content: model.idDownloadTypePk,

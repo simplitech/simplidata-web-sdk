@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { Plan } from '../models'
 
-/* TODO: review generated schema */
 export default (model: Plan): Schema => ({
   idPlanPk: {
     content: model.idPlanPk,

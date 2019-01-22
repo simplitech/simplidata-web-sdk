@@ -8,7 +8,6 @@ import { OaVersion } from './OaVersion'
 import { OaData } from './OaData'
 import OaDatasetSchema from '../../schemas/OaDataset.schema'
 
-/* TODO: review generated class */
 export class OaDataset extends Resource {
   readonly $name: string = 'OaDataset'
   readonly $endpoint: string = '/User/OaDataset{/id}'

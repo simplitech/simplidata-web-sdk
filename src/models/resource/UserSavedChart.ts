@@ -27,7 +27,6 @@ export interface MapOfDateAndValues {
   [key: string]: (number | null | undefined)[]
 }
 
-/* TODO: review generated class */
 export class UserSavedChart extends Resource {
   readonly $name: string = 'UserSavedChart'
   readonly $endpoint: string = '/User/UserSavedChart{/id}'

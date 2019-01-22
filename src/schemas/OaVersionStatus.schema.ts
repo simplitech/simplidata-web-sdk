@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { OaVersionStatus } from '../models'
 
-/* TODO: review generated schema */
 export default (model: OaVersionStatus): Schema => ({
   idOaVersionStatusPk: {
     content: model.idOaVersionStatusPk,

@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool, datetime } from '../simpli'
 import { ObjectOfAnalysis } from '../models'
 
-/* TODO: review generated schema */
 export default (model: ObjectOfAnalysis): Schema => ({
   // category: {
   //   content: model.category && model.category.$id,

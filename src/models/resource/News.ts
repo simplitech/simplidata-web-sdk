@@ -7,7 +7,6 @@ import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 // import {OaCategory} from './OaCategory'
 import NewsSchema from '../../schemas/News.schema'
 
-/* TODO: review generated class */
 export class News extends Resource {
   readonly $name: string = 'News'
   readonly $endpoint: string = '/User/News{/id}'

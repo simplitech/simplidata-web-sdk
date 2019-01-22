@@ -18,7 +18,6 @@ import { SubscriptionRequest } from '../request/SubscriptionRequest'
 import { SubscriptionResponse } from '../response/SubscriptionResponse'
 import UserSchema from '../../schemas/User.schema'
 
-/* TODO: review generated class */
 export class User extends Resource {
   static $placeholder: string = 'img/placeholder/avatar.png'
 

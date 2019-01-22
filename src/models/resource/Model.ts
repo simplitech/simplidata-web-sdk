@@ -7,7 +7,6 @@ import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../.
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import ModelSchema from '../../schemas/Model.schema'
 
-/* TODO: review generated class */
 export class Model extends Resource {
   readonly $name: string = 'Model'
   readonly $endpoint: string = '/User/Model{/id}'

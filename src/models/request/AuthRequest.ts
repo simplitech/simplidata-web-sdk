@@ -5,7 +5,6 @@
 import { Model } from '../../simpli'
 import { ResponseHidden, ValidationEmail, ValidationMaxLength, ValidationPasswordLength } from '../../simpli'
 
-/* TODO: review generated class */
 export class AuthRequest extends Model {
   readonly $name: string = 'AuthRequest'
 

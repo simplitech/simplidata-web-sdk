@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { Model } from '../models'
 
-/* TODO: review generated schema */
 export default (model: Model): Schema => ({
   oaMatchModel: {
     hidden: true,

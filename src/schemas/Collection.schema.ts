@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool, datetime } from '../simpli'
 import { Collection } from '../models'
 
-/* TODO: review generated schema */
 export default (model: Collection): Schema => ({
   user: {
     content: model.user && model.user.$id,

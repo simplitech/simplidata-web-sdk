@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { PeriodicityTransformationType } from '../models'
 
-/* TODO: review generated schema */
 export default (model: PeriodicityTransformationType): Schema => ({
   idPeriodicityTransformationTypePk: {
     content: model.idPeriodicityTransformationTypePk,

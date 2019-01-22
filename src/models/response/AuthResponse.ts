@@ -10,7 +10,6 @@ import { Plan } from '../resource/Plan'
 import { AuthRequest } from '../request/AuthRequest'
 import { ChangePasswordRequest } from '../request/ChangePasswordRequest'
 
-/* TODO: review generated class */
 export class AuthResponse extends Model {
   readonly $name: string = 'AuthResponse'
 

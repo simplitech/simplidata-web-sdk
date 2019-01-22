@@ -7,7 +7,6 @@ import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../.
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import OaGroupSchema from '../../schemas/OaGroup.schema'
 
-/* TODO: review generated class */
 export class OaGroup extends Resource {
   readonly $name: string = 'OaGroup'
   readonly $endpoint: string = '/User/OaGroup{/id}'

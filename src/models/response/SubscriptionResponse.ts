@@ -7,7 +7,6 @@ import { ResponseSerialize, ValidationEmail, ValidationMaxLength, ValidationPass
 import { PagarmeCard } from '../pagarme/PagarmeCard'
 import { PagarmeSubscription } from '../pagarme/PagarmeSubscription'
 
-/* TODO: review generated class */
 export class SubscriptionResponse extends Model {
   readonly $name: string = 'SubscriptionResponse'
 

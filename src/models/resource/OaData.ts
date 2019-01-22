@@ -7,7 +7,6 @@ import { ResponseSerialize, ValidationRequired } from '../../simpli'
 import { OaDataset } from './OaDataset'
 import OaDataSchema from '../../schemas/OaData.schema'
 
-/* TODO: review generated class */
 export class OaData extends Resource {
   readonly $name: string = 'OaData'
   readonly $endpoint: string = '/User/OaData{/id}'

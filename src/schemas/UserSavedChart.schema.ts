@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool, datetime } from '../simpli'
 import { UserSavedChart } from '../models'
 
-/* TODO: review generated schema */
 export default (model: UserSavedChart): Schema => ({
   collection: {
     content: model.collection && model.collection.$id,

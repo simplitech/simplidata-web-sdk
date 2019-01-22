@@ -6,7 +6,6 @@ import { ID, Resource, TAG } from '../../simpli'
 import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 import OaUnitySchema from '../../schemas/OaUnity.schema'
 
-/* TODO: review generated class */
 export class OaUnity extends Resource {
   readonly $name: string = 'OaUnity'
   readonly $endpoint: string = '/User/OaUnity{/id}'

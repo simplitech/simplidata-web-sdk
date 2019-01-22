@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { ChartType } from '../models'
 
-/* TODO: review generated schema */
 export default (model: ChartType): Schema => ({
   oaChartTypeAvailability: {
     hidden: true,

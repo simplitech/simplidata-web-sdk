@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { RenderAnchor, bool } from '../simpli'
 import { OaSource } from '../models'
 
-/* TODO: review generated schema */
 export default (model: OaSource): Schema => ({
   idSourcePk: {
     content: model.idSourcePk,

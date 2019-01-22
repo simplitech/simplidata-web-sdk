@@ -6,7 +6,6 @@ import { InputType, Schema } from '../simpli'
 import { bool } from '../simpli'
 import { OaGroup } from '../models'
 
-/* TODO: review generated schema */
 export default (model: OaGroup): Schema => ({
   // oaGroup: {
   //   content: model.oaGroup && model.oaGroup.$id,

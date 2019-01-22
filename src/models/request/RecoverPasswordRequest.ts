@@ -4,7 +4,6 @@
  */
 import { Model, ValidationRequired, ValidationPasswordLength } from '../../simpli'
 
-/* TODO: review generated class */
 export default class RecoverPasswordRequest extends Model {
   readonly $name: string = 'RecoverPasswordRequest'
 

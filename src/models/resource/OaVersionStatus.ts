@@ -6,7 +6,6 @@ import { ID, Resource, TAG } from '../../simpli'
 import { ValidationMaxLength, ValidationRequired } from '../../simpli'
 import OaVersionStatusSchema from '../../schemas/OaVersionStatus.schema'
 
-/* TODO: review generated class */
 export class OaVersionStatus extends Resource {
   readonly $name: string = 'OaVersionStatus'
   readonly $endpoint: string = '/User/OaVersionStatus{/id}'
