@@ -1,37 +1,51 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
+import { TextChartGraphic } from './TextChartGraphic'
 import { ChartGraphicPosition } from './ChartGraphicPosition'
 
-export class TextChartGraphic implements ChartGraphic {
-  $name = 'TextChartGraphic'
-  position: ChartGraphicPosition | null = null
-  text = ''
-  echart: echarts.ECharts | null = null
+export class CommentChartGraphic extends TextChartGraphic {
+  $name = 'CommentChartGraphic'
+  openCommentCallback: (comment: string) => any
 
-  cleanCopy(): ChartGraphic {
-    return new TextChartGraphic()
+  constructor(openCommentCallback: (comment: string) => any) {
+    super()
+    this.openCommentCallback = openCommentCallback
   }
 
-  get $isValidToSave() {
+  cleanCopy(): ChartGraphic {
+    return new CommentChartGraphic(this.openCommentCallback)
+  }
+
+  get $isValidToSave(): boolean {
     return this.position !== null && this.text.length > 0
   }
 
   build(echart: echarts.ECharts): any {
     this.echart = echart
 
-    if (!this.position || !this.text.length) {
+    if (!this.position) {
       return null
     }
 
     const pos = this.position.get(this.echart)
 
     return {
-      type: 'text',
+      type: 'circle',
       position: pos,
       z: 100,
       style: {
-        text: this.text,
-        fill: '#ddd',
+        stroke: '#1a1a1a',
+        fill: '#ffffff',
+      },
+      shape: {
+        cx: 0,
+        cy: 0,
+        r: 7,
+      },
+      onclick: () => {
+        if (this.$isValidToSave) {
+          this.openCommentCallback(this.text)
+        }
       },
     }
   }
@@ -53,6 +67,6 @@ export class TextChartGraphic implements ChartGraphic {
       this.position.set(this.echart, x, y)
     }
 
-    return this.$isValidToSave // edit is done if it already had the text before the click
+    return false // edit is done only manually
   }
 }

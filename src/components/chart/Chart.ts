@@ -57,19 +57,7 @@ const template = `
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
-import {
-  ObjectOfAnalysis,
-  UserSavedChart,
-  ItemRFU,
-  ObjectOfAnalysisRFU,
-  ChartType,
-  ChartGraphic,
-  LineChartGraphic,
-  EllipseChartGraphic,
-  RectangleChartGraphic,
-  PencilChartGraphic,
-  TextChartGraphic,
-} from '../../models'
+import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU, ChartType, ChartGraphic } from '../../models'
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
@@ -252,17 +240,7 @@ export class Chart extends Vue {
     this.graphicBeingBuilt = null
   }
 
-  selectedDrawingTool(drawingTool: string) {
-    if (drawingTool === 'Line') {
-      this.graphicBeingBuilt = new LineChartGraphic()
-    } else if (drawingTool === 'Ellipse') {
-      this.graphicBeingBuilt = new EllipseChartGraphic()
-    } else if (drawingTool === 'Rectangle') {
-      this.graphicBeingBuilt = new RectangleChartGraphic()
-    } else if (drawingTool === 'Pencil') {
-      this.graphicBeingBuilt = new PencilChartGraphic()
-    } else if (drawingTool === 'Text') {
-      this.graphicBeingBuilt = new TextChartGraphic()
-    }
+  selectedDrawingTool(drawingTool: ChartGraphic) {
+    this.graphicBeingBuilt = drawingTool
   }
 }

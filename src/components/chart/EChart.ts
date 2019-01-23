@@ -172,16 +172,27 @@ export default class EChart extends Vue {
 
     const ee = this.echart
 
-    const graphic = [...this.value.graphics.map<any>(g => g.build(ee))]
+    const graphic: any[] = []
+
+    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee)))
 
     if (this.graphicBeingBuilt) {
-      const newGraphic = this.graphicBeingBuilt.build(this.echart)
-      if (newGraphic) {
-        graphic.push(newGraphic)
-      }
+      this.addGraphic(graphic, this.graphicBeingBuilt.build(this.echart))
     }
 
     return graphic
+  }
+
+  addGraphic(graphicArr: any[], aGraphic: any) {
+    if (!aGraphic) {
+      return
+    }
+
+    if (aGraphic instanceof Array) {
+      aGraphic.forEach(gg => graphicArr.push(gg))
+    } else {
+      graphicArr.push(aGraphic)
+    }
   }
 
   refresh() {

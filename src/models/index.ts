@@ -35,6 +35,7 @@ export { EllipseChartGraphic } from './resource/EllipseChartGraphic'
 export { RectangleChartGraphic } from './resource/RectangleChartGraphic'
 export { PencilChartGraphic } from './resource/PencilChartGraphic'
 export { TextChartGraphic } from './resource/TextChartGraphic'
+export { CommentChartGraphic } from './resource/CommentChartGraphic'
 
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'

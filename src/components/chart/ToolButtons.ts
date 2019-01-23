@@ -44,7 +44,8 @@ const template = `
 
     <a v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></a>
 
-    <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"></a>
+    <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"
+      @click="selectDrawingTool('Comment')"></a>
     
     <!-- NEW COLLECTION FORM MODAL -->
     <div v-if="newCollection" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">
@@ -64,6 +65,16 @@ const template = `
         <a class="squared w-60 h-60 line-h-60 text-center" @click="downloadXls">{{ $t('view.chart.xls') }}</a>
       </div>
     </div>
+    
+    <!-- CHART COMMENT MODAL -->
+    <div v-if="commentOpen" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">
+      <div class="popup p-20 w-450 verti items-center">
+        <a @click="commentOpen = null" class="close w-20 h-20 self-right"></a>
+        <p>
+          {{ commentOpen }}
+        </p>
+      </div>
+    </div>
 
   </div>
 `
@@ -71,7 +82,16 @@ const template = `
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import zipcelx from 'zipcelx'
 import Popover from 'vue-js-popover'
-import { UserSavedChart, Collection as SDCollection } from '../../models'
+import {
+  UserSavedChart,
+  Collection as SDCollection,
+  LineChartGraphic,
+  EllipseChartGraphic,
+  RectangleChartGraphic,
+  PencilChartGraphic,
+  TextChartGraphic,
+  CommentChartGraphic,
+} from '../../models'
 import { Collection } from '../../simpli'
 
 @Component({
@@ -103,6 +123,7 @@ export default class ToolButtons extends Vue {
   downloadCollectionOpen = false
   selectedDrawingTool: string | null = null
   lastBasicDrawingTool = 'Line'
+  commentOpen: string | null = null
 
   selectDrawingTool(newSelected: string) {
     this.selectedDrawingTool = newSelected
@@ -115,7 +136,19 @@ export default class ToolButtons extends Vue {
     const component = this.$refs.drawpopover as Popover
     component.visible = false
 
-    this.$emit('selectedDrawingTool', this.selectedDrawingTool)
+    if (this.selectedDrawingTool === 'Line') {
+      this.$emit('selectedDrawingTool', new LineChartGraphic())
+    } else if (this.selectedDrawingTool === 'Ellipse') {
+      this.$emit('selectedDrawingTool', new EllipseChartGraphic())
+    } else if (this.selectedDrawingTool === 'Rectangle') {
+      this.$emit('selectedDrawingTool', new RectangleChartGraphic())
+    } else if (this.selectedDrawingTool === 'Pencil') {
+      this.$emit('selectedDrawingTool', new PencilChartGraphic())
+    } else if (this.selectedDrawingTool === 'Text') {
+      this.$emit('selectedDrawingTool', new TextChartGraphic())
+    } else if (this.selectedDrawingTool === 'Comment') {
+      this.$emit('selectedDrawingTool', new CommentChartGraphic(this.openChartComment))
+    }
   }
 
   async mounted() {
@@ -210,5 +243,9 @@ export default class ToolButtons extends Vue {
     })
 
     await this.persistUserSavedChart(null, 1)
+  }
+
+  openChartComment(comment: string) {
+    this.commentOpen = comment
   }
 }

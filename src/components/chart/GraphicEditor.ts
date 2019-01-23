@@ -36,7 +36,7 @@ export default class GraphicEditor extends Vue {
   graphicBeingBuilt?: ChartGraphic
 
   get hasTextOfGraphic() {
-    return this.graphicBeingBuilt && this.graphicBeingBuilt.$name === 'TextChartGraphic'
+    return this.graphicBeingBuilt && this.graphicBeingBuilt instanceof TextChartGraphic
   }
 
   get textOfGraphic() {
