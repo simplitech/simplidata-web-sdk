@@ -23,6 +23,7 @@ export default {
       rgFormat: 'Wrong format for RG document',
       cpfFormat: 'Wrong format for CPF document',
       cnpjFormat: 'Wrong format for CNPJ document',
+      noData: 'No data found',
     },
 
     format: {

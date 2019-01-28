@@ -7,6 +7,7 @@ import echarts from 'echarts'
 import moment from 'moment'
 import { UserSavedChart, ChartGraphic } from '../../models'
 import { colors } from '../../const/colors.const'
+import { error } from '../../simpli'
 
 @Component({
   template,
@@ -94,15 +95,22 @@ export default class EChart extends Vue {
       return
     }
 
+    let series = this.value.itensRFU.map(d => ({
+      type: 'line',
+      smooth: true,
+    }))
+
+    if (this.startIndexLimiter === -1 || this.endIndexLimiter === -1) {
+      error('system.error.noData')
+      series = []
+    }
+
     const option = {
       ...this.chartOptions, // echarts bug: we need to merge manually instead of merging on setOptions
       dataset: {
         source: this.value.chartData,
       },
-      series: this.value.itensRFU.map(d => ({
-        type: 'line',
-        smooth: true,
-      })),
+      series,
       dataZoom: this.dataZoom,
       graphic: this.buildChartGraphics(),
     }
@@ -211,9 +219,13 @@ export default class EChart extends Vue {
     const dtMoment = moment(dt)
     const dtFormat: string = this.$t('system.format.date').toString()
 
-    const indexedChartData = this.value.chartData
-      .map((c, i) => ({ ind: i, val: c[0] }))
-      .filter(c => dtMoment.isSame(moment(c.val, dtFormat)) || dtMoment.isAfter(moment(c.val, dtFormat)) !== after)
+    const indexedChartData = this.value.chartData.map((c, i) => ({ ind: i, val: c[0] })).filter(c => {
+      const cMoment = moment(c.val, dtFormat)
+      const isSame = cMoment.isSame(dtMoment)
+      const isAfter = cMoment.isAfter(dtMoment)
+
+      return isSame || isAfter === after
+    })
 
     indexedChartData.sort((x, y) => {
       const diffXFromDt = Math.abs(dtMoment.diff(x.val, 'minutes'))
@@ -229,7 +241,7 @@ export default class EChart extends Vue {
       }
     }
 
-    return 0
+    return -1
   }
 
   dtLimiterFromIndex(index: number) {

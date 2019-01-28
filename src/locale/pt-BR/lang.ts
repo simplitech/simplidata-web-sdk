@@ -23,6 +23,7 @@ export default {
       rgFormat: 'O RG está com a formatação errada',
       cpfFormat: 'O CPF está com a formatação errada',
       cnpjFormat: 'O CNPJ está com a formatação errada',
+      noData: 'Nenhum dado encontrado',
     },
 
     format: {
