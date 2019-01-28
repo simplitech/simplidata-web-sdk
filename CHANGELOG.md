@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.3.3"></a>
+## [3.3.3](https://github.com/simplitech/simplidata-web-sdk/compare/v3.3.2...v3.3.3) (2019-01-28)
+
+
+### Bug Fixes
+
+* **EChart:** chart should not render if selected dates dont match any point ([4ddca44](https://github.com/simplitech/simplidata-web-sdk/commit/4ddca44))
+* **TransformationEditor:** bug with transformation combiner ([35dcdd4](https://github.com/simplitech/simplidata-web-sdk/commit/35dcdd4))
+
+
+
 <a name="3.3.2"></a>
 ## [3.3.2](https://github.com/simplitech/simplidata-web-sdk/compare/v3.3.1...v3.3.2) (2019-01-28)
 
