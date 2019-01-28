@@ -20,7 +20,7 @@ const template = `
           :showDateNavigator="showDateNavigator"
           :showLegend="showLegend"
           :showAdvancedAnalysisButton="showAdvancedAnalysisButton"
-          :selectedDatasetIndex="selectedDatasetIndex"
+          :selectedDatasetIndex.sync="selectedDatasetIndex"
           @onAdvancedClick="$emit('onAdvancedClick')"/>
 
         <!-- CHART -->
@@ -49,6 +49,7 @@ const template = `
         :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
+        @onVisitClick="$emit('onVisitClick')"
         class="w-300"/>
 
     </div>
@@ -208,6 +209,10 @@ export class Chart extends Vue {
     }
 
     this.$emit('dataLoaded')
+  }
+
+  async mounted() {
+    await this.populateData()
   }
 
   getRfuAsOaRfu(index?: number) {

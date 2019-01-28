@@ -22,7 +22,7 @@ const template = `
       :placeholder="$t('view.chart.end')"/>
       
     <div v-if="showLegend" class="legend p-5 horiz items-left-center">
-      <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="selectedDatasetIndex = i" class="item horiz items-left-center mr-10">
+      <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="$emit('selectedDatasetIndex.update', i)" class="item horiz items-left-center mr-10">
         <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': colors[i] }"></div>
         <div class="weight-1">
           {{ itemRfu.$contentTitle }}
@@ -41,6 +41,7 @@ import moment from 'moment'
 import { UserSavedChart, ChartType } from '../../models'
 import { Collection } from '../../simpli'
 import SelectGroup from '../SelectGroup'
+import { colors } from '../../const/colors.const'
 
 @Component({
   template,
@@ -66,6 +67,7 @@ export default class TopBar extends Vue {
   selectedDatasetIndex?: number
 
   allChartTypes = new Collection<ChartType>(ChartType)
+  colors = colors
 
   get startStrLimiter() {
     return this.value ? this.strLimiterFromDt(this.value.startDtLimiter) : null
