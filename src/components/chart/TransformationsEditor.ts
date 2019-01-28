@@ -82,7 +82,7 @@ export default class TransformationsEditor extends Vue {
     component.visible = false
 
     if (transformation.combiner && !transformation.combineWith) {
-      this.transformationToChooseCombiner = Object.assign(transformation, {})
+      this.transformationToChooseCombiner = transformation.clone()
       return
     }
 
