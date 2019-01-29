@@ -50,7 +50,7 @@ const template = `
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
         @onVisitClick="$emit('onVisitClick')"
-        class="w-300"/>
+        @onCollapseChange="refreshChartOnSelectOa"/>
 
     </div>
 
