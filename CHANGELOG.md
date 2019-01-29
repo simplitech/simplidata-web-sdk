@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="3.4.0"></a>
+# [3.4.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.3.3...v3.4.0) (2019-01-29)
+
+
+### Features
+
+* **RightPanel:** collapsable rightpanel ([15542ab](https://github.com/simplitech/simplidata-web-sdk/commit/15542ab))
+
+
+
 <a name="3.3.3"></a>
 ## [3.3.3](https://github.com/simplitech/simplidata-web-sdk/compare/v3.3.2...v3.3.3) (2019-01-28)
 
