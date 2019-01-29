@@ -28,6 +28,8 @@ export default {
 
     format: {
       date: 'DD/MM/YYYY',
+      days: 'dias',
+      time: 'HH:mm',
     },
   },
 

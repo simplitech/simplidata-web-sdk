@@ -182,10 +182,10 @@ export default class EChart extends Vue {
 
     const graphic: any[] = []
 
-    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee)))
+    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, colors)))
 
     if (this.graphicBeingBuilt) {
-      this.addGraphic(graphic, this.graphicBeingBuilt.build(this.echart))
+      this.addGraphic(graphic, this.graphicBeingBuilt.build(this.echart, colors))
     }
 
     return graphic

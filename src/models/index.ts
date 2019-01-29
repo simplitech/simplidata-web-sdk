@@ -36,6 +36,7 @@ export { RectangleChartGraphic } from './resource/RectangleChartGraphic'
 export { PencilChartGraphic } from './resource/PencilChartGraphic'
 export { TextChartGraphic } from './resource/TextChartGraphic'
 export { CommentChartGraphic } from './resource/CommentChartGraphic'
+export { MeasureChartGraphic } from './resource/MeasureChartGraphic'
 
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'

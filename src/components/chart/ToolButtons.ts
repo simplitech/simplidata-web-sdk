@@ -40,7 +40,8 @@ const template = `
       </div>
     </popover>
 
-    <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"></a>
+    <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"
+      @click="selectDrawingTool('Measure')"></a>
 
     <a v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></a>
 
@@ -91,6 +92,7 @@ import {
   PencilChartGraphic,
   TextChartGraphic,
   CommentChartGraphic,
+  MeasureChartGraphic,
 } from '../../models'
 import { Collection } from '../../simpli'
 
@@ -148,6 +150,8 @@ export default class ToolButtons extends Vue {
       this.$emit('selectedDrawingTool', new TextChartGraphic())
     } else if (this.selectedDrawingTool === 'Comment') {
       this.$emit('selectedDrawingTool', new CommentChartGraphic(this.openChartComment))
+    } else if (this.selectedDrawingTool === 'Measure') {
+      this.$emit('selectedDrawingTool', new MeasureChartGraphic())
     }
   }
 
