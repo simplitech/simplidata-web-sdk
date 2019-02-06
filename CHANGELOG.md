@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.1"></a>
+## [4.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v4.0.0...v4.0.1) (2019-02-06)
+
+
+### Bug Fixes
+
+* **CommentChartGraphic:** edit comment on a popup ([fcabd5e](https://github.com/simplitech/simplidata-web-sdk/commit/fcabd5e))
+
+
+
 <a name="4.0.0"></a>
 # [4.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.5.0...v4.0.0) (2019-02-06)
 
