@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.0.0"></a>
+# [4.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.5.0...v4.0.0) (2019-02-06)
+
+
+### Code Refactoring
+
+* **ModellingResult:** removing deprecated props ([76dad74](https://github.com/simplitech/simplidata-web-sdk/commit/76dad74))
+
+
+### BREAKING CHANGES
+
+* **ModellingResult:** removed props: rho, meanOfInnovations e standardDeviationOfInnovations from
+ModellingResult
+
+fix MCR-182
+
+
+
 <a name="3.5.0"></a>
 # [3.5.0](https://github.com/simplitech/simplidata-web-sdk/compare/v3.4.0...v3.5.0) (2019-01-29)
 
