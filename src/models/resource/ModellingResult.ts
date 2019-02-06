@@ -15,13 +15,8 @@ export class ModellingResult {
   rSquared?: number
   adjustedRSquared?: number
   standardErrorOfRegression?: number
-  rho?: number
   fTest?: number
   pValudOfF?: number
-
-  // nos modelos: arma, armax, arima
-  meanOfInnovations?: number
-  standardDeviationOfInnovations?: number
 
   // nos modelos: arma, armax, arima, mqo
   logLikelihood?: number
