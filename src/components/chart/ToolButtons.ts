@@ -67,13 +67,36 @@ const template = `
       </div>
     </div>
     
-    <!-- CHART COMMENT MODAL -->
-    <div v-if="commentOpen" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">
+    <!-- CHART SHOW COMMENT MODAL -->
+    <div v-if="commentOpen" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center verti">
       <div class="popup p-20 w-450 verti items-center">
         <a @click="commentOpen = null" class="close w-20 h-20 self-right"></a>
-        <p>
-          {{ commentOpen }}
+        <p class="comment-text">
+          {{ commentOpen.text }}
         </p>
+        <a @click="showEditCommentButtons = true" class="ctx-hor w-40 h-15 self-right"></a>
+      </div>
+      <div v-if="showEditCommentButtons" class="horiz w-450 items-right-center mt-8">
+        <a class="btn basic trash force-min-w-50 force-h-25 mr-6"></a>
+        <a class="btn basic edit force-min-w-50 force-h-25"></a>
+      </div>
+    </div>
+    
+    <!-- CHART EDIT COMMENT MODAL -->
+    <div v-if="editingComment" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">
+      <div class="popup p-20 w-450 verti">
+        <input
+          v-focus
+          v-model="graphicBeingBuiltAsComment.text"
+          type="text"
+          class="input-comment mb-15"
+          :placeholder="$t('view.chart.writeYourComment')"/>
+        <div class="horiz items-right-center">
+          <a class="cancel-btn w-50 h-30"
+            @click="graphicBeingBuilt.$isCancelled = true"></a>
+          <a class="ok-btn w-50 h-30" :class="{ 'opacity-20': !graphicBeingBuilt.$isValidToSave }"
+             @click="graphicBeingBuilt.$isDone = true"></a>
+         </div>
       </div>
     </div>
 
@@ -93,11 +116,19 @@ import {
   TextChartGraphic,
   CommentChartGraphic,
   MeasureChartGraphic,
+  ChartGraphic,
 } from '../../models'
 import { Collection } from '../../simpli'
 
 @Component({
   template,
+  directives: {
+    focus: {
+      inserted(el) {
+        el.focus()
+      },
+    },
+  },
 })
 export default class ToolButtons extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -125,7 +156,27 @@ export default class ToolButtons extends Vue {
   downloadCollectionOpen = false
   selectedDrawingTool: string | null = null
   lastBasicDrawingTool = 'Line'
-  commentOpen: string | null = null
+  commentOpen: CommentChartGraphic | null = null
+  graphicBeingBuilt: ChartGraphic | null = null
+  showEditCommentButtons = false
+
+  get graphicBeingBuiltAsComment() {
+    if (!this.graphicBeingBuilt || !(this.graphicBeingBuilt instanceof CommentChartGraphic)) {
+      return null
+    }
+
+    return this.graphicBeingBuilt as CommentChartGraphic
+  }
+
+  get editingComment() {
+    return (
+      this.graphicBeingBuilt &&
+      !this.graphicBeingBuilt.$isDone &&
+      !this.graphicBeingBuilt.$isCancelled &&
+      this.graphicBeingBuiltAsComment &&
+      this.graphicBeingBuiltAsComment.position !== null
+    )
+  }
 
   selectDrawingTool(newSelected: string) {
     this.selectedDrawingTool = newSelected
@@ -139,20 +190,22 @@ export default class ToolButtons extends Vue {
     component.visible = false
 
     if (this.selectedDrawingTool === 'Line') {
-      this.$emit('selectedDrawingTool', new LineChartGraphic())
+      this.graphicBeingBuilt = new LineChartGraphic()
     } else if (this.selectedDrawingTool === 'Ellipse') {
-      this.$emit('selectedDrawingTool', new EllipseChartGraphic())
+      this.graphicBeingBuilt = new EllipseChartGraphic()
     } else if (this.selectedDrawingTool === 'Rectangle') {
-      this.$emit('selectedDrawingTool', new RectangleChartGraphic())
+      this.graphicBeingBuilt = new RectangleChartGraphic()
     } else if (this.selectedDrawingTool === 'Pencil') {
-      this.$emit('selectedDrawingTool', new PencilChartGraphic())
+      this.graphicBeingBuilt = new PencilChartGraphic()
     } else if (this.selectedDrawingTool === 'Text') {
-      this.$emit('selectedDrawingTool', new TextChartGraphic())
+      this.graphicBeingBuilt = new TextChartGraphic()
     } else if (this.selectedDrawingTool === 'Comment') {
-      this.$emit('selectedDrawingTool', new CommentChartGraphic(this.openChartComment))
+      this.graphicBeingBuilt = new CommentChartGraphic(this.openChartComment)
     } else if (this.selectedDrawingTool === 'Measure') {
-      this.$emit('selectedDrawingTool', new MeasureChartGraphic())
+      this.graphicBeingBuilt = new MeasureChartGraphic()
     }
+
+    this.$emit('selectedDrawingTool', this.graphicBeingBuilt)
   }
 
   async mounted() {
@@ -249,7 +302,7 @@ export default class ToolButtons extends Vue {
     await this.persistUserSavedChart(null, 1)
   }
 
-  openChartComment(comment: string) {
+  openChartComment(comment: CommentChartGraphic) {
     this.commentOpen = comment
   }
 }

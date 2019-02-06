@@ -4,6 +4,8 @@ import { ChartGraphicPosition } from './ChartGraphicPosition'
 
 export class PencilChartGraphic implements ChartGraphic {
   $name = 'PencilChartGraphic'
+  $isDone = false
+  $isCancelled = false
   points: ChartGraphicPosition[] = []
   echart: echarts.ECharts | null = null
 

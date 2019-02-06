@@ -4,6 +4,8 @@ import { ChartGraphicPosition } from './ChartGraphicPosition'
 
 export class RectangleChartGraphic implements ChartGraphic {
   $name = 'RectangleChartGraphic'
+  $isDone = false
+  $isCancelled = false
   p1: ChartGraphicPosition | null = null
   p2: ChartGraphicPosition | null = null
   echart: echarts.ECharts | null = null

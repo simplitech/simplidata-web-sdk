@@ -5,9 +5,9 @@ import { ChartGraphicPosition } from './ChartGraphicPosition'
 
 export class CommentChartGraphic extends TextChartGraphic {
   $name = 'CommentChartGraphic'
-  openCommentCallback: (comment: string) => any
+  openCommentCallback: (comment: CommentChartGraphic) => any
 
-  constructor(openCommentCallback: (comment: string) => any) {
+  constructor(openCommentCallback: (comment: CommentChartGraphic) => any) {
     super()
     this.openCommentCallback = openCommentCallback
   }
@@ -44,7 +44,7 @@ export class CommentChartGraphic extends TextChartGraphic {
       },
       onclick: () => {
         if (this.$isValidToSave) {
-          this.openCommentCallback(this.text)
+          this.openCommentCallback(this)
         }
       },
     }

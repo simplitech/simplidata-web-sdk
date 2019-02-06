@@ -417,6 +417,7 @@ export default {
       chooseTheOaToCombineInTheTransformation: 'Choose the indicator to combine in the transformation',
       search: 'Search',
       text: 'Text',
+      writeYourComment: 'Write your comment...',
     },
   },
 }

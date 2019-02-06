@@ -315,4 +315,31 @@
       }
     }
   }
+
+  .auto-scroll {
+    overflow: auto;
+  }
+
+  .input-comment {
+    box-shadow: none !important;
+    font-size: 18px !important;
+  }
+
+  .comment-text {
+    font-size: 18px;
+  }
+
+  .ctx-hor {
+    background: no-repeat center center;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='36px' height='16px' viewBox='0 0 36 16' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4EACB0FD-3760-49C2-9AD5-A921097826A1%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Design-Dark' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='2.27-Objeto-Comentário' transform='translate(-636.000000, -403.000000)'%3E%3Cg id='Group-7' transform='translate(327.000000, 301.000000)'%3E%3Cg id='ctx-hor' transform='translate(310.000000, 103.000000)'%3E%3Cpath d='M6.87730096,-1.27758113e-16 L27.122699,1.27758113e-16 C28.6213803,-1.47545164e-16 29.8301157,0.286915525 30.8375231,0.825682903 C31.8449305,1.36445028 32.6355497,2.15506951 33.1743171,3.16247692 C33.7130845,4.16988432 34,5.37861972 34,6.87730096 L34,7.12269904 C34,8.62138028 33.7130845,9.83011568 33.1743171,10.8375231 C32.6355497,11.8449305 31.8449305,12.6355497 30.8375231,13.1743171 C29.8301157,13.7130845 28.6213803,14 27.122699,14 L6.87730096,14 C5.37861972,14 4.16988432,13.7130845 3.16247692,13.1743171 C2.15506951,12.6355497 1.36445028,11.8449305 0.825682903,10.8375231 C0.286915525,9.83011568 9.83634428e-17,8.62138028 -8.51720755e-17,7.12269904 L8.51720755e-17,6.87730096 C-9.83634428e-17,5.37861972 0.286915525,4.16988432 0.825682903,3.16247692 C1.36445028,2.15506951 2.15506951,1.36445028 3.16247692,0.825682903 C4.16988432,0.286915525 5.37861972,1.47545164e-16 6.87730096,-1.27758113e-16 Z' id='Combined-Shape-Copy' stroke='%235B5B5B' fill-rule='nonzero'%3E%3C/path%3E%3Cg id='navigation-menu-horizontal' transform='translate(7.727273, 4.666667)' fill='%235B5B5B'%3E%3Cellipse id='Oval' cx='2.60795455' cy='2.35122222' rx='2.02840909' ry='2.04166667'%3E%3C/ellipse%3E%3Cellipse id='Oval' cx='15.9375' cy='2.35122222' rx='2.02840909' ry='2.04166667'%3E%3C/ellipse%3E%3Cellipse id='Oval' cx='9.27272727' cy='2.35122222' rx='2.02840909' ry='2.04166667'%3E%3C/ellipse%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .edit {
+    background: no-repeat center center !important;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='13px' height='13px' viewBox='0 0 13 13' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E6A68E48C-2A7F-4D18-B6DF-FA5CF98B8050%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Design-Dark' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='2.28-Objeto-Comentário' transform='translate(-653.000000, -447.000000)' stroke='%23FFFFFF' stroke-width='0.962566845'%3E%3Cg id='Group-6' transform='translate(631.000000, 441.000000)'%3E%3Cg id='edit' transform='translate(23.000000, 7.000000)'%3E%3Cpath d='M3.233,10.1939281 L0,10.9137594 L0.7585,7.84605375 L8.732,0.278097336 C8.91954801,0.100038486 9.17396332,-1.42371953e-14 9.43925,-1.42108547e-14 C9.70453668,-1.41845141e-14 9.95895199,0.100038486 10.1465,0.278097336 L11.2075,1.28453257 C11.395124,1.4625193 11.5005365,1.7039644 11.5005365,1.95572665 C11.5005365,2.2074889 11.395124,2.448934 11.2075,2.62692073 L3.233,10.1939281 Z' id='Shape'%3E%3C/path%3E%3Cpath d='M10.855,2.96334816 L8.3785,0.613575747' id='Shape'%3E%3C/path%3E%3Cpath d='M3.359,10.0753007 L0.884,7.72647728' id='Shape'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+  }
+  .trash {
+    background: no-repeat center center !important;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='14px' height='15px' viewBox='0 0 14 15' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4AA5C570-2886-4BB9-9856-2829EA8D372F%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Design-Dark' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='2.28-Objeto-Comentário' transform='translate(-590.000000, -447.000000)' stroke='%23ACACAC' stroke-width='1.1'%3E%3Cg id='Group-6-Copy' transform='translate(569.000000, 442.000000)'%3E%3Cg id='trash' transform='translate(22.000000, 6.000000)'%3E%3Cpath d='M0.409636364,3.44933333 L11.6138182,1.08441667' id='Shape'%3E%3C/path%3E%3Cpath d='M6.87272727,0.424125 L4.47272727,0.930583333 C4.25986988,0.975042959 4.07360097,1.10184259 3.95507954,1.28296391 C3.83655812,1.46408522 3.79554077,1.68461843 3.84109091,1.89583333 L4.01127273,2.691 L8.01272727,1.846 L7.84254545,1.051375 C7.79774937,0.840456418 7.67038887,0.655859652 7.48849875,0.53821845 C7.30660863,0.420577247 7.08509841,0.379534642 6.87272727,0.424125 Z' id='Shape'%3E%3C/path%3E%3Cpath d='M5.31872727,9.75 L5.31872727,5.6875' id='Shape'%3E%3C/path%3E%3Cpath d='M7.77327273,9.75 L7.77327273,5.6875' id='Shape'%3E%3C/path%3E%3Cpath d='M9.61418182,3.25 L11.046,3.25 L10.2905455,11.8484167 C10.2552721,12.2707272 9.89908529,12.5952002 9.47236364,12.59375 L3.61690909,12.59375 C3.19144399,12.5935061 2.83717172,12.2694811 2.802,11.8484167 L2.23636364,5.07920833' id='Shape'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E") !important;
+  }
 }

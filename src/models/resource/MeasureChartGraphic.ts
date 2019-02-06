@@ -6,6 +6,8 @@ import { ChartGraphicPositionWithData } from './ChartGraphicPositionWithData'
 
 export class MeasureChartGraphic implements ChartGraphic {
   $name = 'MeasureChartGraphic'
+  $isDone = false
+  $isCancelled = false
   p1: ChartGraphicPositionWithData | null = null
   p2: ChartGraphicPositionWithData | null = null
   echart: echarts.ECharts | null = null

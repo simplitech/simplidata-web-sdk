@@ -12,7 +12,7 @@ const template = `
         @selectedDrawingTool="selectedDrawingTool"
         class="mt-60"/>
 
-      <div class="verti weight-1 scroll mx-5">
+      <div class="verti weight-1 auto-scroll mx-5">
 
         <!-- SELECTS AND BUTTONS ON TOP BAR -->
         <top-bar v-model="value"
@@ -33,11 +33,6 @@ const template = `
         <table-chart v-model="value" 
           v-if="chartTypeTableSelected"
           class="min-h-400 weight-1"/>
-
-        <graphic-editor v-model="value" v-if="graphicBeingBuilt"
-          :graphicBeingBuilt="graphicBeingBuilt"
-          @doneEditingGraphic="doneEditingGraphic"
-          @cancelEditing="cancelEditingDrawing"/>
            
       </div>
 
@@ -64,11 +59,10 @@ import TopBar from './TopBar'
 import EChart from './EChart'
 import TableChart from './TableChart'
 import RightPanel from './RightPanel'
-import GraphicEditor from './GraphicEditor'
 
 @Component({
   template,
-  components: { ToolButtons, TopBar, EChart, TableChart, RightPanel, GraphicEditor },
+  components: { ToolButtons, TopBar, EChart, TableChart, RightPanel },
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -232,17 +226,21 @@ export class Chart extends Vue {
     return null
   }
 
+  @Watch('graphicBeingBuilt.$isDone')
   doneEditingGraphic() {
-    if (this.graphicBeingBuilt) {
+    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isDone) {
       if (this.value) {
         this.value.graphics.push(this.graphicBeingBuilt)
       }
-      this.graphicBeingBuilt = this.graphicBeingBuilt.cleanCopy()
+      this.graphicBeingBuilt = null
     }
   }
 
+  @Watch('graphicBeingBuilt.$isCancelled')
   cancelEditingDrawing() {
-    this.graphicBeingBuilt = null
+    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isCancelled) {
+      this.graphicBeingBuilt = null
+    }
   }
 
   selectedDrawingTool(drawingTool: ChartGraphic) {
