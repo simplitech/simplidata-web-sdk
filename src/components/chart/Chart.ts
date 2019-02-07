@@ -172,11 +172,15 @@ export class Chart extends Vue {
       return
     }
 
+    let somethingLoaded = false
+
     if (!this.value.idUserChartPk) {
       if (this.savedChartId) {
+        somethingLoaded = true
         await this.value.find(this.savedChartId)
         this.value.parseJson()
       } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
+        somethingLoaded = true
         for (const i in this.objectOfAnalysisIds) {
           const oaId = this.objectOfAnalysisIds[i]
           if (oaId) {
@@ -202,7 +206,9 @@ export class Chart extends Vue {
       }
     }
 
-    this.$emit('dataLoaded')
+    if (somethingLoaded) {
+      this.$emit('dataLoaded')
+    }
   }
 
   async mounted() {

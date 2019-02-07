@@ -5,16 +5,18 @@ const template = `
       :title="$t('view.chart.saveChartOnCollection')"></a>
 
     <popover :name="'sg-save' + _uid" ref="savepopover">
-      <div class="verti">
-        <div v-if="myCollections.items.length" class="saved-collections verti mt-20 mx-10">
-          <a v-for="c in myCollections.items" @click="persistUserSavedChart(c.idCollectionPk)" class="h-30 line-h-30">
-            {{ c.title }}
-          </a>
-          <div class="divisor my-15"></div>
+      <await name="save">
+        <div class="verti">
+          <div v-if="myCollections.items.length" class="saved-collections verti mt-20 mx-10">
+            <a v-for="c in myCollections.items" @click="$await.run(() => persistUserSavedChart(c.idCollectionPk), 'save')" class="h-30 line-h-30">
+              {{ c.title }}
+            </a>
+            <div class="divisor my-15"></div>
+          </div>
+          <a class="new-collection pl-40 pr-10 h-40 line-h-40" @click="openNewCollection">{{ $t('view.chart.newCollection') }}</a>
+          <a class="download-collection pl-40 pr-10 h-40 line-h-40" @click="downloadCollectionOpen = true">{{ $t('view.chart.download') }}</a>
         </div>
-        <a class="new-collection pl-40 pr-10 h-40 line-h-40" @click="openNewCollection">{{ $t('view.chart.newCollection') }}</a>
-        <a class="download-collection pl-40 pr-10 h-40 line-h-40" @click="downloadCollectionOpen = true">{{ $t('view.chart.download') }}</a>
-      </div>
+      </await>
     </popover>
 
     <template v-if="showDrawingButtons">
@@ -50,11 +52,13 @@ const template = `
     
     <!-- NEW COLLECTION FORM MODAL -->
     <div v-if="newCollection" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">
-      <form @submit.prevent="persistCollection" class="popup p-20 w-450 verti items-center">
+      <form @submit.prevent="$await.run(persistCollection, 'save')" class="popup p-20 w-450 verti items-center">
         <a @click="newCollection = null" class="close w-20 h-20 self-right"></a>
         <h1 class="mt-0 mb-40">{{ $t('view.chart.newCollection') }}</h1>
         <input type="text" v-model="newCollection.title" class="w-300" :placeholder="$t('view.chart.collectionName')"/>
-        <button type="submit" class="submit mt-40 w-300 h-50 mb-30">{{ $t('view.chart.save') }}</button>
+        <await name="save">
+          <button type="submit" class="submit mt-40 w-300 h-50 mb-30">{{ $t('view.chart.save') }}</button>
+        </await>
       </form>
     </div>
     
@@ -232,8 +236,8 @@ export default class ToolButtons extends Vue {
     const resp = await this.newCollection.save<number>()
     this.newCollection.idCollectionPk = resp.data
     this.myCollections.items.push(this.newCollection)
-    this.newCollection = null
     await this.persistUserSavedChart(resp.data)
+    this.newCollection = null
   }
 
   async persistUserSavedChart(idCollection: number | null, idDownloadType: number | null = null) {
