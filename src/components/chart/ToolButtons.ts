@@ -44,8 +44,14 @@ const template = `
 
     <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"
       @click="selectDrawingTool('Measure')"></a>
+    
+    <a v-if="showCalcButton" v-popover.right="{ name: 'sg-calc' + _uid }" class="chart-calc h-40 mb-8 items-center"></a>
 
-    <a v-if="showCalcButton" class="chart-calc h-40 mb-8 items-center"></a>
+    <popover :name="'sg-calc' + _uid" ref="calcpopover">
+      <div class="calcpopover verti">
+        <a @click="selectDrawingTool('FibonacciRetraction')" class="p-15">{{ $t('view.chart.fibonacciRetraction') }}</a>
+      </div>
+    </popover>
 
     <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"
       @click="selectDrawingTool('Comment')"></a>
@@ -120,6 +126,7 @@ import {
   TextChartGraphic,
   CommentChartGraphic,
   MeasureChartGraphic,
+  FibonacciRetractionChartGraphic,
   ChartGraphic,
 } from '../../models'
 import { Collection } from '../../simpli'
@@ -191,8 +198,12 @@ export default class ToolButtons extends Vue {
     }
 
     // @ts-ignore
-    const component = this.$refs.drawpopover as Popover
-    component.visible = false
+    const drawpopover = this.$refs.drawpopover as Popover
+    drawpopover.visible = false
+
+    // @ts-ignore
+    const calcpopover = this.$refs.calcpopover as Popover
+    calcpopover.visible = false
 
     if (this.selectedDrawingTool === 'Line') {
       this.graphicBeingBuilt = new LineChartGraphic()
@@ -208,6 +219,8 @@ export default class ToolButtons extends Vue {
       this.graphicBeingBuilt = new CommentChartGraphic()
     } else if (this.selectedDrawingTool === 'Measure') {
       this.graphicBeingBuilt = new MeasureChartGraphic()
+    } else if (this.selectedDrawingTool === 'FibonacciRetraction') {
+      this.graphicBeingBuilt = new FibonacciRetractionChartGraphic()
     }
 
     this.$emit('selectedDrawingTool', this.graphicBeingBuilt)

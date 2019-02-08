@@ -418,6 +418,7 @@ export default {
       search: 'Search',
       text: 'Text',
       writeYourComment: 'Write your comment...',
+      fibonacciRetraction: 'Fibonacci',
     },
   },
 }

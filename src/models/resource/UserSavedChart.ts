@@ -18,6 +18,7 @@ import { RectangleChartGraphic } from './RectangleChartGraphic'
 import { PencilChartGraphic } from './PencilChartGraphic'
 import { CommentChartGraphic } from './CommentChartGraphic'
 import { MeasureChartGraphic } from './MeasureChartGraphic'
+import { FibonacciRetractionChartGraphic } from './FibonacciRetractionChartGraphic'
 import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
 import { ItemRFU } from './ItemRFU'
 import { version } from '../../utils'
@@ -125,6 +126,8 @@ export class UserSavedChart extends Resource {
         this.graphics.push(plainToClass<CommentChartGraphic, object>(CommentChartGraphic, g))
       } else if (g.$name === 'MeasureChartGraphic') {
         this.graphics.push(plainToClass<MeasureChartGraphic, object>(MeasureChartGraphic, g))
+      } else if (g.$name === 'FibonacciRetractionChartGraphic') {
+        this.graphics.push(plainToClass<FibonacciRetractionChartGraphic, object>(FibonacciRetractionChartGraphic, g))
       }
     })
   }

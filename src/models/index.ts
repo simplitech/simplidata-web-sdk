@@ -37,6 +37,7 @@ export { PencilChartGraphic } from './resource/PencilChartGraphic'
 export { TextChartGraphic } from './resource/TextChartGraphic'
 export { CommentChartGraphic } from './resource/CommentChartGraphic'
 export { MeasureChartGraphic } from './resource/MeasureChartGraphic'
+export { FibonacciRetractionChartGraphic } from './resource/FibonacciRetractionChartGraphic'
 
 /* *** Response *** */
 export { AuthRequest } from './request/AuthRequest'
