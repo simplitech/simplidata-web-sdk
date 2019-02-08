@@ -3,14 +3,18 @@ import moment from 'moment'
 import { $ } from 'simpli-web-sdk'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPositionWithData } from './ChartGraphicPositionWithData'
+import { ResponseSerialize } from '../../simpli'
 
 export class MeasureChartGraphic implements ChartGraphic {
   $name = 'MeasureChartGraphic'
   $isDone = false
   $isCancelled = false
+
+  @ResponseSerialize(ChartGraphicPositionWithData)
   p1: ChartGraphicPositionWithData | null = null
+
+  @ResponseSerialize(ChartGraphicPositionWithData)
   p2: ChartGraphicPositionWithData | null = null
-  echart: echarts.ECharts | null = null
 
   cleanCopy() {
     return new MeasureChartGraphic()
@@ -59,14 +63,12 @@ export class MeasureChartGraphic implements ChartGraphic {
   }
 
   build(echart: echarts.ECharts, colors: string[] | null) {
-    this.echart = echart
-
     if (!this.p1 || !this.p2) {
       return null
     }
 
-    const p1Pos = this.p1.get(this.echart)
-    const p2Pos = this.p2.get(this.echart)
+    const p1Pos = this.p1.get(echart)
+    const p2Pos = this.p2.get(echart)
     const width = p2Pos[0] - p1Pos[0]
     const height = p2Pos[1] - p1Pos[1]
 
@@ -128,23 +130,21 @@ export class MeasureChartGraphic implements ChartGraphic {
     }
   }
 
-  mousedown(x: number, y: number) {
-    if (this.echart) {
-      if (!this.p1) {
-        this.p1 = new ChartGraphicPositionWithData()
-      }
-
-      this.p1.set(this.echart, x, y)
+  mousedown(echart: echarts.ECharts, x: number, y: number) {
+    if (!this.p1) {
+      this.p1 = new ChartGraphicPositionWithData()
     }
+
+    this.p1.set(echart, x, y)
   }
 
-  mousemove(x: number, y: number) {
-    if (this.echart && this.p1) {
+  mousemove(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
       if (!this.p2) {
         this.p2 = new ChartGraphicPositionWithData()
       }
 
-      this.p2.set(this.echart, x, y)
+      this.p2.set(echart, x, y)
 
       return true // mousemove is relevant
     }
@@ -152,13 +152,13 @@ export class MeasureChartGraphic implements ChartGraphic {
     return false // mousemove is irrelevant
   }
 
-  mouseup(x: number, y: number) {
-    if (this.echart && this.p1) {
+  mouseup(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
       if (!this.p2) {
         this.p2 = new ChartGraphicPositionWithData()
       }
 
-      this.p2.set(this.echart, x, y)
+      this.p2.set(echart, x, y)
 
       return true // done editing
     }

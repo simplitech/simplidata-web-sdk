@@ -1,14 +1,17 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPosition } from './ChartGraphicPosition'
+import { ResponseSerialize } from '../../simpli'
 
 export class TextChartGraphic implements ChartGraphic {
   $name = 'TextChartGraphic'
   $isDone = false
   $isCancelled = false
+
+  @ResponseSerialize(ChartGraphicPosition)
   position: ChartGraphicPosition | null = null
+
   text = ''
-  echart: echarts.ECharts | null = null
 
   cleanCopy(): ChartGraphic {
     return new TextChartGraphic()
@@ -19,13 +22,11 @@ export class TextChartGraphic implements ChartGraphic {
   }
 
   build(echart: echarts.ECharts): any {
-    this.echart = echart
-
     if (!this.position || !this.text.length) {
       return null
     }
 
-    const pos = this.position.get(this.echart)
+    const pos = this.position.get(echart)
 
     return {
       type: 'text',
@@ -38,22 +39,20 @@ export class TextChartGraphic implements ChartGraphic {
     }
   }
 
-  mousedown(x: number, y: number) {
+  mousedown(echart: echarts.ECharts, x: number, y: number) {
     // nothing
   }
 
-  mousemove(x: number, y: number) {
+  mousemove(echart: echarts.ECharts, x: number, y: number) {
     return false // mousemove is always irrelevant
   }
 
-  mouseup(x: number, y: number) {
-    if (this.echart) {
-      if (!this.position) {
-        this.position = new ChartGraphicPosition()
-      }
-
-      this.position.set(this.echart, x, y)
+  mouseup(echart: echarts.ECharts, x: number, y: number) {
+    if (!this.position) {
+      this.position = new ChartGraphicPosition()
     }
+
+    this.position.set(echart, x, y)
 
     return this.$isValidToSave // edit is done if it already had the text before the click
   }

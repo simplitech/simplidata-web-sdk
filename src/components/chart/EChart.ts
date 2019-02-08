@@ -143,7 +143,7 @@ export default class EChart extends Vue {
         return
       }
 
-      this.graphicBeingBuilt.mousedown(e.offsetX, e.offsetY)
+      this.graphicBeingBuilt.mousedown(this.echart, e.offsetX, e.offsetY)
     }).bind(this)
 
     el.onmousemove = ((e: MouseEvent) => {
@@ -151,7 +151,7 @@ export default class EChart extends Vue {
         return
       }
 
-      const mouseMoveWasRelevant = this.graphicBeingBuilt.mousemove(e.offsetX, e.offsetY)
+      const mouseMoveWasRelevant = this.graphicBeingBuilt.mousemove(this.echart, e.offsetX, e.offsetY)
 
       if (mouseMoveWasRelevant) {
         this.updateChartData()
@@ -163,12 +163,12 @@ export default class EChart extends Vue {
         return
       }
 
-      const doneEditing = this.graphicBeingBuilt.mouseup(e.offsetX, e.offsetY)
+      const doneEditing = this.graphicBeingBuilt.mouseup(this.echart, e.offsetX, e.offsetY)
 
       this.updateChartData()
 
       if (doneEditing) {
-        this.$emit('doneEditingGraphic')
+        this.graphicBeingBuilt.$isDone = true
       }
     }).bind(this)
   }

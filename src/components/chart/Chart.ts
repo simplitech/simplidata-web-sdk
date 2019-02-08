@@ -27,7 +27,6 @@ const template = `
         <e-chart v-model="value" 
           v-show="!chartTypeTableSelected"
           :graphicBeingBuilt="graphicBeingBuilt"
-          @doneEditingGraphic="doneEditingGraphic"
           ref="echart" class="min-h-400 weight-1"/>
           
         <table-chart v-model="value" 

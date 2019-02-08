@@ -17,8 +17,12 @@ export class ChartGraphicPosition {
   }
 
   get(echart: echarts.ECharts): number[] {
-    const [xAx, yAx] = echart.convertToPixel({ seriesIndex: 0 }, [this.axisX, this.axisY]) as any[]
+    const pixels = echart.convertToPixel({ seriesIndex: 0 }, [this.axisX, this.axisY]) as any[] | null
 
-    return [xAx + this.offsetX, yAx + this.offsetY]
+    if (pixels) {
+      return [pixels[0] + this.offsetX, pixels[1] + this.offsetY]
+    } else {
+      return [0, 0]
+    }
   }
 }

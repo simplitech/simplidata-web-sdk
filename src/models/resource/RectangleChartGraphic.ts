@@ -1,14 +1,18 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPosition } from './ChartGraphicPosition'
+import { ResponseSerialize } from '../../simpli'
 
 export class RectangleChartGraphic implements ChartGraphic {
   $name = 'RectangleChartGraphic'
   $isDone = false
   $isCancelled = false
+
+  @ResponseSerialize(ChartGraphicPosition)
   p1: ChartGraphicPosition | null = null
+
+  @ResponseSerialize(ChartGraphicPosition)
   p2: ChartGraphicPosition | null = null
-  echart: echarts.ECharts | null = null
 
   cleanCopy() {
     return new RectangleChartGraphic()
@@ -19,14 +23,12 @@ export class RectangleChartGraphic implements ChartGraphic {
   }
 
   build(echart: echarts.ECharts) {
-    this.echart = echart
-
     if (!this.p1 || !this.p2) {
       return null
     }
 
-    const p1Pos = this.p1.get(this.echart)
-    const p2Pos = this.p2.get(this.echart)
+    const p1Pos = this.p1.get(echart)
+    const p2Pos = this.p2.get(echart)
 
     return {
       type: 'rect',
@@ -46,23 +48,21 @@ export class RectangleChartGraphic implements ChartGraphic {
     }
   }
 
-  mousedown(x: number, y: number) {
-    if (this.echart) {
-      if (!this.p1) {
-        this.p1 = new ChartGraphicPosition()
-      }
-
-      this.p1.set(this.echart, x, y)
+  mousedown(echart: echarts.ECharts, x: number, y: number) {
+    if (!this.p1) {
+      this.p1 = new ChartGraphicPosition()
     }
+
+    this.p1.set(echart, x, y)
   }
 
-  mousemove(x: number, y: number) {
-    if (this.echart && this.p1) {
+  mousemove(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
       if (!this.p2) {
         this.p2 = new ChartGraphicPosition()
       }
 
-      this.p2.set(this.echart, x, y)
+      this.p2.set(echart, x, y)
 
       return true // mousemove is relevant
     }
@@ -70,13 +70,13 @@ export class RectangleChartGraphic implements ChartGraphic {
     return false // mousemove is irrelevant
   }
 
-  mouseup(x: number, y: number) {
-    if (this.echart && this.p1) {
+  mouseup(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
       if (!this.p2) {
         this.p2 = new ChartGraphicPosition()
       }
 
-      this.p2.set(this.echart, x, y)
+      this.p2.set(echart, x, y)
 
       return true // done editing
     }

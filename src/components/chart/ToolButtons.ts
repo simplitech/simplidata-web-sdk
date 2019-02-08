@@ -123,6 +123,7 @@ import {
   ChartGraphic,
 } from '../../models'
 import { Collection } from '../../simpli'
+import ChartBus from '../../utils/ChartBus'
 
 @Component({
   template,
@@ -204,7 +205,7 @@ export default class ToolButtons extends Vue {
     } else if (this.selectedDrawingTool === 'Text') {
       this.graphicBeingBuilt = new TextChartGraphic()
     } else if (this.selectedDrawingTool === 'Comment') {
-      this.graphicBeingBuilt = new CommentChartGraphic(this.openChartComment)
+      this.graphicBeingBuilt = new CommentChartGraphic()
     } else if (this.selectedDrawingTool === 'Measure') {
       this.graphicBeingBuilt = new MeasureChartGraphic()
     }
@@ -214,6 +215,8 @@ export default class ToolButtons extends Vue {
 
   async mounted() {
     await this.populateData()
+
+    ChartBus.$on('openComment', this.openChartComment)
   }
 
   openNewCollection() {

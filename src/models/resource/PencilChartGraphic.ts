@@ -1,13 +1,15 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPosition } from './ChartGraphicPosition'
+import { ResponseSerialize } from '../../simpli'
 
 export class PencilChartGraphic implements ChartGraphic {
   $name = 'PencilChartGraphic'
   $isDone = false
   $isCancelled = false
+
+  @ResponseSerialize(ChartGraphicPosition)
   points: ChartGraphicPosition[] = []
-  echart: echarts.ECharts | null = null
 
   cleanCopy() {
     return new PencilChartGraphic()
@@ -18,13 +20,11 @@ export class PencilChartGraphic implements ChartGraphic {
   }
 
   build(echart: echarts.ECharts) {
-    this.echart = echart
-
     if (!this.$isValidToSave) {
       return null
     }
 
-    const p1Pos = this.points[0].get(this.echart)
+    const p1Pos = this.points[0].get(echart)
 
     return {
       type: 'polyline',
@@ -43,18 +43,16 @@ export class PencilChartGraphic implements ChartGraphic {
     }
   }
 
-  mousedown(x: number, y: number) {
-    if (this.echart) {
-      const p = new ChartGraphicPosition()
-      p.set(this.echart, x, y)
-      this.points.push(p)
-    }
+  mousedown(echart: echarts.ECharts, x: number, y: number) {
+    const p = new ChartGraphicPosition()
+    p.set(echart, x, y)
+    this.points.push(p)
   }
 
-  mousemove(x: number, y: number) {
-    if (this.echart && this.points.length) {
+  mousemove(echart: echarts.ECharts, x: number, y: number) {
+    if (this.points.length) {
       const p = new ChartGraphicPosition()
-      p.set(this.echart, x, y)
+      p.set(echart, x, y)
       this.points.push(p)
 
       return true // mousemove is relevant
@@ -63,7 +61,7 @@ export class PencilChartGraphic implements ChartGraphic {
     return false // mousemove is irrelevant
   }
 
-  mouseup(x: number, y: number) {
+  mouseup(echart: echarts.ECharts, x: number, y: number) {
     return true
   }
 }

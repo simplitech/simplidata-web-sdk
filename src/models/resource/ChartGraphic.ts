@@ -6,8 +6,8 @@ export interface ChartGraphic {
   $isDone: boolean
   $isCancelled: boolean
   build(echart: echarts.ECharts, colors: string[] | null): any
-  mousedown(x: number, y: number): void
-  mousemove(x: number, y: number): boolean
-  mouseup(x: number, y: number): boolean
+  mousedown(echart: echarts.ECharts, x: number, y: number): void
+  mousemove(echart: echarts.ECharts, x: number, y: number): boolean
+  mouseup(echart: echarts.ECharts, x: number, y: number): boolean
   cleanCopy(): ChartGraphic
 }

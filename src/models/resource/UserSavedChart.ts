@@ -4,7 +4,7 @@
  */
 import moment from 'moment'
 import { ID, Resource } from '../../simpli'
-import { $, ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { $, ResponseSerialize, ValidationMaxLength, ValidationRequired, RequestExclude } from '../../simpli'
 import { Collection } from './Collection'
 import { ChartType } from './ChartType'
 import { DownloadType } from './DownloadType'
@@ -16,6 +16,8 @@ import { TextChartGraphic } from './TextChartGraphic'
 import { EllipseChartGraphic } from './EllipseChartGraphic'
 import { RectangleChartGraphic } from './RectangleChartGraphic'
 import { PencilChartGraphic } from './PencilChartGraphic'
+import { CommentChartGraphic } from './CommentChartGraphic'
+import { MeasureChartGraphic } from './MeasureChartGraphic'
 import UserSavedChartSchema from '../../schemas/UserSavedChart.schema'
 import { ItemRFU } from './ItemRFU'
 import { version } from '../../utils'
@@ -66,11 +68,19 @@ export class UserSavedChart extends Resource {
   @ValidationMaxLength(255)
   json: string = ''
 
-  // json properties
+  @RequestExclude() // json property
   graphics: ChartGraphic[] = []
+
+  @RequestExclude() // json property
   chartType = new ChartType()
+
+  @RequestExclude() // json property
   startDtLimiter: string | null = null
+
+  @RequestExclude() // json property
   endDtLimiter: string | null = null
+
+  @RequestExclude() // json property
   itensRFU: ItemRFU[] = []
 
   buildJson() {
@@ -111,6 +121,10 @@ export class UserSavedChart extends Resource {
         this.graphics.push(plainToClass<PencilChartGraphic, object>(PencilChartGraphic, g))
       } else if (g.$name === 'TextChartGraphic') {
         this.graphics.push(plainToClass<TextChartGraphic, object>(TextChartGraphic, g))
+      } else if (g.$name === 'CommentChartGraphic') {
+        this.graphics.push(plainToClass<CommentChartGraphic, object>(CommentChartGraphic, g))
+      } else if (g.$name === 'MeasureChartGraphic') {
+        this.graphics.push(plainToClass<MeasureChartGraphic, object>(MeasureChartGraphic, g))
       }
     })
   }

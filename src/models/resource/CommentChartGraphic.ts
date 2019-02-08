@@ -1,19 +1,14 @@
 import echarts from 'echarts'
+import ChartBus from '../../utils/ChartBus'
 import { ChartGraphic } from './ChartGraphic'
 import { TextChartGraphic } from './TextChartGraphic'
 import { ChartGraphicPosition } from './ChartGraphicPosition'
 
 export class CommentChartGraphic extends TextChartGraphic {
   $name = 'CommentChartGraphic'
-  openCommentCallback: (comment: CommentChartGraphic) => any
-
-  constructor(openCommentCallback: (comment: CommentChartGraphic) => any) {
-    super()
-    this.openCommentCallback = openCommentCallback
-  }
 
   cleanCopy(): ChartGraphic {
-    return new CommentChartGraphic(this.openCommentCallback)
+    return new CommentChartGraphic()
   }
 
   get $isValidToSave(): boolean {
@@ -21,13 +16,11 @@ export class CommentChartGraphic extends TextChartGraphic {
   }
 
   build(echart: echarts.ECharts): any {
-    this.echart = echart
-
     if (!this.position) {
       return null
     }
 
-    const pos = this.position.get(this.echart)
+    const pos = this.position.get(echart)
 
     return {
       type: 'circle',
@@ -44,28 +37,26 @@ export class CommentChartGraphic extends TextChartGraphic {
       },
       onclick: () => {
         if (this.$isValidToSave) {
-          this.openCommentCallback(this)
+          ChartBus.$emit('openComment', this)
         }
       },
     }
   }
 
-  mousedown(x: number, y: number) {
+  mousedown(echart: echarts.ECharts, x: number, y: number) {
     // nothing
   }
 
-  mousemove(x: number, y: number) {
+  mousemove(echart: echarts.ECharts, x: number, y: number) {
     return false // mousemove is always irrelevant
   }
 
-  mouseup(x: number, y: number) {
-    if (this.echart) {
-      if (!this.position) {
-        this.position = new ChartGraphicPosition()
-      }
-
-      this.position.set(this.echart, x, y)
+  mouseup(echart: echarts.ECharts, x: number, y: number) {
+    if (!this.position) {
+      this.position = new ChartGraphicPosition()
     }
+
+    this.position.set(echart, x, y)
 
     return false // edit is done only manually
   }
