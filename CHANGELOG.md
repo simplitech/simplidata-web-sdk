@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.1.0"></a>
+# [4.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v4.0.4...v4.1.0) (2019-02-08)
+
+
+### Features
+
+* **FibonacciRetractionChartGraphic:** fibonacci drawing tool ([d01f230](https://github.com/simplitech/simplidata-web-sdk/commit/d01f230))
+
+
+
 <a name="4.0.4"></a>
 ## [4.0.4](https://github.com/simplitech/simplidata-web-sdk/compare/v4.0.3...v4.0.4) (2019-02-08)
 
