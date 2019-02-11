@@ -1,12 +1,10 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
-import { ChartGraphicPosition } from './ChartGraphicPosition'
-import { ResponseSerialize } from '../../simpli'
+import { ChartGraphicPosition } from '../ChartGraphicPosition'
+import { ResponseSerialize } from '../../../simpli'
 
-export class PencilChartGraphic implements ChartGraphic {
+export class PencilChartGraphic extends ChartGraphic {
   $name = 'PencilChartGraphic'
-  $isDone = false
-  $isCancelled = false
 
   @ResponseSerialize(ChartGraphicPosition)
   points: ChartGraphicPosition[] = []

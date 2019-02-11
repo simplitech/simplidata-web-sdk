@@ -2,13 +2,11 @@ import echarts from 'echarts'
 import moment from 'moment'
 import { $ } from 'simpli-web-sdk'
 import { ChartGraphic } from './ChartGraphic'
-import { ChartGraphicPositionWithData } from './ChartGraphicPositionWithData'
-import { ResponseSerialize } from '../../simpli'
+import { ChartGraphicPositionWithData } from '../ChartGraphicPositionWithData'
+import { ResponseSerialize } from '../../../simpli'
 
-export class MeasureChartGraphic implements ChartGraphic {
+export class MeasureChartGraphic extends ChartGraphic {
   $name = 'MeasureChartGraphic'
-  $isDone = false
-  $isCancelled = false
 
   @ResponseSerialize(ChartGraphicPositionWithData)
   p1: ChartGraphicPositionWithData | null = null

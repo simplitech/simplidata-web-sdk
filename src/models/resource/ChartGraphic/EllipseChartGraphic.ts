@@ -1,12 +1,10 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
-import { ChartGraphicPosition } from './ChartGraphicPosition'
-import { ResponseSerialize } from '../../simpli'
+import { ChartGraphicPosition } from '../ChartGraphicPosition'
+import { ResponseSerialize } from '../../../simpli'
 
-export class RectangleChartGraphic implements ChartGraphic {
-  $name = 'RectangleChartGraphic'
-  $isDone = false
-  $isCancelled = false
+export class EllipseChartGraphic extends ChartGraphic {
+  $name = 'EllipseChartGraphic'
 
   @ResponseSerialize(ChartGraphicPosition)
   p1: ChartGraphicPosition | null = null
@@ -15,7 +13,7 @@ export class RectangleChartGraphic implements ChartGraphic {
   p2: ChartGraphicPosition | null = null
 
   cleanCopy() {
-    return new RectangleChartGraphic()
+    return new EllipseChartGraphic()
   }
 
   get $isValidToSave(): boolean {
@@ -30,8 +28,10 @@ export class RectangleChartGraphic implements ChartGraphic {
     const p1Pos = this.p1.get(echart)
     const p2Pos = this.p2.get(echart)
 
+    const r = Math.sqrt(Math.pow(p1Pos[0] - p2Pos[0], 2) + Math.pow(p1Pos[1] - p2Pos[1], 2))
+
     return {
-      type: 'rect',
+      type: 'circle',
       position: p1Pos,
       z: 100,
       style: {
@@ -39,11 +39,9 @@ export class RectangleChartGraphic implements ChartGraphic {
         fill: null,
       },
       shape: {
-        x: 0,
-        y: 0,
-        r: 1,
-        width: p2Pos[0] - p1Pos[0],
-        height: p2Pos[1] - p1Pos[1],
+        cx: 0,
+        cy: 0,
+        r,
       },
     }
   }

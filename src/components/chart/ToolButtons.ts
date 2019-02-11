@@ -84,9 +84,10 @@ const template = `
         <p class="comment-text">
           {{ commentOpen.text }}
         </p>
-        <a @click="showEditCommentButtons = true" class="ctx-hor w-40 h-15 self-right"></a>
+        <a @click="showEditCommentButtons = !showEditCommentButtons" class="ctx-hor w-40 h-15 self-right" 
+          :class="{ active: showEditCommentButtons}"></a>
       </div>
-      <div v-if="showEditCommentButtons" class="horiz w-450 items-right-center mt-8">
+      <div :style="{ opacity: showEditCommentButtons ? 1 : 0 }" class="horiz w-450 items-right-center mt-8 transition">
         <a class="btn basic trash force-min-w-50 force-h-25 mr-6"></a>
         <a class="btn basic edit force-min-w-50 force-h-25"></a>
       </div>
@@ -274,8 +275,8 @@ export default class ToolButtons extends Vue {
     }
 
     this.value.buildJson()
-    await this.value.save()
-    this.$emit('userSavedChart')
+    const resp = await this.value.save()
+    this.$emit('userSavedChart', resp.data)
   }
 
   async downloadXls() {

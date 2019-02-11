@@ -8,7 +8,7 @@ const template = `
         :showSaveButton="showSaveButton" :showDrawingButtons="showDrawingButtons && !chartTypeTableSelected"
         :showMeasureButton="showMeasureButton" :showCalcButton="showCalcButton"
         :showCommentButton="showCommentButton"
-        @userSavedChart="$emit('userSavedChart')"
+        @userSavedChart="$emit('userSavedChart', $event)"
         @selectedDrawingTool="selectedDrawingTool"
         class="mt-60"/>
 

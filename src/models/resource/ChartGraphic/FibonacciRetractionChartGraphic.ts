@@ -1,12 +1,10 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
-import { ChartGraphicPositionWithData } from './ChartGraphicPositionWithData'
-import { ResponseSerialize } from '../../simpli'
+import { ChartGraphicPositionWithData } from '../ChartGraphicPositionWithData'
+import { ResponseSerialize } from '../../../simpli'
 
-export class FibonacciRetractionChartGraphic implements ChartGraphic {
+export class FibonacciRetractionChartGraphic extends ChartGraphic {
   $name = 'FibonacciRetractionChartGraphic'
-  $isDone = false
-  $isCancelled = false
 
   @ResponseSerialize(ChartGraphicPositionWithData)
   p1: ChartGraphicPositionWithData | null = null

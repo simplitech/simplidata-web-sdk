@@ -1,12 +1,10 @@
 import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
-import { ChartGraphicPosition } from './ChartGraphicPosition'
-import { ResponseSerialize } from '../../simpli'
+import { ChartGraphicPosition } from '../ChartGraphicPosition'
+import { ResponseSerialize } from '../../../simpli'
 
-export class TextChartGraphic implements ChartGraphic {
+export class TextChartGraphic extends ChartGraphic {
   $name = 'TextChartGraphic'
-  $isDone = false
-  $isCancelled = false
 
   @ResponseSerialize(ChartGraphicPosition)
   position: ChartGraphicPosition | null = null

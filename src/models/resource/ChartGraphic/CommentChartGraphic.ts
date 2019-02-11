@@ -1,8 +1,8 @@
 import echarts from 'echarts'
-import ChartBus from '../../utils/ChartBus'
+import ChartBus from '../../../utils/ChartBus'
 import { ChartGraphic } from './ChartGraphic'
 import { TextChartGraphic } from './TextChartGraphic'
-import { ChartGraphicPosition } from './ChartGraphicPosition'
+import { ChartGraphicPosition } from '../ChartGraphicPosition'
 
 export class CommentChartGraphic extends TextChartGraphic {
   $name = 'CommentChartGraphic'

@@ -19,15 +19,6 @@
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='%23FFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.65' d='M7 1L4.141 3.96A.253.253 0 0 1 4 4a.253.253 0 0 1-.141-.04L1 1'/%3E%3C/svg%3E");
   }
 
-  .vue-popover {
-    background: rgb(36, 36, 36);
-    box-shadow: 0 40px 80px 0 rgba(20, 20, 20, 0.9);
-    color: #acacac;
-    &.dropdown-position-bottom:before {
-      border-bottom-color: rgb(36, 36, 36);
-    }
-  }
-
   .liSg {
     cursor: pointer;
     border-radius: 3px;
@@ -39,5 +30,22 @@
     &:hover {
       background: #1a1a1a;
     }
+  }
+}
+
+.vue-popover {
+  position: absolute;
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgb(36, 36, 36);
+  box-shadow: 0 40px 80px 0 rgba(20, 20, 20, 0.9);
+  color: #acacac;
+
+  &.dropdown-position-bottom:before {
+    border-bottom-color: rgb(36, 36, 36);
+  }
+
+  .await-spinner {
+    min-height: 290px !important;
   }
 }
