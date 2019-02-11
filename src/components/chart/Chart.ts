@@ -58,6 +58,8 @@ import TopBar from './TopBar'
 import EChart from './EChart'
 import TableChart from './TableChart'
 import RightPanel from './RightPanel'
+import { ID } from '../../simpli'
+import testModeling from './ModelingTest'
 
 @Component({
   template,
@@ -67,8 +69,8 @@ export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
   value?: UserSavedChart
 
-  @Prop({ type: Number })
-  savedChartId?: number
+  @Prop({ type: [String, Number] })
+  savedChartId?: ID
 
   @Prop({ type: Array })
   objectOfAnalysisIds?: number[]
@@ -212,6 +214,7 @@ export class Chart extends Vue {
 
   async mounted() {
     await this.populateData()
+    await testModeling()
   }
 
   getRfuAsOaRfu(index?: number) {

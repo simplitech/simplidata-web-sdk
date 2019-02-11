@@ -1,4 +1,4 @@
-export class ModellingResultLag {
+export class ModelingResultLag {
   coefficient?: number
   standardError?: number
   tReason?: number

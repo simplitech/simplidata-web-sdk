@@ -1,7 +1,7 @@
 import { ResponseSerialize } from 'simpli-web-sdk'
 import { Model } from './Model'
 import { ItemRFU } from './ItemRFU'
-import { ModellingResult } from './ModellingResult'
+import { ModelingResult } from './ModelingResult'
 
 export class ModelRFU extends ItemRFU {
   @ResponseSerialize(Model)
@@ -10,8 +10,8 @@ export class ModelRFU extends ItemRFU {
   @ResponseSerialize(ItemRFU)
   itemsRFU?: ItemRFU[]
 
-  @ResponseSerialize(ModellingResult)
-  modelResult?: ModellingResult
+  @ResponseSerialize(ModelingResult)
+  modelResult?: ModelingResult
 
   forecastColorIndex?: number
 

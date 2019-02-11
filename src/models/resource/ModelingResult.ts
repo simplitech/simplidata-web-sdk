@@ -1,8 +1,11 @@
 import { OaData } from './OaData'
-import { ModellingResultRoot } from './ModellingResultRoot'
-import { ModellingResultItem } from './ModellingResultItem'
+import { ModelingResultRoot } from './ModelingResultRoot'
+import { ModelingResultItem } from './ModelingResultItem'
+import { Model } from '../../simpli'
+import { SimpliData } from '../../simplidata'
+import { ModelingRequest } from './ModelingRequest'
 
-export class ModellingResult {
+export class ModelingResult extends Model {
   // tem em todos modelos:
   meanDependentVar?: number
   standardDeviationDependentVar?: number
@@ -25,12 +28,16 @@ export class ModellingResult {
   akaikiCriterion?: number
   schwarzCriterion?: number
   hannanQuinnCritetion?: number
-  arRoots?: ModellingResultRoot[]
-  maRoots?: ModellingResultRoot[]
+  arRoots?: ModelingResultRoot[]
+  maRoots?: ModelingResultRoot[]
 
   // nos modelos: mqo
   durbinsH?: number
 
   forecast?: OaData[] = []
-  itemsResults?: ModellingResultItem[]
+  itemsResults?: ModelingResultItem[]
+
+  async get(modelingRequest: ModelingRequest) {
+    await this.POST(`${SimpliData.modelingURL}processModel`, modelingRequest, {}, false)
+  }
 }

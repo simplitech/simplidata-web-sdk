@@ -14,6 +14,7 @@ Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker)
 
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
+const defaultModelingURL = 'http://simplidata.com:8080/modeling'
 const defaultLang = Lang.EN_US
 const defaultCurrency: Currency = Currency.USD
 const defaultVersion = '1.0.0'
@@ -24,7 +25,7 @@ const defaultLocale = {
 }
 
 const defaultHttpInterception = (request: VueResource.HttpOptions, next: any) => {
-  const { apiURL, lang, version, getToken, catchHandle } = SimpliData
+  const { apiURL, modelingURL, lang, version, getToken, catchHandle } = SimpliData
 
   const regex = new RegExp(`^${apiURL}\\S*$`, 'g')
   const match = regex.exec(request.url || '')
@@ -55,6 +56,7 @@ const defaultCatchHandle = (resp: VueResource.HttpResponse) => {
 
 export abstract class SimpliData {
   static apiURL: string = defaultApiURL
+  static modelingURL: string = defaultModelingURL
   static httpInterceptor: Function = defaultHttpInterception
   static lang: Lang = defaultLang
   static currency: Currency = defaultCurrency
