@@ -179,7 +179,7 @@ export class Chart extends Vue {
       if (this.savedChartId) {
         somethingLoaded = true
         await this.value.find(this.savedChartId)
-        this.value.parseJson()
+        await this.value.parseJson()
       } else if (this.objectOfAnalysisIds && this.objectOfAnalysisIds.length) {
         somethingLoaded = true
         for (const i in this.objectOfAnalysisIds) {
@@ -214,7 +214,7 @@ export class Chart extends Vue {
 
   async mounted() {
     await this.populateData()
-    await testModeling()
+    // await testModeling()
   }
 
   getRfuAsOaRfu(index?: number) {

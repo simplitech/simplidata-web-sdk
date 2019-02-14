@@ -91,11 +91,11 @@ export class UserSavedChart extends Resource {
       chartType: this.chartType,
       startDtLimiter: this.startDtLimiter,
       endDtLimiter: this.endDtLimiter,
-      itensRFU: this.itensRFU,
+      itensRFU: this.itensRFUForJson,
     })
   }
 
-  parseJson() {
+  async parseJson() {
     const jsonParsed = JSON.parse(this.json)
     this.chartType = plainToClass<ChartType, object>(ChartType, jsonParsed.chartType)
     this.startDtLimiter = jsonParsed.startDtLimiter
@@ -103,13 +103,7 @@ export class UserSavedChart extends Resource {
     this.itensRFU = []
     this.graphics = []
 
-    jsonParsed.itensRFU.forEach((irfu: any) => {
-      if (irfu.$name === 'ObjectOfAnalysisRFU') {
-        this.itensRFU.push(plainToClass<ObjectOfAnalysisRFU, object>(ObjectOfAnalysisRFU, irfu))
-      } else {
-        this.itensRFU.push(plainToClass<ItemRFU, object>(ItemRFU, irfu))
-      }
-    })
+    await this.parseItensRFU(jsonParsed.itensRFU)
 
     jsonParsed.graphics.forEach((g: any) => {
       if (g.$name === 'LineChartGraphic') {
@@ -130,6 +124,45 @@ export class UserSavedChart extends Resource {
         this.graphics.push(plainToClass<FibonacciRetractionChartGraphic, object>(FibonacciRetractionChartGraphic, g))
       }
     })
+  }
+
+  get itensRFUForJson() {
+    return this.itensRFU.map(irfu => {
+      if (irfu.$name === 'ObjectOfAnalysisRFU') {
+        const oarfu = irfu as ObjectOfAnalysisRFU
+        const { objectOfAnalysis, dataListRFU, oaVersion, ...oarfuWithoutOa } = oarfu
+        const oarfuClean: any = oarfuWithoutOa
+
+        if (objectOfAnalysis !== undefined) {
+          oarfuClean.objectOfAnalysis = { idObjectOfAnalysisPk: objectOfAnalysis.idObjectOfAnalysisPk }
+        }
+
+        if (oaVersion !== undefined) {
+          oarfuClean.oaVersion = { idOaVersionPk: oaVersion.idOaVersionPk }
+        }
+
+        return oarfuClean
+      }
+
+      return irfu
+    })
+  }
+
+  async parseItensRFU(irfus: any[]) {
+    for (const irfu of irfus) {
+      let realIrfu: ItemRFU
+      if (irfu.$name === 'ObjectOfAnalysisRFU') {
+        const oarfu: ObjectOfAnalysisRFU = plainToClass<ObjectOfAnalysisRFU, object>(ObjectOfAnalysisRFU, irfu)
+        if (oarfu.objectOfAnalysis) {
+          await oarfu.objectOfAnalysis.find(oarfu.objectOfAnalysis.idObjectOfAnalysisPk)
+        }
+        realIrfu = oarfu
+      } else {
+        realIrfu = plainToClass<ItemRFU, object>(ItemRFU, irfu)
+      }
+
+      this.itensRFU.push(realIrfu)
+    }
   }
 
   get idUserFk() {
