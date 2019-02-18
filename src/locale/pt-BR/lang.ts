@@ -419,6 +419,7 @@ export default {
       text: 'Texto',
       writeYourComment: 'Faça seu comentário...',
       fibonacciRetraction: 'Fibonacci',
+      typeHere: 'Escreva aqui',
     },
   },
 }

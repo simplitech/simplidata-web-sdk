@@ -233,6 +233,29 @@ export default class ToolButtons extends Vue {
     this.$emit('selectedDrawingTool', this.graphicBeingBuilt)
   }
 
+  clearDrawingTool() {
+    this.selectedDrawingTool = null
+    this.graphicBeingBuilt = null
+    this.$emit('selectedDrawingTool', this.graphicBeingBuilt)
+  }
+
+  @Watch('graphicBeingBuilt.$isDone')
+  doneEditingGraphic() {
+    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isDone) {
+      if (this.value) {
+        this.value.graphics.push(this.graphicBeingBuilt)
+      }
+      this.clearDrawingTool()
+    }
+  }
+
+  @Watch('graphicBeingBuilt.$isCancelled')
+  cancelEditingDrawing() {
+    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isCancelled) {
+      this.clearDrawingTool()
+    }
+  }
+
   async mounted() {
     await this.populateData()
 

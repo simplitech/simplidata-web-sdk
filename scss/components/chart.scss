@@ -375,4 +375,16 @@
       }
     }
   }
+
+  .echart-holder {
+    overflow: hidden
+  }
+
+  .graphic-editor-overlay {
+    textarea {
+      box-shadow: none;
+      resize: none;
+      font-family: CircularStd, sans-serif;
+    }
+  }
 }

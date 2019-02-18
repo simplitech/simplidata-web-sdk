@@ -235,23 +235,6 @@ export class Chart extends Vue {
     return null
   }
 
-  @Watch('graphicBeingBuilt.$isDone')
-  doneEditingGraphic() {
-    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isDone) {
-      if (this.value) {
-        this.value.graphics.push(this.graphicBeingBuilt)
-      }
-      this.graphicBeingBuilt = null
-    }
-  }
-
-  @Watch('graphicBeingBuilt.$isCancelled')
-  cancelEditingDrawing() {
-    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isCancelled) {
-      this.graphicBeingBuilt = null
-    }
-  }
-
   selectedDrawingTool(drawingTool: ChartGraphic) {
     this.graphicBeingBuilt = drawingTool
   }

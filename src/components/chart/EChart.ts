@@ -1,5 +1,8 @@
 const template = `
-  <div id="echart" ref="echart"></div>
+  <div class="echart-holder">
+    <graphic-editor-overlay v-model="value" :graphicBeingBuilt="graphicBeingBuilt" :echart="echart"/>
+    <div id="echart" ref="echart" class="h-full"></div>
+  </div>
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
@@ -8,9 +11,11 @@ import moment from 'moment'
 import { UserSavedChart, ChartGraphic } from '../../models'
 import { colors } from '../../const/colors.const'
 import { error } from '../../simpli'
+import GraphicEditorOverlay from './GraphicEditorOverlay'
 
 @Component({
   template,
+  components: { GraphicEditorOverlay },
 })
 export default class EChart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
