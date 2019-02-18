@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.1.4"></a>
+## [4.1.4](https://github.com/simplitech/simplidata-web-sdk/compare/v4.1.3...v4.1.4) (2019-02-18)
+
+
+### Bug Fixes
+
+* Fixed tool buttons not highlighting when selected ([882df10](https://github.com/simplitech/simplidata-web-sdk/commit/882df10))
+
+
+
 <a name="4.1.3"></a>
 ## [4.1.3](https://github.com/simplitech/simplidata-web-sdk/compare/v4.1.2...v4.1.3) (2019-02-14)
 
