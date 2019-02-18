@@ -2,6 +2,7 @@ import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPositionWithData } from '../ChartGraphicPositionWithData'
 import { ResponseSerialize } from '../../../simpli'
+import { ChartGraphicPosition } from '../ChartGraphicPosition'
 
 export class FibonacciRetractionChartGraphic extends ChartGraphic {
   $name = 'FibonacciRetractionChartGraphic'
@@ -35,8 +36,8 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
 
     const p1Pos = this.p1.get(echart)
     const p2Pos = this.p2.get(echart)
-    const width = p2Pos[0] - p1Pos[0]
-    const height = p2Pos[1] - p1Pos[1]
+    const width = Math.abs(p2Pos[0] - p1Pos[0])
+    const height = Math.abs(p2Pos[1] - p1Pos[1])
 
     const children: any[] = this.parts.map((part, i) => ({
       type: 'group',
@@ -86,14 +87,14 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
       left: width + 5,
       top: height - 4,
       style: {
-        text: this.p2.axisY.toFixed(3),
+        text: Math.max(this.p1.axisY, this.p2.axisY).toFixed(3),
         fill: '#ddd',
       },
     })
 
     return {
       type: 'group',
-      position: p1Pos,
+      position: [Math.min(p1Pos[0], p2Pos[0]), Math.min(p1Pos[1], p2Pos[1])],
       z: 100,
       children,
     }
@@ -108,11 +109,11 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
       return 0
     }
 
-    const axisDiff = this.p2.axisY - this.p1.axisY
+    const axisDiff = Math.abs(this.p2.axisY - this.p1.axisY)
     const partsBeforeI = this.parts.slice(0, i)
     const sumOfAxisYOfPartsBeforeI = partsBeforeI.reduce((sum, prev) => sum + axisDiff * prev.heightPct, 0)
 
-    return this.p1.axisY + sumOfAxisYOfPartsBeforeI
+    return Math.min(this.p1.axisY, this.p2.axisY) + sumOfAxisYOfPartsBeforeI
   }
 
   mousedown(echart: echarts.ECharts, x: number, y: number) {

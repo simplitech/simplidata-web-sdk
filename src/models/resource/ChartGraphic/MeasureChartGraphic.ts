@@ -67,12 +67,12 @@ export class MeasureChartGraphic extends ChartGraphic {
 
     const p1Pos = this.p1.get(echart)
     const p2Pos = this.p2.get(echart)
-    const width = p2Pos[0] - p1Pos[0]
-    const height = p2Pos[1] - p1Pos[1]
+    const width = Math.abs(p2Pos[0] - p1Pos[0])
+    const height = Math.abs(p2Pos[1] - p1Pos[1])
 
     return {
       type: 'group',
-      position: p1Pos,
+      position: [Math.min(p1Pos[0], p2Pos[0]), Math.min(p1Pos[1], p2Pos[1])],
       z: 100,
       children: [
         {
