@@ -20,8 +20,9 @@ const template = `
           :showDateNavigator="showDateNavigator"
           :showLegend="showLegend"
           :showAdvancedAnalysisButton="showAdvancedAnalysisButton"
-          :selectedDatasetIndex.sync="selectedDatasetIndex"
-          @onAdvancedClick="$emit('onAdvancedClick')"/>
+          :selectedDatasetIndex="selectedDatasetIndex"
+          @onAdvancedClick="$emit('onAdvancedClick')"
+          @onLegendClick="onLegendClick"/>
 
         <!-- CHART -->
         <e-chart v-model="value" 
@@ -253,5 +254,9 @@ export class Chart extends Vue {
 
   selectedDrawingTool(drawingTool: ChartGraphic) {
     this.graphicBeingBuilt = drawingTool
+  }
+
+  onLegendClick(i: number) {
+    this.selectedDatasetIndex = i
   }
 }
