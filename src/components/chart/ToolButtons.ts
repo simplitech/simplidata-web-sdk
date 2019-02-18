@@ -24,37 +24,43 @@ const template = `
         <div class="relative top-30 left-30">
           <a class="chart-drop w-7 h-7" v-popover.right="{ name: 'sg-draw' + _uid }"></a>
         </div>
-        <a v-if="lastBasicDrawingTool === 'Line'" class="chart-line h-40" @click="selectDrawingTool('Line')"></a>
-        <a v-if="lastBasicDrawingTool === 'Ellipse'" class="chart-ellipse h-40" @click="selectDrawingTool('Ellipse')"></a>
-        <a v-if="lastBasicDrawingTool === 'Rectangle'" class="chart-rectangle h-40" @click="selectDrawingTool('Rectangle')"></a>
+        <a v-if="lastBasicDrawingTool === 'Line'" class="chart-line h-40" :class="{active: selectedDrawingTool === 'Line'}" @click="selectDrawingTool('Line')"></a>
+        <a v-if="lastBasicDrawingTool === 'Ellipse'" class="chart-ellipse h-40" :class="{active: selectedDrawingTool === 'Ellipse'}" @click="selectDrawingTool('Ellipse')"></a>
+        <a v-if="lastBasicDrawingTool === 'Rectangle'" class="chart-rectangle h-40" :class="{active: selectedDrawingTool === 'Rectangle'}" @click="selectDrawingTool('Rectangle')"></a>
       </div>
 
-      <a class="chart-pencil h-40 mb-8 items-center" @click="selectDrawingTool('Pencil')"></a>
+      <a class="chart-pencil h-40 mb-8 items-center" :class="{active: selectedDrawingTool === 'Pencil'}" @click="selectDrawingTool('Pencil')"></a>
 
-      <a class="chart-text h-40 mb-8 items-center" @click="selectDrawingTool('Text')"></a>
+      <a class="chart-text h-40 mb-8 items-center" :class="{active: selectedDrawingTool === 'Text'}" @click="selectDrawingTool('Text')"></a>
     </template>
     
     <popover :name="'sg-draw' + _uid" ref="drawpopover" class="force-w-50">
       <div class="verti">
-        <a class="chart-line h-40 mb-8 items-center" @click="selectDrawingTool('Line')"></a>
-        <a class="chart-ellipse h-40 mb-8 items-center" @click="selectDrawingTool('Ellipse')"></a>
-        <a class="chart-rectangle h-40 items-center" @click="selectDrawingTool('Rectangle')"></a>
+        <a class="chart-line h-40 mb-8 items-center" :class="{active: selectedDrawingTool === 'Line'}" @click="selectDrawingTool('Line')"></a>
+        <a class="chart-ellipse h-40 mb-8 items-center" :class="{active: selectedDrawingTool === 'Ellipse'}" @click="selectDrawingTool('Ellipse')"></a>
+        <a class="chart-rectangle h-40 items-center" :class="{active: selectedDrawingTool === 'Rectangle'}" @click="selectDrawingTool('Rectangle')"></a>
       </div>
     </popover>
 
     <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"
-      @click="selectDrawingTool('Measure')"></a>
+       :class="{active: selectedDrawingTool === 'Measure'}"
+       @click="selectDrawingTool('Measure')"></a>
     
-    <a v-if="showCalcButton" v-popover.right="{ name: 'sg-calc' + _uid }" class="chart-calc h-40 mb-8 items-center"></a>
+    <a v-if="showCalcButton"
+       v-popover.right="{ name: 'sg-calc' + _uid }"
+       class="chart-calc h-40 mb-8 items-center"
+       :class="{active: ['FibonacciRetraction'].includes(selectedDrawingTool)}"
+    ></a>
 
     <popover :name="'sg-calc' + _uid" ref="calcpopover">
       <div class="calcpopover verti">
-        <a @click="selectDrawingTool('FibonacciRetraction')" class="p-15">{{ $t('view.chart.fibonacciRetraction') }}</a>
+        <a @click="selectDrawingTool('FibonacciRetraction')" :class="{active: selectedDrawingTool === 'FibonacciRetraction'}" class="p-15">{{ $t('view.chart.fibonacciRetraction') }}</a>
       </div>
     </popover>
 
     <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"
-      @click="selectDrawingTool('Comment')"></a>
+       :class="{active: selectedDrawingTool === 'Comment'}"
+       @click="selectDrawingTool('Comment')"></a>
     
     <!-- NEW COLLECTION FORM MODAL -->
     <div v-if="newCollection" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">

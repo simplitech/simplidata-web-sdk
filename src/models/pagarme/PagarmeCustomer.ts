@@ -2,7 +2,7 @@
  * PagarmeCustomer
  * @author ftgibran
  */
-import { $, Model, ResourceObject } from '../../simpli'
+import { $, Model, IResource } from '../../simpli'
 import {
   ResponseSerialize,
   ValidationRequired,
@@ -53,11 +53,11 @@ export class PagarmeCustomer extends Model {
     return this.sexOptions.find((obj: any) => obj.$tag === this.sex) || {}
   }
 
-  set sexSelected(val: ResourceObject) {
+  set sexSelected(val: IResource) {
     this.sex = val.$tag || ''
   }
 
-  get sexOptions(): ResourceObject[] {
+  get sexOptions(): IResource[] {
     return [
       {},
       { $id: 0, $tag: $.t('gender.male') },

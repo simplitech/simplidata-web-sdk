@@ -7,6 +7,13 @@
     &:hover {
       background-color: #373737;
     }
+
+    &.active {
+      background-color: #555555;
+      &:hover {
+        background-color: #555555;
+      }
+    }
   }
   .chart-drop {
     // 3px 3px
@@ -355,6 +362,17 @@
   .calcpopover {
     a {
       color: #acacac;
+
+      &:hover {
+        background-color: #373737;
+      }
+
+      &.active {
+        background-color: #555555;
+        &:hover {
+          background-color: #555555;
+        }
+      }
     }
   }
 }

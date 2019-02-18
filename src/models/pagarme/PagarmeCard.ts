@@ -3,7 +3,7 @@
  * @author ftgibran
  */
 import moment from 'moment'
-import { Model, ResourceObject } from '../../simpli'
+import { Model, IResource } from '../../simpli'
 import { ValidationRequired, ResponseSerialize, ValidationMax, ValidationMaxLength } from '../../simpli'
 import { CardBrand } from '../../enums/CardBrand'
 import { PagarmeCustomer } from './PagarmeCustomer'
@@ -65,7 +65,7 @@ export class PagarmeCard extends Model {
     this.card_number = val && val.replace(/ /g, '')
   }
 
-  get expirationMonth(): ResourceObject | null {
+  get expirationMonth(): IResource | null {
     const str = this.card_expiration_date || '    '
     const mm = Number(str.slice(0, 2).trim()) || null
 
@@ -79,7 +79,7 @@ export class PagarmeCard extends Model {
     return null
   }
 
-  set expirationMonth(obj: ResourceObject | null) {
+  set expirationMonth(obj: IResource | null) {
     const mm = obj && obj.$id
     const str = this.card_expiration_date || '    '
 
@@ -89,7 +89,7 @@ export class PagarmeCard extends Model {
     this.card_expiration_date = `${month}${year}`
   }
 
-  get expirationYear(): ResourceObject | null {
+  get expirationYear(): IResource | null {
     const str = this.card_expiration_date || '    '
     const yy = Number(str.slice(-2).trim()) || null
     const yyyy = (yy && Number(moment(yy, 'YY').format('YYYY'))) || null
@@ -104,7 +104,7 @@ export class PagarmeCard extends Model {
     return null
   }
 
-  set expirationYear(obj: ResourceObject | null) {
+  set expirationYear(obj: IResource | null) {
     const yyyy = obj && obj.$id
     const str = this.card_expiration_date || '    '
 
@@ -115,7 +115,7 @@ export class PagarmeCard extends Model {
   }
 
   get months() {
-    const months: ResourceObject[] = [{}]
+    const months: IResource[] = [{}]
 
     for (let i = 0; i <= 11; i++) {
       months.push({
@@ -130,7 +130,7 @@ export class PagarmeCard extends Model {
   }
 
   get years() {
-    const years: ResourceObject[] = [{}]
+    const years: IResource[] = [{}]
 
     const year = moment().get('year')
     for (let i = 0; i < YEAR_RANGE; i++) {
