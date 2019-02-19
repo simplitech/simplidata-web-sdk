@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="4.2.0"></a>
+# [4.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v4.1.6...v4.2.0) (2019-02-19)
+
+
+### Features
+
+* **GraphicEditorOverlay:** edit the text graphic directly on the chart ([756e764](https://github.com/simplitech/simplidata-web-sdk/commit/756e764))
+
+
+
 <a name="4.1.6"></a>
 ## [4.1.6](https://github.com/simplitech/simplidata-web-sdk/compare/v4.1.5...v4.1.6) (2019-02-18)
 
