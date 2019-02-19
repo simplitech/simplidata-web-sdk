@@ -1,32 +1,34 @@
 import echarts from 'echarts'
 
 export abstract class ChartGraphic {
-  abstract $name: string
-  abstract $isValidToSave: boolean
+  abstract name: string
+  abstract isValidToSave: boolean
   abstract build(echart: echarts.ECharts, colors: string[] | null): any
   abstract mousedown(echart: echarts.ECharts, x: number, y: number): void
   abstract mousemove(echart: echarts.ECharts, x: number, y: number): boolean
-  abstract mouseup(echart: echarts.ECharts, x: number, y: number): boolean
+  abstract mouseup(echart: echarts.ECharts, x: number, y: number): void
   abstract cleanCopy(): ChartGraphic
 
-  private isDone = false
-  private isCancelled = false
+  private _isDone = false
+  private _isCancelled = false
 
-  get $isDone() {
-    return this.isDone
+  color = '#dddddd'
+
+  get isDone() {
+    return this._isDone
   }
 
-  set $isDone(val) {
-    if (this.$isValidToSave) {
-      this.isDone = val
+  set isDone(val) {
+    if (this.isValidToSave) {
+      this._isDone = val
     }
   }
 
-  get $isCancelled() {
-    return this.isCancelled
+  get isCancelled() {
+    return this._isCancelled
   }
 
-  set $isCancelled(val) {
-    this.isCancelled = val
+  set isCancelled(val) {
+    this._isCancelled = val
   }
 }

@@ -2,9 +2,10 @@ import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPosition } from '../ChartGraphicPosition'
 import { ResponseSerialize } from '../../../simpli'
+import ChartBus from '../../../utils/ChartBus'
 
 export class RectangleChartGraphic extends ChartGraphic {
-  $name = 'RectangleChartGraphic'
+  name = 'RectangleChartGraphic'
 
   @ResponseSerialize(ChartGraphicPosition)
   p1: ChartGraphicPosition | null = null
@@ -16,7 +17,7 @@ export class RectangleChartGraphic extends ChartGraphic {
     return new RectangleChartGraphic()
   }
 
-  get $isValidToSave(): boolean {
+  get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
@@ -33,7 +34,7 @@ export class RectangleChartGraphic extends ChartGraphic {
       position: p1Pos,
       z: 100,
       style: {
-        stroke: '#ddd',
+        stroke: this.color,
         fill: null,
       },
       shape: {
@@ -42,6 +43,9 @@ export class RectangleChartGraphic extends ChartGraphic {
         r: 1,
         width: p2Pos[0] - p1Pos[0],
         height: p2Pos[1] - p1Pos[1],
+      },
+      onclick: () => {
+        ChartBus.$emit('graphicSelect', this)
       },
     }
   }
@@ -75,10 +79,7 @@ export class RectangleChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-
-      return true // done editing
+      this.isDone = true
     }
-
-    return false // edit is not done
   }
 }

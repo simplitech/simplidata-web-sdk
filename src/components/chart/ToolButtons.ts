@@ -20,6 +20,8 @@ const template = `
     </popover>
 
     <template v-if="showDrawingButtons">
+      <a class="chart-selector h-40 mb-8" :class="{active: !selectedDrawingTool}" @click="clearDrawingTool"></a>
+      
       <div class="mb-8 verti">
         <div class="relative top-30 left-30">
           <a class="chart-drop w-7 h-7" v-popover.right="{ name: 'sg-draw' + _uid }"></a>
@@ -110,9 +112,9 @@ const template = `
           :placeholder="$t('view.chart.writeYourComment')"/>
         <div class="horiz items-right-center">
           <a class="cancel-btn w-50 h-30"
-            @click="graphicBeingBuilt.$isCancelled = true"></a>
-          <a class="ok-btn w-50 h-30" :class="{ 'opacity-20': !graphicBeingBuilt.$isValidToSave }"
-             @click="graphicBeingBuilt.$isDone = true"></a>
+            @click="graphicBeingBuilt.isCancelled = true"></a>
+          <a class="ok-btn w-50 h-30" :class="{ 'opacity-20': !graphicBeingBuilt.isValidToSave }"
+             @click="graphicBeingBuilt.isDone = true"></a>
          </div>
       </div>
     </div>
@@ -190,8 +192,8 @@ export default class ToolButtons extends Vue {
   get editingComment() {
     return (
       this.graphicBeingBuilt &&
-      !this.graphicBeingBuilt.$isDone &&
-      !this.graphicBeingBuilt.$isCancelled &&
+      !this.graphicBeingBuilt.isDone &&
+      !this.graphicBeingBuilt.isCancelled &&
       this.graphicBeingBuiltAsComment &&
       this.graphicBeingBuiltAsComment.position !== null
     )
@@ -239,19 +241,28 @@ export default class ToolButtons extends Vue {
     this.$emit('selectedDrawingTool', this.graphicBeingBuilt)
   }
 
-  @Watch('graphicBeingBuilt.$isDone')
+  resetDrawingTool() {
+    if (!this.graphicBeingBuilt) {
+      return
+    }
+
+    this.graphicBeingBuilt = this.graphicBeingBuilt.cleanCopy()
+    this.$emit('selectedDrawingTool', this.graphicBeingBuilt)
+  }
+
+  @Watch('graphicBeingBuilt.isDone')
   doneEditingGraphic() {
-    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isDone) {
+    if (this.graphicBeingBuilt && this.graphicBeingBuilt.isDone) {
       if (this.value) {
         this.value.graphics.push(this.graphicBeingBuilt)
       }
-      this.clearDrawingTool()
+      this.resetDrawingTool()
     }
   }
 
-  @Watch('graphicBeingBuilt.$isCancelled')
+  @Watch('graphicBeingBuilt.isCancelled')
   cancelEditingDrawing() {
-    if (this.graphicBeingBuilt && this.graphicBeingBuilt.$isCancelled) {
+    if (this.graphicBeingBuilt && this.graphicBeingBuilt.isCancelled) {
       this.clearDrawingTool()
     }
   }

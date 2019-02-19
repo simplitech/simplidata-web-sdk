@@ -2,23 +2,26 @@ import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPosition } from '../ChartGraphicPosition'
 import { ResponseSerialize } from '../../../simpli'
+import ChartBus from '../../../utils/ChartBus'
 
 export class PencilChartGraphic extends ChartGraphic {
-  $name = 'PencilChartGraphic'
+  name = 'PencilChartGraphic'
 
   @ResponseSerialize(ChartGraphicPosition)
   points: ChartGraphicPosition[] = []
 
   cleanCopy() {
-    return new PencilChartGraphic()
+    const copy = new PencilChartGraphic()
+    copy.color = this.color
+    return copy
   }
 
-  get $isValidToSave() {
+  get isValidToSave() {
     return this.points.length > 0
   }
 
   build(echart: echarts.ECharts) {
-    if (!this.$isValidToSave) {
+    if (!this.isValidToSave) {
       return null
     }
 
@@ -29,7 +32,7 @@ export class PencilChartGraphic extends ChartGraphic {
       position: p1Pos,
       z: 100,
       style: {
-        stroke: '#ddd',
+        stroke: this.color,
       },
       shape: {
         smooth: 'spline',
@@ -37,6 +40,9 @@ export class PencilChartGraphic extends ChartGraphic {
           const pos = p.get(echart)
           return [pos[0] - p1Pos[0], pos[1] - p1Pos[1]]
         }),
+      },
+      onclick: () => {
+        ChartBus.$emit('graphicSelect', this)
       },
     }
   }
@@ -60,6 +66,6 @@ export class PencilChartGraphic extends ChartGraphic {
   }
 
   mouseup(echart: echarts.ECharts, x: number, y: number) {
-    return true
+    this.isDone = true
   }
 }

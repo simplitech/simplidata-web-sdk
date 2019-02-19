@@ -94,7 +94,7 @@ export default class EChart extends Vue {
   @Watch('chartGraphics')
   @Watch('graphicBeingBuilt')
   @Watch('graphicBeingBuilt.text')
-  @Watch('value.graphics')
+  @Watch('value.graphics', { deep: true })
   updateChartData() {
     if (!this.echart || !this.value) {
       return
@@ -168,13 +168,9 @@ export default class EChart extends Vue {
         return
       }
 
-      const doneEditing = this.graphicBeingBuilt.mouseup(this.echart, e.offsetX, e.offsetY)
+      this.graphicBeingBuilt.mouseup(this.echart, e.offsetX, e.offsetY)
 
       this.updateChartData()
-
-      if (doneEditing) {
-        this.graphicBeingBuilt.$isDone = true
-      }
     }).bind(this)
   }
 

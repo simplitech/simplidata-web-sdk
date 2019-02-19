@@ -4,9 +4,10 @@ import { $ } from 'simpli-web-sdk'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPositionWithData } from '../ChartGraphicPositionWithData'
 import { ResponseSerialize } from '../../../simpli'
+import ChartBus from '../../../utils/ChartBus'
 
 export class MeasureChartGraphic extends ChartGraphic {
-  $name = 'MeasureChartGraphic'
+  name = 'MeasureChartGraphic'
 
   @ResponseSerialize(ChartGraphicPositionWithData)
   p1: ChartGraphicPositionWithData | null = null
@@ -15,10 +16,12 @@ export class MeasureChartGraphic extends ChartGraphic {
   p2: ChartGraphicPositionWithData | null = null
 
   cleanCopy() {
-    return new MeasureChartGraphic()
+    const copy = new MeasureChartGraphic()
+    copy.color = this.color
+    return copy
   }
 
-  get $isValidToSave(): boolean {
+  get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
@@ -78,7 +81,7 @@ export class MeasureChartGraphic extends ChartGraphic {
         {
           type: 'rect',
           style: {
-            stroke: '#ddd',
+            stroke: this.color,
             fill: null,
           },
           shape: {
@@ -87,6 +90,9 @@ export class MeasureChartGraphic extends ChartGraphic {
             r: 1,
             width,
             height,
+          },
+          onclick: () => {
+            ChartBus.$emit('graphicSelect', this)
           },
         },
         {
@@ -157,10 +163,7 @@ export class MeasureChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-
-      return true // done editing
+      this.isDone = true
     }
-
-    return false // edit is not done
   }
 }

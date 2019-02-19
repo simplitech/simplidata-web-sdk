@@ -5,7 +5,7 @@ import { ResponseSerialize } from '../../../simpli'
 import { ChartGraphicPosition } from '../ChartGraphicPosition'
 
 export class FibonacciRetractionChartGraphic extends ChartGraphic {
-  $name = 'FibonacciRetractionChartGraphic'
+  name = 'FibonacciRetractionChartGraphic'
 
   @ResponseSerialize(ChartGraphicPositionWithData)
   p1: ChartGraphicPositionWithData | null = null
@@ -25,7 +25,7 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
     return new FibonacciRetractionChartGraphic()
   }
 
-  get $isValidToSave(): boolean {
+  get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
@@ -145,10 +145,7 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-
-      return true // done editing
+      this.isDone = true
     }
-
-    return false // edit is not done
   }
 }

@@ -1,8 +1,9 @@
 .simplidata-chart {
 
   .chart-button {
-    background: #242424 no-repeat center center;
+    background: #242424cc no-repeat center center;
     border-radius: 8px;
+    background-blend-mode: screen;
 
     &:hover {
       background-color: #373737;
@@ -66,6 +67,27 @@
   .chart-text {
     @extend .chart-button;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='19' viewBox='0 0 15 19'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2'%3E%3Cpath d='M1 3.464V2.056c0-.389.323-.704.722-.704h11.556c.399 0 .722.315.722.704v1.408M7.5 1.35v16.193M4.972 17.543h5.056'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chart-selector {
+    @extend .chart-button;
+    background-position-x: 15px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='14px' height='20px' viewBox='0 0 14 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4D0CC6F4-DF92-4172-B73D-9B9DCD16065A%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='btn-/-sidebar-chart-/-select' transform='translate(-15.000000, -10.000000)' fill-rule='nonzero' stroke='%23ACACAC'%3E%3Cg id='cursor'%3E%3Cg transform='translate(16.000000, 13.000000)'%3E%3Cpath d='M3.3194966,10.4973638 L-0.500587012,13.9499455 L-0.492746719,-1.09606162 L11.2526178,9.10562666 L5.94581549,9.42414773 L8.5888754,15.1151212 L5.96842721,16.2010152 L3.3194966,10.4973638 Z' id='selector'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chart-undo {
+    @extend .chart-button;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='23px' height='18px' viewBox='0 0 23 18' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4A93500B-BE05-401B-8562-607CDC75E09A%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='undo' transform='translate(2.000000, 2.000000)' fill-rule='nonzero' stroke='%23979797'%3E%3Cpath d='M7.47729239,8.40293752 C7.46565116,8.40293752 7.45718769,8.40634112 7.45151492,8.41183492 C7.44897163,8.41429796 7.44907204,8.41406377 7.44907204,8.41449187 L7.44907204,12.1887875 L-0.443113706,5.86013673 L7.45336652,-0.447920316 L7.45336652,3.32390219 C7.45336652,3.32604377 7.46271828,3.33525573 7.47767488,3.33547842 C14.0913996,3.39734542 17.935401,6.72531657 19.1524185,11.3780855 L19.6698456,13.3562561 L18.2979409,11.8400875 C15.787997,9.06620808 12.8328256,8.40293752 7.47729239,8.40293752 Z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chart-redo {
+    @extend .chart-button;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='22px' height='18px' viewBox='0 0 22 18' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E5F51569C-0D65-4E3F-B40F-9717C12C2288%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='redo' transform='translate(2.000000, 3.000000)' fill-rule='nonzero' stroke='%23979797'%3E%3Cpath d='M6.99906191,7.86966463 C6.99243709,7.86966463 6.98802663,7.87148338 6.98412048,7.8753624 C6.98088641,7.87857402 6.97983114,7.88109761 6.97983114,7.88528963 L6.97983114,11.6979377 L-0.788141513,5.31062171 L6.98405253,-1.05590521 L6.98405253,2.75419207 C6.98405253,2.76142887 6.99226487,2.76972398 6.99963631,2.76984007 C13.5081107,2.83226945 17.2886492,6.18845969 18.4844858,10.8764139 L18.9969755,12.8854912 L17.6250951,11.3308268 C15.1598562,8.53712869 12.2596896,7.86966463 6.99906191,7.86966463 Z' transform='translate(9.000000, 5.500000) scale(-1, 1) translate(-9.000000, -5.500000) '%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chart-font-size {
+    @extend .chart-button;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='25px' height='15px' viewBox='0 0 25 15' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E2E137312-7A39-42A5-A8E6-6A4D767C0367%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='font-size' fill='%23ACACAC'%3E%3Cpath d='M7.553,15 L6.552,12.426 L2.47,12.426 L1.495,15 L0.13,15 L3.796,5.783 L5.265,5.783 L8.931,15 L7.553,15 Z M4.498,7.109 L2.925,11.243 L6.097,11.243 L4.498,7.109 Z M22.201,15 L20.584,10.842 L13.99,10.842 L12.415,15 L10.21,15 L16.132,0.111 L18.505,0.111 L24.427,15 L22.201,15 Z M17.266,2.253 L14.725,8.931 L19.849,8.931 L17.266,2.253 Z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .chart-remove {
+    @extend .chart-button;
+    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='14px' height='15px' viewBox='0 0 14 15' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4AA5C570-2886-4BB9-9856-2829EA8D372F%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Design-Dark' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg id='2.28-Objeto-Comentário' transform='translate(-590.000000, -447.000000)' stroke='%23ACACAC' stroke-width='1.1'%3E%3Cg id='Group-6-Copy' transform='translate(569.000000, 442.000000)'%3E%3Cg id='trash' transform='translate(22.000000, 6.000000)'%3E%3Cpath d='M0.409636364,3.44933333 L11.6138182,1.08441667' id='Shape'%3E%3C/path%3E%3Cpath d='M6.87272727,0.424125 L4.47272727,0.930583333 C4.25986988,0.975042959 4.07360097,1.10184259 3.95507954,1.28296391 C3.83655812,1.46408522 3.79554077,1.68461843 3.84109091,1.89583333 L4.01127273,2.691 L8.01272727,1.846 L7.84254545,1.051375 C7.79774937,0.840456418 7.67038887,0.655859652 7.48849875,0.53821845 C7.30660863,0.420577247 7.08509841,0.379534642 6.87272727,0.424125 Z' id='Shape'%3E%3C/path%3E%3Cpath d='M5.31872727,9.75 L5.31872727,5.6875' id='Shape'%3E%3C/path%3E%3Cpath d='M7.77327273,9.75 L7.77327273,5.6875' id='Shape'%3E%3C/path%3E%3Cpath d='M9.61418182,3.25 L11.046,3.25 L10.2905455,11.8484167 C10.2552721,12.2707272 9.89908529,12.5952002 9.47236364,12.59375 L3.61690909,12.59375 C3.19144399,12.5935061 2.83717172,12.2694811 2.802,11.8484167 L2.23636364,5.07920833' id='Shape'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   }
 
   %unchecked-circle {
@@ -386,5 +408,27 @@
       resize: none;
       font-family: CircularStd, sans-serif;
     }
+  }
+
+  .graphic-editor-buttons {
+    border: 1px solid #242424cc;
+    border-radius: 11px;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    border: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0 !important;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+    border: none !important;
   }
 }

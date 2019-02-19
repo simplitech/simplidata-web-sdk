@@ -2,9 +2,10 @@ import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPosition } from '../ChartGraphicPosition'
 import { ResponseSerialize } from '../../../simpli'
+import ChartBus from '../../../utils/ChartBus'
 
 export class EllipseChartGraphic extends ChartGraphic {
-  $name = 'EllipseChartGraphic'
+  name = 'EllipseChartGraphic'
 
   @ResponseSerialize(ChartGraphicPosition)
   p1: ChartGraphicPosition | null = null
@@ -13,10 +14,12 @@ export class EllipseChartGraphic extends ChartGraphic {
   p2: ChartGraphicPosition | null = null
 
   cleanCopy() {
-    return new EllipseChartGraphic()
+    const copy = new EllipseChartGraphic()
+    copy.color = this.color
+    return copy
   }
 
-  get $isValidToSave(): boolean {
+  get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
@@ -35,13 +38,16 @@ export class EllipseChartGraphic extends ChartGraphic {
       position: p1Pos,
       z: 100,
       style: {
-        stroke: '#ddd',
+        stroke: this.color,
         fill: null,
       },
       shape: {
         cx: 0,
         cy: 0,
         r,
+      },
+      onclick: () => {
+        ChartBus.$emit('graphicSelect', this)
       },
     }
   }
@@ -75,10 +81,7 @@ export class EllipseChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-
-      return true // done editing
+      this.isDone = true
     }
-
-    return false // edit is not done
   }
 }
