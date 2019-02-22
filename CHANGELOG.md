@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.0"></a>
+# [5.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v4.3.0...v5.0.0) (2019-02-22)
+
+
+### Code Refactoring
+
+* Lib usability improvements ([0abe8d3](https://github.com/simplitech/simplidata-web-sdk/commit/0abe8d3))
+
+
+### BREAKING CHANGES
+
+* ItemRFU $contentTitle droped the $
+
+
+
 <a name="4.3.0"></a>
 # [4.3.0](https://github.com/simplitech/simplidata-web-sdk/compare/v4.2.0...v4.3.0) (2019-02-19)
 
