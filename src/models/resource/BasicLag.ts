@@ -1,4 +1,4 @@
 export class BasicLag {
-  initial?: number
-  final?: number
+  initial: number = 0
+  final: number = 0
 }

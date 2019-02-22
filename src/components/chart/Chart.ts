@@ -1,5 +1,5 @@
 const template = `
-  <div class="simplidata-chart verti">
+  <div class="simplidata-chart verti min-h-450">
 
     <div class="horiz weight-1">
 
@@ -138,7 +138,7 @@ export class Chart extends Vue {
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
   @Watch('showObjectOfAnalysisInfo')
   @Watch('value.idChartTypeFk')
-  async refreshChartOnSelectOa() {
+  async refresh() {
     // @ts-ignore
     const echart = this.$refs.echart as EChart
 

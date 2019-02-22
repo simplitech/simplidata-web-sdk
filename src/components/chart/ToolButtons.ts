@@ -335,13 +335,13 @@ export default class ToolButtons extends Vue {
 
     const names = this.value.itensRFU.map((itemrfu, i) => {
       return {
-        value: itemrfu.$contentTitle,
+        value: itemrfu.contentTitle,
         type: 'string',
       }
     })
 
     const filename = this.value.itensRFU.reduce((name, itemrfu) => {
-      return name + (name.length ? ' + ' : '') + itemrfu.$contentTitle
+      return name + (name.length ? ' + ' : '') + itemrfu.contentTitle
     }, '')
 
     await zipcelx({

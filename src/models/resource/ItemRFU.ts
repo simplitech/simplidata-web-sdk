@@ -10,14 +10,18 @@ export class ItemRFU {
   orderedTransformations: TransformationType[] = []
 
   @ResponseSerialize(BasicLag)
-  basicLag: BasicLag | null = null
+  basicLag: BasicLag | null = new BasicLag()
 
   listLag: number[] = []
 
   @ResponseSerialize(OaData)
   dataListRFU: OaData[] = [] // watch para atualizar conforme objectOfAnalysis, oaVersion, orderedTransformations, lag e periodicityTransformationType
 
-  get $contentTitle() {
+  get contentTitle() {
+    return ''
+  }
+
+  get unityTitle() {
     return ''
   }
 }

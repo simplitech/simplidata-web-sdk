@@ -27,7 +27,7 @@ const template = `
       </div>
     </div>
     
-    <!-- CHOOSE TRANSFORMATION MODAL -->
+    <!-- CHOOSE COMBINER MODAL -->
     <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window z-scrim items-center">
       <div class="pt-20 verti items-center max-w-600 h-window">
         <a @click="transformationToChooseCombiner = null" class="close w-20 h-20 self-right"></a>

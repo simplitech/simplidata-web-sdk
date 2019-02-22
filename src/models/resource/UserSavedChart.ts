@@ -143,6 +143,7 @@ export class UserSavedChart extends Resource {
 
         return oarfuClean
       }
+      // TODO: fazer pra model tb
 
       return irfu
     })
@@ -158,6 +159,7 @@ export class UserSavedChart extends Resource {
         }
         realIrfu = oarfu
       } else {
+        // TODO: fazer pra model tb
         realIrfu = plainToClass<ItemRFU, object>(ItemRFU, irfu)
       }
 

@@ -26,12 +26,19 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     this.refreshDataListRFU(start, end)
   }
 
-  get $contentTitle() {
+  get contentTitle() {
     let title = this.objectOfAnalysis ? this.objectOfAnalysis.title : ''
 
     return this.orderedTransformations.reduce((title, transf) => {
       return title + ' (' + transf.titleWithCombiner + ')'
     }, title)
+  }
+
+  get unityTitle() {
+    if (!this.objectOfAnalysis || !this.objectOfAnalysis.unity) {
+      return ''
+    }
+    return this.objectOfAnalysis.unity.title
   }
 
   refreshDataListRFU(start?: string | null, end?: string | null, periodicity?: OaPeriodicity | null) {

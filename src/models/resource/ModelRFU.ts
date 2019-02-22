@@ -5,7 +5,7 @@ import { ModelingResult } from './ModelingResult'
 
 export class ModelRFU extends ItemRFU {
   @ResponseSerialize(Model)
-  model?: Model
+  model: Model | null = null
 
   @ResponseSerialize(ItemRFU)
   itemsRFU?: ItemRFU[]

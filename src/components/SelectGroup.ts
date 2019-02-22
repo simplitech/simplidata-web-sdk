@@ -1,15 +1,18 @@
 const template = `
-  <div v-popover="{ name: 'sg' + _uid }" class="selectGroup horiz items-center no-wrap">
-    <span class="label">{{ label }}</span>
-    <span class="value weight-1 mx-10">
-      <template v-if="computedModel.$tag">
-        {{ computedModel.$tag }}
-      </template>
-      <template v-else>
-        {{ empty }}
-      </template>
-    </span>
-    <div class="chevron w-8 h-5"></div>
+  <div v-popover="{ name: 'sg' + _uid }" class="selectGroup items-left-center no-wrap"
+    :class="[ vertical ? 'verti' : 'horiz' ]">
+    <span class="label mr-10">{{ label }}</span>
+    <div class="horiz items-left-center">
+      <span class="value weight-1 mr-10">
+        <template v-if="computedModel.$tag">
+          {{ computedModel.$tag }}
+        </template>
+        <template v-else>
+          {{ empty }}
+        </template>
+      </span>
+      <div class="chevron w-8 h-5"></div>
+    </div>
 
     <transition name="fade-down" mode="out-in">
       <popover :name="'sg' + _uid" ref="popover">
@@ -37,7 +40,7 @@ import { plainToClassFromExist } from 'class-transformer'
 import { Popover } from 'vue-js-popover'
 
 @Component({ template })
-export default class SelectGroup extends Vue {
+export class SelectGroup extends Vue {
   @Prop({ type: String })
   label?: string
 
@@ -49,6 +52,9 @@ export default class SelectGroup extends Vue {
 
   @Prop({ default: () => [] })
   items?: Resource[]
+
+  @Prop({ type: Boolean, default: false })
+  vertical!: boolean
 
   get computedModel() {
     if (this.value && this.items) {
