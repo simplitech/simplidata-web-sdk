@@ -25,7 +25,7 @@ const template = `
       <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="$emit('onLegendClick', i)" class="item horiz items-left-center mr-10">
         <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': colors[i] }"></div>
         <div class="weight-1">
-          {{ itemRfu.contentTitle }}
+          {{ itemRfu.contentTitleWithTransformation }}
         </div>
       </a>
     </div>

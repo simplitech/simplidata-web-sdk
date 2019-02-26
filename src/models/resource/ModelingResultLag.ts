@@ -3,5 +3,4 @@ export class ModelingResultLag {
   standardError?: number
   tReason?: number
   pValue?: number
-  relevance?: number
 }

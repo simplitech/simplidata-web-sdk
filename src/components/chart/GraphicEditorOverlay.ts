@@ -1,7 +1,7 @@
 import echarts from 'echarts'
 
 const template = `
-    <div class="graphic-editor-overlay relative z-high w-full">
+    <div class="graphic-editor-overlay relative z-1 w-full">
         <textarea v-if="editingText" v-model="graphicOfWorkAsText.text"
           v-focus class="w-400 p-0" :style="{ top: textareaTop, left: textareaLeft, color: graphicOfWork.color }"
           :placeholder="$t('view.chart.typeHere')"></textarea>

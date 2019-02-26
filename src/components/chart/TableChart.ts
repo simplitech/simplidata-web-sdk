@@ -5,7 +5,7 @@ const template = `
         <tr>
           <th>{{ $t('view.chart.date') }}</th>
           <th v-for="itemRfu in value.itensRFU">
-            {{ itemRfu.contentTitle }}
+            {{ itemRfu.contentTitleWithTransformation }}
           </th>
         </tr>
       </thead>

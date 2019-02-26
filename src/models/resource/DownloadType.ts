@@ -10,6 +10,8 @@ export class DownloadType extends Resource {
   readonly $name: string = 'DownloadType'
   readonly $endpoint: string = '/User/DownloadType{/id}'
 
+  static XLS = 1
+
   get $schema() {
     return DownloadTypeSchema(this)
   }

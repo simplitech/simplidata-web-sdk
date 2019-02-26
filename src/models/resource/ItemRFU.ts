@@ -21,6 +21,14 @@ export class ItemRFU {
     return ''
   }
 
+  get contentTitleWithTransformation() {
+    let title = this.contentTitle
+
+    return this.orderedTransformations.reduce((title, transf) => {
+      return title + ' (' + transf.titleWithCombiner + ')'
+    }, title)
+  }
+
   get unityTitle() {
     return ''
   }

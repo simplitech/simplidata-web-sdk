@@ -8,7 +8,7 @@ export class ModelRFU extends ItemRFU {
   model: Model | null = null
 
   @ResponseSerialize(ItemRFU)
-  itemsRFU?: ItemRFU[]
+  itemsRFU: ItemRFU[]
 
   @ResponseSerialize(ModelingResult)
   modelResult?: ModelingResult
@@ -21,5 +21,9 @@ export class ModelRFU extends ItemRFU {
       this.model = model
     }
     this.itemsRFU = itemsRFU
+  }
+
+  get contentTitle() {
+    return this.model ? this.model.title : ''
   }
 }

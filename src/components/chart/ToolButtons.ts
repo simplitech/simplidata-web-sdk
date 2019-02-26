@@ -137,6 +137,7 @@ import {
   MeasureChartGraphic,
   FibonacciRetractionChartGraphic,
   ChartGraphic,
+  DownloadType,
 } from '../../models'
 import { Collection } from '../../simpli'
 import ChartBus from '../../utils/ChartBus'
@@ -335,13 +336,13 @@ export default class ToolButtons extends Vue {
 
     const names = this.value.itensRFU.map((itemrfu, i) => {
       return {
-        value: itemrfu.contentTitle,
+        value: itemrfu.contentTitleWithTransformation,
         type: 'string',
       }
     })
 
     const filename = this.value.itensRFU.reduce((name, itemrfu) => {
-      return name + (name.length ? ' + ' : '') + itemrfu.contentTitle
+      return name + (name.length ? ' + ' : '') + itemrfu.contentTitleWithTransformation
     }, '')
 
     await zipcelx({
@@ -360,7 +361,7 @@ export default class ToolButtons extends Vue {
       },
     })
 
-    await this.persistUserSavedChart(null, 1)
+    await this.persistUserSavedChart(null, DownloadType.XLS)
   }
 
   openChartComment(comment: CommentChartGraphic) {

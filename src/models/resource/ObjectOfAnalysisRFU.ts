@@ -27,11 +27,7 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
   }
 
   get contentTitle() {
-    let title = this.objectOfAnalysis ? this.objectOfAnalysis.title : ''
-
-    return this.orderedTransformations.reduce((title, transf) => {
-      return title + ' (' + transf.titleWithCombiner + ')'
-    }, title)
+    return this.objectOfAnalysis ? this.objectOfAnalysis.title : ''
   }
 
   get unityTitle() {
