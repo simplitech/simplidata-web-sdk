@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.1"></a>
+## [5.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.0...v5.0.1) (2019-02-26)
+
+
+### Bug Fixes
+
+* Fixed issue ([b517355](https://github.com/simplitech/simplidata-web-sdk/commit/b517355))
+* **ItemRFU:** fix contentTitle to be able to not show transformations ([5c23ec8](https://github.com/simplitech/simplidata-web-sdk/commit/5c23ec8))
+
+
+
 <a name="5.0.0"></a>
 # [5.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v4.3.0...v5.0.0) (2019-02-22)
 
