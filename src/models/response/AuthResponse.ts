@@ -9,6 +9,8 @@ import { User } from '../resource/User'
 import { Plan } from '../resource/Plan'
 import { AuthRequest } from '../request/AuthRequest'
 import { ChangePasswordRequest } from '../request/ChangePasswordRequest'
+import { HttpBody } from 'simpli-web-sdk'
+import { SubscriptionResponse } from './SubscriptionResponse'
 
 export class AuthResponse extends Model {
   readonly $name: string = 'AuthResponse'
@@ -38,7 +40,7 @@ export class AuthResponse extends Model {
 
     const fetch = async () => {
       await request.validate()
-      return await this.POST(`/User/RecoverPassword`, { email, password, hash } as AuthRequest)
+      return await new HttpBody(String).POST(`/User/RecoverPassword`, { email, password, hash } as AuthRequest)
     }
 
     return await $.await.run(fetch, spinner, delay)
@@ -51,7 +53,7 @@ export class AuthResponse extends Model {
 
     const fetch = async () => {
       await request.validate()
-      return await this.POST(`/User/ResetPassword`, { email, password, hash } as AuthRequest)
+      return await new HttpBody(Number).POST(`/User/ResetPassword`, { email, password, hash } as AuthRequest)
     }
 
     return await $.await.run(fetch, spinner, delay)
@@ -82,7 +84,7 @@ export class AuthResponse extends Model {
       const newPassword = encrypt(request.newPassword || '')
       const confirmPassword = encrypt(request.confirmPassword || '')
 
-      return await this.POST(`/User/ChangePassword`, {
+      return await new HttpBody(Number).POST(`/User/ChangePassword`, {
         currentPassword,
         newPassword,
         confirmPassword,

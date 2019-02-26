@@ -2,7 +2,7 @@
  * User
  * @author Simpli CLI generator
  */
-import { $, encrypt, ID, Resource, TAG, Resp } from '../../simpli'
+import { $, encrypt, ID, Resource, HttpBody, TAG, Resp } from '../../simpli'
 import {
   ResponseHidden,
   ResponseSerialize,
@@ -128,14 +128,14 @@ export class User extends Resource {
         await request.card.customer.address.validate()
       }
 
-      return await this.POST(`/User/Subscription`, request)
+      return await new HttpBody(SubscriptionResponse).POST(`/User/Subscription`, request)
     }
     return await $.await.run(fetch, 'persistSubscription')
   }
 
   async persistSubscription(request: SubscriptionRequest): Promise<Resp<SubscriptionResponse>> {
     const fetch = async () => {
-      return await this.POST(`/User/Subscription`, request)
+      return await new HttpBody(SubscriptionResponse).POST(`/User/Subscription`, request)
     }
     return await $.await.run(fetch, 'persistSubscription')
   }
