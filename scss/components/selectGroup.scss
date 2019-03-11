@@ -35,14 +35,17 @@
 
 .vue-popover {
   position: absolute;
-  max-height: 300px;
-  overflow-y: auto;
   background: rgb(36, 36, 36);
   box-shadow: 0 40px 80px 0 rgba(20, 20, 20, 0.9);
   color: #acacac;
 
   &.dropdown-position-bottom:before {
     border-bottom-color: rgb(36, 36, 36);
+  }
+
+  .popover-content {
+    max-height: 300px;
+    overflow-y: auto;
   }
 
   .await-spinner {

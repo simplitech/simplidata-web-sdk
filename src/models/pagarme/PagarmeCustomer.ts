@@ -2,7 +2,7 @@
  * PagarmeCustomer
  * @author ftgibran
  */
-import { $, Model, IResource } from '../../simpli'
+import { $, Model, IResource, ObjectCollection } from '../../simpli'
 import {
   ResponseSerialize,
   ValidationRequired,
@@ -49,21 +49,21 @@ export class PagarmeCustomer extends Model {
   @ResponseSerialize(PagarmeAddress)
   address: PagarmeAddress = new PagarmeAddress()
 
-  get sexSelected() {
-    return this.sexOptions.find((obj: any) => obj.$tag === this.sex) || {}
+  get sexResource() {
+    return this.sexCollection.get(this.sex)
   }
 
-  set sexSelected(val: IResource) {
-    this.sex = val.$tag || ''
+  set sexResource(val: IResource | null) {
+    this.sex = (val && (val.$id as string)) || null
   }
 
-  get sexOptions(): IResource[] {
-    return [
-      {},
-      { $id: 0, $tag: $.t('gender.male') },
-      { $id: 1, $tag: $.t('gender.female') },
-      { $id: 2, $tag: $.t('gender.other') },
-      { $id: 3, $tag: $.t('gender.doNotInform') },
+  get sexCollection() {
+    const items = [
+      { $id: $.t('gender.male'), $tag: $.t('gender.male') },
+      { $id: $.t('gender.female'), $tag: $.t('gender.female') },
+      { $id: $.t('gender.other'), $tag: $.t('gender.other') },
+      { $id: $.t('gender.doNotInform'), $tag: $.t('gender.doNotInform') },
     ]
+    return new ObjectCollection(items)
   }
 }

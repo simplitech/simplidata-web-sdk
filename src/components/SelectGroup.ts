@@ -16,18 +16,22 @@ const template = `
 
     <transition name="fade-down" mode="out-in">
       <popover :name="'sg' + _uid" ref="popover">
-        <div 
-        class="liSg px-15 py-10"
-        :class="{ selected: !computedModel.$id }"
-        @click="selectEmpty">
-         {{ empty }}
-        </div>
-        <div v-for="(i, index) in computedItems"
-        :key="index"
-        class="liSg px-15 py-10"
-        :class="{ selected: computedModel.$id === i.$id }"
-        @click="selectByIndex(index)">
-         {{ i.$tag }}
+        <div class="popover-content">
+        
+          <div class="liSg px-15 py-10" :class="{ selected: !computedModel.$id }" @click="selectEmpty">
+           {{ empty }}
+          </div>
+          
+          <div
+            v-for="(i, index) in computedItems" 
+            :key="index"
+            class="liSg px-15 py-10"
+            :class="{ selected: computedModel.$id === i.$id }"
+            @click="selectByIndex(index)"
+          >
+           {{ i.$tag }}
+          </div>
+          
         </div>
       </popover>
     </transition>

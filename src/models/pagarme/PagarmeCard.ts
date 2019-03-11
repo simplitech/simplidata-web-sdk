@@ -3,7 +3,7 @@
  * @author ftgibran
  */
 import moment from 'moment'
-import { Model, IResource } from '../../simpli'
+import { Model, IResource, ObjectCollection } from '../../simpli'
 import { ValidationRequired, ResponseSerialize, ValidationMax, ValidationMaxLength } from '../../simpli'
 import { CardBrand } from '../../enums/CardBrand'
 import { PagarmeCustomer } from './PagarmeCustomer'
@@ -114,30 +114,35 @@ export class PagarmeCard extends Model {
     this.card_expiration_date = `${month}${year}`
   }
 
-  get months() {
-    const months: IResource[] = [{}]
+  get monthCollection() {
+    const months: IResource[] = []
 
     for (let i = 0; i <= 11; i++) {
       months.push({
         $id: i + 1,
         $tag: moment()
           .month(i)
-          .format('MM'),
+          .format('MMMM'),
       })
     }
 
-    return months
+    return new ObjectCollection(months)
   }
 
-  get years() {
-    const years: IResource[] = [{}]
+  get yearCollection() {
+    const years: number[] = []
+    let currentYear = moment().year()
 
-    const year = moment().get('year')
     for (let i = 0; i < YEAR_RANGE; i++) {
-      years.push({ $id: year + i, $tag: (year + i).toString() })
+      years.push(currentYear--)
     }
 
-    return years
+    const items = years.map((year: number) => ({
+      $id: year,
+      $tag: `${year}`,
+    }))
+
+    return new ObjectCollection(items)
   }
 
   getBrand() {
