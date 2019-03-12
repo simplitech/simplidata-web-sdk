@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.5"></a>
+## [5.0.5](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.4...v5.0.5) (2019-03-12)
+
+
+### Bug Fixes
+
+* **Chart:** hide version chooser when wanted and hide undo and redo when wanted ([c585dc5](https://github.com/simplitech/simplidata-web-sdk/commit/c585dc5))
+
+
+
 <a name="5.0.4"></a>
 ## [5.0.4](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.3...v5.0.4) (2019-03-12)
 
