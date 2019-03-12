@@ -88,7 +88,7 @@ const template = `
     <!-- CHART SHOW COMMENT MODAL -->
     <div v-if="commentOpen" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center verti">
       <div class="popup p-20 w-450 verti items-center">
-        <a @click="commentOpen = null" class="close w-20 h-20 self-right"></a>
+        <a @click="closeComment" class="close w-20 h-20 self-right"></a>
         <p class="comment-text">
           {{ commentOpen.text }}
         </p>
@@ -96,8 +96,8 @@ const template = `
           :class="{ active: showEditCommentButtons}"></a>
       </div>
       <div :style="{ opacity: showEditCommentButtons ? 1 : 0 }" class="horiz w-450 items-right-center mt-8 transition">
-        <a class="btn basic trash force-min-w-50 force-h-25 mr-6"></a>
-        <a class="btn basic edit force-min-w-50 force-h-25"></a>
+        <a @click="removeCommentOpen" class="btn basic trash force-min-w-50 force-h-25 mr-6"></a>
+        <a @click="editCommentOpen" class="btn basic edit force-min-w-50 force-h-25"></a>
       </div>
     </div>
     
@@ -265,6 +265,39 @@ export default class ToolButtons extends Vue {
   cancelEditingDrawing() {
     if (this.graphicBeingBuilt && this.graphicBeingBuilt.isCancelled) {
       this.clearDrawingTool()
+    }
+  }
+
+  editCommentOpen() {
+    if (!this.commentOpen) {
+      return
+    }
+    this.commentOpen.isDone = false
+    this.graphicBeingBuilt = this.commentOpen
+    this.removeCommentOpen()
+  }
+
+  removeCommentOpen() {
+    if (!this.commentOpen) {
+      return
+    }
+    this.removeGraphic(this.commentOpen)
+    this.closeComment()
+  }
+
+  closeComment() {
+    this.commentOpen = null
+    this.showEditCommentButtons = false
+  }
+
+  removeGraphic(graphic: ChartGraphic) {
+    if (!this.value) {
+      return
+    }
+
+    const index = this.value.graphics.indexOf(graphic)
+    if (index > -1) {
+      this.value.graphics.splice(index, 1)
     }
   }
 

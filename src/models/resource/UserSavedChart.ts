@@ -106,21 +106,21 @@ export class UserSavedChart extends Resource {
     await this.parseItensRFU(jsonParsed.itensRFU)
 
     jsonParsed.graphics.forEach((g: any) => {
-      if (g.$name === 'LineChartGraphic') {
+      if (g.name === 'LineChartGraphic') {
         this.graphics.push(plainToClass<LineChartGraphic, object>(LineChartGraphic, g))
-      } else if (g.$name === 'EllipseChartGraphic') {
+      } else if (g.name === 'EllipseChartGraphic') {
         this.graphics.push(plainToClass<EllipseChartGraphic, object>(EllipseChartGraphic, g))
-      } else if (g.$name === 'RectangleChartGraphic') {
+      } else if (g.name === 'RectangleChartGraphic') {
         this.graphics.push(plainToClass<RectangleChartGraphic, object>(RectangleChartGraphic, g))
-      } else if (g.$name === 'PencilChartGraphic') {
+      } else if (g.name === 'PencilChartGraphic') {
         this.graphics.push(plainToClass<PencilChartGraphic, object>(PencilChartGraphic, g))
-      } else if (g.$name === 'TextChartGraphic') {
+      } else if (g.name === 'TextChartGraphic') {
         this.graphics.push(plainToClass<TextChartGraphic, object>(TextChartGraphic, g))
-      } else if (g.$name === 'CommentChartGraphic') {
+      } else if (g.name === 'CommentChartGraphic') {
         this.graphics.push(plainToClass<CommentChartGraphic, object>(CommentChartGraphic, g))
-      } else if (g.$name === 'MeasureChartGraphic') {
+      } else if (g.name === 'MeasureChartGraphic') {
         this.graphics.push(plainToClass<MeasureChartGraphic, object>(MeasureChartGraphic, g))
-      } else if (g.$name === 'FibonacciRetractionChartGraphic') {
+      } else if (g.name === 'FibonacciRetractionChartGraphic') {
         this.graphics.push(plainToClass<FibonacciRetractionChartGraphic, object>(FibonacciRetractionChartGraphic, g))
       }
     })

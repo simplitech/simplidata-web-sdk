@@ -4,6 +4,8 @@ import { ItemRFU } from './ItemRFU'
 import { ModelingResult } from './ModelingResult'
 
 export class ModelRFU extends ItemRFU {
+  readonly $name: string = 'ModelRFU'
+
   @ResponseSerialize(Model)
   model: Model | null = null
 
