@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.0.4"></a>
+## [5.0.4](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.3...v5.0.4) (2019-03-12)
+
+
+### Bug Fixes
+
+* **CommentChartGraphic:** fix chart editing ([175fe23](https://github.com/simplitech/simplidata-web-sdk/commit/175fe23))
+
+
+
 <a name="5.0.3"></a>
 ## [5.0.3](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.2...v5.0.3) (2019-03-11)
 
