@@ -32,7 +32,7 @@ const template = `
       
     <div class="weight-1"></div>
 
-    <button v-if="showAdvancedAnalysisButton" @click="$emit('onAdvancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
+    <button v-if="showAdvancedAnalysisButton && value.chartData" @click="$emit('onAdvancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
   </div>
 `
 
