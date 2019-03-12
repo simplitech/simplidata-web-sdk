@@ -38,7 +38,7 @@ const template = `
       </div>
   
       <!-- VERSION CHOOSER -->
-      <version-chooser v-model="value" 
+      <version-chooser v-model="value" v-if="showOaVersionControl"
         :selectedOaRfu="selectedOaRfu" :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"/>
       
       <div class="weight-1"></div>
@@ -77,6 +77,9 @@ export default class RightPanel extends Vue {
 
   @Prop({ type: Boolean, default: true })
   showVisitButton?: boolean
+
+  @Prop({ type: Boolean, default: false })
+  showOaVersionControl?: boolean
 
   colors = colors
   collapsed = false

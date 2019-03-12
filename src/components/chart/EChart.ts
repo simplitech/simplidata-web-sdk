@@ -1,6 +1,6 @@
 const template = `
   <div class="echart-holder">
-    <graphic-editor-overlay v-model="value" :graphicBeingBuilt="graphicBeingBuilt" :echart="echart"/>
+    <graphic-editor-overlay v-model="value" v-if="showDrawingButtons" :graphicBeingBuilt="graphicBeingBuilt" :echart="echart"/>
     <div id="echart" ref="echart" class="h-full"></div>
   </div>
 `
@@ -23,6 +23,9 @@ export default class EChart extends Vue {
 
   @Prop({ type: Object })
   graphicBeingBuilt?: ChartGraphic
+
+  @Prop({ type: Boolean, default: true })
+  showDrawingButtons?: boolean
 
   echart: echarts.ECharts | null = null
   colors = colors

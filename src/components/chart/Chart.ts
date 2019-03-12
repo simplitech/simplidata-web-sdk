@@ -28,6 +28,7 @@ const template = `
         <e-chart v-model="value" 
           v-show="!chartTypeTableSelected"
           :graphicBeingBuilt="graphicBeingBuilt"
+          :showDrawingButtons="showDrawingButtons"
           ref="echart" class="min-h-400 weight-1"/>
           
         <table-chart v-model="value" 
@@ -44,6 +45,7 @@ const template = `
         :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
+        :showOaVersionControl="showOaVersionControl"
         @onVisitClick="$emit('onVisitClick')"
         @onCollapseChange="refresh"/>
 
