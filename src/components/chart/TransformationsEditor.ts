@@ -8,11 +8,13 @@ const template = `
     
     <transition name="fade-down" mode="out-in">
       <popover :name="'sg-tc' + _uid" ref="popover">
-        <div v-for="t in allTransformationTypes.items"
-        :key="t.idTransformationTypePk"
-        class="liTC px-15 py-10"
-        @click="addTransformation(t)">
-         {{ t.title }}
+        <div class="popover-content">
+          <div v-for="t in allTransformationTypes.items"
+          :key="t.idTransformationTypePk"
+          class="liTC px-15 py-10"
+          @click="addTransformation(t)">
+           {{ t.title }}
+          </div>
         </div>
       </popover>
     </transition>

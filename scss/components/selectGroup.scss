@@ -42,6 +42,9 @@
   &.dropdown-position-bottom:before {
     border-bottom-color: rgb(36, 36, 36);
   }
+  &.dropdown-position-right:before {
+    border-right-color: rgb(36, 36, 36);
+  }
 
   .popover-content {
     max-height: 300px;
