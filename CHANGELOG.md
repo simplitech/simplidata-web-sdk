@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="5.1.0"></a>
+# [5.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.6...v5.1.0) (2019-03-13)
+
+
+### Features
+
+* **SaveChart:** save chart outside chart component ([4f55adc](https://github.com/simplitech/simplidata-web-sdk/commit/4f55adc))
+
+
+
 <a name="5.0.6"></a>
 ## [5.0.6](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.5...v5.0.6) (2019-03-12)
 
