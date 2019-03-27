@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.0.0"></a>
+# [6.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v5.1.0...v6.0.0) (2019-03-27)
+
+
+### Bug Fixes
+
+* **Chart:** Event names renamed ([d8f46c0](https://github.com/simplitech/simplidata-web-sdk/commit/d8f46c0))
+
+
+### BREAKING CHANGES
+
+* **Chart:** Event names renamed
+
+
+
 <a name="5.1.0"></a>
 # [5.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v5.0.6...v5.1.0) (2019-03-13)
 
