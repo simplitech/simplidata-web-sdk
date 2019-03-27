@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.2.0"></a>
+# [6.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v6.1.1...v6.2.0) (2019-03-27)
+
+
+### Features
+
+* **lang:** implement a slang system for domain tables ([178d126](https://github.com/simplitech/simplidata-web-sdk/commit/178d126))
+
+
+
 <a name="6.1.1"></a>
 ## [6.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v6.1.0...v6.1.1) (2019-03-27)
 
