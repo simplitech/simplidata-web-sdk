@@ -43,7 +43,7 @@ const template = `
       
       <div class="weight-1"></div>
       
-      <button v-if="showVisitButton" @click="$emit('onVisitClick')"
+      <button v-if="showVisitButton" @click="$emit('visitClick')"
       class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</button>
       
     </div>
@@ -87,13 +87,13 @@ export default class RightPanel extends Vue {
   async toggleCollapse() {
     this.collapsed = !this.collapsed
     await sleep(500)
-    this.$emit('onCollapseChange', this.collapsed)
+    this.$emit('collapseChange', this.collapsed)
   }
 
   @Watch('selectedDatasetIndexOrTheOnly')
   async uncollapse() {
     this.collapsed = false
     await sleep(500)
-    this.$emit('onCollapseChange', this.collapsed)
+    this.$emit('collapseChange', this.collapsed)
   }
 }

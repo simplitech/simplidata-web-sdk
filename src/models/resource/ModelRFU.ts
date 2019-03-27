@@ -10,14 +10,14 @@ export class ModelRFU extends ItemRFU {
   model: Model | null = null
 
   @ResponseSerialize(ItemRFU)
-  itemsRFU: ItemRFU[]
+  itemsRFU!: ItemRFU[]
 
   @ResponseSerialize(ModelingResult)
   modelResult?: ModelingResult
 
   forecastColorIndex?: number
 
-  constructor(model: Model | null, itemsRFU: ItemRFU[]) {
+  constructor(model: Model | null, itemsRFU: ItemRFU[] = []) {
     super()
     if (model) {
       this.model = model

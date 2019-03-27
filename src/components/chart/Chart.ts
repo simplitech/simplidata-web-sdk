@@ -21,8 +21,8 @@ const template = `
           :showLegend="showLegend"
           :showAdvancedAnalysisButton="showAdvancedAnalysisButton"
           :selectedDatasetIndex="selectedDatasetIndex"
-          @onAdvancedClick="$emit('onAdvancedClick')"
-          @onLegendClick="onLegendClick"/>
+          @advancedClick="$emit('advancedClick')"
+          @legendClick="onLegendClick"/>
 
         <!-- CHART -->
         <e-chart v-model="value" 
@@ -46,8 +46,8 @@ const template = `
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
         :showOaVersionControl="showOaVersionControl"
-        @onVisitClick="$emit('onVisitClick')"
-        @onCollapseChange="refresh"/>
+        @visitClick="$emit('visitClick')"
+        @collapseChange="refresh"/>
 
     </div>
 

@@ -22,7 +22,7 @@ const template = `
       :placeholder="$t('view.chart.end')"/>
       
     <div v-if="showLegend" class="legend p-5 horiz items-left-center">
-      <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="$emit('onLegendClick', i)" class="item horiz items-left-center mr-10">
+      <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="$emit('legendClick', i)" class="item horiz items-left-center mr-10">
         <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': colors[i] }"></div>
         <div class="weight-1">
           {{ itemRfu.contentTitleWithTransformation }}
@@ -32,7 +32,7 @@ const template = `
       
     <div class="weight-1"></div>
 
-    <button v-if="showAdvancedAnalysisButton && value.chartData" @click="$emit('onAdvancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
+    <button v-if="showAdvancedAnalysisButton && value.chartData" @click="$emit('advancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
   </div>
 `
 

@@ -86,7 +86,7 @@
     "@types/zipcelx": "^1.5.0",
     "ajv": "6.5.4",
     "awesome-typescript-loader": "5.2.1",
-    "commitizen": "3.0.5",
+    "commitizen": "3.0.7",
     "cross-var": "1.1.0",
     "css-loader": "1.0.0",
     "cz-conventional-changelog": "2.1.0",
