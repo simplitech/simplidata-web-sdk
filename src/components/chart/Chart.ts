@@ -210,7 +210,7 @@ export class Chart extends Vue {
       }
     }
 
-    this.value.lastSavedJson = this.value.json
+    this.value.lastSavedJson = this.value.relevantToSave
 
     if (somethingLoaded) {
       this.$emit('dataLoaded')

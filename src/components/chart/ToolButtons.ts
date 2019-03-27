@@ -167,10 +167,10 @@ export default class ToolButtons extends Vue {
 
   get needsSaving() {
     return (
+      this.showSaveButton &&
       this.value &&
       this.value.lastSavedJson.length &&
-      this.value.oaVersionIds &&
-      this.value.unsavedJson !== this.value.lastSavedJson
+      this.value.lastSavedJson !== this.value.relevantToSave
     )
   }
 
