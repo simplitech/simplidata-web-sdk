@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="6.1.1"></a>
+## [6.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v6.1.0...v6.1.1) (2019-03-27)
+
+
+### Bug Fixes
+
+* **ToolButtons:** fix warning when user has unsaved changes ([b24060b](https://github.com/simplitech/simplidata-web-sdk/commit/b24060b))
+
+
+
 <a name="6.1.0"></a>
 # [6.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v6.0.0...v6.1.0) (2019-03-27)
 
