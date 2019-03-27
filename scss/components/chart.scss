@@ -15,6 +15,10 @@
         background-color: #555555;
       }
     }
+
+    &.needs-saving {
+      box-shadow: 0px 0px 4px 0px rgba(255,221,0,1);
+    }
   }
   .chart-drop {
     // 3px 3px

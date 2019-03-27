@@ -69,6 +69,8 @@ export class UserSavedChart extends Resource {
   @ValidationMaxLength(255)
   json: string = ''
 
+  lastSavedJson = '' // last json persisted
+
   @RequestExclude() // json property
   graphics: ChartGraphic[] = []
 
@@ -85,7 +87,11 @@ export class UserSavedChart extends Resource {
   itensRFU: ItemRFU[] = []
 
   buildJson() {
-    this.json = JSON.stringify({
+    this.json = this.unsavedJson
+  }
+
+  get unsavedJson() {
+    return JSON.stringify({
       version,
       graphics: this.graphics,
       chartType: this.chartType,

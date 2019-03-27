@@ -2,7 +2,7 @@ const template = `
   <div class="verti w-40">
 
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
-      :title="$t('view.chart.saveChartOnCollection')"></a>
+      :title="$t('view.chart.saveChartOnCollection')" :class="{ 'needs-saving': needsSaving }"></a>
 
     <popover :name="'sg-save' + _uid" ref="savepopover">
       <save-chart v-model="value" @userSavedChart="$emit('userSavedChart', $event)"/>
@@ -106,6 +106,7 @@ import {
 } from '../../models'
 import ChartBus from '../../utils/ChartBus'
 import { SaveChart } from '../SaveChart'
+import { warning } from '../../simpli'
 
 @Component({
   components: { SaveChart },
@@ -144,6 +145,7 @@ export default class ToolButtons extends Vue {
   commentOpen: CommentChartGraphic | null = null
   graphicBeingBuilt: ChartGraphic | null = null
   showEditCommentButtons = false
+  warningAboutSavingEmmited = false
 
   get graphicBeingBuiltAsComment() {
     if (!this.graphicBeingBuilt || !(this.graphicBeingBuilt instanceof CommentChartGraphic)) {
@@ -160,6 +162,15 @@ export default class ToolButtons extends Vue {
       !this.graphicBeingBuilt.isCancelled &&
       this.graphicBeingBuiltAsComment &&
       this.graphicBeingBuiltAsComment.position !== null
+    )
+  }
+
+  get needsSaving() {
+    return (
+      this.value &&
+      this.value.lastSavedJson.length &&
+      this.value.oaVersionIds &&
+      this.value.unsavedJson !== this.value.lastSavedJson
     )
   }
 
@@ -228,6 +239,14 @@ export default class ToolButtons extends Vue {
   cancelEditingDrawing() {
     if (this.graphicBeingBuilt && this.graphicBeingBuilt.isCancelled) {
       this.clearDrawingTool()
+    }
+  }
+
+  @Watch('needsSaving')
+  warnIfNeedsSavingForFirstTime() {
+    if (!this.warningAboutSavingEmmited && this.needsSaving) {
+      warning('view.chart.dontFogetToSaveYourChanges')
+      this.warningAboutSavingEmmited = true
     }
   }
 

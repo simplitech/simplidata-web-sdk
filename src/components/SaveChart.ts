@@ -149,6 +149,7 @@ export class SaveChart extends Vue {
 
     this.value.buildJson()
     const resp = await this.value.save()
+    this.value.lastSavedJson = this.value.json
     this.$emit('userSavedChart', resp.data)
   }
 }

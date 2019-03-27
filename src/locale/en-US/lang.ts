@@ -420,6 +420,7 @@ export default {
       writeYourComment: 'Write your comment...',
       fibonacciRetraction: 'Fibonacci',
       typeHere: 'Type here',
+      dontFogetToSaveYourChanges: 'Não esqueça de salvar suas alterações',
     },
   },
 }
