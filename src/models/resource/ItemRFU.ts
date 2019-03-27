@@ -25,7 +25,7 @@ export class ItemRFU {
     let title = this.contentTitle
 
     return this.orderedTransformations.reduce((title, transf) => {
-      return title + ' (' + transf.titleWithCombiner + ')'
+      return title + ' (' + transf.tagWithCombiner + ')'
     }, title)
   }
 

@@ -18,12 +18,12 @@ const template = `
       <div class="verti">
         <div class="horiz mb-10">
           <div class="label weight-1">{{ $t('view.chart.periodicity') }}</div>
-          <div class="value">{{ selectedOaRfu.objectOfAnalysis.periodicity.title }}</div>
+          <div class="value">{{ selectedOaRfu.objectOfAnalysis.periodicity.$tag }}</div>
         </div>
   
         <div class="horiz mb-10">
           <div class="label weight-1">{{ $t('view.chart.unity') }}</div>
-          <div class="value">{{ selectedOaRfu.objectOfAnalysis.unity.title }}</div>
+          <div class="value">{{ selectedOaRfu.objectOfAnalysis.unity.$tag }}</div>
         </div>
   
         <div class="horiz mb-10">

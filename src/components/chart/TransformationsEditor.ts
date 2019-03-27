@@ -13,7 +13,7 @@ const template = `
           :key="t.idTransformationTypePk"
           class="liTC px-15 py-10"
           @click="addTransformation(t)">
-           {{ t.title }}
+           {{ t.$tag }}
           </div>
         </div>
       </popover>
@@ -23,7 +23,7 @@ const template = `
       <div v-for="(t, i) in selectedOaRfu.orderedTransformations" :key="i.idTransformationTypePk"
            class="transformationItem h-25 horiz items-left-center pl-10 pr-10 m-5">
         <div class="weight-1 mr-10">
-           {{ t.titleWithCombiner }}
+           {{ t.tagWithCombiner }}
         </div>
         <a class="removeTransformation w-8 h-8" @click="removeTransformation(i)"></a>
       </div>

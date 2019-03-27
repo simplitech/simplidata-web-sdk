@@ -5,11 +5,11 @@ const template = `
       class="version horiz items-center mb-9 pl-30"
       :class="{ selected: version.idOaVersionPk === selectedOaSelectedVersionId }"
       @click="selectVersion(version.idOaVersionPk)">
-      <div class="weight-1">{{ version.title }}</div>
+      <div class="weight-1">{{ version.$tag }}</div>
       <div class="weight-1 text-center">
         {{ version.lastDataset.creationDate | moment($t('dateFormat.datesimple')) }}
       </div>
-      <div class="weight-1 text-right">{{ version.oaVersionStatus.title }}</div>
+      <div class="weight-1 text-right">{{ version.oaVersionStatus.$tag }}</div>
     </div>
   </div>
 `

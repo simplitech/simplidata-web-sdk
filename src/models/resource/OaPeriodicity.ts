@@ -3,8 +3,9 @@
  * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
-import { ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { $, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import OaPeriodicitySchema from '../../schemas/OaPeriodicity.schema'
+import { removeAccentsAndSpace } from '../../utils'
 
 export class OaPeriodicity extends Resource {
   readonly $name: string = 'OaPeriodicity'
@@ -21,7 +22,7 @@ export class OaPeriodicity extends Resource {
     this.idOaPeriodicityPk = val
   }
   get $tag() {
-    return this.title
+    return $.t(`slang.${this.$name}.${removeAccentsAndSpace(this.title)}`)
   }
   set $tag(val: TAG) {
     this.title = val

@@ -3,9 +3,10 @@
  * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { $, ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import ChartTypeSchema from '../../schemas/ChartType.schema'
+import { removeAccentsAndSpace } from '../../utils'
 
 export class ChartType extends Resource {
   readonly $name: string = 'ChartType'
@@ -27,7 +28,7 @@ export class ChartType extends Resource {
     this.idChartTypePk = val
   }
   get $tag() {
-    return this.title
+    return $.t(`slang.${this.$name}.${removeAccentsAndSpace(this.title)}`)
   }
   set $tag(val: TAG) {
     this.title = val

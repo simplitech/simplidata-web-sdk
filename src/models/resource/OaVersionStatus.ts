@@ -3,8 +3,9 @@
  * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
-import { ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { $, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import OaVersionStatusSchema from '../../schemas/OaVersionStatus.schema'
+import { removeAccentsAndSpace } from '../../utils'
 
 export class OaVersionStatus extends Resource {
   readonly $name: string = 'OaVersionStatus'
@@ -21,7 +22,7 @@ export class OaVersionStatus extends Resource {
     this.idOaVersionStatusPk = val
   }
   get $tag() {
-    return this.title
+    return $.t(`slang.${this.$name}.${removeAccentsAndSpace(this.title)}`)
   }
   set $tag(val: TAG) {
     this.title = val

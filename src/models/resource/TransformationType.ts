@@ -3,9 +3,10 @@
  * @author Simpli CLI generator
  */
 import { ID, Resource, TAG } from '../../simpli'
-import { ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { $, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import TransformationTypeSchema from '../../schemas/TransformationType.schema'
 import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
+import { removeAccentsAndSpace } from '../../utils'
 
 export class TransformationType extends Resource {
   readonly $name: string = 'TransformationType'
@@ -22,16 +23,16 @@ export class TransformationType extends Resource {
     this.idTransformationTypePk = val
   }
   get $tag() {
-    return this.title
+    return $.t(`slang.${this.$name}.${removeAccentsAndSpace(this.title)}`)
   }
   set $tag(val: TAG) {
     this.title = val
   }
 
-  get titleWithCombiner() {
+  get tagWithCombiner() {
     const combinerStr =
       !this.combineWith || !this.combineWith.objectOfAnalysis ? '' : `: ${this.combineWith.objectOfAnalysis.title}`
-    return this.title + combinerStr
+    return this.$tag + combinerStr
   }
 
   idTransformationTypePk: ID = 0

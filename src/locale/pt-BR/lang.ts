@@ -33,6 +33,83 @@ export default {
     },
   },
 
+  slang: {
+    ChartType: {
+      Line: 'Linha',
+      Bar: 'Barra',
+      Area: 'Área',
+      Table: 'Tabela',
+    },
+    DownloadType: {
+      XLS: 'XLS',
+    },
+    OaCategory: {
+      IndicesdePrecos: 'Índices de Preços',
+      IndicadoresdeAtividade: 'Indicadores de Atividade',
+      ContasNacionais: 'Contas Nacionais',
+      MercadodeTrabalho: 'Mercado de Trabalho',
+      ContasPublicas: 'Contas Públicas',
+      Credito: 'Crédito',
+      SetorExterno: 'Setor Externo',
+      IndicadoresFinanceiros: 'Indicadores Financeiros',
+      Commodities: 'Commodities',
+      IndicadoresInternacionais: 'Indicadores Internacionais',
+      Producao: 'Produção',
+      Consumoevendas: 'Consumo e vendas',
+      Moedaecredito: 'Moeda e crédito',
+      Comercioexterior: 'Comércio exterior',
+      Financaspublicas: 'Finanças públicas',
+      Cambio: 'Câmbio',
+      Precos: 'Preços',
+    },
+    OaPeriodicity: {
+      Daily: 'Diariamente',
+      Weekly: 'Semanalmente',
+      Biweekly: 'Bisemanalmente',
+      Monthly: 'Mensalmente',
+      Bimonthly: 'Bimensalmente',
+      Trimonthly: 'Trimestralmente',
+      Quarterly: 'Trimestral',
+      Semiannual: 'Semestralmente',
+      Yearly: 'Anualmente',
+    },
+    OaVersionStatus: {
+      OK: 'OK',
+      Deprecated: 'Depreciado',
+    },
+    PeriodicityTransformationType: {
+      Average: 'Média',
+      Sum: 'Soma',
+      'End of Period': 'Fim do período',
+    },
+    TransformationType: {
+      Sum: 'Sum',
+      Subtraction: 'Subtraction',
+      Division: 'Division',
+      Multiplication: 'Multiplication',
+      Differential: 'Differential',
+      Log: 'Log',
+      Exponential: 'Exponential',
+      PeriodOverPeriodVariation: 'Period Over Period Variation',
+      '3MonthsVariation': '3 Months Variation',
+      '12MonthsVariation': '12 Months Variation',
+      Average: 'Average',
+      Median: 'Median',
+      Maximum: 'Maximum',
+      Mininum: 'Mininum',
+      StandardDeviation: 'Standard Deviation',
+      Mode: 'Mode',
+      MovingAverageof2: 'Moving Average of 2',
+      MovingAverageof3: 'Moving Average of  3',
+      MovingAverageof4: 'Moving Average of  4',
+      MovingAverageof6: 'Moving Average of 6',
+      MovingAverageof12: 'Moving Average of 12',
+      MovingAverageof24: 'Moving Average of 24',
+      CAGRof12: 'CAGR of 12',
+      CAGRof24: 'CAGR of 24',
+    },
+  },
+
   classes: {
     Admin: {
       title: 'Administrador',
@@ -97,26 +174,26 @@ export default {
       },
     },
     OaDataset: {
-      title: 'Oa Dataset',
+      title: 'Dataset',
       columns: {
-        oaVersion: 'Oa Version',
+        oaVersion: 'Versão',
         idOaDatasetPk: 'ID',
-        creationDate: 'Creation Date',
+        creationDate: 'Data de Criação',
         active: 'Ativo',
-        idOaVersionFk: 'ID Oa Version',
+        idOaVersionFk: 'ID da versão',
       },
     },
     TransformationType: {
-      title: 'Transformation Type',
+      title: 'Tipo de Transformação',
       columns: {
         idTransformationTypePk: 'ID',
         title: 'Título',
-        combiner: 'Combiner',
+        combiner: 'Combinador',
         active: 'Ativo',
       },
     },
     OaPeriodicity: {
-      title: 'Oa Periodicity',
+      title: 'Periodicidade',
       columns: {
         idOaPeriodicityPk: 'ID',
         title: 'Título',
@@ -124,10 +201,10 @@ export default {
       },
     },
     OaVersion: {
-      title: 'Oa Version',
+      title: 'Versão',
       columns: {
-        oaVersionStatus: 'Oa Version Status',
-        objectOfAnalysis: 'Object Of Analysis',
+        oaVersionStatus: 'Status da Versão',
+        objectOfAnalysis: 'Indicador',
         idOaVersionPk: 'ID',
         title: 'Título',
         active: 'Ativo',
@@ -136,7 +213,7 @@ export default {
       },
     },
     OaVersionStatus: {
-      title: 'Oa Version Status',
+      title: 'Status da Versão',
       columns: {
         idOaVersionStatusPk: 'ID',
         title: 'Título',
@@ -144,9 +221,9 @@ export default {
       },
     },
     OaGroup: {
-      title: 'Oa Group',
+      title: 'Grupo de Indicador',
       columns: {
-        parentGroup: 'Parent Group',
+        parentGroup: 'Grupo pai',
         objectOfAnalysisOaGroup: 'Object Of Analysis Oa Group',
         idOaGroupPk: 'ID',
         title: 'Título',
@@ -155,23 +232,23 @@ export default {
       },
     },
     ChartType: {
-      title: 'Chart Type',
+      title: 'Tipo de Gráfico',
       columns: {
-        oaChartTypeAvailability: 'Oa Chart Type Availability',
+        oaChartTypeAvailability: 'Disponibilidade',
         idChartTypePk: 'ID',
         title: 'Título',
         active: 'Ativo',
       },
     },
     UserSavedChart: {
-      title: 'User Saved Chart',
+      title: 'Gráfico Salvo',
       columns: {
-        collection: 'Collection',
-        downloadType: 'Download Type',
-        user: 'User',
+        collection: 'Coleção',
+        downloadType: 'Tipo de Download',
+        user: 'Usuário criador',
         idUserChartPk: 'ID',
         json: 'Json',
-        creationDate: 'Creation Date',
+        creationDate: 'Data de Criação',
         active: 'Ativo',
         idUserFk: 'ID User',
         idCollectionFk: 'ID Collection',
@@ -179,28 +256,28 @@ export default {
       },
     },
     UserUsedOa: {
-      title: 'User Used Oa',
+      title: 'Indicadores visitados',
       columns: {
-        objectOfAnalysis: 'Object Of Analysis',
-        user: 'User',
-        usedDate: 'Used Date',
+        objectOfAnalysis: 'Indicador',
+        user: 'Usuário',
+        usedDate: 'Data',
         idUserFk: 'ID User',
         idObjectOfAnalysisFk: 'ID Object Of Analysis',
       },
     },
     Collection: {
-      title: 'Collection',
+      title: 'Coleção',
       columns: {
-        user: 'User',
+        user: 'Usuário',
         idCollectionPk: 'ID',
         title: 'Título',
-        creationDate: 'Creation Date',
+        creationDate: 'Data de Criação',
         active: 'Ativo',
         idUserFk: 'ID User',
       },
     },
     User: {
-      title: 'User',
+      title: 'Usuário',
       columns: {
         address: 'Endereço',
         idUserPk: 'ID',
@@ -220,7 +297,7 @@ export default {
       },
     },
     OaUnity: {
-      title: 'Oa Unity',
+      title: 'Unidade',
       columns: {
         idOaUnityPk: 'ID',
         title: 'Título',
@@ -228,19 +305,19 @@ export default {
       },
     },
     News: {
-      title: 'News',
+      title: 'Notícias',
       columns: {
-        oaCategory: 'Oa Category',
+        oaCategory: 'Categoria',
         idNewsPk: 'ID',
         title: 'Título',
         link: 'Link',
-        dataCreation: 'Data Creation',
+        dataCreation: 'Data de Criação',
         active: 'Ativo',
         idOaCategoryFk: 'ID Oa Category',
       },
     },
     DownloadType: {
-      title: 'Download Type',
+      title: 'Tipo de Download',
       columns: {
         idDownloadTypePk: 'ID',
         title: 'Título',
@@ -248,7 +325,7 @@ export default {
       },
     },
     OaCategory: {
-      title: 'Oa Category',
+      title: 'Categoria',
       columns: {
         idOaCategoryPk: 'ID',
         title: 'Título',
@@ -256,7 +333,7 @@ export default {
       },
     },
     Plan: {
-      title: 'Plan',
+      title: 'Plano',
       columns: {
         idPlanPk: 'ID',
         title: 'Título',
@@ -321,7 +398,7 @@ export default {
       },
     },
     PagarmePlan: {
-      title: 'Pagarme Phone',
+      title: 'Pagarme Plan',
       columns: {
         id: 'ID',
         name: 'Nome',
@@ -350,7 +427,7 @@ export default {
       },
     },
     PeriodicityTransformationType: {
-      title: 'Periodicity Transformation Type',
+      title: 'Transformação de Periodicidade',
       columns: {
         idPeriodicityTransformationTypePk: 'ID',
         title: 'Título',
@@ -366,7 +443,7 @@ export default {
       },
     },
     Model: {
-      title: 'Model',
+      title: 'Modelo',
       columns: {
         oaMatchModel: 'Oa Match Model',
         idModelPk: 'ID',
@@ -379,8 +456,8 @@ export default {
       columns: {
         oaDataset: 'Oa Dataset',
         idOaDataPk: 'ID',
-        value: 'Value',
-        dt: 'Dt',
+        value: 'Valor',
+        dt: 'Data/hora',
         active: 'Ativo',
         idOaDatasetFk: 'ID Oa Dataset',
       },
@@ -389,18 +466,16 @@ export default {
 
   view: {
     chart: {
-      chartAs: 'Chart as',
-      line: 'line',
-      valuesOfType: 'Values of type',
-      allPeriod: 'All period',
-      transformation: 'Transformation',
-      none: 'None',
-      advancedAnalysis: 'Advanced Analysis',
-      periodicity: 'Periodicity',
-      unity: 'Unity',
-      source: 'Source',
-      lastUpdate: 'Last Update',
-      version: 'Version',
+      chartAs: 'Visualizar como',
+      line: 'Linha',
+      transformation: 'Transformação',
+      none: 'Nenhuma',
+      advancedAnalysis: 'Análise Avançada',
+      periodicity: 'Periodicidade',
+      unity: 'Unidade',
+      source: 'Fonte',
+      lastUpdate: 'Última atualização',
+      version: 'Versão',
       status: 'Status',
       accessAnalysis: 'Acessar Análise',
       start: 'Início',
