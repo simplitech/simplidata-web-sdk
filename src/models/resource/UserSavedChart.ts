@@ -105,7 +105,6 @@ export class UserSavedChart extends Resource {
   get relevantToSave() {
     return JSON.stringify({
       graphics: this.graphics,
-      chartType: this.chartType,
       startDtLimiter: this.startDtLimiter,
       endDtLimiter: this.endDtLimiter,
     })

@@ -2,8 +2,8 @@ const template = `
   <div>
     <await name="save">
       <div class="verti">
-        <div v-if="myCollections.items.length" class="saved-collections verti mt-20 mx-10">
-          <a v-for="c in myCollections.items" @click="$await.run(() => persistUserSavedChart(c.idCollectionPk), 'save')" class="h-30 line-h-30">
+        <div v-if="myCollections.items.length" class="saved-collections verti mt-10 mx-10">
+          <a v-for="c in myCollections.items" @click="$await.run(() => persistUserSavedChart(c.idCollectionPk), 'save')" class="min-h-30 py-7">
             {{ c.title }}
           </a>
           <div class="divisor my-15"></div>

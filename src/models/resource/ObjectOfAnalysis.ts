@@ -2,9 +2,16 @@
  * ObjectOfAnalysis
  * @author Simpli CLI generator
  */
-import { ID, Resource, TAG } from '../../simpli'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
-import { bool, datetime } from '../../simpli'
+import {
+  ID,
+  Resource,
+  TAG,
+  ResponseSerialize,
+  ValidationMaxLength,
+  ValidationRequired,
+  bool,
+  datetime,
+} from '../../simpli'
 import { ChartType } from './ChartType'
 // import { OaCategory } from './OaCategory'
 import { OaPeriodicity } from './OaPeriodicity'
@@ -14,7 +21,6 @@ import { OaVersion } from './OaVersion'
 import { Plan } from './Plan'
 import { User } from './User'
 import { Model } from './Model'
-import { OaGroup } from './OaGroup'
 import ObjectOfAnalysisSchema from '../../schemas/ObjectOfAnalysis.schema'
 
 export class ObjectOfAnalysis extends Resource {
@@ -76,9 +82,6 @@ export class ObjectOfAnalysis extends Resource {
 
   @ResponseSerialize(ObjectOfAnalysis)
   oaMatchOa: ObjectOfAnalysis[] = []
-
-  @ResponseSerialize(OaGroup)
-  objectOfAnalysisOaGroup: OaGroup[] = []
 
   idObjectOfAnalysisPk: ID = 0
 

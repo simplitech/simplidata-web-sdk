@@ -2,8 +2,7 @@
  * OaGroup
  * @author Simpli CLI generator
  */
-import { ID, Resource, TAG } from '../../simpli'
-import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
+import { ID, Resource, TAG, ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import OaGroupSchema from '../../schemas/OaGroup.schema'
 
@@ -33,6 +32,9 @@ export class OaGroup extends Resource {
 
   @ResponseSerialize(ObjectOfAnalysis)
   objectOfAnalysisOaGroup: ObjectOfAnalysis[] = []
+
+  @ResponseSerialize(OaGroup)
+  childrenGroups: OaGroup[] = []
 
   idOaGroupPk: ID = 0
 

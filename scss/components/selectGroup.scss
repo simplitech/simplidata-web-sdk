@@ -35,15 +35,15 @@
 
 .vue-popover {
   position: absolute;
-  background: rgb(36, 36, 36);
-  box-shadow: 0 40px 80px 0 rgba(20, 20, 20, 0.9);
+  background: rgb(36, 36, 36) !important;
+  box-shadow: 0 40px 80px 0 rgba(20, 20, 20, 0.9) !important;
   color: #acacac;
 
   &.dropdown-position-bottom:before {
-    border-bottom-color: rgb(36, 36, 36);
+    border-bottom-color: rgb(36, 36, 36) !important;
   }
   &.dropdown-position-right:before {
-    border-right-color: rgb(36, 36, 36);
+    border-right-color: rgb(36, 36, 36) !important;
   }
 
   .popover-content {
