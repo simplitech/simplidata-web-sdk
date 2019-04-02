@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="7.0.1"></a>
+## [7.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v7.0.0...v7.0.1) (2019-04-02)
+
+
+### Bug Fixes
+
+* **ModelingResult:** fix modeling result ([1beb110](https://github.com/simplitech/simplidata-web-sdk/commit/1beb110))
+
+
+
 <a name="7.0.0"></a>
 # [7.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v6.2.2...v7.0.0) (2019-04-02)
 
