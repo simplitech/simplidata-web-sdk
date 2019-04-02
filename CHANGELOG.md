@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="7.0.0"></a>
+# [7.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v6.2.2...v7.0.0) (2019-04-02)
+
+
+### Bug Fixes
+
+* **ModelingRequest:** fixing modeling request ([753a03d](https://github.com/simplitech/simplidata-web-sdk/commit/753a03d))
+
+
+### BREAKING CHANGES
+
+* **ModelingRequest:** some properties were excluded from serialization
+
+fix MCR-146
+
+
+
 <a name="6.2.2"></a>
 ## [6.2.2](https://github.com/simplitech/simplidata-web-sdk/compare/v6.2.1...v6.2.2) (2019-04-01)
 
