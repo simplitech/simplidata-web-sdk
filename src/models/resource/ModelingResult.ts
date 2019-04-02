@@ -1,41 +1,59 @@
 import { OaData } from './OaData'
 import { ModelingResultRoot } from './ModelingResultRoot'
 import { ModelingResultItem } from './ModelingResultItem'
-import { Model } from '../../simpli'
+import { Model, ResponseSerialize } from '../../simpli'
 import { SimpliData } from '../../simplidata'
 import { ModelingRequest } from './ModelingRequest'
 
 export class ModelingResult extends Model {
   // tem em todos modelos:
-  meanDependentVar?: number
-  standardDeviationDependentVar?: number
+  @ResponseSerialize(Number)
+  meanDependentVar: number | null = null
+  @ResponseSerialize(Number)
+  standardDeviationDependentVar: number | null = null
 
   // nos modelos do tipo: var, ar
-  durbinWatson?: number
+  @ResponseSerialize(Number)
+  durbinWatson: number | null = null
 
   // nos modelos do tipo: var, ar, mqo
-  sumSquaredResid?: number
-  rSquared?: number
-  adjustedRSquared?: number
-  standardErrorOfRegression?: number
-  fTest?: number
-  pValudOfF?: number
+  @ResponseSerialize(Number)
+  sumSquaredResid: number | null = null
+  @ResponseSerialize(Number)
+  rSquared: number | null = null
+  @ResponseSerialize(Number)
+  adjustedRSquared: number | null = null
+  @ResponseSerialize(Number)
+  standardErrorOfRegression: number | null = null
+  @ResponseSerialize(Number)
+  fTest: number | null = null
+  @ResponseSerialize(Number)
+  pValudOfF: number | null = null
 
   // nos modelos: arma, armax, arima, mqo
-  logLikelihood?: number
+  @ResponseSerialize(Number)
+  logLikelihood: number | null = null
 
   // nos modelos: arma, armax, arima, ar
-  akaikiCriterion?: number
-  schwarzCriterion?: number
-  hannanQuinnCritetion?: number
-  arRoots?: ModelingResultRoot[]
-  maRoots?: ModelingResultRoot[]
+  @ResponseSerialize(Number)
+  akaikiCriterion: number | null = null
+  @ResponseSerialize(Number)
+  schwarzCriterion: number | null = null
+  @ResponseSerialize(Number)
+  hannanQuinnCritetion: number | null = null
+  @ResponseSerialize(ModelingResultRoot)
+  arRoots: ModelingResultRoot[] = []
+  @ResponseSerialize(ModelingResultRoot)
+  maRoots: ModelingResultRoot[] = []
 
   // nos modelos: mqo
-  durbinsH?: number
+  @ResponseSerialize(Number)
+  durbinsH: number | null = null
 
-  forecast?: OaData[] = []
-  itemsResults?: ModelingResultItem[]
+  @ResponseSerialize(OaData)
+  forecast: OaData[] = []
+  @ResponseSerialize(ModelingResultItem)
+  itemsResults: ModelingResultItem[] = []
 
   async get(modelingRequest: ModelingRequest) {
     await this.POST(`${SimpliData.modelingURL}processModel`, modelingRequest, {}, false)
