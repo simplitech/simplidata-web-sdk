@@ -53,4 +53,35 @@ export class OaGroup extends Resource {
     if (!this.parentGroup) this.parentGroup = new OaGroup()
     this.parentGroup.$id = idParentGroupFk
   }
+
+  areAllMyChildrenInList(list: ObjectOfAnalysis[]): boolean {
+    return (
+      (this.objectOfAnalysisOaGroup.length > 0 || this.childrenGroups.length > 0) &&
+      this.objectOfAnalysisOaGroup.every(oa => list.includes(oa)) &&
+      this.childrenGroups.every(child => child.areAllMyChildrenInList(list))
+    )
+  }
+
+  addAllMyChildrenToTheList(list: ObjectOfAnalysis[]) {
+    this.objectOfAnalysisOaGroup.forEach(oa => {
+      if (!list.includes(oa)) {
+        list.push(oa)
+      }
+    })
+    this.childrenGroups.forEach(child => {
+      child.addAllMyChildrenToTheList(list)
+    })
+  }
+
+  removeAllMyChildrenToTheList(list: ObjectOfAnalysis[]) {
+    this.objectOfAnalysisOaGroup.forEach(oa => {
+      const index = list.indexOf(oa)
+      if (index > -1) {
+        list.splice(index, 1)
+      }
+    })
+    this.childrenGroups.forEach(child => {
+      child.removeAllMyChildrenToTheList(list)
+    })
+  }
 }
