@@ -1,9 +1,9 @@
-import { ResponseSerialize } from '../../simpli'
+import { ResponseSerialize, Model } from '../../simpli'
 import { TransformationType } from './TransformationType'
 import { OaData } from './OaData'
 import { BasicLag } from './BasicLag'
 
-export class ItemRFU {
+export class ItemRFU extends Model {
   readonly $name: string = 'ItemRFU'
 
   @ResponseSerialize(TransformationType)
@@ -31,5 +31,13 @@ export class ItemRFU {
 
   get unityTitle() {
     return ''
+  }
+
+  getRequestContent() {
+    const cleanIrfu = new ItemRFU()
+    cleanIrfu.basicLag = this.basicLag
+    cleanIrfu.listLag = this.listLag
+    cleanIrfu.dataListRFU = this.dataListRFU
+    return cleanIrfu
   }
 }

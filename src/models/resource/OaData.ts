@@ -6,15 +6,20 @@ import { ID, Resource } from '../../simpli'
 import { ResponseSerialize, ValidationRequired } from '../../simpli'
 import { OaDataset } from './OaDataset'
 import OaDataSchema from '../../schemas/OaData.schema'
+import { Exclude } from 'class-transformer'
 
 export class OaData extends Resource {
+  @Exclude({ toPlainOnly: true })
   readonly $name: string = 'OaData'
+  @Exclude({ toPlainOnly: true })
   readonly $endpoint: string = '/User/OaData{/id}'
 
+  @Exclude({ toPlainOnly: true })
   get $schema() {
     return OaDataSchema(this)
   }
 
+  @Exclude({ toPlainOnly: true })
   get $id() {
     return this.idOaDataPk
   }
@@ -22,9 +27,11 @@ export class OaData extends Resource {
     this.idOaDataPk = val
   }
 
+  @Exclude({ toPlainOnly: true })
   @ResponseSerialize(OaDataset)
   oaDataset: OaDataset | null = null
 
+  @Exclude({ toPlainOnly: true })
   idOaDataPk: ID = 0
 
   @ValidationRequired()
@@ -33,9 +40,11 @@ export class OaData extends Resource {
   @ValidationRequired()
   dt: string = ''
 
+  @Exclude({ toPlainOnly: true })
   @ValidationRequired()
   active: boolean = false
 
+  @Exclude({ toPlainOnly: true })
   get idOaDatasetFk() {
     if (!this.oaDataset) return 0
     return this.oaDataset.$id

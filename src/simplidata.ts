@@ -14,7 +14,7 @@ Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker)
 
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
-const defaultModelingURL = 'http://54.94.212.20:32798/modeling/'
+const defaultModelingURL = 'http://54.94.212.20:32797/modeling/'
 const defaultLang = Lang.EN_US
 const defaultCurrency: Currency = Currency.USD
 const defaultVersion = '1.0.0'

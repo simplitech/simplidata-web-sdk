@@ -2,6 +2,7 @@ import { ResponseSerialize } from 'simpli-web-sdk'
 import { Model } from './Model'
 import { ItemRFU } from './ItemRFU'
 import { ModelingResult } from './ModelingResult'
+import { Exclude } from 'class-transformer'
 
 export class ModelRFU extends ItemRFU {
   readonly $name: string = 'ModelRFU'
@@ -12,6 +13,7 @@ export class ModelRFU extends ItemRFU {
   @ResponseSerialize(ItemRFU)
   itemsRFU!: ItemRFU[]
 
+  @Exclude({ toPlainOnly: true })
   @ResponseSerialize(ModelingResult)
   modelResult?: ModelingResult
 
@@ -27,5 +29,11 @@ export class ModelRFU extends ItemRFU {
 
   get contentTitle() {
     return this.model ? this.model.title : ''
+  }
+
+  cloneForModeling(): ModelRFU {
+    const cleanIrfu = this.clone()
+    cleanIrfu.itemsRFU = cleanIrfu.itemsRFU.map(irfu => irfu.getRequestContent())
+    return cleanIrfu
   }
 }
