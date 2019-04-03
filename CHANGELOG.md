@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="7.1.1"></a>
+## [7.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v7.1.0...v7.1.1) (2019-04-03)
+
+
+### Bug Fixes
+
+* **DrawingState:** refactor all Chart components to use a single state manager and fix comment editi ([07a7de3](https://github.com/simplitech/simplidata-web-sdk/commit/07a7de3))
+* **ItemRFU:** for advanced analysis request, use the intersection of datalistrfu by equal dt ([0bb1307](https://github.com/simplitech/simplidata-web-sdk/commit/0bb1307))
+
+
+
 <a name="7.1.0"></a>
 # [7.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v7.0.1...v7.1.0) (2019-04-02)
 
