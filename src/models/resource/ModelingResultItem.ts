@@ -1,5 +1,15 @@
-import { ModelingResultLag } from './ModelingResultLag'
+import { ResponseSerialize } from '../../simpli'
 
 export class ModelingResultItem {
-  lagResults?: ModelingResultLag[]
+  @ResponseSerialize(Number)
+  coefficient?: number // Coeficiente
+
+  @ResponseSerialize(Number)
+  standardError?: number // Erro Padrão
+
+  @ResponseSerialize(Number)
+  tReason?: number // Razão-T
+
+  @ResponseSerialize(Number)
+  pValue?: number // P-Valor
 }

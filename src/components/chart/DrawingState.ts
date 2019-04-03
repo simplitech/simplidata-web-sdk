@@ -175,6 +175,5 @@ export class DrawingState {
 
   selectGraphic(graphic: ChartGraphic) {
     this.graphicSelected = graphic
-    // TODO: fix this for editing a graphic
   }
 }
