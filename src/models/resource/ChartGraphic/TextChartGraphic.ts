@@ -32,7 +32,7 @@ export class TextChartGraphic extends ChartGraphic {
     const pos = this.position.get(echart)
 
     return {
-      ignore: !this.isDone, // is shown only after edit
+      ignore: !this.isDone, // is shown only before edit
       type: 'text',
       position: pos,
       z: 100,
@@ -57,12 +57,12 @@ export class TextChartGraphic extends ChartGraphic {
 
   mouseup(echart: echarts.ECharts, x: number, y: number) {
     if (this.isValidToSave) {
-      this.isDone = true
+      ChartBus.$emit('doneDrawing')
     } else if (!this.position) {
       this.position = new ChartGraphicPosition()
       this.position.set(echart, x, y)
     } else {
-      this.isCancelled = true
+      ChartBus.$emit('cancelDrawing')
     }
   }
 }

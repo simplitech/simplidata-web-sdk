@@ -1,15 +1,17 @@
+import { DrawingState } from './DrawingState'
+
 const template = `
   <div class="simplidata-chart verti min-h-450">
 
     <div class="horiz weight-1">
 
       <!-- TOOL BUTTONS ON THE LEFT -->
-      <tool-buttons v-model="value" 
+      <tool-buttons v-model="value"
+        :drawingState="drawingState"
         :showSaveButton="showSaveButton" :showDrawingButtons="showDrawingButtons && !chartTypeTableSelected"
         :showMeasureButton="showMeasureButton" :showCalcButton="showCalcButton"
         :showCommentButton="showCommentButton"
         @userSavedChart="$emit('userSavedChart', $event)"
-        @selectedDrawingTool="selectedDrawingTool"
         class="mt-60"/>
 
       <div class="verti weight-1 auto-scroll mx-5">
@@ -27,7 +29,7 @@ const template = `
         <!-- CHART -->
         <e-chart v-model="value" 
           v-show="!chartTypeTableSelected"
-          :graphicBeingBuilt="graphicBeingBuilt"
+          :drawingState="drawingState"
           :showDrawingButtons="showDrawingButtons"
           ref="echart" class="min-h-400 weight-1"/>
           
@@ -70,7 +72,7 @@ import testModeling from './ModelingTest'
 })
 export class Chart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
-  value?: UserSavedChart
+  value!: UserSavedChart
 
   @Prop({ type: [String, Number] })
   savedChartId?: ID
@@ -123,18 +125,18 @@ export class Chart extends Vue {
   @Prop({ type: Number })
   selectedDatasetIndex?: number
 
-  graphicBeingBuilt: ChartGraphic | null = null
+  drawingState = new DrawingState(this.value)
 
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
   }
 
   get selectedDatasetIndexOrTheOnly(): number {
-    return this.value && this.value.itensRFU.length === 1 ? 0 : this.selectedDatasetIndex || 0
+    return this.value.itensRFU.length === 1 ? 0 : this.selectedDatasetIndex || 0
   }
 
   get chartTypeTableSelected() {
-    return this.value && this.value.idChartTypeFk === ChartType.TABLE
+    return this.value.idChartTypeFk === ChartType.TABLE
   }
 
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
@@ -153,10 +155,6 @@ export class Chart extends Vue {
   @Watch('value.startDtLimiter')
   @Watch('value.endDtLimiter')
   refreshDataListRFU() {
-    if (!this.value) {
-      return
-    }
-
     this.value.itensRFU.forEach((irfu, i) => {
       if (irfu && irfu instanceof ObjectOfAnalysisRFU) {
         const oarfu = irfu as ObjectOfAnalysisRFU
@@ -172,7 +170,7 @@ export class Chart extends Vue {
 
   @Watch('objectOfAnalysisIds')
   async populateData() {
-    if (!this.value || !this.value.oaVersionIds) {
+    if (!this.value.oaVersionIds) {
       return
     }
 
@@ -223,7 +221,7 @@ export class Chart extends Vue {
   }
 
   getRfuAsOaRfu(index?: number) {
-    if (index === undefined || !this.value) {
+    if (index === undefined) {
       return null
     }
 
@@ -237,10 +235,6 @@ export class Chart extends Vue {
     }
 
     return null
-  }
-
-  selectedDrawingTool(drawingTool: ChartGraphic) {
-    this.graphicBeingBuilt = drawingTool
   }
 
   onLegendClick(i: number) {

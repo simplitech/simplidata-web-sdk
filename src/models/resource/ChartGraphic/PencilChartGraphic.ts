@@ -66,6 +66,6 @@ export class PencilChartGraphic extends ChartGraphic {
   }
 
   mouseup(echart: echarts.ECharts, x: number, y: number) {
-    this.isDone = true
+    ChartBus.$emit('doneDrawing')
   }
 }

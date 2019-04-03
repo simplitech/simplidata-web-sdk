@@ -3,6 +3,7 @@ import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPositionWithData } from '../ChartGraphicPositionWithData'
 import { ResponseSerialize } from '../../../simpli'
 import { ChartGraphicPosition } from '../ChartGraphicPosition'
+import ChartBus from '../../../utils/ChartBus'
 
 export class FibonacciRetractionChartGraphic extends ChartGraphic {
   name = 'FibonacciRetractionChartGraphic'
@@ -145,7 +146,7 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-      this.isDone = true
+      ChartBus.$emit('doneDrawing')
     }
   }
 }

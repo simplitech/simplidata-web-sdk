@@ -1,6 +1,6 @@
 const template = `
   <div class="echart-holder">
-    <graphic-editor-overlay v-model="value" v-if="showDrawingButtons" :graphicBeingBuilt="graphicBeingBuilt" :echart="echart"/>
+    <graphic-editor-overlay v-model="value" v-if="showDrawingButtons" :drawingState="drawingState" :echart="echart"/>
     <div id="echart" ref="echart" class="h-full"></div>
   </div>
 `
@@ -12,6 +12,7 @@ import { UserSavedChart, ChartGraphic } from '../../models'
 import { colors } from '../../const/colors.const'
 import { error } from '../../simpli'
 import GraphicEditorOverlay from './GraphicEditorOverlay'
+import { DrawingState } from './DrawingState'
 
 @Component({
   template,
@@ -21,8 +22,8 @@ export default class EChart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
   value?: UserSavedChart
 
-  @Prop({ type: Object })
-  graphicBeingBuilt?: ChartGraphic
+  @Prop({ type: Object, required: true })
+  drawingState!: DrawingState
 
   @Prop({ type: Boolean, default: true })
   showDrawingButtons?: boolean
@@ -95,8 +96,8 @@ export default class EChart extends Vue {
   @Watch('value.chartData')
   @Watch('dataZoom')
   @Watch('chartGraphics')
-  @Watch('graphicBeingBuilt')
-  @Watch('graphicBeingBuilt.text')
+  @Watch('drawingState.graphicBeingBuilt')
+  @Watch('drawingState.graphicBeingBuilt.text')
   @Watch('value.graphics', { deep: true })
   updateChartData() {
     if (!this.echart || !this.value) {
@@ -147,19 +148,19 @@ export default class EChart extends Vue {
     })
 
     el.onmousedown = ((e: MouseEvent) => {
-      if (!this.echart || !this.graphicBeingBuilt) {
+      if (!this.echart || !this.drawingState.graphicBeingBuilt) {
         return
       }
 
-      this.graphicBeingBuilt.mousedown(this.echart, e.offsetX, e.offsetY)
+      this.drawingState.graphicBeingBuilt.mousedown(this.echart, e.offsetX, e.offsetY)
     }).bind(this)
 
     el.onmousemove = ((e: MouseEvent) => {
-      if (!this.echart || !this.graphicBeingBuilt) {
+      if (!this.echart || !this.drawingState.graphicBeingBuilt) {
         return
       }
 
-      const mouseMoveWasRelevant = this.graphicBeingBuilt.mousemove(this.echart, e.offsetX, e.offsetY)
+      const mouseMoveWasRelevant = this.drawingState.graphicBeingBuilt.mousemove(this.echart, e.offsetX, e.offsetY)
 
       if (mouseMoveWasRelevant) {
         this.updateChartData()
@@ -167,11 +168,11 @@ export default class EChart extends Vue {
     }).bind(this)
 
     el.onmouseup = ((e: MouseEvent) => {
-      if (!this.value || !this.echart || !this.graphicBeingBuilt) {
+      if (!this.value || !this.echart || !this.drawingState.graphicBeingBuilt) {
         return
       }
 
-      this.graphicBeingBuilt.mouseup(this.echart, e.offsetX, e.offsetY)
+      this.drawingState.graphicBeingBuilt.mouseup(this.echart, e.offsetX, e.offsetY)
 
       this.updateChartData()
     }).bind(this)
@@ -188,8 +189,8 @@ export default class EChart extends Vue {
 
     this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, colors)))
 
-    if (this.graphicBeingBuilt) {
-      this.addGraphic(graphic, this.graphicBeingBuilt.build(this.echart, colors))
+    if (this.drawingState.graphicBeingBuilt) {
+      this.addGraphic(graphic, this.drawingState.graphicBeingBuilt.build(this.echart, colors))
     }
 
     return graphic

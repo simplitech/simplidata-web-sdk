@@ -163,7 +163,7 @@ export class MeasureChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-      this.isDone = true
+      ChartBus.$emit('doneDrawing')
     }
   }
 }
