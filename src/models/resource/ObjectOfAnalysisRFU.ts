@@ -8,8 +8,6 @@ import { transform } from '../../utils/datasetTransformer.utils'
 import { OaPeriodicity } from './OaPeriodicity'
 
 export class ObjectOfAnalysisRFU extends ItemRFU {
-  private static dataListRFULimit = 18 // TODO: change this limit to something higher
-
   readonly $name: string = 'ObjectOfAnalysisRFU'
 
   @ResponseSerialize(ObjectOfAnalysis)
@@ -60,6 +58,6 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
 
     // TODO: transformar usando periodicityTransformationType e periodicity
 
-    this.dataListRFU = result.slice(0, ObjectOfAnalysisRFU.dataListRFULimit)
+    this.dataListRFU = result
   }
 }

@@ -33,7 +33,7 @@ export class ModelRFU extends ItemRFU {
 
   cloneForModeling(): ModelRFU {
     const cleanIrfu = this.clone()
-    cleanIrfu.itemsRFU = cleanIrfu.itemsRFU.map(irfu => irfu.getRequestContent())
+    cleanIrfu.itemsRFU = cleanIrfu.itemsRFU.map(irfu => irfu.getRequestContent(cleanIrfu.itemsRFU))
     return cleanIrfu
   }
 }
