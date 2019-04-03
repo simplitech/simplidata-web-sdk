@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.0"></a>
+# [8.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v7.1.1...v8.0.0) (2019-04-03)
+
+
+### Features
+
+* **ModelingResult:** removed ModelingResultLag to use ModelingResultItem instead ([8150182](https://github.com/simplitech/simplidata-web-sdk/commit/8150182))
+
+
+### BREAKING CHANGES
+
+* **ModelingResult:** ModelingResultLag is ModelingResultItem now
+
+fix MCR-214
+
+
+
 <a name="7.1.1"></a>
 ## [7.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v7.1.0...v7.1.1) (2019-04-03)
 
