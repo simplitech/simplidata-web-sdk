@@ -108,6 +108,12 @@ export default {
       CAGRof12: 'CAGR of 12',
       CAGRof24: 'CAGR of 24',
     },
+    combinerSymbol: {
+      Sum: '+',
+      Subtraction: '-',
+      Division: '/',
+      Multiplication: 'x',
+    },
   },
 
   classes: {

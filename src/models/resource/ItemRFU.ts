@@ -25,8 +25,20 @@ export class ItemRFU extends Model {
     let title = this.contentTitle
 
     return this.orderedTransformations.reduce((title, transf) => {
-      return title + ' (' + transf.tagWithCombiner + ')'
+      return title + (transf.combiner ? '' : ' (' + transf.$tag + ')')
     }, title)
+  }
+
+  get hasCombiner() {
+    return this.orderedTransformations.some(transf => transf.combiner)
+  }
+
+  get orderedCombiners() {
+    return this.orderedTransformations.filter(transf => transf.combiner)
+  }
+
+  get allItemsOfCombination() {
+    return [this, ...this.orderedCombiners.map(transf => transf.combineWith)]
   }
 
   get unityTitle() {

@@ -43,6 +43,11 @@ export class TransformationType extends Resource {
     return this.$tag + combinerStr
   }
 
+  @Exclude({ toPlainOnly: true })
+  get combinerSymbol() {
+    return !this.combiner ? '' : $.t(`slang.combinerSymbol.${removeAccentsAndSpace(this.title)}`)
+  }
+
   idTransformationTypePk: ID = 0
 
   @Exclude({ toPlainOnly: true })

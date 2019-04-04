@@ -31,14 +31,21 @@ const template = `
     
     <!-- CHOOSE COMBINER MODAL -->
     <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window z-scrim items-center">
-      <div class="pt-20 verti items-center max-w-600 h-window">
+      <div class="pt-20 des-mx-80 tab-mx-20 verti items-center w-full h-window">
         <a @click="transformationToChooseCombiner = null" class="close w-20 h-20 self-right"></a>
         <h1 class="mt-0 mb-40">{{ $t('view.chart.chooseTheOaToCombineInTheTransformation') }}</h1>
         <input v-model="queryCombiner" @input="debounceSearchCombiner" type="text" class="searchCombiner w-full" :placeholder="$t('view.chart.search')"/>
-        <await name="searchCombinerResult" class="weight-1 y-scroll horiz mt-20">
-          <a v-for="oa in searchCombinerResult.items" @click="$await.run(() => addCombiner(oa), 'searchCombinerResult')" class="m-5">
-            <thumb-oa :oa="oa" :showPlus="false" :showDownload="false" style="width: 280px"/>
-          </a>
+        <await name="searchCombinerResult" class="weight-1 y-scroll verti mt-20">
+          <div class="horiz items-center">
+            <a v-for="oa in searchCombinerResult.items" @click="$await.run(() => addCombiner(oa), 'searchCombinerResult')" class="m-5">
+              <thumb-oa :oa="oa" :showPlus="false" :showDownload="false" style="width: 280px"/>
+            </a>
+          </div>
+          <div class="horiz items-center" v-if="otherOasRFU.length && !searchCombinerResult.items.length">
+            <a v-for="oa in otherOasRFU" @click="$await.run(() => addCombiner(oa.objectOfAnalysis), 'searchCombinerResult')" class="m-5">
+              <thumb-oa :oa="oa.objectOfAnalysis" :showPlus="false" :showDownload="false" style="width: 280px"/>
+            </a>
+          </div>
         </await>
       </div>
     </div>
@@ -57,10 +64,10 @@ import { Collection } from '../../simpli'
 })
 export default class TransformationsEditor extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
-  value?: UserSavedChart
+  value!: UserSavedChart
 
   @Prop({ type: Object, default: () => new ObjectOfAnalysisRFU() })
-  selectedOaRfu?: ObjectOfAnalysisRFU
+  selectedOaRfu!: ObjectOfAnalysisRFU
 
   readonly DEBOUNCE_TIMER = 300
 
@@ -69,6 +76,16 @@ export default class TransformationsEditor extends Vue {
   queryCombiner: string | null = null
   searchCombinerResult = new Collection(ObjectOfAnalysis)
   debounceSearchCombiner = debounce(async () => await this.searchCombiner(), this.DEBOUNCE_TIMER)
+
+  get otherOasRFU() {
+    return this.value.itensRFU.filter(i => {
+      if (i.$name === 'ObjectOfAnalysisRFU' && this.selectedOaRfu.objectOfAnalysis) {
+        const oa = (i as ObjectOfAnalysisRFU).objectOfAnalysis
+        return oa !== undefined && oa.$id !== this.selectedOaRfu.objectOfAnalysis.$id
+      }
+      return false
+    })
+  }
 
   async mounted() {
     await this.populateData()
@@ -88,9 +105,7 @@ export default class TransformationsEditor extends Vue {
       return
     }
 
-    if (this.selectedOaRfu) {
-      this.selectedOaRfu.orderedTransformations.push(transformation)
-    }
+    this.selectedOaRfu.orderedTransformations.push(transformation)
   }
 
   async addCombiner(oa: ObjectOfAnalysis) {
@@ -99,15 +114,27 @@ export default class TransformationsEditor extends Vue {
       return
     }
 
+    // @ts-ignore
+    const component = this.$refs.popover as Popover
+    component.visible = false
+
     this.transformationToChooseCombiner.combineWith = new ObjectOfAnalysisRFU(oa, oa.oaVersions[0])
-    this.addTransformation(this.transformationToChooseCombiner)
+
+    const hadACombiner = this.selectedOaRfu.hasCombiner
+    let subjectOa = hadACombiner ? this.selectedOaRfu : this.selectedOaRfu.clone()
+    subjectOa.orderedTransformations.push(this.transformationToChooseCombiner)
+    subjectOa.refreshDataListRFU()
+
+    if (!hadACombiner) {
+      this.value.itensRFU.push(subjectOa)
+    }
+
     this.transformationToChooseCombiner = null
   }
 
   removeTransformation(index: number) {
-    if (this.selectedOaRfu) {
-      this.selectedOaRfu.orderedTransformations.splice(index, 1)
-    }
+    this.selectedOaRfu.orderedTransformations.splice(index, 1)
+    this.selectedOaRfu.refreshDataListRFU()
   }
 
   async searchCombiner() {
