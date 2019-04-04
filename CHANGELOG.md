@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.0.1"></a>
+## [8.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v8.0.0...v8.0.1) (2019-04-04)
+
+
+### Bug Fixes
+
+* **TransformationEditor:** when combining, shows used oas as a shortcut ([e47b080](https://github.com/simplitech/simplidata-web-sdk/commit/e47b080))
+
+
+
 <a name="8.0.0"></a>
 # [8.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v7.1.1...v8.0.0) (2019-04-03)
 
