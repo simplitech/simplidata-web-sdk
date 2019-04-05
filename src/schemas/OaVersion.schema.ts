@@ -12,11 +12,6 @@ export default (model: OaVersion): Schema => ({
     input: InputType.SELECT,
   },
 
-  objectOfAnalysis: {
-    content: model.objectOfAnalysis && model.objectOfAnalysis.$id,
-    input: InputType.SELECT,
-  },
-
   idOaVersionPk: {
     content: model.idOaVersionPk,
     editable: false,

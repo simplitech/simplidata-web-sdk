@@ -121,7 +121,10 @@ export default class TransformationsEditor extends Vue {
     this.transformationToChooseCombiner.combineWith = new ObjectOfAnalysisRFU(oa, oa.oaVersions[0])
 
     const hadACombiner = this.selectedOaRfu.hasCombiner
-    let subjectOa = hadACombiner ? this.selectedOaRfu : this.selectedOaRfu.clone()
+    const cloned = this.selectedOaRfu.clone()
+
+    const subjectOa = hadACombiner ? this.selectedOaRfu : cloned
+
     subjectOa.orderedTransformations.push(this.transformationToChooseCombiner)
     subjectOa.refreshDataListRFU()
 

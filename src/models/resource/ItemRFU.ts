@@ -49,8 +49,11 @@ export class ItemRFU extends Model {
     const cleanIrfu = new ItemRFU()
     cleanIrfu.basicLag = this.basicLag
     cleanIrfu.listLag = this.listLag
-    cleanIrfu.dataListRFU = this.dataListRFU.filter(oadata =>
-      others.every(ot => ot.dataListRFU.some(otoadata => otoadata.dt === oadata.dt))
+    cleanIrfu.dataListRFU = this.dataListRFU.filter(
+      oadata =>
+        oadata.value !== null &&
+        oadata.value !== undefined &&
+        others.every(ot => ot.dataListRFU.some(otoadata => otoadata.dt === oadata.dt))
     )
     return cleanIrfu
   }

@@ -21,8 +21,15 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
 
   constructor(oa?: ObjectOfAnalysis, version?: OaVersion, start?: string | null, end?: string | null) {
     super()
-    this.objectOfAnalysis = oa
-    this.oaVersion = version
+
+    if (oa) {
+      this.objectOfAnalysis = oa
+    }
+
+    if (version) {
+      this.oaVersion = version
+    }
+
     this.refreshDataListRFU(start, end)
   }
 

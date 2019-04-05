@@ -2,14 +2,13 @@
  * OaVersion
  * @author Simpli CLI generator
  */
-import { ID, Resource, TAG } from '../../simpli'
+import { ID, Model, TAG } from '../../simpli'
 import { ResponseSerialize, ValidationMaxLength, ValidationRequired } from '../../simpli'
 import { OaVersionStatus } from './OaVersionStatus'
-import { ObjectOfAnalysis } from './ObjectOfAnalysis'
 import { OaDataset } from './OaDataset'
 import OaVersionSchema from '../../schemas/OaVersion.schema'
 
-export class OaVersion extends Resource {
+export class OaVersion extends Model {
   readonly $name: string = 'OaVersion'
   readonly $endpoint: string = '/User/OaVersion{/id}'
 
@@ -33,9 +32,6 @@ export class OaVersion extends Resource {
   @ResponseSerialize(OaVersionStatus)
   oaVersionStatus: OaVersionStatus | null = null
 
-  @ResponseSerialize(ObjectOfAnalysis)
-  objectOfAnalysis: ObjectOfAnalysis | null = null
-
   @ResponseSerialize(OaDataset)
   lastDataset: OaDataset | null = null // last dataset saved for this version
 
@@ -55,14 +51,5 @@ export class OaVersion extends Resource {
   set idOaVersionStatusFk(idOaVersionStatusFk: ID) {
     if (!this.oaVersionStatus) this.oaVersionStatus = new OaVersionStatus()
     this.oaVersionStatus.$id = idOaVersionStatusFk
-  }
-
-  get idObjectOfAnalysisFk() {
-    if (!this.objectOfAnalysis) return 0
-    return this.objectOfAnalysis.$id
-  }
-  set idObjectOfAnalysisFk(idObjectOfAnalysisFk: ID) {
-    if (!this.objectOfAnalysis) this.objectOfAnalysis = new ObjectOfAnalysis()
-    this.objectOfAnalysis.$id = idObjectOfAnalysisFk
   }
 }

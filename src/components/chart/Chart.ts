@@ -64,7 +64,6 @@ import EChart from './EChart'
 import TableChart from './TableChart'
 import RightPanel from './RightPanel'
 import { ID } from '../../simpli'
-import testModeling from './ModelingTest'
 
 @Component({
   template,
@@ -159,7 +158,10 @@ export class Chart extends Vue {
       if (irfu && irfu instanceof ObjectOfAnalysisRFU) {
         const oarfu = irfu as ObjectOfAnalysisRFU
         if (oarfu.objectOfAnalysis && this.value && this.value.oaVersionIds) {
-          oarfu.oaVersion = oarfu.objectOfAnalysis.getVersionById(this.value.oaVersionIds[i])
+          const newVersion = oarfu.objectOfAnalysis.getVersionById(this.value.oaVersionIds[i])
+          if (newVersion) {
+            oarfu.oaVersion = newVersion
+          }
           if (this.value) {
             oarfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter)
           }
