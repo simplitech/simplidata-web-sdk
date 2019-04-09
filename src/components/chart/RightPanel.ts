@@ -6,7 +6,7 @@ const template = `
   
     <div class="panelcontent verti weight-1" :class="{ collapsed }">
 
-      <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly] }">{{ selectedOaRfu.contentTitle }}</h1>
+      <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly % colors.length] }">{{ selectedOaRfu.contentTitle }}</h1>
   
       <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
   
