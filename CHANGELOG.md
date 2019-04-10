@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.1.0"></a>
+# [8.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.0.4...v8.1.0) (2019-04-10)
+
+
+### Features
+
+* **ChooseOa:** create a modal to choose and search for an object of analysis ([e47c8df](https://github.com/simplitech/simplidata-web-sdk/commit/e47c8df))
+
+
+
 <a name="8.0.4"></a>
 ## [8.0.4](https://github.com/simplitech/simplidata-web-sdk/compare/v8.0.3...v8.0.4) (2019-04-09)
 
