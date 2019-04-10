@@ -6,4 +6,8 @@ import { SelectGroup as SelectGroupComponent } from './SelectGroup'
 const SelectGroup = SelectGroupComponent as VueClass<Vue>
 import { SaveChart as SaveChartComponent } from './SaveChart'
 const SaveChart = SaveChartComponent as VueClass<Vue>
-export { Chart, SelectGroup, SaveChart }
+import { ThumbOa as ThumbOaComponent } from './ThumbOa'
+const ThumbOa = ThumbOaComponent as VueClass<Vue>
+import { ChooseOa as ChooseOaComponent } from './ChooseOa'
+const ChooseOa = ChooseOaComponent as VueClass<Vue>
+export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa }

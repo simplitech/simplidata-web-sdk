@@ -30,37 +30,20 @@ const template = `
     </div>
     
     <!-- CHOOSE COMBINER MODAL -->
-    <div v-if="transformationToChooseCombiner" class="darkerscrim fixed top-0 left-0 w-window z-scrim items-center">
-      <div class="pt-20 des-mx-80 tab-mx-20 verti items-center w-full h-window">
-        <a @click="transformationToChooseCombiner = null" class="close w-20 h-20 self-right"></a>
-        <h1 class="mt-0 mb-40">{{ $t('view.chart.chooseTheOaToCombineInTheTransformation') }}</h1>
-        <input v-model="queryCombiner" @input="debounceSearchCombiner" type="text" class="searchCombiner w-full" :placeholder="$t('view.chart.search')"/>
-        <await name="searchCombinerResult" class="weight-1 y-scroll verti mt-20">
-          <div class="horiz items-center">
-            <a v-for="oa in searchCombinerResult.items" @click="$await.run(() => addCombiner(oa), 'searchCombinerResult')" class="m-5">
-              <thumb-oa :oa="oa" :showPlus="false" :showDownload="false" style="width: 280px"/>
-            </a>
-          </div>
-          <div class="horiz items-center" v-if="otherOasRFU.length && !searchCombinerResult.items.length">
-            <a v-for="oa in otherOasRFU" @click="$await.run(() => addCombiner(oa.objectOfAnalysis), 'searchCombinerResult')" class="m-5">
-              <thumb-oa :oa="oa.objectOfAnalysis" :showPlus="false" :showDownload="false" style="width: 280px"/>
-            </a>
-          </div>
-        </await>
-      </div>
-    </div>
-    
+    <choose-oa v-if="transformationToChooseCombiner" :otherOasRFU="otherOasRFU" @close="transformationToChooseCombiner = null" @done="addCombiner"/>
+
   </div>
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import { Popover } from 'vue-js-popover'
-import { debounce } from 'lodash'
 import { UserSavedChart, TransformationType, ObjectOfAnalysisRFU, ObjectOfAnalysis } from '../../models'
 import { Collection } from '../../simpli'
+import { ChooseOa } from '../ChooseOa'
 
 @Component({
   template,
+  components: { ChooseOa },
 })
 export default class TransformationsEditor extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -69,13 +52,8 @@ export default class TransformationsEditor extends Vue {
   @Prop({ type: Object, default: () => new ObjectOfAnalysisRFU() })
   selectedOaRfu!: ObjectOfAnalysisRFU
 
-  readonly DEBOUNCE_TIMER = 300
-
   allTransformationTypes = new Collection(TransformationType)
   transformationToChooseCombiner: TransformationType | null = null
-  queryCombiner: string | null = null
-  searchCombinerResult = new Collection(ObjectOfAnalysis)
-  debounceSearchCombiner = debounce(async () => await this.searchCombiner(), this.DEBOUNCE_TIMER)
 
   get otherOasRFU() {
     return this.value.itensRFU.filter(i => {
@@ -138,13 +116,5 @@ export default class TransformationsEditor extends Vue {
   removeTransformation(index: number) {
     this.selectedOaRfu.orderedTransformations.splice(index, 1)
     this.selectedOaRfu.refreshDataListRFU()
-  }
-
-  async searchCombiner() {
-    if (!this.queryCombiner || !this.queryCombiner.length) {
-      this.searchCombinerResult.items = []
-    } else {
-      await this.searchCombinerResult.query({ query: this.queryCombiner }, 'searchCombinerResult')
-    }
   }
 }

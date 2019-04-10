@@ -1,5 +1,3 @@
-import { DrawingState } from './DrawingState'
-
 const template = `
   <div class="simplidata-chart verti min-h-450">
 
@@ -57,12 +55,13 @@ const template = `
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
-import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU, ChartType, ChartGraphic } from '../../models'
+import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU, ChartType } from '../../models'
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
 import TableChart from './TableChart'
 import RightPanel from './RightPanel'
+import { DrawingState } from './DrawingState'
 import { ID } from '../../simpli'
 
 @Component({
