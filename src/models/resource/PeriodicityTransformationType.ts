@@ -11,6 +11,10 @@ export class PeriodicityTransformationType extends Resource {
   readonly $name: string = 'PeriodicityTransformationType'
   readonly $endpoint: string = '/User/PeriodicityTransformationType{/id}'
 
+  static AVG = 1
+  static SUM = 2
+  static END_OF_PERIOD = 3
+
   get $schema() {
     return PeriodicityTransformationTypeSchema(this)
   }

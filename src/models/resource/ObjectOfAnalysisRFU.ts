@@ -5,6 +5,7 @@ import { OaVersion } from './OaVersion'
 import { ItemRFU } from './ItemRFU'
 import { PeriodicityTransformationType } from './PeriodicityTransformationType'
 import { transform } from '../../utils/datasetTransformer.utils'
+import { periodicityTransform } from '../../utils/periodicityTransformer.utils'
 import { OaPeriodicity } from './OaPeriodicity'
 
 export class ObjectOfAnalysisRFU extends ItemRFU {
@@ -17,7 +18,7 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
   oaVersion?: OaVersion
 
   @ResponseSerialize(PeriodicityTransformationType)
-  periodicityTransformationType?: PeriodicityTransformationType
+  periodicityTransformationType: PeriodicityTransformationType | null = null
 
   constructor(oa?: ObjectOfAnalysis, version?: OaVersion, start?: string | null, end?: string | null) {
     super()
@@ -51,7 +52,17 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
 
     let result = this.oaVersion.lastDataset.oaDataList
 
-    if (this.orderedTransformations.length && (start || end)) {
+    const needsPeriodicityTransformation: boolean =
+      periodicity !== null &&
+      periodicity !== undefined &&
+      this.objectOfAnalysis !== undefined &&
+      this.objectOfAnalysis.periodicity !== null &&
+      this.periodicityTransformationType !== null &&
+      this.objectOfAnalysis.periodicity.idOaPeriodicityPk !== periodicity.idOaPeriodicityPk
+
+    const needsDatasetTransformation: boolean = this.orderedTransformations.length > 0
+
+    if ((needsPeriodicityTransformation || needsDatasetTransformation) && (start || end)) {
       result = result.filter(oadata => {
         return (!start || moment(oadata.dt).isSameOrAfter(start)) && (!end || moment(oadata.dt).isSameOrBefore(end))
       })
@@ -61,9 +72,10 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
       result = transform(result, t)
     })
 
-    // TODO: transformar usando lag
-
-    // TODO: transformar usando periodicityTransformationType e periodicity
+    // limiting by start and end because this method can be really heavy and we need to call it only if we have filtered before
+    if (start && end && needsPeriodicityTransformation && this.periodicityTransformationType && periodicity) {
+      result = periodicityTransform(result, this.periodicityTransformationType, periodicity)
+    }
 
     this.dataListRFU = result
   }
