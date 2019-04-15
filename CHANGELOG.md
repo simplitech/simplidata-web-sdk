@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.2.1"></a>
+## [8.2.1](https://github.com/simplitech/simplidata-web-sdk/compare/v8.2.0...v8.2.1) (2019-04-15)
+
+
+### Bug Fixes
+
+* Fixed yearcard issue ([f4d6d9f](https://github.com/simplitech/simplidata-web-sdk/commit/f4d6d9f))
+
+
+
 <a name="8.2.0"></a>
 # [8.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.0.3...v8.2.0) (2019-04-11)
 
