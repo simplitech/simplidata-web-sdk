@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.2.0"></a>
+# [8.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.1.0...v8.2.0) (2019-04-15)
+
+
+### Features
+
+* **periodicityTransformer.utils:** implement periodicity transformation ([e68bdaa](https://github.com/simplitech/simplidata-web-sdk/commit/e68bdaa))
+
+
+
 <a name="8.1.0"></a>
 # [8.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.0.4...v8.1.0) (2019-04-10)
 
