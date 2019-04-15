@@ -4,11 +4,11 @@
  */
 import moment from 'moment'
 import { Model, IResource, ObjectCollection } from '../../simpli'
-import { ValidationRequired, ResponseSerialize, ValidationMax, ValidationMaxLength } from '../../simpli'
+import { ValidationRequired, ResponseSerialize } from '../../simpli'
 import { CardBrand } from '../../enums/CardBrand'
 import { PagarmeCustomer } from './PagarmeCustomer'
 
-const YEAR_RANGE = 15
+const YEAR_RANGE = 30
 
 /* tslint:disable:variable-name */
 export class PagarmeCard extends Model {
@@ -134,7 +134,7 @@ export class PagarmeCard extends Model {
     let currentYear = moment().year()
 
     for (let i = 0; i < YEAR_RANGE; i++) {
-      years.push(currentYear--)
+      years.push(currentYear++)
     }
 
     const items = years.map((year: number) => ({
