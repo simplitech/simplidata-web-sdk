@@ -10,4 +10,6 @@ import { ThumbOa as ThumbOaComponent } from './ThumbOa'
 const ThumbOa = ThumbOaComponent as VueClass<Vue>
 import { ChooseOa as ChooseOaComponent } from './ChooseOa'
 const ChooseOa = ChooseOaComponent as VueClass<Vue>
-export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa }
+import { Marquee as MarqueeComponent } from './Marquee'
+const Marquee = MarqueeComponent as VueClass<Vue>
+export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa, Marquee }
