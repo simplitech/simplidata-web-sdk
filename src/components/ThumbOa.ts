@@ -1,5 +1,5 @@
 const template = `
-  <div class="frame hvr-grow min-h-200">
+  <div class="thumb-oa frame hvr-grow min-h-200">
     <div class="verti w-full rel">
 
       <div class="row compact horiz nowrap items-center">
@@ -19,10 +19,7 @@ const template = `
           </a>
         </div>
 
-        <div v-if="selectable" class="col">
-          <img v-if="!selected" src="@/assets/img/oa-selector.svg">
-          <img v-if="selected" src="@/assets/img/oa-selected.svg">
-        </div>
+        <div v-if="selectable" class="col" :class="[selected ? 'oa-selected' : 'oa-selector']"></div>
       </div>
 
       <a @click="$emit('navigate')" class="frame-label display mini fade-truncate">
