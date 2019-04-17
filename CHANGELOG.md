@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.4.0"></a>
+# [8.4.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.3.2...v8.4.0) (2019-04-17)
+
+
+### Bug Fixes
+
+* **DrawingState:** fix comment modal showing up for all charts instead of only the one being used ([ec43d3c](https://github.com/simplitech/simplidata-web-sdk/commit/ec43d3c))
+
+
+### Features
+
+* **ForecastConfig:** improve ForecastConfig model ([7a5e6c2](https://github.com/simplitech/simplidata-web-sdk/commit/7a5e6c2))
+
+
+
 <a name="8.3.2"></a>
 ## [8.3.2](https://github.com/simplitech/simplidata-web-sdk/compare/v8.3.1...v8.3.2) (2019-04-16)
 
