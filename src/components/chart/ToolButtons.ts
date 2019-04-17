@@ -62,7 +62,7 @@ const template = `
         <p class="comment-text">
           {{ drawingState.graphicSelectedAsComment.text }}
         </p>
-        <a @click="drawingState.showEditCommentButtons = !drawingState.showEditCommentButtons" class="ctx-hor w-40 h-15 self-right" 
+        <a v-if="showDrawingButtons" @click="drawingState.showEditCommentButtons = !drawingState.showEditCommentButtons" class="ctx-hor w-40 h-15 self-right" 
           :class="{ active: drawingState.showEditCommentButtons}"></a>
       </div>
       <div :style="{ opacity: drawingState.showEditCommentButtons ? 1 : 0 }" class="horiz w-450 items-right-center mt-8 transition">

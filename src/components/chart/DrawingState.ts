@@ -170,10 +170,14 @@ export class DrawingState {
   }
 
   openChartComment(comment: CommentChartGraphic) {
-    this.graphicSelected = comment
+    if (this.value.graphics.includes(comment)) {
+      this.graphicSelected = comment
+    }
   }
 
   selectGraphic(graphic: ChartGraphic) {
-    this.graphicSelected = graphic
+    if (this.value.graphics.includes(graphic)) {
+      this.graphicSelected = graphic
+    }
   }
 }
