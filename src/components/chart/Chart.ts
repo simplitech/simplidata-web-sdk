@@ -19,7 +19,7 @@ const template = `
           :showChartTypeControl="showChartTypeControl"
           :showDateNavigator="showDateNavigator"
           :showLegend="showLegend"
-          :showAdvancedAnalysisButton="showAdvancedAnalysisButton"
+          :showAdvancedAnalysisButton="alreadyShowAdvancedAnalysisButton"
           :selectedDatasetIndex="selectedDatasetIndex"
           @advancedClick="$emit('advancedClick')"
           @legendClick="onLegendClick"/>
@@ -124,6 +124,7 @@ export class Chart extends Vue {
   selectedDatasetIndex?: number
 
   drawingState = new DrawingState(this.value)
+  dataLoaded = false
 
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
@@ -135,6 +136,10 @@ export class Chart extends Vue {
 
   get chartTypeTableSelected() {
     return this.value.idChartTypeFk === ChartType.TABLE
+  }
+
+  get alreadyShowAdvancedAnalysisButton() {
+    return this.showAdvancedAnalysisButton && this.dataLoaded
   }
 
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
@@ -212,13 +217,13 @@ export class Chart extends Vue {
     this.value.lastSavedJson = this.value.relevantToSave
 
     if (somethingLoaded) {
+      this.dataLoaded = true
       this.$emit('dataLoaded')
     }
   }
 
   async mounted() {
     await this.populateData()
-    // await testModeling()
   }
 
   getRfuAsOaRfu(index?: number) {
