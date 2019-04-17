@@ -43,6 +43,12 @@ export default {
     DownloadType: {
       XLS: 'XLS',
     },
+    ForecastType: {
+      Automatic: 'Previsão automático (dinâmica fora da amostra)',
+      Dynamic: 'Previsão dinânimca',
+      Static: 'Previsão estática',
+      Recursive: 'Previsões recursivas k-passos à frente: k =',
+    },
     OaCategory: {
       IndicesdePrecos: 'Índices de Preços',
       IndicadoresdeAtividade: 'Indicadores de Atividade',
