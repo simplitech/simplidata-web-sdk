@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.0.0"></a>
+# [9.0.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.5.0...v9.0.0) (2019-04-22)
+
+
+### Code Refactoring
+
+* **ItemRFU:** remove BasicLag, rename ListLag and change the use of dataListRFU to send other f ([ffd1601](https://github.com/simplitech/simplidata-web-sdk/commit/ffd1601))
+
+
+### BREAKING CHANGES
+
+* **ItemRFU:** ItemRFU refactoring
+
+fix MCR-277
+
+
+
 <a name="8.5.0"></a>
 # [8.5.0](https://github.com/simplitech/simplidata-web-sdk/compare/v8.4.2...v8.5.0) (2019-04-22)
 
