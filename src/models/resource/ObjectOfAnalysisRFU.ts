@@ -45,8 +45,13 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     return this.objectOfAnalysis.unity.title
   }
 
-  refreshDataListRFU(start?: string | null, end?: string | null, periodicity?: OaPeriodicity | null) {
-    if (!this.oaVersion || !this.oaVersion.lastDataset) {
+  refreshDataListRFU(start?: string | null, end?: string | null, periodicity: OaPeriodicity | null = null) {
+    if (
+      !this.oaVersion ||
+      !this.oaVersion.lastDataset ||
+      this.objectOfAnalysis === undefined ||
+      this.objectOfAnalysis.periodicity === null
+    ) {
       return
     }
 
@@ -54,9 +59,6 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
 
     const needsPeriodicityTransformation: boolean =
       periodicity !== null &&
-      periodicity !== undefined &&
-      this.objectOfAnalysis !== undefined &&
-      this.objectOfAnalysis.periodicity !== null &&
       this.periodicityTransformationType !== null &&
       this.objectOfAnalysis.periodicity.idOaPeriodicityPk !== periodicity.idOaPeriodicityPk
 
@@ -77,6 +79,8 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
       result = periodicityTransform(result, this.periodicityTransformationType, periodicity)
     }
 
-    this.dataListRFU = result
+    const per = periodicity || this.objectOfAnalysis.periodicity
+
+    this.setDataListRFU(result, per.asFrequency)
   }
 }

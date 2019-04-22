@@ -49,6 +49,31 @@ export class OaPeriodicity extends Resource {
   @ValidationRequired()
   active: boolean = false
 
+  get asFrequency() {
+    switch (this.idOaPeriodicityPk) {
+      case OaPeriodicity.Daily:
+        return 365
+      case OaPeriodicity.Weekly:
+        return 52
+      case OaPeriodicity.Biweekly:
+        return 104
+      case OaPeriodicity.Monthly:
+        return 12
+      case OaPeriodicity.Bimonthly:
+        return 24
+      case OaPeriodicity.Quarterly:
+        return 4
+      case OaPeriodicity.Quadrimesterly:
+        return 3
+      case OaPeriodicity.Semiannual:
+        return 2
+      case OaPeriodicity.Yearly:
+        return 1
+      default:
+        return 1
+    }
+  }
+
   getPeriodDate(oaData: OaData) {
     const dtFormat: string = $.t('system.format.date').toString()
     let m = moment(oaData.dt)

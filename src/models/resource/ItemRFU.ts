@@ -1,7 +1,7 @@
 import { ResponseSerialize, Model } from '../../simpli'
 import { TransformationType } from './TransformationType'
 import { OaData } from './OaData'
-import { BasicLag } from './BasicLag'
+import { Exclude } from 'class-transformer'
 
 export class ItemRFU extends Model {
   readonly $name: string = 'ItemRFU'
@@ -9,13 +9,29 @@ export class ItemRFU extends Model {
   @ResponseSerialize(TransformationType)
   orderedTransformations: TransformationType[] = []
 
-  @ResponseSerialize(BasicLag)
-  basicLag: BasicLag | null = new BasicLag()
+  lag: number[] = []
 
-  listLag: number[] = []
+  values: (number | null)[] = []
+  firstDate: string | null = null
+  frequency: number | null = null // number of observations per year
 
-  @ResponseSerialize(OaData)
-  dataListRFU: OaData[] = [] // watch para atualizar conforme objectOfAnalysis, oaVersion, orderedTransformations, lag e periodicityTransformationType
+  @Exclude({ toPlainOnly: true })
+  private pDataListRFU: OaData[] = []
+
+  public get dataListRFU() {
+    return this.pDataListRFU
+  }
+
+  setDataListRFU(oaDataArr: OaData[], frequency: number) {
+    this.pDataListRFU = oaDataArr
+    this.firstDate = oaDataArr.length ? oaDataArr[0].dt : null
+    this.values = oaDataArr.map(oa => oa.value)
+    this.frequency = frequency
+  }
+
+  get hasConsecutiveLag(): boolean {
+    return this.lag.every((v, i) => v === this.lag[i - 1] + 1)
+  }
 
   get contentTitle() {
     return ''
@@ -45,16 +61,49 @@ export class ItemRFU extends Model {
     return ''
   }
 
+  get initialIntervalLag() {
+    return this.lag[0] || 0
+  }
+
+  set initialIntervalLag(value) {
+    if (this.lag.length < 2) {
+      this.lag = [value]
+    } else {
+      this.setInitialAndFinalLag(value, this.finalIntervalLag)
+    }
+  }
+
+  get finalIntervalLag() {
+    return this.lag[this.lag.length - 1] || 0
+  }
+
+  set finalIntervalLag(value) {
+    this.setInitialAndFinalLag(this.initialIntervalLag, value)
+  }
+
+  setInitialAndFinalLag(initial: number, final: number) {
+    this.lag = []
+    for (let i = initial; i <= final; i++) {
+      this.lag.push(i)
+    }
+  }
+
+  reloadInitialAndFinalLag() {
+    this.setInitialAndFinalLag(this.initialIntervalLag, this.finalIntervalLag)
+  }
+
   getRequestContent(others: ItemRFU[]) {
     const cleanIrfu = new ItemRFU()
-    cleanIrfu.basicLag = this.basicLag
-    cleanIrfu.listLag = this.listLag
-    cleanIrfu.dataListRFU = this.dataListRFU.filter(
-      oadata =>
-        oadata.value !== null &&
-        oadata.value !== undefined &&
+    cleanIrfu.lag = this.lag
+
+    if (this.frequency !== null) {
+      const tempDataListRFU = this.dataListRFU.filter(oadata =>
         others.every(ot => ot.dataListRFU.some(otoadata => otoadata.dt === oadata.dt))
-    )
+      )
+
+      cleanIrfu.setDataListRFU(tempDataListRFU, this.frequency)
+    }
+
     return cleanIrfu
   }
 }

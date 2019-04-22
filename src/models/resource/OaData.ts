@@ -35,7 +35,7 @@ export class OaData extends Resource {
   idOaDataPk: ID = 0
 
   @ValidationRequired()
-  value?: number | null = null
+  value: number | null = null
 
   @ValidationRequired()
   dt: string = ''
@@ -54,7 +54,7 @@ export class OaData extends Resource {
     this.oaDataset.$id = idOaDatasetFk
   }
 
-  constructor(dt: string = '', value?: number | null) {
+  constructor(dt: string = '', value: number | null = null) {
     super()
     this.value = value
     this.dt = dt

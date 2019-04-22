@@ -151,9 +151,9 @@ export function periodOverPeriodVariation(dataList: OaData[]) {
   return dataList.map((d, i) => {
     const data = new OaData(d.dt)
 
-    if (i > 0 && d.value != null) {
+    if (i > 0 && d.value !== null) {
       const d2val = dataList[i - 1].value
-      if (d2val != null) {
+      if (d2val !== null) {
         data.value = d.value / d2val - 1
       }
     }
@@ -173,7 +173,7 @@ export function monthSpaceVariation(dataList: OaData[], months: number) {
       const djMoment = moment(dj.dt)
 
       if (diMoment.diff(djMoment, 'month') === months) {
-        if (di.value != null && dj.value != null) {
+        if (di.value !== null && dj.value !== null) {
           data.value = di.value / dj.value - 1
         }
         break
@@ -185,7 +185,7 @@ export function monthSpaceVariation(dataList: OaData[], months: number) {
 }
 
 export function avgTotal(dataList: OaData[]) {
-  const dataListNotNull = dataList.filter(d => d.value != null)
+  const dataListNotNull = dataList.filter(d => d.value !== null)
 
   const finalUniqueValue = dataListNotNull.reduce((a, b) => a + (b.value || 0), 0) / dataListNotNull.length
 
@@ -198,7 +198,7 @@ export function medianTotal(dataList: OaData[]) {
   }
 
   const orderedValues = dataList
-    .filter(d => d.value != null)
+    .filter(d => d.value !== null)
     .map(d => d.value || 0)
     .sort((a, b) => a - b)
 
@@ -222,7 +222,7 @@ export function min(dataList: OaData[]) {
 }
 
 export function standardDeviation(dataList: OaData[]) {
-  const dataListNotNull = dataList.filter(d => d.value != null)
+  const dataListNotNull = dataList.filter(d => d.value !== null)
 
   const avg = dataListNotNull.reduce((a, b) => a + (b.value || 0), 0) / dataListNotNull.length
 
@@ -240,7 +240,7 @@ export function standardDeviation(dataList: OaData[]) {
 
 export function mode(dataList: OaData[]) {
   const finalUniqueValue = dataList
-    .filter(d => d.value != null)
+    .filter(d => d.value !== null)
     .map(d => d.value)
     .sort((a, b) => {
       const countEqualToA = dataList.filter(d => d.value === a).length

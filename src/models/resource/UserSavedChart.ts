@@ -145,7 +145,7 @@ export class UserSavedChart extends Resource {
     return this.itensRFU.map(irfu => {
       if (irfu.$name === 'ObjectOfAnalysisRFU') {
         const oarfu = irfu as ObjectOfAnalysisRFU
-        const { objectOfAnalysis, dataListRFU, oaVersion, ...oarfuWithoutOa } = oarfu
+        const { objectOfAnalysis, values, firstDate, frequency, oaVersion, ...oarfuWithoutOa } = oarfu
         const oarfuClean: any = oarfuWithoutOa
 
         if (objectOfAnalysis !== undefined) {
