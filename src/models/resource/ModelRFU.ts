@@ -36,4 +36,10 @@ export class ModelRFU extends ItemRFU {
     cleanIrfu.itemsRFU = cleanIrfu.itemsRFU.map(irfu => irfu.getRequestContent(cleanIrfu.itemsRFU))
     return cleanIrfu
   }
+
+  hasDeeplyIncluded(other: ItemRFU): boolean {
+    return this.itemsRFU.some(thisIrfu => {
+      return thisIrfu === other || (thisIrfu.$name === 'ModelRFU' && (thisIrfu as ModelRFU).hasDeeplyIncluded(other))
+    })
+  }
 }
