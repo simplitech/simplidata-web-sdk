@@ -5,10 +5,10 @@ const template = `
   </div>
 `
 
-import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import echarts from 'echarts'
 import moment from 'moment'
-import { UserSavedChart, ChartGraphic } from '../../models'
+import { UserSavedChart, ChartType } from '../../models'
 import { colors } from '../../const/colors.const'
 import { error } from '../../simpli'
 import GraphicEditorOverlay from './GraphicEditorOverlay'
@@ -33,11 +33,10 @@ export default class EChart extends Vue {
 
   get chartOptions() {
     return {
-      grid: { right: 25, left: '7%', top: '5%' },
+      grid: { right: 25, left: '10%', top: '5%' },
       tooltip: { trigger: 'axis' },
       xAxis: {
         type: 'category',
-        boundaryGap: false,
       },
       yAxis: {
         type: 'value',
@@ -94,6 +93,7 @@ export default class EChart extends Vue {
   }
 
   @Watch('value.chartData')
+  @Watch('value.chartType')
   @Watch('dataZoom')
   @Watch('chartGraphics')
   @Watch('drawingState.graphicBeingBuilt')
@@ -104,10 +104,36 @@ export default class EChart extends Vue {
       return
     }
 
-    let series = this.value.itensRFU.map(d => ({
-      type: 'line',
-      smooth: true,
-    }))
+    const typeConfig = (index = 0) => {
+      if (!this.value) return {}
+
+      const type = this.value.chartType
+
+      if (type.$id === ChartType.LINE) {
+        return {
+          type: 'line',
+          smooth: true,
+        }
+      } else if (type.$id === ChartType.BAR) {
+        return {
+          type: 'bar',
+          smooth: true,
+          stack: '-',
+        }
+      } else if (type.$id === ChartType.AREA) {
+        return {
+          type: 'line',
+          smooth: true,
+          areaStyle: {
+            color: colors[index],
+          },
+        }
+      }
+
+      return {}
+    }
+
+    let series = this.value.itensRFU.map((d, i) => typeConfig(i))
 
     if (this.startIndexLimiter === -1 || this.endIndexLimiter === -1) {
       error('system.error.noData')
