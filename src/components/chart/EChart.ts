@@ -1,7 +1,7 @@
 const template = `
   <div class="echart-holder">
     <graphic-editor-overlay v-model="value" v-if="showDrawingButtons" :drawingState="drawingState" :echart="echart"/>
-    <div id="echart" ref="echart" class="h-full"></div>
+    <div id="echart" ref="echart" class="h-full" :class="[cursor]"></div>
   </div>
 `
 
@@ -26,7 +26,7 @@ export default class EChart extends Vue {
   drawingState!: DrawingState
 
   @Prop({ type: Boolean, default: true })
-  showDrawingButtons?: boolean
+  showDrawingButtons!: boolean
 
   echart: echarts.ECharts | null = null
   colors = colors
@@ -90,6 +90,29 @@ export default class EChart extends Vue {
     }
 
     return dataZoom
+  }
+
+  get cursor() {
+    switch (this.drawingState.selectedDrawingTool) {
+      case this.drawingState.tools.Line:
+        return 'cursor-line'
+      case this.drawingState.tools.Ellipse:
+        return 'cursor-ellipse'
+      case this.drawingState.tools.Rectangle:
+        return 'cursor-rectangle'
+      case this.drawingState.tools.Pencil:
+        return 'cursor-pencil'
+      case this.drawingState.tools.Text:
+        return 'cursor-text'
+      case this.drawingState.tools.Measure:
+        return 'cursor-measure'
+      case this.drawingState.tools.FibonacciRetraction:
+        return 'cursor-calc'
+      case this.drawingState.tools.Comment:
+        return 'cursor-comment'
+      default:
+        return null
+    }
   }
 
   @Watch('value.chartData')
@@ -157,6 +180,7 @@ export default class EChart extends Vue {
     const el = this.$refs.echart as HTMLDivElement
 
     this.echart = echarts.init(el)
+    this.drawingState.echart = this.echart
 
     this.echart.setOption(this.chartOptions)
 
@@ -213,10 +237,10 @@ export default class EChart extends Vue {
 
     const graphic: any[] = []
 
-    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, colors)))
+    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, this.showDrawingButtons, colors)))
 
     if (this.drawingState.graphicBeingBuilt) {
-      this.addGraphic(graphic, this.drawingState.graphicBeingBuilt.build(this.echart, colors))
+      this.addGraphic(graphic, this.drawingState.graphicBeingBuilt.build(this.echart, this.showDrawingButtons, colors))
     }
 
     return graphic

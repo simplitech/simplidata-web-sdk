@@ -1,10 +1,17 @@
 import echarts from 'echarts'
 
 export class ChartGraphicPosition {
-  axisX = 0
-  axisY = 0
-  offsetX = 0
-  offsetY = 0
+  axisX: number
+  axisY: number
+  offsetX: number
+  offsetY: number
+
+  constructor(axisX: number = 0, axisY: number = 0, offsetX: number = 0, offsetY: number = 0) {
+    this.axisX = axisX
+    this.axisY = axisY
+    this.offsetX = offsetX
+    this.offsetY = offsetY
+  }
 
   set(echart: echarts.ECharts, x: number, y: number) {
     this.axisX = Number(echart.convertFromPixel('xAxis', `${x}`))
@@ -24,5 +31,14 @@ export class ChartGraphicPosition {
     } else {
       return [0, 0]
     }
+  }
+
+  increaseBy(echart: echarts.ECharts, x2: number, y2: number) {
+    const [x1, y1] = this.get(echart)
+    this.set(echart, x1 + x2, y1 + y2)
+  }
+
+  clone() {
+    return new ChartGraphicPosition(this.axisX, this.axisY, this.offsetX, this.offsetY)
   }
 }

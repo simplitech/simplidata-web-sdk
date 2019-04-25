@@ -79,43 +79,43 @@ export class Chart extends Vue {
   objectOfAnalysisIds?: number[]
 
   @Prop({ type: Boolean, default: true })
-  showSaveButton?: boolean
+  showSaveButton!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showDrawingButtons?: boolean
+  showDrawingButtons!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showMeasureButton?: boolean
+  showMeasureButton!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showCalcButton?: boolean
+  showCalcButton!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showCommentButton?: boolean
+  showCommentButton!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showChartTypeControl?: boolean
+  showChartTypeControl!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showObjectOfAnalysisInfo?: boolean
+  showObjectOfAnalysisInfo!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showTransformationControl?: boolean
+  showTransformationControl!: boolean
 
   @Prop({ type: Boolean, default: false })
-  showOaVersionControl?: boolean
+  showOaVersionControl!: boolean
 
   @Prop({ type: Boolean, default: false })
-  showAdvancedAnalysisButton?: boolean
+  showAdvancedAnalysisButton!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showVisitButton?: boolean
+  showVisitButton!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showDateNavigator?: boolean
+  showDateNavigator!: boolean
 
   @Prop({ type: Boolean, default: true })
-  showLegend?: boolean
+  showLegend!: boolean
 
   @Prop({ type: Number })
   chartTypeId?: number

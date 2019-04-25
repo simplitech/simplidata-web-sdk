@@ -8,7 +8,6 @@ import { $, ResponseSerialize, ValidationMaxLength, ValidationRequired, RequestE
 import { Collection } from './Collection'
 import { ChartType } from './ChartType'
 import { DownloadType } from './DownloadType'
-import { TransformationType } from './TransformationType'
 import { User } from './User'
 import { ChartGraphic } from './ChartGraphic/ChartGraphic'
 import { LineChartGraphic } from './ChartGraphic/LineChartGraphic'
@@ -62,7 +61,6 @@ export class UserSavedChart extends Resource {
   @ValidationRequired()
   active: boolean = false
 
-  // TODO: should this go to json? it was on Chart.ts props
   oaVersionIds?: number[] = []
 
   @ValidationRequired()

@@ -11,33 +11,48 @@ const template = `
     </popover>
 
     <template v-if="showDrawingButtons">
-      <a class="chart-selector h-40 mb-8" :class="{active: !drawingState.selectedDrawingTool}" @click="drawingState.clearDrawingTool()"></a>
+      <a class="chart-selector h-40 mb-8" :class="{active: !drawingState.selectedDrawingTool}" @click="drawingState.finishWork()"></a>
       
       <div class="mb-8 verti">
         <div class="relative top-30 left-30">
           <a class="chart-drop w-7 h-7" v-popover.right="{ name: 'sg-draw' + _uid }"></a>
         </div>
-        <a v-if="drawingState.lastBasicDrawingTool === 'Line'" class="chart-line h-40" :class="{active: drawingState.selectedDrawingTool === 'Line'}" @click="drawingState.selectDrawingTool('Line')"></a>
-        <a v-if="drawingState.lastBasicDrawingTool === 'Ellipse'" class="chart-ellipse h-40" :class="{active: drawingState.selectedDrawingTool === 'Ellipse'}" @click="drawingState.selectDrawingTool('Ellipse')"></a>
-        <a v-if="drawingState.lastBasicDrawingTool === 'Rectangle'" class="chart-rectangle h-40" :class="{active: drawingState.selectedDrawingTool === 'Rectangle'}" @click="drawingState.selectDrawingTool('Rectangle')"></a>
+        <a v-if="drawingState.lastBasicDrawingTool === drawingState.tools.Line" 
+        class="chart-line h-40" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Line}" 
+        @click="drawingState.selectDrawingTool(drawingState.tools.Line)"></a>
+        
+        <a v-if="drawingState.lastBasicDrawingTool === drawingState.tools.Ellipse" 
+        class="chart-ellipse h-40" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Ellipse}" 
+        @click="drawingState.selectDrawingTool(drawingState.tools.Ellipse)"></a>
+        
+        <a v-if="drawingState.lastBasicDrawingTool === drawingState.tools.Rectangle" 
+        class="chart-rectangle h-40" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Rectangle}" 
+        @click="drawingState.selectDrawingTool(drawingState.tools.Rectangle)"></a>
       </div>
 
-      <a class="chart-pencil h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === 'Pencil'}" @click="drawingState.selectDrawingTool('Pencil')"></a>
+      <a class="chart-pencil h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Pencil}" 
+      @click="drawingState.selectDrawingTool(drawingState.tools.Pencil)"></a>
 
-      <a class="chart-text h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === 'Text'}" @click="drawingState.selectDrawingTool('Text')"></a>
+      <a class="chart-text h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Text}" 
+      @click="drawingState.selectDrawingTool(drawingState.tools.Text)"></a>
     </template>
     
     <popover :name="'sg-draw' + _uid" ref="drawpopover" class="force-w-50">
       <div class="verti">
-        <a class="chart-line h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === 'Line'}" @click="drawingState.selectDrawingTool('Line')"></a>
-        <a class="chart-ellipse h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === 'Ellipse'}" @click="drawingState.selectDrawingTool('Ellipse')"></a>
-        <a class="chart-rectangle h-40 items-center" :class="{active: drawingState.selectedDrawingTool === 'Rectangle'}" @click="drawingState.selectDrawingTool('Rectangle')"></a>
+        <a class="chart-line h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Line}" 
+        @click="drawingState.selectDrawingTool(drawingState.tools.Line)"></a>
+        
+        <a class="chart-ellipse h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Ellipse}" 
+        @click="drawingState.selectDrawingTool(drawingState.tools.Ellipse)"></a>
+        
+        <a class="chart-rectangle h-40 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Rectangle}" 
+        @click="drawingState.selectDrawingTool(drawingState.tools.Rectangle)"></a>
       </div>
     </popover>
 
     <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"
-       :class="{active: drawingState.selectedDrawingTool === 'Measure'}"
-       @click="drawingState.selectDrawingTool('Measure')"></a>
+       :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Measure}"
+       @click="drawingState.selectDrawingTool(drawingState.tools.Measure)"></a>
     
     <a v-if="showCalcButton"
        v-popover.right="{ name: 'sg-calc' + _uid }"
@@ -47,13 +62,16 @@ const template = `
 
     <popover :name="'sg-calc' + _uid" ref="calcpopover">
       <div class="calcpopover verti">
-        <a @click="drawingState.selectDrawingTool('FibonacciRetraction')" :class="{active: drawingState.selectedDrawingTool === 'FibonacciRetraction'}" class="p-15">{{ $t('view.chart.fibonacciRetraction') }}</a>
+        <a @click="drawingState.selectDrawingTool(drawingState.tools.FibonacciRetraction)" 
+        :class="{active: drawingState.selectedDrawingTool === drawingState.tools.FibonacciRetraction}" class="p-15">
+        {{ $t('view.chart.fibonacciRetraction') }}
+        </a>
       </div>
     </popover>
 
     <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"
-       :class="{active: drawingState.selectedDrawingTool === 'Comment'}"
-       @click="drawingState.selectDrawingTool('Comment')"></a>
+       :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Comment}"
+       @click="drawingState.selectDrawingTool(drawingState.tools.Comment)"></a>
     
     <!-- CHART SHOW COMMENT MODAL -->
     <div v-if="drawingState.graphicSelectedAsComment" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center verti">

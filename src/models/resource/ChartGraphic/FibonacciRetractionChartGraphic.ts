@@ -2,7 +2,6 @@ import echarts from 'echarts'
 import { ChartGraphic } from './ChartGraphic'
 import { ChartGraphicPositionWithData } from '../ChartGraphicPositionWithData'
 import { ResponseSerialize } from '../../../simpli'
-import { ChartGraphicPosition } from '../ChartGraphicPosition'
 import ChartBus from '../../../utils/ChartBus'
 
 export class FibonacciRetractionChartGraphic extends ChartGraphic {
@@ -14,7 +13,8 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
   @ResponseSerialize(ChartGraphicPositionWithData)
   p2: ChartGraphicPositionWithData | null = null
 
-  parts = [
+  private readonly parts = [
+    // could be static, but it would be too wordy
     { heightPct: 0.382, rgb: [0, 255, 0] },
     { heightPct: 0.118, rgb: [120, 120, 255] },
     { heightPct: 0.118, rgb: [255, 255, 0] },
@@ -22,15 +22,35 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
     { heightPct: 0.236, rgb: [255, 0, 0] },
   ]
 
+  constructor(
+    p1: ChartGraphicPositionWithData | null = null,
+    p2: ChartGraphicPositionWithData | null = null,
+    isDone: boolean = false,
+    color: string = '#dddddd'
+  ) {
+    super(isDone, color)
+    this.p1 = p1
+    this.p2 = p2
+  }
+
   cleanCopy() {
     return new FibonacciRetractionChartGraphic()
+  }
+
+  clone(): ChartGraphic {
+    return new FibonacciRetractionChartGraphic(
+      this.p1 ? this.p1.clone() : null,
+      this.p2 ? this.p2.clone() : null,
+      this.isDone,
+      this.color
+    )
   }
 
   get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
-  build(echart: echarts.ECharts) {
+  build(echart: echarts.ECharts, allowInteraction: boolean) {
     if (!this.p1 || !this.p2) {
       return null
     }
@@ -115,6 +135,15 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
     const sumOfAxisYOfPartsBeforeI = partsBeforeI.reduce((sum, prev) => sum + axisDiff * prev.heightPct, 0)
 
     return Math.min(this.p1.axisY, this.p2.axisY) + sumOfAxisYOfPartsBeforeI
+  }
+
+  offsetPosition(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
+      this.p1.increaseBy(echart, x, y)
+    }
+    if (this.p2) {
+      this.p2.increaseBy(echart, x, y)
+    }
   }
 
   mousedown(echart: echarts.ECharts, x: number, y: number) {

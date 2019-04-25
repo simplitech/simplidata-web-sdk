@@ -1,4 +1,59 @@
 .simplidata-chart {
+  $drop: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='4' viewBox='0 0 5 4'%3E%3Cpath fill='%235B5B5B' fill-rule='nonzero' d='M4.945.203A.432.432 0 0 0 4.574 0H.426a.432.432 0 0 0-.371.203.376.376 0 0 0 .006.402l2.074 3.203c.077.12.216.192.365.192.15 0 .288-.073.365-.192L4.939.605a.376.376 0 0 0 .006-.402z'/%3E%3C/svg%3E");
+  $calc: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='20' viewBox='0 0 19 20'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' transform='translate(1 1.2)'%3E%3Cpath d='M5.95 13.6L3.4 11.2M3.4 13.6l2.55-2.4M4.25 4v3.2M5.95 5.6h-3.4M11.05 5.6h3.4M11.05 13.6h3.4M11.05 11.2h3.4'/%3E%3Crect width='17' height='17.6' rx='2.4'/%3E%3C/g%3E%3C/svg%3E");
+  $comment: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' d='M19.604 7.4c-.01 3.31-2.662 5.99-5.937 6h-1.98l-3.166 3.2v-3.2H7.333c-3.279 0-5.937-2.686-5.937-6s2.658-6 5.937-6h6.334c3.275.01 5.928 2.69 5.937 6z'/%3E%3C/svg%3E");
+  $line: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg version='1.1' id='Camada_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='20' height='19' viewBox='0 0 20 19' style='enable-background:new 0 0 20 19;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0{fill:none;stroke:%23ACACAC;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;} %3C/style%3E%3Cg transform='translate(1 1)'%3E%3Cpath class='st0' d='M4.2,0.9v2.3c0,0.4-0.3,0.7-0.7,0.7H1.3c-0.4,0-0.7-0.3-0.7-0.7V0.9c0-0.4,0.3-0.7,0.7-0.7h2.2 C3.9,0.2,4.2,0.5,4.2,0.9z'/%3E%3Cpath class='st0' d='M17.4,14.4v2.3c0,0.4-0.3,0.7-0.7,0.7h-2.2c-0.4,0-0.7-0.3-0.7-0.7v-2.3c0-0.4,0.3-0.7,0.7-0.7h2.2 C17.1,13.7,17.4,14,17.4,14.4z'/%3E%3Cpath class='st0' d='M4,3.7l10,10.2'/%3E%3C/g%3E%3C/svg%3E");
+  $ellipse: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='18' height='26' viewBox='0 0 18 26'%3E%3Cellipse cx='26' cy='26' fill='none' fill-rule='evenodd' stroke='gray' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' rx='8' ry='12' transform='translate(-17 -13)'/%3E%3C/svg%3E");
+  $rectangle: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='34' height='24' viewBox='0 0 34 24'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='gray' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 1h32v22H1z'/%3E%3C/svg%3E");
+  $measure: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg version='1.1' id='Camada_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='18' height='18' viewBox='0 0 18 18' style='enable-background:new 0 0 18 18;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0{fill:none;stroke:%23ACACAC;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;} %3C/style%3E%3Cg transform='translate(0 .2)'%3E%3Cpath class='st0' d='M5,0.7l12.1,12.1c0.3,0.3,0.3,0.8,0,1l-3,3c-0.3,0.3-0.8,0.3-1,0L0.9,4.8c-0.3-0.3-0.3-0.8,0-1l3-3 C4.2,0.5,4.7,0.5,5,0.7z'/%3E%3Cpath class='st0' d='M8,3.6L6.1,5.5 M11.1,6.8L9.3,8.7 M14.2,10l-1.8,1.9'/%3E%3C/g%3E%3C/svg%3E");
+  $save: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M9 5.625v6.75M5.625 9h6.75'/%3E%3Ccircle cx='9' cy='9' r='9'/%3E%3C/g%3E%3C/svg%3E");
+  $pencil: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='utf-8'?%3E%3Csvg version='1.1' id='Camada_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px' width='20' height='19' viewBox='0 0 20 19' style='enable-background:new 0 0 20 19;' xml:space='preserve'%3E%3Cstyle type='text/css'%3E .st0{fill:none;stroke:%23ACACAC;stroke-width:1.2;stroke-linecap:round;stroke-linejoin:round;} %3C/style%3E%3Cg%3E%3Cpath class='st0' d='M2.7,6L1.6,1.2l4.7,1.1l11.7,12c0.3,0.3,0.4,0.7,0.4,1.1c0,0.4-0.2,0.8-0.4,1.1L16.4,18 c-0.3,0.3-0.6,0.4-1,0.4c-0.4,0-0.8-0.2-1-0.4L2.7,6L2.7,6z M13.9,17.5l3.6-3.7 M2.9,6.2l3.6-3.7'/%3E%3C/g%3E%3C/svg%3E");
+  $text: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' x='0px' y='0px' width='15' height='19' viewBox='0 0 15 19'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2'%3E%3Cpath d='M1 3.464V2.056c0-.389.323-.704.722-.704h11.556c.399 0 .722.315.722.704v1.408M7.5 1.35v16.193M4.972 17.543h5.056'/%3E%3C/g%3E%3C/svg%3E");
+  $selector: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg x='0px' y='0px' width='14px' height='20px' viewBox='0 0 14 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4D0CC6F4-DF92-4172-B73D-9B9DCD16065A%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='btn-/-sidebar-chart-/-select' transform='translate(-15.000000, -10.000000)' fill-rule='nonzero' stroke='%23ACACAC'%3E%3Cg id='cursor'%3E%3Cg transform='translate(16.000000, 13.000000)'%3E%3Cpath d='M3.3194966,10.4973638 L-0.500587012,13.9499455 L-0.492746719,-1.09606162 L11.2526178,9.10562666 L5.94581549,9.42414773 L8.5888754,15.1151212 L5.96842721,16.2010152 L3.3194966,10.4973638 Z' id='selector'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+
+  .cursor-calc, .cursor-calc canvas {
+    cursor: $calc, pointer;
+  }
+
+  .cursor-comment, .cursor-comment canvas {
+    cursor: $comment, pointer;
+  }
+
+  .cursor-line, .cursor-line canvas {
+    cursor: $line, pointer;
+  }
+
+  .cursor-ellipse, .cursor-ellipse canvas {
+    cursor: $ellipse, pointer;
+  }
+
+  .cursor-rectangle, .cursor-rectangle canvas {
+    cursor: $rectangle, pointer;
+  }
+
+  .cursor-measure, .cursor-measure canvas {
+    cursor: $measure, pointer;
+  }
+
+  .cursor-save, .cursor-save canvas {
+    cursor: $save, pointer;
+  }
+
+  .cursor-pencil, .cursor-pencil canvas {
+    cursor: $pencil, pointer;
+  }
+
+  .cursor-text, .cursor-text canvas {
+    cursor: $text, pointer;
+  }
+
+  .cursor-selector, .cursor-selector canvas {
+    cursor: $selector, pointer;
+  }
+
+  .cursor-test, .cursor-test canvas {
+    cursor: $test, pointer;
+  }
 
   .chart-button {
     background: #242424cc no-repeat center center;
@@ -23,59 +78,51 @@
   .chart-drop {
     // 3px 3px
     background: no-repeat center center;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='4' viewBox='0 0 5 4'%3E%3Cpath fill='%235B5B5B' fill-rule='nonzero' d='M4.945.203A.432.432 0 0 0 4.574 0H.426a.432.432 0 0 0-.371.203.376.376 0 0 0 .006.402l2.074 3.203c.077.12.216.192.365.192.15 0 .288-.073.365-.192L4.939.605a.376.376 0 0 0 .006-.402z'/%3E%3C/svg%3E");
+    background-image: $drop;
   }
 
   .chart-calc {
     @extend .chart-button;
-    background-image:
-      url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='20' viewBox='0 0 19 20'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' transform='translate(1 1.2)'%3E%3Cpath d='M5.95 13.6L3.4 11.2M3.4 13.6l2.55-2.4M4.25 4v3.2M5.95 5.6h-3.4M11.05 5.6h3.4M11.05 13.6h3.4M11.05 11.2h3.4'/%3E%3Crect width='17' height='17.6' rx='2.4'/%3E%3C/g%3E%3C/svg%3E"),
-      url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='4' viewBox='0 0 5 4'%3E%3Cpath fill='%235B5B5B' fill-rule='nonzero' d='M4.945.203A.432.432 0 0 0 4.574 0H.426a.432.432 0 0 0-.371.203.376.376 0 0 0 .006.402l2.074 3.203c.077.12.216.192.365.192.15 0 .288-.073.365-.192L4.939.605a.376.376 0 0 0 .006-.402z'/%3E%3C/svg%3E");
-    background-position:
-      center center,
-      bottom 3px right 3px;
+    background-image: $calc, $drop;
+    background-position: center center, bottom 3px right 3px;
   }
   .chart-comment {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' d='M19.604 7.4c-.01 3.31-2.662 5.99-5.937 6h-1.98l-3.166 3.2v-3.2H7.333c-3.279 0-5.937-2.686-5.937-6s2.658-6 5.937-6h6.334c3.275.01 5.928 2.69 5.937 6z'/%3E%3C/svg%3E");
+    background-image: $comment;
   }
   .chart-line {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='19' viewBox='0 0 20 19'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' transform='translate(1 1)'%3E%3Crect width='3.75' height='3.667' x='.375' y='13.567' rx='.733'/%3E%3Crect width='3.75' height='3.667' x='13.875' y='.367' rx='.733'/%3E%3Cpath d='M3.905 13.782l10.19-9.964'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: $line;
   }
   .chart-ellipse {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='26' viewBox='0 0 18 26'%3E%3Cellipse cx='26' cy='26' fill='none' fill-rule='evenodd' stroke='gray' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' rx='8' ry='12' transform='translate(-17 -13)'/%3E%3C/svg%3E");
+    background-image: $ellipse;
   }
   .chart-rectangle {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='24' viewBox='0 0 34 24'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='gray' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 1h32v22H1z'/%3E%3C/svg%3E");
+    background-image: $rectangle;
   }
   .chart-measure {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' transform='translate(0 .2)'%3E%3Crect width='18.562' height='5.705' x='-.281' y='5.948' rx='.733' transform='rotate(-45.001 9 8.8)'/%3E%3Cpath d='M3.83 9.823l1.874 1.833M7.01 6.712l1.876 1.833M10.193 3.6l1.875 1.833'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: $measure;
   }
   .chart-save {
     @extend .chart-button;
-    background-image:
-      url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' transform='translate(1 1)'%3E%3Cpath d='M9 5.625v6.75M5.625 9h6.75'/%3E%3Ccircle cx='9' cy='9' r='9'/%3E%3C/g%3E%3C/svg%3E"),
-      url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='4' viewBox='0 0 5 4'%3E%3Cpath fill='%235B5B5B' fill-rule='nonzero' d='M4.945.203A.432.432 0 0 0 4.574 0H.426a.432.432 0 0 0-.371.203.376.376 0 0 0 .006.402l2.074 3.203c.077.12.216.192.365.192.15 0 .288-.073.365-.192L4.939.605a.376.376 0 0 0 .006-.402z'/%3E%3C/svg%3E");
-    background-position:
-      center center,
-      bottom 3px right 3px;
+    background-image: $save, $drop;
+    background-position: center center, bottom 3px right 3px;
   }
   .chart-pencil {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='19' viewBox='0 0 20 19'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2'%3E%3Cpath d='M6.224 17.12l-4.849 1.113 1.138-4.74 11.96-11.697c.281-.275.663-.43 1.06-.43.399 0 .78.155 1.062.43l1.591 1.556c.282.275.44.648.44 1.037 0 .39-.158.762-.44 1.037L6.224 17.121zM17.657 5.946l-3.714-3.631M6.413 16.938l-3.712-3.63'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: $pencil;
   }
   .chart-text {
     @extend .chart-button;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='15' height='19' viewBox='0 0 15 19'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2'%3E%3Cpath d='M1 3.464V2.056c0-.389.323-.704.722-.704h11.556c.399 0 .722.315.722.704v1.408M7.5 1.35v16.193M4.972 17.543h5.056'/%3E%3C/g%3E%3C/svg%3E");
+    background-image: $text;
   }
   .chart-selector {
     @extend .chart-button;
     background-position-x: 15px;
-    background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='14px' height='20px' viewBox='0 0 14 20' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E4D0CC6F4-DF92-4172-B73D-9B9DCD16065A%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='btn-/-sidebar-chart-/-select' transform='translate(-15.000000, -10.000000)' fill-rule='nonzero' stroke='%23ACACAC'%3E%3Cg id='cursor'%3E%3Cg transform='translate(16.000000, 13.000000)'%3E%3Cpath d='M3.3194966,10.4973638 L-0.500587012,13.9499455 L-0.492746719,-1.09606162 L11.2526178,9.10562666 L5.94581549,9.42414773 L8.5888754,15.1151212 L5.96842721,16.2010152 L3.3194966,10.4973638 Z' id='selector'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    background-image: $selector;
   }
   .chart-undo {
     @extend .chart-button;
@@ -87,7 +134,10 @@
   }
   .chart-font-size {
     @extend .chart-button;
+    background-position-x: 5px;
     background-image: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='25px' height='15px' viewBox='0 0 25 15' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3E2E137312-7A39-42A5-A8E6-6A4D767C0367%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Symbols' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='font-size' fill='%23ACACAC'%3E%3Cpath d='M7.553,15 L6.552,12.426 L2.47,12.426 L1.495,15 L0.13,15 L3.796,5.783 L5.265,5.783 L8.931,15 L7.553,15 Z M4.498,7.109 L2.925,11.243 L6.097,11.243 L4.498,7.109 Z M22.201,15 L20.584,10.842 L13.99,10.842 L12.415,15 L10.21,15 L16.132,0.111 L18.505,0.111 L24.427,15 L22.201,15 Z M17.266,2.253 L14.725,8.931 L19.849,8.931 L17.266,2.253 Z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    color: #acacac;
+    font-size: 16px;
   }
   .chart-remove {
     @extend .chart-button;
@@ -318,7 +368,7 @@
   }
 
   .echart-holder {
-    overflow: hidden
+    overflow: hidden;
   }
 
   .graphic-editor-overlay {

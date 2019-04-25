@@ -8,20 +8,40 @@ export class RectangleChartGraphic extends ChartGraphic {
   name = 'RectangleChartGraphic'
 
   @ResponseSerialize(ChartGraphicPosition)
-  p1: ChartGraphicPosition | null = null
+  p1: ChartGraphicPosition | null
 
   @ResponseSerialize(ChartGraphicPosition)
-  p2: ChartGraphicPosition | null = null
+  p2: ChartGraphicPosition | null
+
+  constructor(
+    p1: ChartGraphicPosition | null = null,
+    p2: ChartGraphicPosition | null = null,
+    isDone: boolean = false,
+    color: string = '#dddddd'
+  ) {
+    super(isDone, color)
+    this.p1 = p1
+    this.p2 = p2
+  }
 
   cleanCopy() {
     return new RectangleChartGraphic()
+  }
+
+  clone(): ChartGraphic {
+    return new RectangleChartGraphic(
+      this.p1 ? this.p1.clone() : null,
+      this.p2 ? this.p2.clone() : null,
+      this.isDone,
+      this.color
+    )
   }
 
   get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
-  build(echart: echarts.ECharts) {
+  build(echart: echarts.ECharts, allowInteraction: boolean) {
     if (!this.p1 || !this.p2) {
       return null
     }
@@ -44,9 +64,19 @@ export class RectangleChartGraphic extends ChartGraphic {
         width: p2Pos[0] - p1Pos[0],
         height: p2Pos[1] - p1Pos[1],
       },
-      onclick: () => {
-        ChartBus.$emit('graphicSelect', this)
-      },
+      draggable: allowInteraction,
+      ondragstart: (e: any) => ChartBus.$emit('graphicDragStart', [e.offsetX, e.offsetY]),
+      ondragend: (e: any) => ChartBus.$emit('graphicDragEnd', { graphic: this, pos: [e.offsetX, e.offsetY] }),
+      onclick: () => ChartBus.$emit('graphicSelect', this),
+    }
+  }
+
+  offsetPosition(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
+      this.p1.increaseBy(echart, x, y)
+    }
+    if (this.p2) {
+      this.p2.increaseBy(echart, x, y)
     }
   }
 

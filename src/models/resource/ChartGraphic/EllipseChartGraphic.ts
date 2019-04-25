@@ -8,10 +8,21 @@ export class EllipseChartGraphic extends ChartGraphic {
   name = 'EllipseChartGraphic'
 
   @ResponseSerialize(ChartGraphicPosition)
-  p1: ChartGraphicPosition | null = null
+  p1: ChartGraphicPosition | null
 
   @ResponseSerialize(ChartGraphicPosition)
-  p2: ChartGraphicPosition | null = null
+  p2: ChartGraphicPosition | null
+
+  constructor(
+    p1: ChartGraphicPosition | null = null,
+    p2: ChartGraphicPosition | null = null,
+    isDone: boolean = false,
+    color: string = '#dddddd'
+  ) {
+    super(isDone, color)
+    this.p1 = p1
+    this.p2 = p2
+  }
 
   cleanCopy() {
     const copy = new EllipseChartGraphic()
@@ -19,11 +30,20 @@ export class EllipseChartGraphic extends ChartGraphic {
     return copy
   }
 
+  clone(): ChartGraphic {
+    return new EllipseChartGraphic(
+      this.p1 ? this.p1.clone() : null,
+      this.p2 ? this.p2.clone() : null,
+      this.isDone,
+      this.color
+    )
+  }
+
   get isValidToSave(): boolean {
     return this.p1 !== null && this.p2 !== null
   }
 
-  build(echart: echarts.ECharts) {
+  build(echart: echarts.ECharts, allowInteraction: boolean) {
     if (!this.p1 || !this.p2) {
       return null
     }
@@ -46,9 +66,19 @@ export class EllipseChartGraphic extends ChartGraphic {
         cy: 0,
         r,
       },
-      onclick: () => {
-        ChartBus.$emit('graphicSelect', this)
-      },
+      draggable: allowInteraction,
+      ondragstart: (e: any) => ChartBus.$emit('graphicDragStart', [e.offsetX, e.offsetY]),
+      ondragend: (e: any) => ChartBus.$emit('graphicDragEnd', { graphic: this, pos: [e.offsetX, e.offsetY] }),
+      onclick: () => ChartBus.$emit('graphicSelect', this),
+    }
+  }
+
+  offsetPosition(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
+      this.p1.increaseBy(echart, x, y)
+    }
+    if (this.p2) {
+      this.p2.increaseBy(echart, x, y)
     }
   }
 

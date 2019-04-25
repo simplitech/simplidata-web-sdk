@@ -10,15 +10,35 @@ export class MeasureChartGraphic extends ChartGraphic {
   name = 'MeasureChartGraphic'
 
   @ResponseSerialize(ChartGraphicPositionWithData)
-  p1: ChartGraphicPositionWithData | null = null
+  p1: ChartGraphicPositionWithData | null
 
   @ResponseSerialize(ChartGraphicPositionWithData)
-  p2: ChartGraphicPositionWithData | null = null
+  p2: ChartGraphicPositionWithData | null
+
+  constructor(
+    p1: ChartGraphicPositionWithData | null = null,
+    p2: ChartGraphicPositionWithData | null = null,
+    isDone: boolean = false,
+    color: string = '#dddddd'
+  ) {
+    super(isDone, color)
+    this.p1 = p1
+    this.p2 = p2
+  }
 
   cleanCopy() {
     const copy = new MeasureChartGraphic()
     copy.color = this.color
     return copy
+  }
+
+  clone(): ChartGraphic {
+    return new MeasureChartGraphic(
+      this.p1 ? this.p1.clone() : null,
+      this.p2 ? this.p2.clone() : null,
+      this.isDone,
+      this.color
+    )
   }
 
   get isValidToSave(): boolean {
@@ -63,7 +83,7 @@ export class MeasureChartGraphic extends ChartGraphic {
     })
   }
 
-  build(echart: echarts.ECharts, colors: string[] | null) {
+  build(echart: echarts.ECharts, allowInteraction: boolean, colors: string[] | null) {
     if (!this.p1 || !this.p2) {
       return null
     }
@@ -91,9 +111,10 @@ export class MeasureChartGraphic extends ChartGraphic {
             width,
             height,
           },
-          onclick: () => {
-            ChartBus.$emit('graphicSelect', this)
-          },
+          draggable: allowInteraction,
+          ondragstart: (e: any) => ChartBus.$emit('graphicDragStart', [e.offsetX, e.offsetY]),
+          ondragend: (e: any) => ChartBus.$emit('graphicDragEnd', { graphic: this, pos: [e.offsetX, e.offsetY] }),
+          onclick: () => ChartBus.$emit('graphicSelect', this),
         },
         {
           type: 'text',
@@ -131,6 +152,15 @@ export class MeasureChartGraphic extends ChartGraphic {
           ],
         })),
       ],
+    }
+  }
+
+  offsetPosition(echart: echarts.ECharts, x: number, y: number) {
+    if (this.p1) {
+      this.p1.increaseBy(echart, x, y)
+    }
+    if (this.p2) {
+      this.p2.increaseBy(echart, x, y)
     }
   }
 

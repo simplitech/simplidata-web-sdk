@@ -11,11 +11,24 @@ import {
   UserSavedChart,
 } from '../../models'
 import ChartBus from '../../utils/ChartBus'
+import hotkeys from 'hotkeys-js'
+import echarts from 'echarts'
 
 export class DrawingState {
   static readonly BASIC_DRAWING_TOOLS = ['Line', 'Ellipse', 'Rectangle']
+  readonly tools = {
+    Line: 'Line',
+    Ellipse: 'Ellipse',
+    Rectangle: 'Rectangle',
+    Pencil: 'Pencil',
+    Text: 'Text',
+    Measure: 'Measure',
+    FibonacciRetraction: 'FibonacciRetraction',
+    Comment: 'Comment',
+  }
 
   value: UserSavedChart
+  echart: echarts.ECharts | null = null
 
   selectedDrawingTool: string | null = null
   lastBasicDrawingTool = 'Line'
@@ -26,12 +39,22 @@ export class DrawingState {
   showEditCommentButtons = false
   warningAboutSavingEmmited = false
 
+  historyToUndo: ChartGraphic[][] = []
+  historyToRedo: ChartGraphic[][] = []
+
+  dragStartX: number | null = null
+  dragStartY: number | null = null
+
   constructor(value: UserSavedChart) {
     this.value = value
     ChartBus.$on('openComment', (comment: CommentChartGraphic) => this.openChartComment(comment))
     ChartBus.$on('cancelDrawing', () => this.clearDrawingTool())
     ChartBus.$on('doneDrawing', () => this.doneDrawing())
     ChartBus.$on('graphicSelect', (g: ChartGraphic) => this.selectGraphic(g))
+    ChartBus.$on('graphicDragStart', (pos: number[]) => this.dragStart(pos))
+    ChartBus.$on('graphicDragEnd', (graphicAndPos: any) => this.dragEnd(graphicAndPos.graphic, graphicAndPos.pos))
+    hotkeys('ctrl+z', () => this.undo())
+    hotkeys('ctrl+shift+z', () => this.redo())
   }
 
   get graphicOfWork(): ChartGraphic | null {
@@ -74,7 +97,30 @@ export class DrawingState {
     return this.graphicOfWorkAsText && this.graphicOfWorkAsText.position !== null
   }
 
+  get canUndo() {
+    return this.historyToUndo.length > 0
+  }
+
+  get canRedo() {
+    return this.historyToRedo.length > 0
+  }
+
+  get graphicOfWorkColor() {
+    return this.graphicOfWork ? this.graphicOfWork.color : null
+  }
+
+  set graphicOfWorkColor(color: string | null) {
+    if (this.graphicSelected) {
+      this.saveToUndo()
+    }
+
+    if (color && this.graphicOfWork) {
+      this.graphicOfWork.color = color
+    }
+  }
+
   selectDrawingTool(newSelected: string) {
+    this.finishWork()
     this.selectedDrawingTool = newSelected
 
     if (DrawingState.BASIC_DRAWING_TOOLS.indexOf(newSelected) > -1) {
@@ -109,11 +155,60 @@ export class DrawingState {
 
   doneDrawing() {
     if (this.graphicOfWork && this.graphicOfWork.isValidToSave) {
+      this.saveToUndo()
+      this.historyToRedo = []
       this.graphicOfWork.isDone = true
       if (this.graphicBeingBuilt) {
         this.value.graphics.push(this.graphicBeingBuilt)
       }
-      this.clearDrawingTool() // TODO: this can be replaced by resetDrawingTool
+      this.clearDrawingTool() // TODO: this can be replaced by resetDrawingTool if we dont want to stop using the tool
+    }
+  }
+
+  trash() {
+    if (this.graphicSelected) {
+      const index = this.value.graphics.indexOf(this.graphicSelected)
+      this.graphicSelected = null
+      if (index > -1) {
+        this.saveToUndo()
+        this.historyToRedo = []
+        this.value.graphics.splice(index, 1)
+      }
+    }
+    this.clearDrawingTool()
+  }
+
+  changeFontSize(fs: number) {
+    if (this.graphicSelected) {
+      this.saveToUndo()
+    }
+
+    if (this.graphicOfWorkAsText) {
+      this.graphicOfWorkAsText.fontSize = fs
+    }
+  }
+
+  saveToUndo() {
+    this.historyToUndo.push(this.value.graphics.map(g => g.clone()))
+  }
+
+  saveToRedo() {
+    this.historyToRedo.push(this.value.graphics.map(g => g.clone()))
+  }
+
+  undo() {
+    const lastState = this.historyToUndo.pop()
+    if (lastState) {
+      this.saveToRedo()
+      this.value.graphics = lastState
+    }
+  }
+
+  redo() {
+    const futureState = this.historyToRedo.pop()
+    if (futureState) {
+      this.saveToUndo()
+      this.value.graphics = futureState
     }
   }
 
@@ -178,6 +273,25 @@ export class DrawingState {
   selectGraphic(graphic: ChartGraphic) {
     if (this.value.graphics.includes(graphic)) {
       this.graphicSelected = graphic
+    }
+  }
+
+  dragStart(pos: number[]) {
+    this.dragStartX = pos[0]
+    this.dragStartY = pos[1]
+  }
+
+  dragEnd(graphic: ChartGraphic, pos: number[]) {
+    if (
+      this.value.graphics.includes(graphic) &&
+      this.dragStartX !== null &&
+      this.dragStartY !== null &&
+      this.echart !== null
+    ) {
+      this.saveToUndo()
+      graphic.offsetPosition(this.echart, pos[0] - this.dragStartX, pos[1] - this.dragStartY)
+      this.dragStartX = null
+      this.dragStartY = null
     }
   }
 }
