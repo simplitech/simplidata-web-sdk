@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.1.0"></a>
+# [9.1.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.0.1...v9.1.0) (2019-04-25)
+
+
+### Features
+
+* **Chart:** implement undo, redo, change font size, move and remove graphic ([96ebf4d](https://github.com/simplitech/simplidata-web-sdk/commit/96ebf4d))
+
+
+
 <a name="9.0.1"></a>
 ## [9.0.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.0.0...v9.0.1) (2019-04-24)
 
