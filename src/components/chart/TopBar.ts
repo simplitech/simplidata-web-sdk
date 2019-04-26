@@ -7,17 +7,15 @@ const template = `
       v-model="value.chartType"
       :items="allChartTypes.items"/>
     
-    <input
+    <input-date
       v-if="showDateNavigator"
-      v-model="startStrLimiter"
-      type="date"
+      v-model="value.startDtLimiter"
       class="w-190 mr-10"
       :placeholder="$t('view.chart.start')"/>
     
-    <input
+    <input-date
       v-if="showDateNavigator"
-      v-model="endStrLimiter"
-      type="date"
+      v-model="value.endDtLimiter"
       class="w-190"
       :placeholder="$t('view.chart.end')"/>
       
@@ -37,15 +35,15 @@ const template = `
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
-import moment from 'moment'
 import { UserSavedChart, ChartType } from '../../models'
 import { Collection } from '../../simpli'
 import { SelectGroup } from '../SelectGroup'
+import { InputDate } from '../InputDate'
 import { colors } from '../../const/colors.const'
 
 @Component({
   template,
-  components: { SelectGroup },
+  components: { SelectGroup, InputDate },
 })
 export default class TopBar extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
@@ -69,46 +67,6 @@ export default class TopBar extends Vue {
   allChartTypes = new Collection<ChartType>(ChartType)
   colors = colors
 
-  get startStrLimiter() {
-    return this.value ? this.strLimiterFromDt(this.value.startDtLimiter) : null
-  }
-
-  set startStrLimiter(val) {
-    if (!this.value) {
-      return
-    }
-
-    if (!val) {
-      this.value.startDtLimiter = null
-    }
-
-    const dt = this.dtLimiterFromStr(val)
-
-    if (dt) {
-      this.value.startDtLimiter = dt
-    }
-  }
-
-  get endStrLimiter() {
-    return this.value ? this.strLimiterFromDt(this.value.endDtLimiter) : null
-  }
-
-  set endStrLimiter(val) {
-    if (!this.value) {
-      return
-    }
-
-    if (!val) {
-      this.value.endDtLimiter = null
-    }
-
-    const dt = this.dtLimiterFromStr(val)
-
-    if (dt) {
-      this.value.endDtLimiter = dt
-    }
-  }
-
   async mounted() {
     await this.populateData()
   }
@@ -120,23 +78,5 @@ export default class TopBar extends Vue {
 
     await this.allChartTypes.query()
     this.value.chartType = this.allChartTypes.items[0]
-  }
-
-  strLimiterFromDt(dt: string | null) {
-    return dt ? moment(dt).format('YYYY-MM-DD') : null
-  }
-
-  dtLimiterFromStr(dt: string | null) {
-    if (!dt) {
-      return null
-    }
-
-    const dtMoment = moment(dt)
-
-    if (dtMoment.year() < 1000) {
-      return null
-    }
-
-    return dtMoment.format()
   }
 }

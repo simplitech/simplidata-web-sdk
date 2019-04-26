@@ -12,4 +12,6 @@ import { ChooseOa as ChooseOaComponent } from './ChooseOa'
 const ChooseOa = ChooseOaComponent as VueClass<Vue>
 import { Marquee as MarqueeComponent } from './Marquee'
 const Marquee = MarqueeComponent as VueClass<Vue>
-export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa, Marquee }
+import { InputDate as InputDateComponent } from './InputDate'
+const InputDate = InputDateComponent as VueClass<Vue>
+export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa, Marquee, InputDate }
