@@ -81,9 +81,13 @@ export class OaPeriodicity extends Resource {
     if (this.idOaPeriodicityPk === OaPeriodicity.Daily) {
       m = m.startOf('day')
     } else if (this.idOaPeriodicityPk === OaPeriodicity.Weekly) {
-      m = m.startOf('week')
+      m = m.startOf('isoWeek') // monday
     } else if (this.idOaPeriodicityPk === OaPeriodicity.Biweekly) {
-      m = m.startOf('week') // TODO: corrigir Biweekly
+      m = m.startOf('isoWeek')
+
+      if (m.week() % 2 !== 0) {
+        m.subtract(1, 'week')
+      }
     } else if (this.idOaPeriodicityPk === OaPeriodicity.Monthly) {
       m = m.startOf('month')
     } else if (this.idOaPeriodicityPk === OaPeriodicity.Bimonthly) {
