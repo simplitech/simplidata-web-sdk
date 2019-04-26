@@ -25,6 +25,7 @@ export class Marquee extends Vue {
   hasAnimation: boolean | null = null
 
   controller: number | null = null
+  requestAnimId: number | null = null
 
   get pixelsPerFrame() {
     return this.pps / Math.max(this.fps, 1)
@@ -70,11 +71,23 @@ export class Marquee extends Vue {
   }
 
   startAnimation() {
-    this.controller = window.setInterval(() => this.enterFrameEvent(), Math.max(1000 / this.fps, 1))
+    if (this.fps === 60) {
+      const recursiveAnim = () => {
+        this.enterFrameEvent()
+        this.requestAnimId = window.requestAnimationFrame(recursiveAnim)
+      }
+
+      // start the mainloop
+      this.requestAnimId = window.requestAnimationFrame(recursiveAnim)
+    } else {
+      this.controller = window.setInterval(() => this.enterFrameEvent(), Math.max(1000 / this.fps, 1))
+    }
   }
 
   stopAnimation() {
-    if (this.controller) {
+    if (this.requestAnimId) {
+      window.cancelAnimationFrame(this.requestAnimId)
+    } else if (this.controller) {
       clearInterval(this.controller)
       this.controller = null
     }
