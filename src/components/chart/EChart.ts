@@ -1,6 +1,6 @@
 const template = `
   <div class="echart-holder">
-    <graphic-editor-overlay v-model="value" v-if="showDrawingButtons" :drawingState="drawingState" :echart="echart"/>
+    <graphic-editor-overlay v-model="value" :drawingState="drawingState" :showDrawingButtons="showDrawingButtons" :echart="echart"/>
     <div id="echart" ref="echart" class="h-full" :class="[cursor]"></div>
   </div>
 `

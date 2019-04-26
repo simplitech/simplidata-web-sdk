@@ -1,9 +1,9 @@
 import { OaData } from './OaData'
 import { ModelingResultRoot } from './ModelingResultRoot'
-import { ModelingResultItem } from './ModelingResultItem'
 import { Model, ResponseSerialize } from '../../simpli'
 import { SimpliData } from '../../simplidata'
 import { ModelingRequest } from './ModelingRequest'
+import { ModelingResultItemWithLagResult } from './ModelingResultItemWithLagResult'
 
 export class ModelingResult extends Model {
   // tem em todos modelos:
@@ -54,8 +54,8 @@ export class ModelingResult extends Model {
 
   @ResponseSerialize(OaData)
   forecast: OaData[] = [] // Projeção
-  @ResponseSerialize(ModelingResultItem)
-  itemsResults: ModelingResultItem[] = []
+  @ResponseSerialize(ModelingResultItemWithLagResult)
+  itemsResults: ModelingResultItemWithLagResult[] = []
 
   async get(modelingRequest: ModelingRequest) {
     await this.POST(`${SimpliData.modelingURL}processModel`, modelingRequest, {}, false)

@@ -72,40 +72,6 @@ const template = `
     <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"
        :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Comment}"
        @click="drawingState.selectDrawingTool(drawingState.tools.Comment)"></a>
-    
-    <!-- CHART SHOW COMMENT MODAL -->
-    <div v-if="drawingState.graphicSelectedAsComment" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center verti">
-      <div class="popup p-20 w-450 verti items-center">
-        <a @click="drawingState.closeComment()" class="close w-20 h-20 self-right"></a>
-        <p class="comment-text">
-          {{ drawingState.graphicSelectedAsComment.text }}
-        </p>
-        <a v-if="showDrawingButtons" @click="drawingState.showEditCommentButtons = !drawingState.showEditCommentButtons" class="ctx-hor w-40 h-15 self-right" 
-          :class="{ active: drawingState.showEditCommentButtons}"></a>
-      </div>
-      <div :style="{ opacity: drawingState.showEditCommentButtons ? 1 : 0 }" class="horiz w-450 items-right-center mt-8 transition">
-        <a @click="drawingState.removeCommentOpen()" class="btn basic trash force-min-w-50 force-h-25 mr-6"></a>
-        <a @click="drawingState.editCommentOpen()" class="btn basic edit force-min-w-50 force-h-25"></a>
-      </div>
-    </div>
-    
-    <!-- CHART EDIT COMMENT MODAL -->
-    <div v-if="drawingState.editingComment" class="scrim fixed top-0 left-0 w-window h-window z-modal items-center">
-      <div class="popup p-20 w-450 verti">
-        <input
-          v-focus
-          v-model="drawingState.graphicOfWorkAsComment.text"
-          type="text"
-          class="input-comment mb-15"
-          :placeholder="$t('view.chart.writeYourComment')"/>
-        <div class="horiz items-right-center">
-          <a class="cancel-btn w-50 h-30"
-            @click="drawingState.clearDrawingTool()"></a>
-          <a class="ok-btn w-50 h-30" :class="{ 'opacity-20': !drawingState.graphicOfWork.isValidToSave }"
-             @click="drawingState.doneDrawing()"></a>
-         </div>
-      </div>
-    </div>
 
   </div>
 `
