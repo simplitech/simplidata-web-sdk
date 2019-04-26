@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.1.5"></a>
+## [9.1.5](https://github.com/simplitech/simplidata-web-sdk/compare/v9.1.4...v9.1.5) (2019-04-26)
+
+
+### Bug Fixes
+
+* **Marquee:** use requestAnimationFrame on marquee to improve performance ([9b894d5](https://github.com/simplitech/simplidata-web-sdk/commit/9b894d5))
+
+
+
 <a name="9.1.4"></a>
 ## [9.1.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.1.3...v9.1.4) (2019-04-26)
 
