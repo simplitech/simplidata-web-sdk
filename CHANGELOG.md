@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.1.2"></a>
+## [9.1.2](https://github.com/simplitech/simplidata-web-sdk/compare/v9.1.1...v9.1.2) (2019-04-26)
+
+
+### Bug Fixes
+
+* **OaPeriodicity:** fix getPeriodDate for biweekly ([6896f66](https://github.com/simplitech/simplidata-web-sdk/commit/6896f66))
+
+
+
 <a name="9.1.1"></a>
 ## [9.1.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.1.0...v9.1.1) (2019-04-25)
 
