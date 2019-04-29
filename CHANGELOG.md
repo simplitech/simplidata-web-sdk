@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.2.0"></a>
+# [9.2.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.0.1...v9.2.0) (2019-04-29)
+
+
+### Bug Fixes
+
+* **GraphicEditorOverlay:** fix comment color editing ([c00a4eb](https://github.com/simplitech/simplidata-web-sdk/commit/c00a4eb))
+* **InputDate:** fix problem with date input erasing the whole date when wanting to erase a single pa ([9816e6a](https://github.com/simplitech/simplidata-web-sdk/commit/9816e6a))
+* **lang:** remove unused lang entries ([57ec6f1](https://github.com/simplitech/simplidata-web-sdk/commit/57ec6f1))
+* **Marquee:** use requestAnimationFrame on marquee to improve performance ([9b894d5](https://github.com/simplitech/simplidata-web-sdk/commit/9b894d5))
+* **OaPeriodicity:** fix getPeriodDate for biweekly ([6896f66](https://github.com/simplitech/simplidata-web-sdk/commit/6896f66))
+
+
+### Features
+
+* **Chart:** implement undo, redo, change font size, move and remove graphic ([96ebf4d](https://github.com/simplitech/simplidata-web-sdk/commit/96ebf4d))
+
+
+
 <a name="9.1.5"></a>
 ## [9.1.5](https://github.com/simplitech/simplidata-web-sdk/compare/v9.1.4...v9.1.5) (2019-04-26)
 
