@@ -4,13 +4,11 @@ import Popover from 'vue-js-popover'
 import VueResource from 'vue-resource'
 import { RouterOptions } from 'vue-router'
 import { merge } from 'lodash'
-import VueCtkDateTimePicker from 'vue-ctk-date-time-picker'
 
 import enUs from './locale/en-US/lang'
 import ptBr from './locale/pt-BR/lang'
 
 Vue.use(Popover)
-Vue.component('vue-ctk-date-time-picker', VueCtkDateTimePicker)
 
 /* DEFAULT PROPERTIES *********************************************/
 const defaultApiURL = 'http://simplidata.com:8080/api'
