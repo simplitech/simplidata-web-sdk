@@ -1,7 +1,9 @@
-const {resolve} = require('path')
+const {resolve, join} = require('path')
 const webpack = require('webpack')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const packageName = require('./package.json').name
+const PurgecssPlugin = require('purgecss-webpack-plugin')
+const glob = require('glob-all')
 
 module.exports = {
   mode: 'production', // "production" | "development" | "none"
@@ -117,6 +119,13 @@ module.exports = {
   // lets you precisely control what bundle information gets displayed
 
   plugins: [
+    new PurgecssPlugin({
+      paths: glob.sync([
+        join(__dirname, './../**/*.vue'),
+        join(__dirname, './../src/**/*.js')
+      ]),
+      whitelistPatterns: () => [/^(?!(?:force-|children-|des-|tab-|mob-|bg-|tc-|z-|top-|right-|bottom-|left-|weight-|w-|h-|max-|min-|m-|mx-|my-|mt-|mr-|mb-|ml-|gutter-|split-|p-|px-|py-|pt-|pr-|pb-|pl-|self-|items-|text-|line-h-|f-|ff-|fs-|img-).*).*/],
+    }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
