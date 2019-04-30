@@ -1,6 +1,6 @@
 {
   "name": "simplidata-web-sdk",
-  "version": "9.2.0",
+  "version": "9.2.1",
   "description": "Simplidata Web SDK",
   "main": "lib/main.js",
   "typings": "lib/main.d.ts",
