@@ -11,7 +11,8 @@ module.exports = {
 
   entry: {
     [packageName]: [
-      resolve(__dirname, 'src/main.ts')
+      resolve(__dirname, 'src/main.ts'),
+      resolve(__dirname, 'scss/main.scss')
     ],
   },
   // Here the application starts executing
@@ -121,8 +122,8 @@ module.exports = {
   plugins: [
     new PurgecssPlugin({
       paths: glob.sync([
-        join(__dirname, './../**/*.vue'),
-        join(__dirname, './../src/**/*.js')
+        join(__dirname, './src/**/*.vue'),
+        join(__dirname, './src/**/*.ts')
       ]),
       whitelistPatterns: () => [/^(?!(?:force-|children-|des-|tab-|mob-|bg-|tc-|z-|top-|right-|bottom-|left-|weight-|w-|h-|max-|min-|m-|mx-|my-|mt-|mr-|mb-|ml-|gutter-|split-|p-|px-|py-|pt-|pr-|pb-|pl-|self-|items-|text-|line-h-|f-|ff-|fs-|img-).*).*/],
     }),
