@@ -10,6 +10,9 @@
 @import "components/thumbOa";
 @import "components/inputDate";
 
+$radius-base: 8px;
+$padding-base: 8px;
+
 .scrim {
   background: rgba(0,0,0,0.4)
 }
@@ -56,9 +59,20 @@
   background: url("data:image/svg+xml;charset=utf8,%3C?xml version='1.0' encoding='UTF-8'?%3E%3Csvg width='42px' height='26px' viewBox='0 0 42 26' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: sketchtool 52.6 (67491) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3EC85EF82C-D598-4667-BBA9-E1109F199F17%3C/title%3E%3Cdesc%3ECreated with sketchtool.%3C/desc%3E%3Cg id='Design-Dark' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='2.26-Objeto-Comentário' transform='translate(-630.000000, -393.000000)' stroke='%23FFFFFF'%3E%3Cg id='Group-7' transform='translate(327.000000, 301.000000)'%3E%3Cg id='ok-btn' transform='translate(304.000000, 93.000000)'%3E%3Cpath d='M12,0 L28,0 C34.627417,-1.21743675e-15 40,5.372583 40,12 L40,12 C40,18.627417 34.627417,24 28,24 L12,24 C5.372583,24 8.11624501e-16,18.627417 0,12 L0,12 C-8.11624501e-16,5.372583 5.372583,1.21743675e-15 12,0 Z' id='Combined-Shape-Copy' fill-rule='nonzero'%3E%3C/path%3E%3Cpath d='M16,12.9490016 L17.4330968,15.6398036 C17.5433897,15.8577717 17.7264891,15.9918037 17.9246607,15.999637 C18.1228324,16.0074703 18.3116533,15.8881396 18.4315851,15.6792718 L24,8' id='Shape' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E") no-repeat center center;
 }
 
+.transition {
+  -webkit-transition: 300ms all;
+  -moz-transition: 300ms all;
+  -o-transition: 300ms all;
+  transition: 300ms all;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  -o-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
 .frame {
   @extend .transition;
-  @extend .pal-mine-shaft.bg;
+  background: #242424;
   box-shadow: 0 0 30px rgba(0,0,0,0.3) !important;
 
   display: flex;
@@ -106,26 +120,6 @@
     }
   }
 
-  &.rounded {
-    border-radius: $radius-base * 2;
-  }
-
-  &.wide {
-    padding: #{$padding-base * 3};
-
-    @media screen and (max-width: $display-medium) {
-      padding: #{$padding-base * 2};
-    }
-
-    @media screen and (max-width: $display-small) {
-      padding: #{$padding-base};
-    }
-  }
-
-  &.no-padding {
-    padding: 0;
-  }
-
   &:hover {
     .frame-hidden {
       opacity: 1;
@@ -150,94 +144,6 @@
   .col {
     padding: $padding-base;
     margin: 0;
-
-    >.form-group {
-      margin: 0;
-    }
-
-    &.inline {
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    &.col-1 {
-      flex-basis: calc(1/12 * 100%);
-      max-width: calc(1/12 * 100%);
-    }
-    &.col-2 {
-      flex-basis: calc(2/12 * 100%);
-      max-width: calc(2/12 * 100%);
-    }
-    &.col-3 {
-      flex-basis: 25%;
-      max-width: 25%
-    }
-    &.col-4 {
-      flex-basis: calc(4/12 * 100%);
-      max-width: calc(4/12 * 100%);
-    }
-    &.col-5 {
-      flex-basis: calc(5/12 * 100%);
-      max-width: calc(5/12 * 100%);
-    }
-    &.col-6 {
-      flex-basis: 50%;
-      max-width: 50%;
-    }
-    &.col-7 {
-      flex-basis: calc(7/12 * 100%);
-      max-width: calc(7/12 * 100%);
-    }
-    &.col-8 {
-      flex-basis: calc(8/12 * 100%);
-      max-width: calc(8/12 * 100%);
-    }
-    &.col-9 {
-      flex-basis: 75%;
-      max-width: 75%;
-    }
-    &.col-10 {
-      flex-basis: calc(10/12 * 100%);
-      max-width: calc(10/12 * 100%);
-    }
-    &.col-11 {
-      flex-basis: calc(11/12 * 100%);
-      max-width: calc(11/12 * 100%);
-    }
-    &.col-12 {
-      flex-basis: 100%;
-      max-width: 100%;
-    }
-  }
-
-  &.wide {
-    max-width: calc(100% + #{$padding-base * 4});
-    margin: -#{$padding-base * 2};
-    margin-bottom: #{$padding-base * 2};
-
-    .col {
-      padding: #{$padding-base * 2};
-
-      &.inline {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    }
-  }
-
-  &.very-wide {
-    max-width: calc(100% + #{$padding-base * 8});
-    margin: -#{$padding-base * 4};
-    margin-bottom: #{$padding-base * 4};
-
-    .col {
-      padding: #{$padding-base * 4};
-
-      &.inline {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-    }
   }
 
   &.compact {
@@ -247,27 +153,17 @@
 
     .col {
       padding: #{$padding-base / 2};
-
-      &.inline {
-        padding-top: 0;
-        padding-bottom: 0;
-      }
     }
   }
 
   @media only screen and (max-width: $display-small) {
-    &, &.compact, &.wide, &.very-wide {
+    &, &.compact {
       max-width: calc(100% + #{$padding-base / 2});
       margin: -#{$padding-base / 4};
       margin-bottom: #{$padding-base / 4};
 
       .col {
         padding: #{$padding-base / 4};
-
-        &.inline {
-          padding-top: 0;
-          padding-bottom: 0;
-        }
       }
     }
   }
