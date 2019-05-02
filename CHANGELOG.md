@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.3.0"></a>
+# [9.3.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.2.8...v9.3.0) (2019-05-02)
+
+
+### Features
+
+* **ModelingResult:** include lagIndex on lag result ([76cc54c](https://github.com/simplitech/simplidata-web-sdk/commit/76cc54c))
+
+
+
 <a name="9.2.8"></a>
 ## [9.2.8](https://github.com/simplitech/simplidata-web-sdk/compare/v9.2.7...v9.2.8) (2019-05-02)
 
