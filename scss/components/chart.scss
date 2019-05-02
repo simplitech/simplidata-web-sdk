@@ -1,4 +1,6 @@
 .simplidata-chart {
+  background: #1a1a1a;
+
   $drop: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='5' height='4' viewBox='0 0 5 4'%3E%3Cpath fill='%235B5B5B' fill-rule='nonzero' d='M4.945.203A.432.432 0 0 0 4.574 0H.426a.432.432 0 0 0-.371.203.376.376 0 0 0 .006.402l2.074 3.203c.077.12.216.192.365.192.15 0 .288-.073.365-.192L4.939.605a.376.376 0 0 0 .006-.402z'/%3E%3C/svg%3E");
   $calc: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='19' height='20' viewBox='0 0 19 20'%3E%3Cg fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' transform='translate(1 1.2)'%3E%3Cpath d='M5.95 13.6L3.4 11.2M3.4 13.6l2.55-2.4M4.25 4v3.2M5.95 5.6h-3.4M11.05 5.6h3.4M11.05 13.6h3.4M11.05 11.2h3.4'/%3E%3Crect width='17' height='17.6' rx='2.4'/%3E%3C/g%3E%3C/svg%3E");
   $comment: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='21' height='18' viewBox='0 0 21 18'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='%23ACACAC' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.2' d='M19.604 7.4c-.01 3.31-2.662 5.99-5.937 6h-1.98l-3.166 3.2v-3.2H7.333c-3.279 0-5.937-2.686-5.937-6s2.658-6 5.937-6h6.334c3.275.01 5.928 2.69 5.937 6z'/%3E%3C/svg%3E");
@@ -256,14 +258,6 @@
         background: #1a1a1a;
       }
     }
-  }
-
-  .searchCombiner {
-    background: #1A1A1A !important;
-    box-shadow: none !important;
-    border-radius: 28px !important;
-    line-height: 56px !important;
-    padding-left: 20px !important;
   }
 
   .legend {

@@ -9,4 +9,194 @@
     height: 24px;
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath stroke='%2300FF12' d='M12 7.5v9M7.5 12h9'/%3E%3Ccircle cx='12' cy='12' r='11.25' stroke='%235B5B5B'/%3E%3C/g%3E%3C/svg%3E");
   }
+
+
+  .frame {
+    @extend .transition;
+    background: #242424;
+    box-shadow: 0 0 30px rgba(0,0,0,0.3) !important;
+
+    display: flex;
+    border-radius: $radius-base;
+    padding: #{$padding-base * 2};
+    user-select: none;
+
+    @media screen and (max-width: $display-small) {
+      padding: #{$padding-base};
+    }
+
+    .frame-hidden {
+      @extend .transition;
+      opacity: 0;
+    }
+
+    .frame-label {
+      position: absolute;
+      top: 30px;
+      width: 100%;
+    }
+
+    &:not(:hover) {
+      .fade-truncate {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
+    &:hover {
+      .fade-truncate {
+        background: rgba(36, 36, 36, 0.8);
+        box-shadow: 0 18px 20px -10px rgba(0, 0, 0, 0.2) !important;
+
+        padding-bottom: 5px;
+
+        > .truncate-content {
+          max-width: unset;
+        }
+
+        > .truncate-shadow {
+          opacity: 0;
+        }
+      }
+    }
+
+    &:hover {
+      .frame-hidden {
+        opacity: 1;
+      }
+    }
+  }
+
+  .hvr-grow:hover {
+    position: relative;
+    z-index: 10;
+  }
+
+  .rel {
+    position: relative;
+  }
+
+  .img-contain {
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .row {
+    max-width: calc(100% + #{2 * $padding-base});
+    margin: -$padding-base;
+    margin-bottom: $padding-base;
+
+    .col {
+      padding: $padding-base;
+      margin: 0;
+    }
+
+    &.compact {
+      max-width: calc(100% + #{$padding-base});
+      margin: -#{$padding-base / 2};
+      margin-bottom: #{$padding-base / 2};
+
+      .col {
+        padding: #{$padding-base / 2};
+      }
+    }
+
+    @media only screen and (max-width: $display-small) {
+      &, &.compact {
+        max-width: calc(100% + #{$padding-base / 2});
+        margin: -#{$padding-base / 4};
+        margin-bottom: #{$padding-base / 4};
+
+        .col {
+          padding: #{$padding-base / 4};
+        }
+      }
+    }
+  }
+
+  button, input[type=submit], .btn {
+    @extend .transition;
+    background: #242424;
+    color: rgba(255, 255, 255, 0.8);
+    @extend .truncate;
+
+    font-size: 12px;
+    letter-spacing: 1px;
+    height: 35px;
+    line-height: 35px;
+    border: none;
+    border-radius: 20px;
+    min-width: 90px;
+    max-width: 100%;
+    outline: none;
+    cursor: pointer;
+    padding: 0 24px;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    user-select: none;
+
+    &.icon {
+      text-align: center;
+      font-size: 20px;
+      min-width: unset;
+      width: 35px;
+      padding: 0 !important;
+
+      i {
+        display: block;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        letter-spacing: normal;
+      }
+
+      img {
+        object-fit: cover;
+        width: 15px;
+        height: 15px;
+      }
+
+      &.compact {
+        width: 25px;
+
+        i {
+          width: 25px;
+          height: 25px;
+          line-height: 25px;
+        }
+
+        img {
+          width: 15px;
+          height: 15px;
+        }
+      }
+    }
+
+    &.mini {
+      font-size: 8px;
+      height: 20px;
+      line-height: 20px;
+      padding: 0 8px;
+    }
+
+    &:hover {
+      background: lighten(#242424, 15%);
+      color: white;
+    }
+
+    &.dark-basic {
+      color: rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: none;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.2);
+      }
+    }
+  }
+
 }
