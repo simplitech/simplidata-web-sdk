@@ -12,8 +12,8 @@ import moment from 'moment'
   template,
 })
 export class InputDate extends Vue {
-  @Prop({ type: String, required: true })
-  value!: string
+  @Prop({ type: String, default: null })
+  value!: string | null
   @Prop({ type: String })
   placeholder?: string
 
