@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.2.8"></a>
+## [9.2.8](https://github.com/simplitech/simplidata-web-sdk/compare/v9.2.7...v9.2.8) (2019-05-02)
+
+
+
 <a name="9.2.7"></a>
 ## [9.2.7](https://github.com/simplitech/simplidata-web-sdk/compare/v9.2.6...v9.2.7) (2019-04-30)
 
