@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.4.0"></a>
+# [9.4.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.2.8...v9.4.0) (2019-05-06)
+
+
+### Bug Fixes
+
+* **Chart:** fix drawing when mouse leaves the chart; fix moving drawing without this intention ([3be0960](https://github.com/simplitech/simplidata-web-sdk/commit/3be0960))
+* **lang:** add removed texts of registration fields ([c7b97b1](https://github.com/simplitech/simplidata-web-sdk/commit/c7b97b1))
+* **main.scss:** fix css ([04cac49](https://github.com/simplitech/simplidata-web-sdk/commit/04cac49))
+* fix css ([2867d41](https://github.com/simplitech/simplidata-web-sdk/commit/2867d41))
+
+
+### Features
+
+* **ModelingResult:** include lagIndex on lag result ([76cc54c](https://github.com/simplitech/simplidata-web-sdk/commit/76cc54c))
+
+
+
 <a name="9.3.4"></a>
 ## [9.3.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.3...v9.3.4) (2019-05-06)
 
