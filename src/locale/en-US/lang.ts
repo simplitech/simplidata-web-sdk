@@ -117,10 +117,39 @@ export default {
   },
 
   classes: {
-    User: {
+    Address: {
+      title: 'Address',
       columns: {
+        idAddressPk: 'ID',
+        zipcode: 'Zipcode',
+        street: 'Street',
+        number: 'Number',
+        complement: 'Complement',
+        city: 'City',
+        state: 'State',
+        latitude: 'Latitude',
+        longitude: 'Longitude',
+        active: 'Active',
+      },
+    },
+    User: {
+      title: 'User',
+      columns: {
+        address: 'Address',
+        idUserPk: 'ID',
+        email: 'E-Mail',
+        password: 'Password',
+        name: 'Full Name',
+        primaryPhone: 'Phone',
+        primaryPhoneRegion: 'Phone Region',
+        primaryPhoneNumber: 'Phone Number',
         personalDocument: 'Personal Document',
         corporateDocument: 'Corporate Document',
+        corporateName: 'Corporate Name',
+        tradingName: 'Trading Name',
+        creationDate: 'Creation Date',
+        active: 'Active',
+        idAddressFk: 'ID Address',
       },
     },
   },

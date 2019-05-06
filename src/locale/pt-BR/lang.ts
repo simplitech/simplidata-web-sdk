@@ -123,10 +123,39 @@ export default {
   },
 
   classes: {
-    User: {
+    Address: {
+      title: 'Endereço',
       columns: {
+        idAddressPk: 'ID',
+        zipcode: 'CEP',
+        street: 'Rua',
+        number: 'Número',
+        complement: 'Complemento',
+        city: 'Cidade',
+        state: 'Estado',
+        latitude: 'Latitude',
+        longitude: 'Longitude',
+        active: 'Ativo',
+      },
+    },
+    User: {
+      title: 'Usuário',
+      columns: {
+        address: 'Endereço',
+        idUserPk: 'ID',
+        email: 'E-Mail',
+        password: 'Senha',
+        name: 'Nome Completo',
+        primaryPhone: 'Telefone',
+        primaryPhoneRegion: 'DDD',
+        primaryPhoneNumber: 'Número de Telefone',
         personalDocument: 'CPF',
         corporateDocument: 'CNPJ',
+        corporateName: 'Razão Social',
+        tradingName: 'Nome Fantasia',
+        creationDate: 'Data de criação',
+        active: 'Ativo',
+        idAddressFk: 'ID Endereço',
       },
     },
   },
