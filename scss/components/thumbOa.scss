@@ -1,17 +1,6 @@
 .thumb-oa {
-  .oa-selected {
-    width: 24px;
-    height: 24px;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='12' cy='11.999' r='11.25' fill='%2300FF12'/%3E%3Cpath stroke='%231A1A1A' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M8.421 12.728l1.462 2.074a.626.626 0 0 0 1.018.03l5.678-5.918'/%3E%3C/g%3E%3C/svg%3E");
-  }
-  .oa-selector {
-    width: 24px;
-    height: 24px;
-    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath stroke='%2300FF12' d='M12 7.5v9M7.5 12h9'/%3E%3Ccircle cx='12' cy='12' r='11.25' stroke='%235B5B5B'/%3E%3C/g%3E%3C/svg%3E");
-  }
 
-
-  .frame {
+  &.frame {
     @extend .transition;
     background: #242424;
     box-shadow: 0 0 30px rgba(0,0,0,0.3) !important;
@@ -68,9 +57,20 @@
     }
   }
 
-  .hvr-grow:hover {
+  &.hvr-grow:hover {
     position: relative;
     z-index: 10;
+  }
+
+  .oa-selected {
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Ccircle cx='12' cy='11.999' r='11.25' fill='%2300FF12'/%3E%3Cpath stroke='%231A1A1A' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M8.421 12.728l1.462 2.074a.626.626 0 0 0 1.018.03l5.678-5.918'/%3E%3C/g%3E%3C/svg%3E");
+  }
+  .oa-selector {
+    width: 24px;
+    height: 24px;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5'%3E%3Cpath stroke='%2300FF12' d='M12 7.5v9M7.5 12h9'/%3E%3Ccircle cx='12' cy='12' r='11.25' stroke='%235B5B5B'/%3E%3C/g%3E%3C/svg%3E");
   }
 
   .rel {
