@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.3.5"></a>
+## [9.3.5](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.4...v9.3.5) (2019-05-06)
+
+
+### Bug Fixes
+
+* **thumbOa.scss:** fix css ([e824078](https://github.com/simplitech/simplidata-web-sdk/commit/e824078))
+
+
+
 <a name="9.3.4"></a>
 ## [9.3.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.3...v9.3.4) (2019-05-06)
 
