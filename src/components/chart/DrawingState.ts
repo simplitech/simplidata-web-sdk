@@ -161,7 +161,7 @@ export class DrawingState {
       if (this.graphicBeingBuilt) {
         this.value.graphics.push(this.graphicBeingBuilt)
       }
-      this.clearDrawingTool() // TODO: this can be replaced by resetDrawingTool if we dont want to stop using the tool
+      this.resetDrawingTool() // This line can be replaced by clearDrawingTool to stop using the tool after using it
     }
   }
 
@@ -233,8 +233,6 @@ export class DrawingState {
   }
 
   resetDrawingTool() {
-    this.selectedDrawingTool = null
-
     if (this.graphicBeingBuilt !== null) {
       this.graphicBeingBuilt = this.graphicBeingBuilt.cleanCopy()
     }
@@ -277,12 +275,15 @@ export class DrawingState {
   }
 
   dragStart(pos: number[]) {
-    this.dragStartX = pos[0]
-    this.dragStartY = pos[1]
+    if (this.selectedDrawingTool === null) {
+      this.dragStartX = pos[0]
+      this.dragStartY = pos[1]
+    }
   }
 
   dragEnd(graphic: ChartGraphic, pos: number[]) {
     if (
+      this.selectedDrawingTool === null &&
       this.value.graphics.includes(graphic) &&
       this.dragStartX !== null &&
       this.dragStartY !== null &&

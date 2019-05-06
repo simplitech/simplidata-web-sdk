@@ -217,7 +217,7 @@ export default class EChart extends Vue {
       }
     }).bind(this)
 
-    el.onmouseup = ((e: MouseEvent) => {
+    const onmouseup = ((e: MouseEvent) => {
       if (!this.value || !this.echart || !this.drawingState.graphicBeingBuilt) {
         return
       }
@@ -226,6 +226,9 @@ export default class EChart extends Vue {
 
       this.updateChartData()
     }).bind(this)
+
+    el.onmouseup = onmouseup
+    el.onmouseleave = onmouseup
   }
 
   buildChartGraphics() {
