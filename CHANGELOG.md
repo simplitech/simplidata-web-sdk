@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.3.4"></a>
+## [9.3.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.3...v9.3.4) (2019-05-06)
+
+
+### Bug Fixes
+
+* **lang:** add removed texts of registration fields ([c7b97b1](https://github.com/simplitech/simplidata-web-sdk/commit/c7b97b1))
+
+
+
 <a name="9.3.3"></a>
 ## [9.3.3](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.2...v9.3.3) (2019-05-06)
 
