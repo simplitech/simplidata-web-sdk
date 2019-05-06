@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.3.3"></a>
+## [9.3.3](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.2...v9.3.3) (2019-05-06)
+
+
+### Bug Fixes
+
+* **Chart:** fix drawing when mouse leaves the chart; fix moving drawing without this intention ([3be0960](https://github.com/simplitech/simplidata-web-sdk/commit/3be0960))
+
+
+
 <a name="9.3.2"></a>
 ## [9.3.2](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.1...v9.3.2) (2019-05-06)
 
