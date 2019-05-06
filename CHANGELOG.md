@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.3.2"></a>
+## [9.3.2](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.1...v9.3.2) (2019-05-06)
+
+
+### Bug Fixes
+
+* **main.scss:** fix css ([04cac49](https://github.com/simplitech/simplidata-web-sdk/commit/04cac49))
+
+
+
 <a name="9.3.1"></a>
 ## [9.3.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.3.0...v9.3.1) (2019-05-06)
 
