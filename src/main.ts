@@ -2,7 +2,7 @@ import './types/echarts'
 import './types/vue-ctk-date-time-picker'
 import './types/vue-js-popover'
 
-import * as Model from './models'
+import * as Entity from './models'
 import * as Enum from './enums'
 import * as Component from './components'
 import * as Const from './const'
@@ -14,4 +14,4 @@ export * from './enums'
 export * from './components'
 export * from './const'
 
-export { Model, Enum, Component, Const }
+export { Entity, Enum, Component, Const }
