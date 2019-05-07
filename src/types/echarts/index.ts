@@ -38,8 +38,8 @@ declare namespace echarts {
       devicePixelRatio?: number
       renderer?: string
       width?: number | string
-      height?: number | string,
-    },
+      height?: number | string
+    }
   ): ECharts
 
   /**
@@ -64,16 +64,14 @@ declare namespace echarts {
    *
    * @param target Chart instance or container.
    */
-  function dispose(target: ECharts | HTMLDivElement | HTMLCanvasElement)
-    : void
+  function dispose(target: ECharts | HTMLDivElement | HTMLCanvasElement): void
 
   /**
    * Returns echart instance of dom container.
    *
    * @param target Chart container.
    */
-  function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement)
-    : ECharts
+  function getInstanceByDom(target: HTMLDivElement | HTMLCanvasElement): ECharts
 
   /**
    * Registers available maps. This can only be used after including
@@ -92,11 +90,7 @@ declare namespace echarts {
    *     See [USA Population Estimates example]
    *     (https://ecomfe.github.io/echarts-examples/public/editor.html?c=map-usa).
    */
-  function registerMap(
-    mapName: string,
-    geoJson: object,
-    specialAreas?: object,
-  ): void
+  function registerMap(mapName: string, geoJson: object, specialAreas?: object): void
 
   /**
    * Registers a theme, should be specified when
@@ -111,7 +105,7 @@ declare namespace echarts {
     /**
      * geoJson data for map
      */
-    geoJson: object,
+    geoJson: object
     /**
      * special areas fro map
      */
@@ -170,11 +164,7 @@ declare namespace echarts {
      * @param {boolean} [lazyUpdate=false] Whether not to update echart
      *     immediately
      */
-    setOption(
-      option: EChartOption,
-      notMerge?: boolean,
-      lazyUpdate?: boolean,
-    ): void
+    setOption(option: EChartOption, notMerge?: boolean, lazyUpdate?: boolean): void
 
     /**
      * Configuration item, data, universal interface, all parameters and
@@ -279,8 +269,7 @@ declare namespace echarts {
      *     coordinate system.
      * @param {string | any[]} value The value to be converted.
      */
-    convertToPixel(finder: string | any, value: string | any[])
-      : string | any[]
+    convertToPixel(finder: string | any, value: string | any[]): string | any[]
 
     /**
      * Convert a point from pixel coordinate to logical coordinate
@@ -292,8 +281,7 @@ declare namespace echarts {
      *     coordinate system.
      * @param {string | any[]} value The value to be converted.
      */
-    convertFromPixel(finder: string | any, value: any[] | string)
-      : any[] | string
+    convertFromPixel(finder: string | any, value: any[] | string): any[] | string
 
     /**
      * Determine whether the given point is in the given coordinate systems or series.
@@ -330,14 +318,14 @@ declare namespace echarts {
      */
     getDataURL(opts: {
       // Exporting format, can be either png, or jpeg
-      type?: string,
+      type?: string
       // Resolution ratio of exporting image, 1 by default.
-      pixelRatio?: number,
+      pixelRatio?: number
       // Background color of exporting image, use backgroundColor in
       // option by default.
-      backgroundColor?: string,
+      backgroundColor?: string
       // Excluded components list. e.g. ['toolbox']
-      excludeComponents?: string[],
+      excludeComponents?: string[]
     }): string
 
     /**
@@ -349,14 +337,14 @@ declare namespace echarts {
      */
     getConnectedDataURL(opts: {
       // Exporting format, can be either png, or jpeg
-      type: string,
+      type: string
       // Resolution ratio of exporting image, 1 by default.
-      pixelRatio: number,
+      pixelRatio: number
       // Background color of exporting image, use backgroundColor in
       // option by default.
-      backgroundColor: string,
+      backgroundColor: string
       // Excluded components list. e.g. ['toolbox']
-      excludeComponents?: string[],
+      excludeComponents?: string[]
     }): string
 
     /**
@@ -371,9 +359,9 @@ declare namespace echarts {
      */
     appendData(opts: {
       // Specify which series the data will be appended to.
-      seriesIndex?: string,
+      seriesIndex?: string
       // The data to be appended.
-      data?: any[]|TypedArray,
+      data?: any[] | TypedArray
     }): void
 
     /**
@@ -397,90 +385,97 @@ declare namespace echarts {
     getModel(): any
   }
 
-  type TypedArray = Int8Array | Uint8Array | Int16Array | Uint16Array
-    | Int32Array | Uint32Array | Uint8ClampedArray | Float32Array
+  type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
     | Float64Array
 
   interface EChartsConvertFinder {
-    seriesIndex?: number,
-    seriesId?: string,
-    seriesName?: string,
-    geoIndex?: number,
-    geoId?: string,
-    geoName?: string,
-    xAxisIndex?: number,
-    xAxisId?: string,
-    xAxisName?: string,
-    yAxisIndex?: number,
-    yAxisId?: string,
-    yAxisName?: string,
-    gridIndex?: number,
+    seriesIndex?: number
+    seriesId?: string
+    seriesName?: string
+    geoIndex?: number
+    geoId?: string
+    geoName?: string
+    xAxisIndex?: number
+    xAxisId?: string
+    xAxisName?: string
+    yAxisIndex?: number
+    yAxisId?: string
+    yAxisName?: string
+    gridIndex?: number
     gridId?: string
     gridName?: string
   }
 
   interface ERectangle {
-    x: number,
-    y: number,
-    width: number,
+    x: number
+    y: number
+    width: number
     height: number
   }
 
   interface EChartOption {
     title?: EChartTitleOption
-    legend?: object,
-    grid?: object,
-    xAxis?: object,
-    yAxis?: object,
-    polar?: object,
-    radiusAxis?: object,
-    angleAxis?: object,
-    radar?: object,
-    dataZoom?: object[],
-    visualMap?: object[],
-    tooltip?: object,
-    axisPointer?: object,
-    toolbox?: object,
-    brush?: object,
-    geo?: object,
-    parallel?: object,
-    parallelAxis?: object,
-    singleAxis?: object,
-    timeline?: object,
-    graphic?: object | object[],
-    calendar?: object,
-    dataset?: object,
-    aria?: object,
-    series?: object[],
-    color?: string[],
-    backgroundColor?: string,
-    textStyle?: object,
-    animation?: boolean,
-    animationThreshold?: number,
-    animationDuration?: number,
-    animationEasing?: string,
-    animationDelay?: number | Function,
-    animationDurationUpdate?: number | Function,
-    animationEasingUpdate?: string,
-    animationDelayUpdate?: number | Function,
-    progressive?: number,
-    progressiveThreshold?: number,
-    blendMode?: string,
-    hoverLayerThreshold?: number,
-    useUTC?: boolean,
+    legend?: object
+    grid?: object
+    xAxis?: object
+    yAxis?: object
+    polar?: object
+    radiusAxis?: object
+    angleAxis?: object
+    radar?: object
+    dataZoom?: object[]
+    visualMap?: object[]
+    tooltip?: object
+    axisPointer?: object
+    toolbox?: object
+    brush?: object
+    geo?: object
+    parallel?: object
+    parallelAxis?: object
+    singleAxis?: object
+    timeline?: object
+    graphic?: object | object[]
+    calendar?: object
+    dataset?: object
+    aria?: object
+    series?: object[]
+    color?: string[]
+    backgroundColor?: string
+    textStyle?: object
+    animation?: boolean
+    animationThreshold?: number
+    animationDuration?: number
+    animationEasing?: string
+    animationDelay?: number | Function
+    animationDurationUpdate?: number | Function
+    animationEasingUpdate?: string
+    animationDelayUpdate?: number | Function
+    progressive?: number
+    progressiveThreshold?: number
+    blendMode?: string
+    hoverLayerThreshold?: number
+    useUTC?: boolean
     /** echarts-gl options */
-    globe?: object,
-    geo3D?: object,
-    mapbox3D?: object,
-    grid3D?: object,
-    xAxis3D?: object,
-    yAxis3D?: object,
+    globe?: object
+    geo3D?: object
+    mapbox3D?: object
+    grid3D?: object
+    xAxis3D?: object
+    yAxis3D?: object
     zAxis3D?: object
   }
 
   interface EChartsOptionConfig {
-    notMerge?: boolean,
-    lazyUpdate?: boolean,
+    notMerge?: boolean
+    lazyUpdate?: boolean
     silent?: boolean
   }
 
@@ -488,12 +483,12 @@ declare namespace echarts {
     /**
      * Chart width.
      */
-    width?: number | string,
+    width?: number | string
 
     /**
      * Chart height.
      */
-    height?: number | string,
+    height?: number | string
 
     /**
      * Specify whether or not to prevent triggering events.
@@ -502,7 +497,7 @@ declare namespace echarts {
   }
 
   interface EChartsDataZoomEvent {
-    type: string,
+    type: string
     // percentage of zoom start position, 0 - 100
     start: number
     // percentage of zoom finish position, 0 - 100
@@ -516,28 +511,28 @@ declare namespace echarts {
   interface EChartTitleOption {
     show?: boolean
     text?: string
-    link?: string,
-    target?: string,
-    textStyle?: object,
-    subtext?: string,
-    sublink?: string,
-    subtarget?: string,
-    subtextStyle?: object,
-    padding?: number,
-    itemGap?: number,
-    zlevel?: number,
-    z?: number,
-    left?: string,
-    top?: string,
-    right?: string,
-    bottom?: string,
-    backgroundColor?: string,
-    borderColor?: string,
-    borderWidth?: number,
-    shadowBlur?: number,
-    shadowColor?: number,
-    shadowOffsetX?: number,
-    shadowOffsetY?: number,
+    link?: string
+    target?: string
+    textStyle?: object
+    subtext?: string
+    sublink?: string
+    subtarget?: string
+    subtextStyle?: object
+    padding?: number
+    itemGap?: number
+    zlevel?: number
+    z?: number
+    left?: string
+    top?: string
+    right?: string
+    bottom?: string
+    backgroundColor?: string
+    borderColor?: string
+    borderWidth?: number
+    shadowBlur?: number
+    shadowColor?: number
+    shadowOffsetX?: number
+    shadowOffsetY?: number
   }
 
   interface EChartsLoadingOption {
@@ -545,25 +540,25 @@ declare namespace echarts {
      * Loading text.
      * @default 'loading'
      */
-    text?: string,
+    text?: string
 
     /**
      * Loading circle color.
      * @default '#c23531'
      */
-    color?: string,
+    color?: string
 
     /**
      * Loading text color.
      * @default '#000'
      */
-    textColor?: string,
+    textColor?: string
 
     /**
      * Mask background color.
      * @default 'rgba(255, 255, 255, 0.8)'
      */
-    maskColor?: string,
+    maskColor?: string
 
     /**
      * Zlevel of loading. If not 0, it creates a new canvas for loading.
