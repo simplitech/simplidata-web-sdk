@@ -7,7 +7,10 @@ $simple-line-font-path: "~simple-line-icons/fonts/" !default;
 
 @import "vendor/vue-ctk-date-time-picker";
 
+@import "circular-std";
+
 @import "components/chart";
+@import "components/chooseOa";
 @import "components/savechart";
 @import "components/selectGroup";
 @import "components/thumbOa";
@@ -71,12 +74,4 @@ $padding-base: 8px;
   -moz-transition-timing-function: ease-in-out;
   -o-transition-timing-function: ease-in-out;
   transition-timing-function: ease-in-out;
-}
-
-.searchCombiner {
-  background: #1A1A1A !important;
-  box-shadow: none !important;
-  border-radius: 28px !important;
-  line-height: 56px !important;
-  padding-left: 20px !important;
 }

@@ -1,4 +1,5 @@
 .thumb-oa {
+  font-family: 'CircularStd', sans-serif;
 
   &.frame {
     @extend .transition;
@@ -162,6 +163,8 @@
 
       &.compact {
         width: 25px;
+        height: 24px;
+        line-height: 24px;
 
         i {
           width: 25px;

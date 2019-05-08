@@ -1,5 +1,5 @@
 const template = `
-  <div>
+  <div class="save-chart">
     <await name="save">
       <div class="verti">
         <div v-if="myCollections.items.length" class="saved-collections verti mt-10 mx-10">

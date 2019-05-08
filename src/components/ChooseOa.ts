@@ -1,5 +1,5 @@
 const template = `
-  <div class="darkerscrim fixed top-0 left-0 w-window z-scrim items-center">
+  <div class="choose-oa darkerscrim fixed top-0 left-0 w-window z-scrim items-center">
     <div class="pt-20 des-mx-80 tab-mx-20 verti items-center w-full h-window">
       <a @click="$emit('close')" class="close w-20 h-20 self-right"></a>
       <h1 class="mt-0 mb-40">{{ $t('view.chart.chooseTheOaToCombineInTheTransformation') }}</h1>

@@ -1,4 +1,6 @@
 .input-date {
+  font-family: 'CircularStd', sans-serif;
+
   input[type=date]::-webkit-inner-spin-button,
   input[type=date]::-webkit-calendar-picker-indicator {
     display: none;
