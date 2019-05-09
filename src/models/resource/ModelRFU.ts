@@ -13,11 +13,20 @@ export class ModelRFU extends ItemRFU {
   @ResponseSerialize(ItemRFU)
   itemsRFU!: ItemRFU[]
 
+  private pModelResult: ModelingResult | null = null
+
   @Exclude({ toPlainOnly: true })
   @ResponseSerialize(ModelingResult)
-  modelResult?: ModelingResult
+  get modelResult(): ModelingResult | null {
+    return this.pModelResult
+  }
 
-  forecastColorIndex?: number
+  set modelResult(val: ModelingResult | null) {
+    this.pModelResult = val
+    if (val && this.frequency) {
+      this.setDataListRFU(val.forecast, this.frequency)
+    }
+  }
 
   constructor(model: Model | null, itemsRFU: ItemRFU[] = []) {
     super()
@@ -25,6 +34,11 @@ export class ModelRFU extends ItemRFU {
       this.model = model
     }
     this.itemsRFU = itemsRFU
+
+    const irfuWFrequency = this.itemsRFU.find(i => i.frequency !== null)
+    if (irfuWFrequency) {
+      this.frequency = irfuWFrequency.frequency
+    }
   }
 
   get contentTitle() {

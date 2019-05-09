@@ -39,7 +39,6 @@ import { UserSavedChart, ChartType } from '../../models'
 import { Collection } from '../../simpli'
 import { SelectGroup } from '../SelectGroup'
 import { InputDate } from '../InputDate'
-import { colors } from '../../const/colors.const'
 
 @Component({
   template,
@@ -64,8 +63,10 @@ export default class TopBar extends Vue {
   @Prop({ type: Number })
   selectedDatasetIndex?: number
 
+  @Prop({ type: Array, required: true })
+  colors!: string[]
+
   allChartTypes = new Collection<ChartType>(ChartType)
-  colors = colors
 
   async mounted() {
     await this.populateData()

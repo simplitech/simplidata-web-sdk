@@ -37,7 +37,7 @@ export class ChartType extends Resource {
   @ResponseSerialize(ObjectOfAnalysis)
   oaChartTypeAvailability: ObjectOfAnalysis[] = []
 
-  idChartTypePk: ID = 0
+  idChartTypePk: ID = ChartType.LINE
 
   @ValidationRequired()
   @ValidationMaxLength(100)

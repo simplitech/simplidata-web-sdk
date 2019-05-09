@@ -53,7 +53,6 @@ const template = `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import { UserSavedChart, ObjectOfAnalysisRFU } from '../../models'
-import { colors } from '../../const/colors.const'
 import TransformationsEditor from './TransformationsEditor'
 import VersionChooser from './VersionChooser'
 import { sleep } from '../../simpli'
@@ -81,7 +80,9 @@ export default class RightPanel extends Vue {
   @Prop({ type: Boolean, default: false })
   showOaVersionControl?: boolean
 
-  colors = colors
+  @Prop({ type: Array, required: true })
+  colors!: string[]
+
   collapsed = false
 
   async toggleCollapse() {

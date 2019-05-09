@@ -155,8 +155,10 @@ export class UserSavedChart extends Resource {
         }
 
         return oarfuClean
+      } else {
+        // TODO: fazer pra model tb
+        console.log('ARRUMAR AQUI')
       }
-      // TODO: fazer pra model tb
 
       return irfu
     })
@@ -173,6 +175,7 @@ export class UserSavedChart extends Resource {
         realIrfu = oarfu
       } else {
         // TODO: fazer pra model tb
+        console.log('ARRUMAR AQUI')
         realIrfu = plainToClass<ItemRFU, object>(ItemRFU, irfu)
       }
 
@@ -222,6 +225,7 @@ export class UserSavedChart extends Resource {
     }
 
     const map: MapOfDateAndValues = {}
+    const dtFormat: string = $.t('system.format.date').toString()
 
     this.itensRFU.forEach((item: ItemRFU, index: number) => {
       if (!this.oaVersionIds) {
@@ -229,7 +233,6 @@ export class UserSavedChart extends Resource {
       }
 
       item.dataListRFU.forEach((data: OaData) => {
-        const dtFormat: string = $.t('system.format.date').toString()
         const formattedDate = moment(data.dt).format(dtFormat)
 
         if (!map[formattedDate]) {
@@ -250,6 +253,10 @@ export class UserSavedChart extends Resource {
       }
     }
 
-    return result
+    const sorted = result.sort((a, b) => {
+      return moment(a[0], dtFormat).diff(moment(b[0], dtFormat))
+    })
+
+    return sorted
   }
 }

@@ -9,7 +9,6 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator'
 import echarts from 'echarts'
 import moment from 'moment'
 import { UserSavedChart, ChartType } from '../../models'
-import { colors } from '../../const/colors.const'
 import { error } from '../../simpli'
 import GraphicEditorOverlay from './GraphicEditorOverlay'
 import { DrawingState } from './DrawingState'
@@ -20,7 +19,7 @@ import { DrawingState } from './DrawingState'
 })
 export default class EChart extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
-  value?: UserSavedChart
+  value!: UserSavedChart
 
   @Prop({ type: Object, required: true })
   drawingState!: DrawingState
@@ -28,8 +27,10 @@ export default class EChart extends Vue {
   @Prop({ type: Boolean, default: true })
   showDrawingButtons!: boolean
 
+  @Prop({ type: Array, required: true })
+  colors!: string[]
+
   echart: echarts.ECharts | null = null
-  colors = colors
 
   get chartOptions() {
     return {
@@ -49,11 +50,11 @@ export default class EChart extends Vue {
   }
 
   get startIndexLimiter() {
-    return this.value ? this.indexLimiterFromDt(this.value.startDtLimiter, true) : null
+    return this.indexLimiterFromDt(this.value.startDtLimiter, true)
   }
 
   set startIndexLimiter(val) {
-    if (!this.value || !val) {
+    if (!val) {
       return
     }
 
@@ -61,11 +62,11 @@ export default class EChart extends Vue {
   }
 
   get endIndexLimiter() {
-    return this.value ? this.indexLimiterFromDt(this.value.endDtLimiter, false) : null
+    return this.indexLimiterFromDt(this.value.endDtLimiter, false)
   }
 
   set endIndexLimiter(val) {
-    if (!this.value || !val) {
+    if (!val) {
       return
     }
 
@@ -117,19 +118,18 @@ export default class EChart extends Vue {
 
   @Watch('value.chartData')
   @Watch('value.chartType')
+  @Watch('value.itensRFU')
   @Watch('dataZoom')
   @Watch('chartGraphics')
   @Watch('drawingState.graphicBeingBuilt')
   @Watch('drawingState.graphicBeingBuilt.text')
   @Watch('value.graphics', { deep: true })
   updateChartData() {
-    if (!this.echart || !this.value) {
+    if (!this.echart) {
       return
     }
 
     const typeConfig = (index = 0) => {
-      if (!this.value) return {}
-
       const type = this.value.chartType
 
       if (type.$id === ChartType.LINE) {
@@ -148,7 +148,7 @@ export default class EChart extends Vue {
           type: 'line',
           smooth: true,
           areaStyle: {
-            color: colors[index],
+            color: this.colors[index],
           },
         }
       }
@@ -185,7 +185,7 @@ export default class EChart extends Vue {
     this.echart.setOption(this.chartOptions)
 
     this.echart.on('dataZoom', (e: echarts.EChartsDataZoomEvent) => {
-      if (!this.echart || !this.echart.getModel() || !this.value) {
+      if (!this.echart || !this.echart.getModel()) {
         return
       }
       const axis = this.echart.getModel().option.xAxis[0]
@@ -218,7 +218,7 @@ export default class EChart extends Vue {
     }).bind(this)
 
     const onmouseup = ((e: MouseEvent) => {
-      if (!this.value || !this.echart || !this.drawingState.graphicBeingBuilt) {
+      if (!this.echart || !this.drawingState.graphicBeingBuilt) {
         return
       }
 
@@ -232,7 +232,7 @@ export default class EChart extends Vue {
   }
 
   buildChartGraphics() {
-    if (!this.echart || !this.value) {
+    if (!this.echart) {
       return
     }
 
@@ -240,10 +240,13 @@ export default class EChart extends Vue {
 
     const graphic: any[] = []
 
-    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, this.showDrawingButtons, colors)))
+    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, this.showDrawingButtons, this.colors)))
 
     if (this.drawingState.graphicBeingBuilt) {
-      this.addGraphic(graphic, this.drawingState.graphicBeingBuilt.build(this.echart, this.showDrawingButtons, colors))
+      this.addGraphic(
+        graphic,
+        this.drawingState.graphicBeingBuilt.build(this.echart, this.showDrawingButtons, this.colors)
+      )
     }
 
     return graphic
@@ -270,7 +273,7 @@ export default class EChart extends Vue {
   }
 
   indexLimiterFromDt(dt: string | null, after: boolean) {
-    if (!this.value || !this.value.chartData || !dt) {
+    if (!this.value.chartData || !dt) {
       return null
     }
 
@@ -303,7 +306,7 @@ export default class EChart extends Vue {
   }
 
   dtLimiterFromIndex(index: number) {
-    if (this.value && this.value.chartData && this.value.chartData[index]) {
+    if (this.value.chartData && this.value.chartData[index]) {
       const dtFormat: string = this.$t('system.format.date').toString()
       return moment(this.value.chartData[index][0], dtFormat).format('YYYY-MM-DD')
     } else {

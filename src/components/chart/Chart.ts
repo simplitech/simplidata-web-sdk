@@ -21,6 +21,7 @@ const template = `
           :showLegend="showLegend"
           :showAdvancedAnalysisButton="alreadyShowAdvancedAnalysisButton"
           :selectedDatasetIndex="selectedDatasetIndex"
+          :colors="colors"
           @advancedClick="$emit('advancedClick')"
           @legendClick="onLegendClick"/>
 
@@ -29,6 +30,7 @@ const template = `
           v-show="!chartTypeTableSelected"
           :drawingState="drawingState"
           :showDrawingButtons="showDrawingButtons"
+          :colors="colors"
           ref="echart" class="min-h-400 weight-1"/>
           
         <table-chart v-model="value" 
@@ -46,6 +48,7 @@ const template = `
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
         :showOaVersionControl="showOaVersionControl"
+        :colors="colors"
         @visitClick="$emit('visitClick')"
         @collapseChange="refresh"/>
 
@@ -56,6 +59,7 @@ const template = `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU, ChartType } from '../../models'
+import { colors } from '../../const/colors.const'
 import ToolButtons from './ToolButtons'
 import TopBar from './TopBar'
 import EChart from './EChart'
@@ -122,6 +126,9 @@ export class Chart extends Vue {
 
   @Prop({ type: Number })
   selectedDatasetIndex?: number
+
+  @Prop({ type: Array, default: () => colors })
+  colors!: string[]
 
   drawingState = new DrawingState(this.value)
   dataLoaded = false

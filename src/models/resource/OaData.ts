@@ -35,9 +35,11 @@ export class OaData extends Resource {
   idOaDataPk: ID = 0
 
   @ValidationRequired()
+  @ResponseSerialize(Number)
   value: number | null = null
 
   @ValidationRequired()
+  @ResponseSerialize(String)
   dt: string = ''
 
   @Exclude({ toPlainOnly: true })
