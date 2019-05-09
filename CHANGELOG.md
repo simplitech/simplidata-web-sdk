@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.5.0"></a>
+# [9.5.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.4.7...v9.5.0) (2019-05-09)
+
+
+### Features
+
+* **Chart:** allow custom colors, improve better reactivity, make line the default chart type ([ca51e72](https://github.com/simplitech/simplidata-web-sdk/commit/ca51e72))
+
+
+
 <a name="9.4.7"></a>
 ## [9.4.7](https://github.com/simplitech/simplidata-web-sdk/compare/v9.4.6...v9.4.7) (2019-05-08)
 
