@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.6.1"></a>
+## [9.6.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.0...v9.6.1) (2019-05-16)
+
+
+### Bug Fixes
+
+* **Chart:** fix text tool quiting on mouse leave ([4bb7644](https://github.com/simplitech/simplidata-web-sdk/commit/4bb7644))
+
+
+
 <a name="9.6.0"></a>
 # [9.6.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.4.6...v9.6.0) (2019-05-10)
 
