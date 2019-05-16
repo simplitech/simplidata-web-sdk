@@ -84,9 +84,13 @@ export class TextChartGraphic extends ChartGraphic {
     return false // mousemove is always irrelevant
   }
 
+  mouseleave(echart: echarts.ECharts, x: number, y: number) {
+    // nothing
+  }
+
   mouseup(echart: echarts.ECharts, x: number, y: number) {
     if (this.isValidToSave) {
-      ChartBus.$emit('doneDrawing')
+      ChartBus.$emit('doneDrawing', true) // true to stop using the tool
     } else if (!this.position) {
       this.position = new ChartGraphicPosition()
       this.position.set(echart, x, y)

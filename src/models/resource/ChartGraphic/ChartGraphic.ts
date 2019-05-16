@@ -18,4 +18,8 @@ export abstract class ChartGraphic {
     this.isDone = isDone
     this.color = color
   }
+
+  mouseleave(echart: echarts.ECharts, x: number, y: number) {
+    this.mouseup(echart, x, y)
+  }
 }

@@ -49,7 +49,7 @@ export class DrawingState {
     this.value = value
     ChartBus.$on('openComment', (comment: CommentChartGraphic) => this.openChartComment(comment))
     ChartBus.$on('cancelDrawing', () => this.clearDrawingTool())
-    ChartBus.$on('doneDrawing', () => this.doneDrawing())
+    ChartBus.$on('doneDrawing', (stopUsingTool?: boolean) => this.doneDrawing(stopUsingTool))
     ChartBus.$on('graphicSelect', (g: ChartGraphic) => this.selectGraphic(g))
     ChartBus.$on('graphicDragStart', (pos: number[]) => this.dragStart(pos))
     ChartBus.$on('graphicDragEnd', (graphicAndPos: any) => this.dragEnd(graphicAndPos.graphic, graphicAndPos.pos))
@@ -153,15 +153,21 @@ export class DrawingState {
     this.graphicSelectedAsComment.isDone = false
   }
 
-  doneDrawing() {
+  doneDrawing(stopUsingTool: boolean = false) {
     if (this.graphicOfWork && this.graphicOfWork.isValidToSave) {
       this.saveToUndo()
       this.historyToRedo = []
       this.graphicOfWork.isDone = true
+
       if (this.graphicBeingBuilt) {
         this.value.graphics.push(this.graphicBeingBuilt)
       }
-      this.resetDrawingTool() // This line can be replaced by clearDrawingTool to stop using the tool after using it
+
+      if (stopUsingTool) {
+        this.clearDrawingTool()
+      } else {
+        this.resetDrawingTool()
+      }
     }
   }
 
