@@ -36,6 +36,9 @@ export default class EChart extends Vue {
     return {
       grid: { right: 25, left: '10%', top: '5%' },
       tooltip: { trigger: 'axis' },
+      textStyle: {
+        color: '#666',
+      },
       xAxis: {
         type: 'category',
       },
