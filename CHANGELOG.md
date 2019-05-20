@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.6.2"></a>
+## [9.6.2](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.1...v9.6.2) (2019-05-20)
+
+
+### Bug Fixes
+
+* **Echart:** make chart axis text color brighter ([3d5e424](https://github.com/simplitech/simplidata-web-sdk/commit/3d5e424))
+
+
+
 <a name="9.6.1"></a>
 ## [9.6.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.0...v9.6.1) (2019-05-16)
 
