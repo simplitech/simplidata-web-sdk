@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.6.4"></a>
+## [9.6.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.3...v9.6.4) (2019-05-21)
+
+
+### Bug Fixes
+
+* **SaveChart:** remove preview of options when savechart popover is not ready yet ([89af2cd](https://github.com/simplitech/simplidata-web-sdk/commit/89af2cd))
+
+
+
 <a name="9.6.3"></a>
 ## [9.6.3](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.2...v9.6.3) (2019-05-21)
 
