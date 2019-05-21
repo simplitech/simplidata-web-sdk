@@ -1,37 +1,33 @@
 const template = `
-  <div class="thumb-oa frame hvr-grow min-h-200">
-    <div class="verti w-full rel">
-
-      <div class="row compact horiz nowrap items-center">
+  <div class="thumb-oa">
+    <div class="thumb-inner verti w-full">
+      <div class="row horiz nowrap items-center">
         <div class="col weight-1" :style="{maxWidth: 'calc(100% - 65px)'}">
-          <a class="btn mini dark-basic" v-if="oa.plan && oa.plan.$id !== PlanID.NO_PLAN">
+          <a class="btn mini" v-if="oa.plan && oa.plan.$id !== PlanID.NO_PLAN">
             {{oa.plan.$tag}}
           </a>
         </div>
-
-        <div class="col frame-hidden">
-          <a v-if="showPlus" @click="saveClick" class="btn icon compact mr-4">
+  
+        <div class="col hidden-options">
+          <a v-if="showPlus" @click="saveClick" class="btn icon mr-4">
             <i class="icon-plus icon"></i>
           </a>
-
-          <a v-if="showDownload" @click="saveClick" class="btn icon compact">
+  
+          <a v-if="showDownload" @click="saveClick" class="btn icon">
             <i class="icon-cloud-download icon"></i>
           </a>
         </div>
-
+  
         <div v-if="selectable" class="col" :class="[selected ? 'oa-selected' : 'oa-selector']"></div>
       </div>
-
-      <a @click="$emit('navigate')" class="frame-label display mini fade-truncate">
-        <div class="truncate-shadow"></div>
-        <div class="truncate-content">
-          {{oa.$tag}}
-        </div>
+  
+      <a @click="$emit('navigate')" class="oa-title">
+        {{oa.$tag}}
       </a>
-
-      <div class="weight-1 items-center">
-        <img :src="oa.$thumbnail" class="img-contain" alt="graph">
-      </div>
+  
+      <a @click="$emit('navigate')" class="weight-1 items-center">
+        <img :src="oa.$thumbnail" class="chart-img" alt="graph">
+      </a>
     </div>
   </div>
   
