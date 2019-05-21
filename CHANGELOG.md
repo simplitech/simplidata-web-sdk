@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.6.5"></a>
+## [9.6.5](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.4...v9.6.5) (2019-05-21)
+
+
+### Bug Fixes
+
+* **RightPanel:** add an option to make the rightpanel scrollable to not make the chart increase heig ([24d5ed8](https://github.com/simplitech/simplidata-web-sdk/commit/24d5ed8))
+
+
+
 <a name="9.6.4"></a>
 ## [9.6.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.3...v9.6.4) (2019-05-21)
 
