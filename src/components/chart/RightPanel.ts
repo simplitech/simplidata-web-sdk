@@ -1,5 +1,5 @@
 const template = `
-  <div class="rightpanel horiz">
+  <div class="rightpanel horiz auto-scroll">
   
     <a class="collapse w-8 h-20 self-center m-5 mr-15"
       @click="toggleCollapse" :class="{ collapsed }"></a>

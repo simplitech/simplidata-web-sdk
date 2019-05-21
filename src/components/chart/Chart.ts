@@ -50,7 +50,8 @@ const template = `
         :showOaVersionControl="showOaVersionControl"
         :colors="colors"
         @visitClick="$emit('visitClick')"
-        @collapseChange="refresh"/>
+        @collapseChange="refresh"
+        :class="{ 'h-full': !dynamicHeight }"/>
 
     </div>
 
@@ -120,6 +121,9 @@ export class Chart extends Vue {
 
   @Prop({ type: Boolean, default: true })
   showLegend!: boolean
+
+  @Prop({ type: Boolean, default: false })
+  dynamicHeight!: boolean
 
   @Prop({ type: Number })
   chartTypeId?: number
