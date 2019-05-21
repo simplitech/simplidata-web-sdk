@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.6.6"></a>
+## [9.6.6](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.0...v9.6.6) (2019-05-21)
+
+
+### Bug Fixes
+
+* **Chart:** fix text tool quiting on mouse leave ([4bb7644](https://github.com/simplitech/simplidata-web-sdk/commit/4bb7644))
+* **Echart:** make chart axis text color brighter ([3d5e424](https://github.com/simplitech/simplidata-web-sdk/commit/3d5e424))
+* **RightPanel:** add an option to make the rightpanel scrollable to not make the chart increase heig ([24d5ed8](https://github.com/simplitech/simplidata-web-sdk/commit/24d5ed8))
+* **SaveChart:** remove preview of options when savechart popover is not ready yet ([89af2cd](https://github.com/simplitech/simplidata-web-sdk/commit/89af2cd))
+* **ThumbOa:** improve thumbOa style, showing all text before mouseover ([4381979](https://github.com/simplitech/simplidata-web-sdk/commit/4381979))
+
+
+
 <a name="9.6.5"></a>
 ## [9.6.5](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.4...v9.6.5) (2019-05-21)
 
