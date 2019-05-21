@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.6.3"></a>
+## [9.6.3](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.2...v9.6.3) (2019-05-21)
+
+
+### Bug Fixes
+
+* **ThumbOa:** improve thumbOa style, showing all text before mouseover ([4381979](https://github.com/simplitech/simplidata-web-sdk/commit/4381979))
+
+
+
 <a name="9.6.2"></a>
 ## [9.6.2](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.1...v9.6.2) (2019-05-20)
 
