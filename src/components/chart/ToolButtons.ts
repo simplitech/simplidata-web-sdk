@@ -7,7 +7,7 @@ const template = `
       :title="$t('view.chart.saveChartOnCollection')" :class="{ 'needs-saving': needsSaving }"></a>
 
     <popover :name="'sg-save' + _uid" ref="savepopover">
-      <save-chart v-model="value" @userSavedChart="$emit('userSavedChart', $event)"/>
+      <save-chart v-model="value" @userSavedChart="onUserSavedChart($event)"/>
     </popover>
 
     <template v-if="showDrawingButtons">
@@ -141,5 +141,13 @@ export default class ToolButtons extends Vue {
       warning('view.chart.dontFogetToSaveYourChanges')
       this.drawingState.warningAboutSavingEmmited = true
     }
+  }
+
+  onUserSavedChart(e: any) {
+    // @ts-ignore
+    const component = this.$refs.savepopover as Popover
+    component.visible = false
+
+    this.$emit('userSavedChart', e)
   }
 }

@@ -1,6 +1,6 @@
 const template = `
   <div class="save-chart">
-    <await name="save">
+    <await init name="save">
       <div class="verti">
         <div v-if="myCollections.items.length" class="saved-collections verti mt-10 mx-10">
           <a v-for="c in myCollections.items" @click="$await.run(() => persistUserSavedChart(c.idCollectionPk), 'save')" class="min-h-30 py-7">
