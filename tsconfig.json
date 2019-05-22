@@ -4,10 +4,8 @@
     "module": "es2015",
     "target": "es5",
     "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017"
+      "es7",
+      "dom"
     ],
     "strict": true,
     "allowSyntheticDefaultImports": true,

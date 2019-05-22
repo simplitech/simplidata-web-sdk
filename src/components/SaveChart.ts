@@ -112,7 +112,7 @@ export class SaveChart extends Vue {
     })
 
     const filename = this.value.itensRFU.reduce((name, itemrfu) => {
-      return name + (name.length ? ' + ' : '') + itemrfu.contentTitleWithTransformation
+      return name + (name.length ? ' & ' : '') + itemrfu.contentTitleWithTransformation
     }, '')
 
     await zipcelx({

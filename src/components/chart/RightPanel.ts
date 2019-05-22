@@ -6,7 +6,7 @@ const template = `
   
     <div class="panelcontent verti weight-1" :class="{ collapsed }">
 
-      <h1 class="mb-10" :style="{ color: colors[selectedDatasetIndexOrTheOnly % colors.length] }">{{ selectedOaRfu.contentTitle }}</h1>
+      <h1 class="mb-10" :style="{ color: value.orderedColors[selectedDatasetIndexOrTheOnly % value.colors.length] }">{{ selectedOaRfu.contentTitle }}</h1>
   
       <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
   
@@ -36,6 +36,13 @@ const template = `
           <div class="value">{{ selectedOaRfu.objectOfAnalysis.lastUpdate | moment($t('dateFormat.datesimple')) }}</div>
         </div>
       </div>
+      
+      <div class="horiz mb-30 items-center">
+        <div class="colorLabel mr-10">{{ $t('view.chart.changeColor') }}</div>
+        <div class="chart-button w-30 h-30 p-4">
+          <input type="color" v-model="oaColor" class="w-full h-full colorpicker"/>
+        </div>
+      </div>
   
       <!-- VERSION CHOOSER -->
       <version-chooser v-model="value" v-if="showOaVersionControl"
@@ -63,10 +70,10 @@ import { sleep } from '../../simpli'
 })
 export default class RightPanel extends Vue {
   @Prop({ type: Object, default: () => new UserSavedChart() })
-  value?: UserSavedChart
+  value!: UserSavedChart
 
   @Prop({ type: Object, default: () => new ObjectOfAnalysisRFU() })
-  selectedOaRfu?: ObjectOfAnalysisRFU
+  selectedOaRfu!: ObjectOfAnalysisRFU
 
   @Prop({ type: Number, default: 0 })
   selectedDatasetIndexOrTheOnly?: number
@@ -79,9 +86,6 @@ export default class RightPanel extends Vue {
 
   @Prop({ type: Boolean, default: false })
   showOaVersionControl?: boolean
-
-  @Prop({ type: Array, required: true })
-  colors!: string[]
 
   collapsed = false
 
@@ -96,5 +100,13 @@ export default class RightPanel extends Vue {
     this.collapsed = false
     await sleep(500)
     this.$emit('collapseChange', this.collapsed)
+  }
+
+  get oaColor() {
+    return this.value.colorsMap[this.selectedOaRfu.contentTitleWithTransformation]
+  }
+
+  set oaColor(val: string) {
+    this.value.colorsMap[this.selectedOaRfu.contentTitleWithTransformation] = val
   }
 }

@@ -29,6 +29,10 @@ export interface MapOfDateAndValues {
   [key: string]: (number | null | undefined)[]
 }
 
+export interface MapOfStringAndString {
+  [key: string]: string
+}
+
 export class UserSavedChart extends Resource {
   readonly $name: string = 'UserSavedChart'
   readonly $endpoint: string = '/User/UserSavedChart{/id}'
@@ -85,6 +89,21 @@ export class UserSavedChart extends Resource {
   @RequestExclude() // json property
   itensRFU: ItemRFU[] = []
 
+  @RequestExclude() // json property
+  colorsMap: MapOfStringAndString = {}
+
+  get colors() {
+    return Object.keys(this.colorsMap).map(key => this.colorsMap[key])
+  }
+
+  get orderedColors() {
+    return this.itensRFU.map(irfu => this.colorsMap[irfu.contentTitleWithTransformation])
+  }
+
+  getNextSuggestedColor(colors: string[]) {
+    return colors.find(c => !this.colors.includes(c))
+  }
+
   buildJson() {
     this.json = this.unsavedJson
   }
@@ -97,6 +116,7 @@ export class UserSavedChart extends Resource {
       startDtLimiter: this.startDtLimiter,
       endDtLimiter: this.endDtLimiter,
       itensRFU: this.itensRFUForJson,
+      colorsMap: this.colorsMap,
     })
   }
 
@@ -113,6 +133,7 @@ export class UserSavedChart extends Resource {
     this.chartType = plainToClass<ChartType, object>(ChartType, jsonParsed.chartType)
     this.startDtLimiter = jsonParsed.startDtLimiter
     this.endDtLimiter = jsonParsed.endDtLimiter
+    this.colorsMap = jsonParsed.colorsMap
     this.itensRFU = []
     this.graphics = []
 

@@ -27,9 +27,6 @@ export default class EChart extends Vue {
   @Prop({ type: Boolean, default: true })
   showDrawingButtons!: boolean
 
-  @Prop({ type: Array, required: true })
-  colors!: string[]
-
   echart: echarts.ECharts | null = null
 
   get chartOptions() {
@@ -48,7 +45,7 @@ export default class EChart extends Vue {
         splitLine: { lineStyle: { opacity: 0.1 } },
         boundaryGap: false,
       },
-      color: this.colors,
+      color: this.value.orderedColors,
     }
   }
 
@@ -122,11 +119,12 @@ export default class EChart extends Vue {
   @Watch('value.chartData')
   @Watch('value.chartType')
   @Watch('value.itensRFU')
+  @Watch('value.colorsMap', { deep: true })
+  @Watch('value.graphics', { deep: true })
   @Watch('dataZoom')
   @Watch('chartGraphics')
   @Watch('drawingState.graphicBeingBuilt')
   @Watch('drawingState.graphicBeingBuilt.text')
-  @Watch('value.graphics', { deep: true })
   updateChartData() {
     if (!this.echart) {
       return
@@ -151,7 +149,7 @@ export default class EChart extends Vue {
           type: 'line',
           smooth: true,
           areaStyle: {
-            color: this.colors[index],
+            color: this.value.orderedColors[index],
           },
         }
       }
@@ -250,12 +248,14 @@ export default class EChart extends Vue {
 
     const graphic: any[] = []
 
-    this.value.graphics.forEach(g => this.addGraphic(graphic, g.build(ee, this.showDrawingButtons, this.colors)))
+    this.value.graphics.forEach(g =>
+      this.addGraphic(graphic, g.build(ee, this.showDrawingButtons, this.value.orderedColors))
+    )
 
     if (this.drawingState.graphicBeingBuilt) {
       this.addGraphic(
         graphic,
-        this.drawingState.graphicBeingBuilt.build(this.echart, this.showDrawingButtons, this.colors)
+        this.drawingState.graphicBeingBuilt.build(this.echart, this.showDrawingButtons, this.value.orderedColors)
       )
     }
 

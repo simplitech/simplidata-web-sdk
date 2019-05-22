@@ -192,6 +192,7 @@ export default {
       fibonacciRetraction: 'Fibonacci',
       typeHere: 'Escreva aqui',
       dontFogetToSaveYourChanges: 'Não esqueça de salvar suas alterações',
+      changeColor: 'Alterar cor',
     },
   },
 }

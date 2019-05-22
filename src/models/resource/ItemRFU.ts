@@ -38,10 +38,18 @@ export class ItemRFU extends Model {
   }
 
   get contentTitleWithTransformation() {
+    let title = this.contentTitleWithTransformationNoCombiner
+
+    return this.orderedTransformations.reduce((title, transf) => {
+      return title + (transf.combineWith ? ` + ${transf.combineWith.contentTitle}` : '')
+    }, title)
+  }
+
+  get contentTitleWithTransformationNoCombiner() {
     let title = this.contentTitle
 
     return this.orderedTransformations.reduce((title, transf) => {
-      return title + (transf.combiner ? '' : ' (' + transf.$tag + ')')
+      return title + (transf.combiner ? '' : ` (${transf.$tag})`)
     }, title)
   }
 

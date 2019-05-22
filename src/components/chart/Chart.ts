@@ -21,7 +21,6 @@ const template = `
           :showLegend="showLegend"
           :showAdvancedAnalysisButton="alreadyShowAdvancedAnalysisButton"
           :selectedDatasetIndex="selectedDatasetIndex"
-          :colors="colors"
           @advancedClick="$emit('advancedClick')"
           @legendClick="onLegendClick"/>
 
@@ -30,7 +29,6 @@ const template = `
           v-show="!chartTypeTableSelected"
           :drawingState="drawingState"
           :showDrawingButtons="showDrawingButtons"
-          :colors="colors"
           ref="echart" class="min-h-400 weight-1"/>
           
         <table-chart v-model="value" 
@@ -48,7 +46,6 @@ const template = `
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
         :showOaVersionControl="showOaVersionControl"
-        :colors="colors"
         @visitClick="$emit('visitClick')"
         @collapseChange="refresh"
         :class="{ 'h-full': !dynamicHeight }"/>
@@ -256,5 +253,18 @@ export class Chart extends Vue {
 
   onLegendClick(i: number) {
     this.selectedDatasetIndex = i
+  }
+
+  @Watch('value.itensRFU')
+  async datasetsUpdated() {
+    this.value.itensRFU.forEach(async itemrfu => {
+      if (!this.value.colorsMap[itemrfu.contentTitleWithTransformation]) {
+        this.$set(
+          this.value.colorsMap,
+          itemrfu.contentTitleWithTransformation,
+          this.value.getNextSuggestedColor(this.colors)
+        )
+      }
+    })
   }
 }

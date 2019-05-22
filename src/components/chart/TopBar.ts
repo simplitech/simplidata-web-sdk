@@ -21,7 +21,7 @@ const template = `
       
     <div v-if="showLegend" class="legend p-5 horiz items-left-center">
       <a v-for="(itemRfu, i) in value.itensRFU" :key="i" @click="$emit('legendClick', i)" class="item horiz items-left-center mr-10">
-        <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': colors[i % colors.length] }"></div>
+        <div class="circle w-10 h-10 mr-3" :style="{ 'background-color': value.orderedColors[i % value.colors.length] }"></div>
         <div class="weight-1">
           {{ itemRfu.contentTitleWithTransformation }}
         </div>
@@ -62,9 +62,6 @@ export default class TopBar extends Vue {
 
   @Prop({ type: Number })
   selectedDatasetIndex?: number
-
-  @Prop({ type: Array, required: true })
-  colors!: string[]
 
   allChartTypes = new Collection<ChartType>(ChartType)
 
