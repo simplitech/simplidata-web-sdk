@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.7.0"></a>
+# [9.7.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.6...v9.7.0) (2019-05-22)
+
+
+### Features
+
+* **Chart:** keep the same color for the series when adding or removing them. Also, let the user cho ([be786b0](https://github.com/simplitech/simplidata-web-sdk/commit/be786b0))
+
+
+
 <a name="9.6.6"></a>
 ## [9.6.6](https://github.com/simplitech/simplidata-web-sdk/compare/v9.6.0...v9.6.6) (2019-05-21)
 
