@@ -4,14 +4,15 @@ const template = `
   <div class="verti w-40">
 
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
-      :title="$t('view.chart.saveChartOnCollection')" :class="{ 'needs-saving': needsSaving }"></a>
+      :title="$t('view.chart.saveChartOnCollection')" :class="{ 'needs-saving': needsSaving }" :title="$t('view.chart.tooltip.save')"></a>
 
     <popover :name="'sg-save' + _uid" ref="savepopover">
       <save-chart v-model="value" @userSavedChart="onUserSavedChart($event)"/>
     </popover>
 
     <template v-if="showDrawingButtons">
-      <a class="chart-selector h-40 mb-8" :class="{active: !drawingState.selectedDrawingTool}" @click="drawingState.finishWork()"></a>
+      <a class="chart-selector h-40 mb-8" :class="{active: !drawingState.selectedDrawingTool}" 
+      @click="drawingState.finishWork()" :title="$t('view.chart.tooltip.select')"></a>
       
       <div class="mb-8 verti">
         <div class="relative top-30 left-30">
@@ -19,51 +20,62 @@ const template = `
         </div>
         <a v-if="drawingState.lastBasicDrawingTool === drawingState.tools.Line" 
         class="chart-line h-40" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Line}" 
-        @click="drawingState.selectDrawingTool(drawingState.tools.Line)"></a>
+        @click="drawingState.selectDrawingTool(drawingState.tools.Line)"
+        :title="$t('view.chart.tooltip.line')"></a>
         
         <a v-if="drawingState.lastBasicDrawingTool === drawingState.tools.Ellipse" 
         class="chart-ellipse h-40" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Ellipse}" 
-        @click="drawingState.selectDrawingTool(drawingState.tools.Ellipse)"></a>
+        @click="drawingState.selectDrawingTool(drawingState.tools.Ellipse)"
+        :title="$t('view.chart.tooltip.ellipse')"></a>
         
         <a v-if="drawingState.lastBasicDrawingTool === drawingState.tools.Rectangle" 
         class="chart-rectangle h-40" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Rectangle}" 
-        @click="drawingState.selectDrawingTool(drawingState.tools.Rectangle)"></a>
+        @click="drawingState.selectDrawingTool(drawingState.tools.Rectangle)"
+        :title="$t('view.chart.tooltip.rectangle')"></a>
       </div>
 
       <a class="chart-pencil h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Pencil}" 
-      @click="drawingState.selectDrawingTool(drawingState.tools.Pencil)"></a>
+      @click="drawingState.selectDrawingTool(drawingState.tools.Pencil)"
+      :title="$t('view.chart.tooltip.pencil')"></a>
 
       <a class="chart-text h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Text}" 
-      @click="drawingState.selectDrawingTool(drawingState.tools.Text)"></a>
+      @click="drawingState.selectDrawingTool(drawingState.tools.Text)"
+      :title="$t('view.chart.tooltip.text')"></a>
     </template>
     
     <popover :name="'sg-draw' + _uid" ref="drawpopover" class="force-w-50">
       <div class="verti">
         <a class="chart-line h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Line}" 
-        @click="drawingState.selectDrawingTool(drawingState.tools.Line)"></a>
+        @click="drawingState.selectDrawingTool(drawingState.tools.Line)"
+        :title="$t('view.chart.tooltip.line')"></a>
         
         <a class="chart-ellipse h-40 mb-8 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Ellipse}" 
-        @click="drawingState.selectDrawingTool(drawingState.tools.Ellipse)"></a>
+        @click="drawingState.selectDrawingTool(drawingState.tools.Ellipse)"
+        :title="$t('view.chart.tooltip.ellipse')"></a>
         
         <a class="chart-rectangle h-40 items-center" :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Rectangle}" 
-        @click="drawingState.selectDrawingTool(drawingState.tools.Rectangle)"></a>
+        @click="drawingState.selectDrawingTool(drawingState.tools.Rectangle)"
+        :title="$t('view.chart.tooltip.rectangle')"></a>
       </div>
     </popover>
 
     <a v-if="showMeasureButton" class="chart-measure h-40 mb-8 items-center"
        :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Measure}"
-       @click="drawingState.selectDrawingTool(drawingState.tools.Measure)"></a>
+       @click="drawingState.selectDrawingTool(drawingState.tools.Measure)"
+       :title="$t('view.chart.tooltip.measure')"></a>
     
     <a v-if="showCalcButton"
        v-popover.right="{ name: 'sg-calc' + _uid }"
        class="chart-calc h-40 mb-8 items-center"
        :class="{active: ['FibonacciRetraction'].includes(drawingState.selectedDrawingTool)}"
+       :title="$t('view.chart.tooltip.calc')"
     ></a>
 
     <popover :name="'sg-calc' + _uid" ref="calcpopover">
       <div class="calcpopover verti">
         <a @click="drawingState.selectDrawingTool(drawingState.tools.FibonacciRetraction)" 
-        :class="{active: drawingState.selectedDrawingTool === drawingState.tools.FibonacciRetraction}" class="p-15">
+        :class="{active: drawingState.selectedDrawingTool === drawingState.tools.FibonacciRetraction}"
+        :title="$t('view.chart.tooltip.fibonacci')" class="p-15">
         {{ $t('view.chart.fibonacciRetraction') }}
         </a>
       </div>
@@ -71,7 +83,8 @@ const template = `
 
     <a v-if="showCommentButton" class="chart-comment h-40 mb-8 items-center"
        :class="{active: drawingState.selectedDrawingTool === drawingState.tools.Comment}"
-       @click="drawingState.selectDrawingTool(drawingState.tools.Comment)"></a>
+       @click="drawingState.selectDrawingTool(drawingState.tools.Comment)"
+       :title="$t('view.chart.tooltip.comment')"></a>
 
   </div>
 `

@@ -189,6 +189,20 @@ export default {
       typeHere: 'Type here',
       dontFogetToSaveYourChanges: 'Não esqueça de salvar suas alterações',
       changeColor: 'Change color',
+
+      tooltip: {
+        save: 'Save chart',
+        select: 'Select drawing',
+        line: 'Draw line',
+        ellipse: 'Draw ellipse',
+        rectangle: 'Draw rectangle',
+        pencil: 'Free drawing',
+        text: 'Write on chart',
+        measure: 'Measure dimensions on chart',
+        calc: 'Choose a calculation tool',
+        fibonacci: 'Calculate Fibonacci',
+        comment: 'Make a comment',
+      },
     },
   },
 }

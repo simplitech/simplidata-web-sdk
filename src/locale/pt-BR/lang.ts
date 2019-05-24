@@ -193,6 +193,20 @@ export default {
       typeHere: 'Escreva aqui',
       dontFogetToSaveYourChanges: 'Não esqueça de salvar suas alterações',
       changeColor: 'Alterar cor',
+
+      tooltip: {
+        save: 'Salvar gráfico',
+        select: 'Ferramenta de seleção de desenhos',
+        line: 'Desenhar reta',
+        ellipse: 'Desenhar elipse',
+        rectangle: 'Desenhar retângulo',
+        pencil: 'Desenho livre',
+        text: 'Escrever no gráfico',
+        measure: 'Medir dimenções do gráfico',
+        calc: 'Escolha uma ferramenta de cálculo',
+        fibonacci: 'Calcular Fibonacci',
+        comment: 'Fazer um comentário',
+      },
     },
   },
 }
