@@ -118,6 +118,7 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
       position: [Math.min(p1Pos[0], p2Pos[0]), Math.min(p1Pos[1], p2Pos[1])],
       z: 100,
       children,
+      onclick: () => ChartBus.$emit('graphicSelect', this),
     }
   }
 
@@ -175,7 +176,7 @@ export class FibonacciRetractionChartGraphic extends ChartGraphic {
       }
 
       this.p2.set(echart, x, y)
-      ChartBus.$emit('doneDrawing')
+      ChartBus.$emit('doneDrawing', true)
     }
   }
 }

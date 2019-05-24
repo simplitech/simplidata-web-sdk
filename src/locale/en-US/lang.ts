@@ -177,7 +177,6 @@ export default {
       download: 'Download',
       collectionName: 'Collection name',
       save: 'Save',
-      saveChartOnCollection: 'Save chart on collection',
       contentDownload: 'Content download',
       xls: 'XLS',
       date: 'Date',

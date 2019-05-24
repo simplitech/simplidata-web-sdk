@@ -85,6 +85,10 @@ export class DrawingState {
     return this.graphicOfWork as TextChartGraphic
   }
 
+  get graphicOfWorkMayHaveColor() {
+    return this.graphicOfWork && this.graphicOfWork.name !== 'FibonacciRetractionChartGraphic'
+  }
+
   get editingComment() {
     return (
       this.graphicOfWorkAsComment &&

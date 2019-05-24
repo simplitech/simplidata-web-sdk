@@ -15,7 +15,9 @@ const template = `
             
           <div v-if="drawingState.graphicOfWork" class="graphic-editor-buttons horiz gutter-4 p-4">
             <a @click="drawingState.trash()" class="chart-remove w-40 h-40"/>
-            <div class="chart-button w-40 h-40 p-4"><input type="color" v-model="drawingState.graphicOfWorkColor" class="w-full h-full colorpicker"/></div>
+            <div v-if="drawingState.graphicOfWorkMayHaveColor" class="chart-button w-40 h-40 p-4">
+              <input type="color" v-model="drawingState.graphicOfWorkColor" class="w-full h-full colorpicker"/>
+            </div>
             <a v-if="drawingState.graphicOfWorkAsText" v-popover="{ name: 'sg-fontsize' + _uid }" class="chart-font-size pl-40 pr-7 h-40 line-h-40">
             {{ drawingState.graphicOfWorkAsText.fontSize }}
             </a>

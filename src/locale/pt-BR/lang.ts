@@ -181,7 +181,6 @@ export default {
       download: 'Download',
       collectionName: 'Nome da coleção',
       save: 'Salvar',
-      saveChartOnCollection: 'Salvar o gráfico em uma coleção',
       contentDownload: 'Download do conteúdo',
       xls: 'XLS',
       date: 'Data',

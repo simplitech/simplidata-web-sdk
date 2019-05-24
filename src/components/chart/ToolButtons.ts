@@ -4,7 +4,7 @@ const template = `
   <div class="verti w-40">
 
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
-      :title="$t('view.chart.saveChartOnCollection')" :class="{ 'needs-saving': needsSaving }" :title="$t('view.chart.tooltip.save')"></a>
+      :class="{ 'needs-saving': needsSaving }" :title="$t('view.chart.tooltip.save')"></a>
 
     <popover :name="'sg-save' + _uid" ref="savepopover">
       <save-chart v-model="value" @userSavedChart="onUserSavedChart($event)"/>
