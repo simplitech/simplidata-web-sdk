@@ -4,7 +4,7 @@ const template = `
       <thead>
         <tr>
           <th>{{ $t('view.chart.date') }}</th>
-          <th v-for="(itemRfu, i) in value.itensRFU" :style="{ color: value.orderedColors[i] }">
+          <th v-for="(itemRfu, i) in value.itensRFU" :style="{ color: value.getColorByIndex(i) }">
             {{ itemRfu.contentTitleWithTransformation }}
           </th>
         </tr>

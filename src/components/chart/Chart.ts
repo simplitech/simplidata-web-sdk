@@ -231,6 +231,7 @@ export class Chart extends Vue {
   }
 
   async mounted() {
+    this.value.availableColors = this.colors
     await this.populateData()
   }
 
@@ -256,15 +257,7 @@ export class Chart extends Vue {
   }
 
   @Watch('value.itensRFU')
-  async datasetsUpdated() {
-    this.value.itensRFU.forEach(async itemrfu => {
-      if (!this.value.colorsMap[itemrfu.contentTitleWithTransformation]) {
-        this.$set(
-          this.value.colorsMap,
-          itemrfu.contentTitleWithTransformation,
-          this.value.getNextSuggestedColor(this.colors)
-        )
-      }
-    })
+  datasetsUpdated() {
+    this.value.itensRFU.forEach(async itemrfu => this.value.addColorIfUnexist(itemrfu.contentTitleWithTransformation))
   }
 }

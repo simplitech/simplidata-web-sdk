@@ -6,7 +6,7 @@ const template = `
   
     <div class="panelcontent verti weight-1" :class="{ collapsed }">
 
-      <h1 class="mb-10" :style="{ color: value.orderedColors[selectedDatasetIndexOrTheOnly % value.colors.length] }">{{ selectedOaRfu.contentTitle }}</h1>
+      <h1 class="mb-10" :style="{ color: value.getColorByIndex(selectedDatasetIndexOrTheOnly) }">{{ selectedOaRfu.contentTitle }}</h1>
   
       <div class="description mb-20">{{ selectedOaRfu.objectOfAnalysis.comment }}</div>
   
@@ -103,10 +103,10 @@ export default class RightPanel extends Vue {
   }
 
   get oaColor() {
-    return this.value.colorsMap[this.selectedOaRfu.contentTitleWithTransformation]
+    return this.value.getColor(this.selectedOaRfu.contentTitleWithTransformation)
   }
 
   set oaColor(val: string) {
-    this.value.colorsMap[this.selectedOaRfu.contentTitleWithTransformation] = val
+    this.value.setColor(this.selectedOaRfu.contentTitleWithTransformation, val)
   }
 }

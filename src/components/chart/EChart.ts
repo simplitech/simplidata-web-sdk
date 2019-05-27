@@ -149,7 +149,7 @@ export default class EChart extends Vue {
           type: 'line',
           smooth: true,
           areaStyle: {
-            color: this.value.orderedColors[index],
+            color: this.value.getColorByIndex(index),
           },
         }
       }

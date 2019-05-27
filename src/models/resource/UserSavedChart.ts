@@ -2,6 +2,7 @@
  * UserSavedChart
  * @author Simpli CLI generator
  */
+import { Vue } from 'vue-property-decorator'
 import moment from 'moment'
 import { ID, Resource } from '../../simpli'
 import { $, ResponseSerialize, ValidationMaxLength, ValidationRequired, RequestExclude } from '../../simpli'
@@ -92,16 +93,37 @@ export class UserSavedChart extends Resource {
   @RequestExclude() // json property
   colorsMap: MapOfStringAndString = {}
 
-  get colors() {
-    return Object.keys(this.colorsMap).map(key => this.colorsMap[key])
-  }
+  @RequestExclude() // only to store on session
+  availableColors: string[] = []
 
   get orderedColors() {
-    return this.itensRFU.map(irfu => this.colorsMap[irfu.contentTitleWithTransformation])
+    if (Object.keys(this.colorsMap).length === 0) {
+      return this.availableColors // placeholder
+    }
+    return this.itensRFU.map(irfu => this.getColor(irfu.contentTitleWithTransformation))
   }
 
-  getNextSuggestedColor(colors: string[]) {
-    return colors.find(c => !this.colors.includes(c))
+  get nextSuggestedColor() {
+    return this.availableColors.find(c => !Object.keys(this.colorsMap).some(title => this.colorsMap[title] === c))
+  }
+
+  getColor(title: string) {
+    this.addColorIfUnexist(title)
+    return this.colorsMap[title]
+  }
+
+  getColorByIndex(index: number) {
+    return this.orderedColors[index % Object.keys(this.colorsMap).length]
+  }
+
+  addColorIfUnexist(title: string, color = this.nextSuggestedColor) {
+    if (!this.colorsMap[title] && color) {
+      this.setColor(title, color)
+    }
+  }
+
+  setColor(title: string, color: string) {
+    Vue.set(this.colorsMap, title, color)
   }
 
   buildJson() {
@@ -133,7 +155,7 @@ export class UserSavedChart extends Resource {
     this.chartType = plainToClass<ChartType, object>(ChartType, jsonParsed.chartType)
     this.startDtLimiter = jsonParsed.startDtLimiter
     this.endDtLimiter = jsonParsed.endDtLimiter
-    this.colorsMap = jsonParsed.colorsMap
+    this.colorsMap = jsonParsed.colorsMap || {}
     this.itensRFU = []
     this.graphics = []
 
