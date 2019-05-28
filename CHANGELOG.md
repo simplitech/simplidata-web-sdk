@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.8.4"></a>
+## [9.8.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.8.3...v9.8.4) (2019-05-28)
+
+
+### Bug Fixes
+
+* **Chart:** fix color reactiviness ([ac524e6](https://github.com/simplitech/simplidata-web-sdk/commit/ac524e6))
+
+
+
 <a name="9.8.3"></a>
 ## [9.8.3](https://github.com/simplitech/simplidata-web-sdk/compare/v9.8.2...v9.8.3) (2019-05-27)
 
