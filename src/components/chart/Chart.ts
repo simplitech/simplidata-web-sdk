@@ -231,7 +231,6 @@ export class Chart extends Vue {
   }
 
   async mounted() {
-    this.value.availableColors = this.colors
     await this.populateData()
   }
 
@@ -259,5 +258,10 @@ export class Chart extends Vue {
   @Watch('value.itensRFU')
   datasetsUpdated() {
     this.value.itensRFU.forEach(async itemrfu => this.value.addColorIfUnexist(itemrfu.contentTitleWithTransformation))
+  }
+
+  @Watch('colors', { immediate: true })
+  updateColors() {
+    this.value.availableColors = this.colors
   }
 }

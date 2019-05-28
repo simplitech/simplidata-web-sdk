@@ -97,7 +97,7 @@ export class UserSavedChart extends Resource {
   availableColors: string[] = []
 
   get orderedColors() {
-    if (Object.keys(this.colorsMap).length === 0) {
+    if (this.itensRFU.length === 0) {
       return this.availableColors // placeholder
     }
     return this.itensRFU.map(irfu => this.getColor(irfu.contentTitleWithTransformation))
