@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.9.0"></a>
+# [9.9.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.8.4...v9.9.0) (2019-05-28)
+
+
+### Features
+
+* **Chart:** allow developer to choose if want to show color control, hidd ([a14554e](https://github.com/simplitech/simplidata-web-sdk/commit/a14554e))
+
+
+
 <a name="9.8.4"></a>
 ## [9.8.4](https://github.com/simplitech/simplidata-web-sdk/compare/v9.8.3...v9.8.4) (2019-05-28)
 
