@@ -37,7 +37,7 @@ const template = `
         </div>
       </div>
       
-      <div class="horiz mb-30 items-center">
+      <div v-if="showColorControl" class="horiz mb-30 items-center">
         <div class="colorLabel mr-10">{{ $t('view.chart.changeColor') }}</div>
         <div class="chart-button w-30 h-30 p-4">
           <input type="color" v-model="oaColor" class="w-full h-full colorpicker"/>
@@ -86,6 +86,9 @@ export default class RightPanel extends Vue {
 
   @Prop({ type: Boolean, default: false })
   showOaVersionControl?: boolean
+
+  @Prop({ type: Boolean, default: false })
+  showColorControl!: boolean
 
   collapsed = false
 

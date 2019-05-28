@@ -46,6 +46,7 @@ const template = `
         :showTransformationControl="showTransformationControl"
         :showVisitButton="showVisitButton"
         :showOaVersionControl="showOaVersionControl"
+        :showColorControl="showColorControl"
         @visitClick="$emit('visitClick')"
         @collapseChange="refresh"
         :class="{ 'h-full': !dynamicHeight }"/>
@@ -106,6 +107,9 @@ export class Chart extends Vue {
 
   @Prop({ type: Boolean, default: false })
   showOaVersionControl!: boolean
+
+  @Prop({ type: Boolean, default: false })
+  showColorControl!: boolean
 
   @Prop({ type: Boolean, default: false })
   showAdvancedAnalysisButton!: boolean
