@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.10.0"></a>
+# [9.10.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.9.0...v9.10.0) (2019-05-30)
+
+
+### Features
+
+* **Chart:** warn when oas have a periodicity mismatch and allow periodici ([ea27917](https://github.com/simplitech/simplidata-web-sdk/commit/ea27917))
+
+
+
 <a name="9.9.0"></a>
 # [9.9.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.8.4...v9.9.0) (2019-05-28)
 
