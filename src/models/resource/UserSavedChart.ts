@@ -25,6 +25,8 @@ import { version } from '../../utils'
 import { plainToClass } from 'class-transformer'
 import { ObjectOfAnalysisRFU } from './ObjectOfAnalysisRFU'
 import { OaData } from './OaData'
+import { OaPeriodicity } from './OaPeriodicity'
+import { PeriodicityTransformationType } from './PeriodicityTransformationType'
 
 export interface MapOfDateAndValues {
   [key: string]: (number | null | undefined)[]
@@ -88,6 +90,12 @@ export class UserSavedChart extends Resource {
   endDtLimiter: string | null = null
 
   @RequestExclude() // json property
+  periodicity: OaPeriodicity | null = null
+
+  @RequestExclude() // json property
+  periodicityTransformation: PeriodicityTransformationType | null = null
+
+  @RequestExclude() // json property
   itensRFU: ItemRFU[] = []
 
   @RequestExclude() // json property
@@ -137,6 +145,8 @@ export class UserSavedChart extends Resource {
       chartType: this.chartType,
       startDtLimiter: this.startDtLimiter,
       endDtLimiter: this.endDtLimiter,
+      periodicity: this.periodicity,
+      periodicityTransformation: this.periodicityTransformation,
       itensRFU: this.itensRFUForJson,
       colorsMap: this.colorsMap,
     })
@@ -147,6 +157,8 @@ export class UserSavedChart extends Resource {
       graphics: this.graphics,
       startDtLimiter: this.startDtLimiter,
       endDtLimiter: this.endDtLimiter,
+      periodicity: this.periodicity,
+      periodicityTransformation: this.periodicityTransformation,
     })
   }
 
@@ -155,6 +167,8 @@ export class UserSavedChart extends Resource {
     this.chartType = plainToClass<ChartType, object>(ChartType, jsonParsed.chartType)
     this.startDtLimiter = jsonParsed.startDtLimiter
     this.endDtLimiter = jsonParsed.endDtLimiter
+    this.periodicity = jsonParsed.periodicity
+    this.periodicityTransformation = jsonParsed.periodicityTransformation
     this.colorsMap = jsonParsed.colorsMap || {}
     this.itensRFU = []
     this.graphics = []

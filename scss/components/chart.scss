@@ -397,4 +397,9 @@
   input[type="color"]::-webkit-color-swatch {
     border: none !important;
   }
+
+  .periodicity-warning {
+    background: #ff0000;
+    border-radius: 99px;
+  }
 }

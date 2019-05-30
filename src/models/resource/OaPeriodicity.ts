@@ -75,7 +75,6 @@ export class OaPeriodicity extends Resource {
   }
 
   getPeriodDate(oaData: OaData) {
-    const dtFormat: string = $.t('system.format.date').toString()
     let m = moment(oaData.dt)
 
     if (this.idOaPeriodicityPk === OaPeriodicity.Daily) {
@@ -118,6 +117,6 @@ export class OaPeriodicity extends Resource {
       m = m.startOf('year')
     }
 
-    return m.format(dtFormat)
+    return m.format()
   }
 }

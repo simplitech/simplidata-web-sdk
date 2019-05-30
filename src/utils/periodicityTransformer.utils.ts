@@ -29,9 +29,9 @@ export function sum(dataList: OaData[], oaPeriodicity: OaPeriodicity): OaData[] 
     const found = result.find(i => i.dt === periodDate)
     if (found) {
       // sum
-      result.push(new OaData(periodDate, (found.value || 0) + (oadata.value || 0)))
+      found.value = (found.value || 0) + (oadata.value || 0)
     } else {
-      result.push(oadata)
+      result.push(new OaData(periodDate, oadata.value || 0))
     }
     return result
   }, [])
@@ -46,9 +46,9 @@ export function avg(dataList: OaData[], oaPeriodicity: OaPeriodicity) {
     const found = result.find(i => i.dt === periodDate)
     if (found) {
       // sum
-      result.push(new OaData(periodDate, (found.value || 0) + (oadata.value || 0)))
+      found.value = (found.value || 0) + (oadata.value || 0)
     } else {
-      result.push(oadata)
+      result.push(new OaData(periodDate, oadata.value || 0))
     }
     periodCount[periodDate] = (periodCount[periodDate] || 0) + 1
     return result
@@ -68,9 +68,9 @@ export function endOfPeriod(dataList: OaData[], oaPeriodicity: OaPeriodicity) {
     const found = result.find(i => i.dt === periodDate)
     if (found) {
       // the end of period is the new value because they are ordered by dt
-      result.push(new OaData(periodDate, oadata.value))
+      found.value = oadata.value || found.value
     } else {
-      result.push(oadata)
+      result.push(new OaData(periodDate, oadata.value || 0))
     }
     return result
   }, [])

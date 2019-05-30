@@ -20,7 +20,7 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
   @ResponseSerialize(PeriodicityTransformationType)
   periodicityTransformationType: PeriodicityTransformationType | null = null
 
-  constructor(oa?: ObjectOfAnalysis, version?: OaVersion, start?: string | null, end?: string | null) {
+  constructor(oa?: ObjectOfAnalysis, version?: OaVersion) {
     super()
 
     if (oa) {
@@ -30,8 +30,6 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     if (version) {
       this.oaVersion = version
     }
-
-    this.refreshDataListRFU(start, end)
   }
 
   get contentTitle() {
@@ -45,7 +43,7 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
     return this.objectOfAnalysis.unity.title
   }
 
-  refreshDataListRFU(start?: string | null, end?: string | null, periodicity: OaPeriodicity | null = null) {
+  refreshDataListRFU(start: string | null, end: string | null, periodicity: OaPeriodicity | null) {
     if (
       !this.oaVersion ||
       !this.oaVersion.lastDataset ||
@@ -61,7 +59,6 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
       periodicity !== null &&
       this.periodicityTransformationType !== null &&
       this.objectOfAnalysis.periodicity.idOaPeriodicityPk !== periodicity.idOaPeriodicityPk
-
     const needsDatasetTransformation: boolean = this.orderedTransformations.length > 0
 
     if ((needsPeriodicityTransformation || needsDatasetTransformation) && (start || end)) {
@@ -74,8 +71,7 @@ export class ObjectOfAnalysisRFU extends ItemRFU {
       result = transform(result, t)
     })
 
-    // limiting by start and end because this method can be really heavy and we need to call it only if we have filtered before
-    if (start && end && needsPeriodicityTransformation && this.periodicityTransformationType && periodicity) {
+    if (needsPeriodicityTransformation && this.periodicityTransformationType && periodicity) {
       result = periodicityTransform(result, this.periodicityTransformationType, periodicity)
     }
 

@@ -18,6 +18,7 @@ const template = `
         <top-bar v-model="value"
           :showChartTypeControl="showChartTypeControl"
           :showDateNavigator="showDateNavigator"
+          :showPeriodicityControl="showPeriodicityControl"
           :showLegend="showLegend"
           :showAdvancedAnalysisButton="alreadyShowAdvancedAnalysisButton"
           :selectedDatasetIndex="selectedDatasetIndex"
@@ -120,6 +121,9 @@ export class Chart extends Vue {
   @Prop({ type: Boolean, default: true })
   showDateNavigator!: boolean
 
+  @Prop({ type: Boolean, default: false })
+  showPeriodicityControl!: boolean
+
   @Prop({ type: Boolean, default: true })
   showLegend!: boolean
 
@@ -169,6 +173,8 @@ export class Chart extends Vue {
   @Watch('value.oaVersionIds')
   @Watch('value.startDtLimiter')
   @Watch('value.endDtLimiter')
+  @Watch('value.periodicity')
+  @Watch('value.periodicityTransformation')
   refreshDataListRFU() {
     this.value.itensRFU.forEach((irfu, i) => {
       if (irfu && irfu instanceof ObjectOfAnalysisRFU) {
@@ -179,7 +185,7 @@ export class Chart extends Vue {
             oarfu.oaVersion = newVersion
           }
           if (this.value) {
-            oarfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter)
+            oarfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter, this.value.periodicity)
           }
         }
       }
@@ -207,9 +213,9 @@ export class Chart extends Vue {
             const oa = new ObjectOfAnalysis()
             await oa.find(oaId)
             const version = oa.getVersionById(this.value.oaVersionIds[i])
-            this.value.itensRFU.push(
-              new ObjectOfAnalysisRFU(oa, version, this.value.startDtLimiter, this.value.endDtLimiter)
-            )
+            const oarfu = new ObjectOfAnalysisRFU(oa, version)
+            oarfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter, this.value.periodicity)
+            this.value.itensRFU.push(oarfu)
           }
         }
       }

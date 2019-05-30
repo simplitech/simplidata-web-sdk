@@ -1,0 +1,24 @@
+.periodicity-transformation-editor {
+  h1 {
+    font-size: 24px;
+  }
+
+  .checkable-button {
+    background: #242424
+    url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Crect width='11' height='11' x='10.5' y='10.5' fill='none' fill-rule='nonzero' stroke='%235B5B5B' rx='5.5' transform='translate(-10 -10)'/%3E%3C/svg%3E")
+    no-repeat 10px center;
+    border-radius: 24px;
+    color: #29FD34;
+    text-transform: none;
+
+    &:hover {
+      box-shadow: 0 0 0 2px #5b5b5b;
+    }
+
+    &.checked {
+      background-color: #29FD34;
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='9' viewBox='0 0 10 9'%3E%3Cpath fill='none' fill-rule='evenodd' stroke='%231A1A1A' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M1 5.33l1.433 2.355A.6.6 0 0 0 2.925 8a.587.587 0 0 0 .507-.28L9 1'/%3E%3C/svg%3E");
+      color: #242424;
+    }
+  }
+}

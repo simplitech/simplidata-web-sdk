@@ -188,6 +188,7 @@ export default {
       typeHere: 'Type here',
       dontFogetToSaveYourChanges: 'Não esqueça de salvar suas alterações',
       changeColor: 'Change color',
+      changePeriodicity: 'Change Periodicity',
 
       tooltip: {
         save: 'Save chart',
@@ -202,6 +203,12 @@ export default {
         fibonacci: 'Calculate Fibonacci',
         comment: 'Make a comment',
       },
+    },
+
+    periodicityMismatch: {
+      titleDescritive: 'These are the periodicities of the indicators you are using',
+      objectivePeriodicity: 'Select which periodicity you want to use in all of them',
+      objectiveTransformation: 'Select the way you want to transform the data',
     },
   },
 }

@@ -14,4 +14,6 @@ import { Marquee as MarqueeComponent } from './Marquee'
 const Marquee = MarqueeComponent as VueClass<Vue>
 import { InputDate as InputDateComponent } from './InputDate'
 const InputDate = InputDateComponent as VueClass<Vue>
-export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa, Marquee, InputDate }
+import { PeriodicityTransformationEditor as PeriodicityTransformationEditorComponent } from './PeriodicityTransformationEditor'
+const PeriodicityTransformationEditor = PeriodicityTransformationEditorComponent as VueClass<Vue>
+export { Chart, SelectGroup, SaveChart, ThumbOa, ChooseOa, Marquee, InputDate, PeriodicityTransformationEditor }

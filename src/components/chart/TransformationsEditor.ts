@@ -97,6 +97,11 @@ export default class TransformationsEditor extends Vue {
     component.visible = false
 
     this.transformationToChooseCombiner.combineWith = new ObjectOfAnalysisRFU(oa, oa.oaVersions[0])
+    this.transformationToChooseCombiner.combineWith.refreshDataListRFU(
+      this.value.startDtLimiter,
+      this.value.endDtLimiter,
+      this.value.periodicity
+    )
 
     const hadACombiner = this.selectedOaRfu.hasCombiner
     const cloned = this.selectedOaRfu.clone()
@@ -104,7 +109,7 @@ export default class TransformationsEditor extends Vue {
     const subjectOa = hadACombiner ? this.selectedOaRfu : cloned
 
     subjectOa.orderedTransformations.push(this.transformationToChooseCombiner)
-    subjectOa.refreshDataListRFU()
+    subjectOa.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter, this.value.periodicity)
 
     if (!hadACombiner) {
       this.value.itensRFU.push(subjectOa)
@@ -115,6 +120,6 @@ export default class TransformationsEditor extends Vue {
 
   removeTransformation(index: number) {
     this.selectedOaRfu.orderedTransformations.splice(index, 1)
-    this.selectedOaRfu.refreshDataListRFU()
+    this.selectedOaRfu.refreshDataListRFU(this.value.startDtLimiter, this.value.endDtLimiter, this.value.periodicity)
   }
 }
