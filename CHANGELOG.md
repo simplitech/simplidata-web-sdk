@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.12.0"></a>
+# [9.12.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.11.1...v9.12.0) (2019-06-03)
+
+
+### Features
+
+* **ThumbOa:** add navigateTo prop to navigate as router-link ([dfc34d6](https://github.com/simplitech/simplidata-web-sdk/commit/dfc34d6))
+
+
+
 <a name="9.11.1"></a>
 ## [9.11.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.11.0...v9.11.1) (2019-06-03)
 
