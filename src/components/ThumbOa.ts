@@ -21,13 +21,13 @@ const template = `
         <div v-if="selectable" class="col" :class="[selected ? 'oa-selected' : 'oa-selector']"></div>
       </div>
   
-      <a @click="$emit('navigate')" class="oa-title">
+      <router-link :to="navigateTo || {}" @click.native="$emit('navigate')" class="oa-title">
         {{oa.$tag}}
-      </a>
+      </router-link>
   
-      <a @click="$emit('navigate')" class="weight-1 items-center">
+      <router-link :to="navigateTo || {}" @click.native="$emit('navigate')" class="weight-1 items-center">
         <img :src="oa.$thumbnail" class="chart-img" alt="graph">
-      </a>
+      </router-link>
     </div>
   </div>
   
@@ -42,17 +42,19 @@ import { PlanID } from '../enums'
 })
 export class ThumbOa extends Vue {
   @Prop({ type: Object, required: true })
-  oa?: ObjectOfAnalysis
+  oa!: ObjectOfAnalysis
 
   PlanID = PlanID
   @Prop({ type: Boolean, default: true })
-  showPlus?: boolean
+  showPlus!: boolean
   @Prop({ type: Boolean, default: true })
-  showDownload?: boolean
+  showDownload!: boolean
   @Prop({ type: Boolean, default: false })
-  selectable?: boolean
+  selectable!: boolean
   @Prop({ type: Boolean, default: false })
-  selected?: boolean
+  selected!: boolean
+  @Prop({ type: Object })
+  navigateTo?: any
 
   saveClick() {
     this.$emit('saveClick', this.oa)
