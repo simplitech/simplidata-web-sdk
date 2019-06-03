@@ -202,6 +202,7 @@ export class UserSavedChart extends Resource {
         const oarfu = irfu as ObjectOfAnalysisRFU
         const { objectOfAnalysis, values, firstDate, frequency, oaVersion, ...oarfuWithoutOa } = oarfu
         const oarfuClean: any = oarfuWithoutOa
+        delete oarfuClean['pDataListRFU'] // deleting private field
 
         if (objectOfAnalysis !== undefined) {
           oarfuClean.objectOfAnalysis = { idObjectOfAnalysisPk: objectOfAnalysis.idObjectOfAnalysisPk }

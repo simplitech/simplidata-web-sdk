@@ -1,7 +1,6 @@
-import { ResponseSerialize, Model } from '../../simpli'
+import { ResponseSerialize, Model, RequestExclude } from '../../simpli'
 import { TransformationType } from './TransformationType'
 import { OaData } from './OaData'
-import { Exclude } from 'class-transformer'
 
 export class ItemRFU extends Model {
   readonly $name: string = 'ItemRFU'
@@ -15,7 +14,7 @@ export class ItemRFU extends Model {
   firstDate: string | null = null
   frequency: number | null = null // number of observations per year
 
-  @Exclude({ toPlainOnly: true })
+  @RequestExclude()
   private pDataListRFU: OaData[] = []
 
   public get dataListRFU() {
