@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.11.1"></a>
+## [9.11.1](https://github.com/simplitech/simplidata-web-sdk/compare/v9.11.0...v9.11.1) (2019-06-03)
+
+
+### Bug Fixes
+
+* **UserSavedChart:** removing pDataListRFU from saved json because it is too big and we dont need it ([2fa2e12](https://github.com/simplitech/simplidata-web-sdk/commit/2fa2e12))
+
+
+
 <a name="9.11.0"></a>
 # [9.11.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.8.2...v9.11.0) (2019-06-03)
 
