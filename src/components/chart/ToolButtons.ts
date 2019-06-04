@@ -1,7 +1,7 @@
 import { DrawingState } from './DrawingState'
 
 const template = `
-  <div class="verti w-40">
+  <div class="toolbuttons verti w-40">
 
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
       :class="{ 'needs-saving': needsSaving }" :title="$t('view.chart.tooltip.save')"></a>

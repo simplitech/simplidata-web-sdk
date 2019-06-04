@@ -29,12 +29,14 @@ export default class EChart extends Vue {
 
   echart: echarts.ECharts | null = null
 
+  isPrinting = false
+
   get chartOptions() {
     return {
       grid: { right: 25, left: '10%', top: '5%' },
       tooltip: { trigger: 'axis' },
       textStyle: {
-        color: '#666',
+        color: !this.isPrinting ? '#666' : '#000',
       },
       xAxis: {
         type: 'category',
@@ -178,6 +180,8 @@ export default class EChart extends Vue {
   }
 
   mounted() {
+    window.onresize = () => this.refresh()
+
     const el = this.$refs.echart as HTMLDivElement
 
     this.echart = echarts.init(el)
@@ -192,10 +196,6 @@ export default class EChart extends Vue {
       const axis = this.echart.getModel().option.xAxis[0]
       this.startIndexLimiter = axis.rangeStart
       this.endIndexLimiter = axis.rangeEnd
-    })
-
-    window.addEventListener('resize', () => {
-      this.refresh()
     })
 
     el.onmousedown = ((e: MouseEvent) => {
@@ -237,6 +237,10 @@ export default class EChart extends Vue {
 
       this.updateChartData()
     }).bind(this)
+  }
+
+  beforeDestroy() {
+    window.onresize = null
   }
 
   buildChartGraphics() {
@@ -322,5 +326,15 @@ export default class EChart extends Vue {
     } else {
       return null
     }
+  }
+
+  beforePrint() {
+    this.isPrinting = true
+    this.updateChartData()
+  }
+
+  afterPrint() {
+    this.isPrinting = false
+    this.updateChartData()
   }
 }

@@ -158,6 +158,56 @@ export class Chart extends Vue {
     return this.showAdvancedAnalysisButton && this.dataLoaded
   }
 
+  async mounted() {
+    window.onbeforeprint = async () => this.beforePrint()
+    window.onafterprint = async () => this.afterPrint()
+    await this.populateData()
+  }
+
+  beforeDestroy() {
+    window.onbeforeprint = null
+    window.onafterprint = null
+  }
+
+  async beforePrint() {
+    const echart = this.$refs.echart as EChart
+    echart.beforePrint()
+
+    const el = this.$el as HTMLDivElement
+    el.style.maxWidth = '900px'
+    await this.refresh()
+  }
+
+  async afterPrint() {
+    const echart = this.$refs.echart as EChart
+    echart.afterPrint()
+
+    const el = this.$el as HTMLDivElement
+    el.style.maxWidth = 'none'
+    await this.refresh()
+  }
+
+  getRfuAsOaRfu(index?: number) {
+    if (index === undefined) {
+      return null
+    }
+
+    const itemRfu: ItemRFU = this.value.itensRFU[index]
+
+    if (itemRfu && itemRfu instanceof ObjectOfAnalysisRFU) {
+      const oaRfu = itemRfu as ObjectOfAnalysisRFU
+      if (oaRfu) {
+        return oaRfu
+      }
+    }
+
+    return null
+  }
+
+  onLegendClick(i: number) {
+    this.selectedDatasetIndex = i
+  }
+
   @Watch('selectedOaRfu.objectOfAnalysis.idObjectOfAnalysisPk')
   @Watch('showObjectOfAnalysisInfo')
   @Watch('value.idChartTypeFk')
@@ -238,31 +288,6 @@ export class Chart extends Vue {
       this.dataLoaded = true
       this.$emit('dataLoaded')
     }
-  }
-
-  async mounted() {
-    await this.populateData()
-  }
-
-  getRfuAsOaRfu(index?: number) {
-    if (index === undefined) {
-      return null
-    }
-
-    const itemRfu: ItemRFU = this.value.itensRFU[index]
-
-    if (itemRfu && itemRfu instanceof ObjectOfAnalysisRFU) {
-      const oaRfu = itemRfu as ObjectOfAnalysisRFU
-      if (oaRfu) {
-        return oaRfu
-      }
-    }
-
-    return null
-  }
-
-  onLegendClick(i: number) {
-    this.selectedDatasetIndex = i
   }
 
   @Watch('value.itensRFU')

@@ -2,15 +2,15 @@ const template = `
   <div class="horiz items-left-center">
 
     <select-group v-if="showChartTypeControl"
-      class="w-130 mr-40 my-5"
+      class="topbar-screen w-130 mr-40 my-5"
       :label="$t('view.chart.chartAs')"
       v-model="value.chartType"
       :items="allChartTypes.items"/>
       
     <div v-if="showPeriodicityControl && oasHasDifferentPeriodicities && !value.periodicityTransformation"
-      class="periodicity-warning w-10 h-10 mr-5"></div>
+      class="periodicity-warning topbar-screen w-10 h-10 mr-5"></div>
     
-    <div v-if="showPeriodicityControl" @click="changingPeriodicity = true" class="selectGroup verti mr-40">
+    <div v-if="showPeriodicityControl" @click="changingPeriodicity = true" class="topbar-screen selectGroup verti mr-40">
       <span class="label">{{ $t('view.chart.periodicity') }}</span>
       <div class="horiz items-left-center">
         <span class="value weight-1 mr-10">
@@ -23,13 +23,13 @@ const template = `
     <input-date
       v-if="showDateNavigator"
       v-model="value.startDtLimiter"
-      class="w-190 mr-10"
+      class="topbar-screen w-190 mr-10"
       :placeholder="$t('view.chart.start')"/>
     
     <input-date
       v-if="showDateNavigator"
       v-model="value.endDtLimiter"
-      class="w-190"
+      class="topbar-screen w-190"
       :placeholder="$t('view.chart.end')"/>
       
     <div v-if="showLegend" class="legend p-5 horiz items-left-center">
@@ -43,7 +43,7 @@ const template = `
       
     <div class="weight-1"></div>
 
-    <button v-if="showAdvancedAnalysisButton && value.chartData" @click="$emit('advancedClick')" class="btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
+    <button v-if="showAdvancedAnalysisButton && value.chartData" @click="$emit('advancedClick')" class="topbar-screen btn basic">{{ $t('view.chart.advancedAnalysis') }}</button>
     
     <div v-if="changingPeriodicity" class="verti fixed top-0 left-0 w-window h-window p-20 darkerscrim z-scrim">
       <a @click="changingPeriodicity = false" class="close w-20 h-20 self-right"></a>

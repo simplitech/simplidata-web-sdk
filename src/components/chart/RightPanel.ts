@@ -1,7 +1,7 @@
 const template = `
   <div class="rightpanel horiz auto-scroll">
   
-    <a class="collapse w-8 h-20 self-center m-5 mr-15"
+    <a class="collapse rightpanel-screen w-8 h-20 self-center m-5 mr-15"
       @click="toggleCollapse" :class="{ collapsed }"></a>
   
     <div class="panelcontent verti weight-1" :class="{ collapsed }">
@@ -37,7 +37,7 @@ const template = `
         </div>
       </div>
       
-      <div v-if="showColorControl" class="horiz mb-30 items-center">
+      <div v-if="showColorControl" class="rightpanel-screen horiz mb-30 items-center">
         <div class="colorLabel mr-10">{{ $t('view.chart.changeColor') }}</div>
         <div class="chart-button w-30 h-30 p-4">
           <input type="color" v-model="oaColor" class="w-full h-full colorpicker"/>
@@ -46,12 +46,13 @@ const template = `
   
       <!-- VERSION CHOOSER -->
       <version-chooser v-model="value" v-if="showOaVersionControl"
-        :selectedOaRfu="selectedOaRfu" :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"/>
+        :selectedOaRfu="selectedOaRfu" :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"
+        class="rightpanel-screen"/>
       
       <div class="weight-1"></div>
       
       <button v-if="showVisitButton" @click="$emit('visitClick')"
-      class="self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</button>
+      class="rightpanel-screen self-center btn basic mb-20">{{ $t('view.chart.accessAnalysis') }}</button>
       
     </div>
 
