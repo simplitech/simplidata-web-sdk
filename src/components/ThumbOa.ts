@@ -20,14 +20,26 @@ const template = `
   
         <div v-if="selectable" class="col" :class="[selected ? 'oa-selected' : 'oa-selector']"></div>
       </div>
-  
-      <router-link :to="navigateTo || {}" @click.native="$emit('navigate')" class="oa-title">
-        {{oa.$tag}}
-      </router-link>
-  
-      <router-link :to="navigateTo || {}" @click.native="$emit('navigate')" class="weight-1 items-center">
-        <img :src="oa.$thumbnail" class="chart-img" alt="graph">
-      </router-link>
+ 
+      <template v-if="navigateTo">
+        <router-link :to="navigateTo" @click.native="$emit('navigate')" class="oa-title">
+          {{oa.$tag}}
+        </router-link>
+    
+        <router-link :to="navigateTo || {}" @click.native="$emit('navigate')" class="weight-1 items-center">
+          <img :src="oa.$thumbnail" class="chart-img" alt="graph">
+        </router-link>
+      </template>
+      
+      <template v-else>
+        <div class="oa-title">
+          {{oa.$tag}}
+        </div>
+    
+        <div class="weight-1 items-center">
+          <img :src="oa.$thumbnail" class="chart-img" alt="graph">
+        </div>
+      </template>
     </div>
   </div>
   

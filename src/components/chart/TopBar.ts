@@ -14,7 +14,7 @@ const template = `
       <span class="label">{{ $t('view.chart.periodicity') }}</span>
       <div class="horiz items-left-center">
         <span class="value weight-1 mr-10">
-          {{ value.periodicity ? value.periodicity.$tag : '' }}
+          {{ value.periodicity ? value.periodicity.$tag : notTransformedPeriodicity.$tag }}
         </span>
         <div class="chevron w-8 h-5"></div>
       </div>
@@ -128,6 +128,13 @@ export default class TopBar extends Vue {
 
       return false
     })
+  }
+
+  get notTransformedPeriodicity() {
+    if (this.allOarfu.length > 0 && this.allOarfu[0] && this.allOarfu[0].objectOfAnalysis) {
+      return this.allOarfu[0].objectOfAnalysis.periodicity
+    }
+    return null
   }
 
   changeGeneralPeriodicity(periodicity: OaPeriodicity) {
