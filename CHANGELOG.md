@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.15.0"></a>
+# [9.15.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.14.0...v9.15.0) (2019-06-05)
+
+
+### Features
+
+* **Chart:** implement autosave ([27b9a19](https://github.com/simplitech/simplidata-web-sdk/commit/27b9a19))
+
+
+
 <a name="9.14.0"></a>
 # [9.14.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.13.0...v9.14.0) (2019-06-04)
 
