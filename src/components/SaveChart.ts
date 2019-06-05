@@ -38,9 +38,9 @@ const template = `
   
 `
 
-import { Component, Prop, Vue } from 'vue-property-decorator'
+import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import zipcelx from 'zipcelx'
-import { $, Collection } from '../simpli'
+import { $, Collection, ID } from '../simpli'
 import {
   Collection as SDCollection,
   DownloadType,
@@ -136,6 +136,7 @@ export class SaveChart extends Vue {
 
   async persistUserSavedChart(idCollection: number | null, idDownloadType: number | null = null) {
     if (idCollection) {
+      this.value.idUserChartPk = 0 // never override, override occur on autosave
       this.value.idCollectionFk = idCollection
     } else {
       this.value.collection = null
@@ -147,9 +148,8 @@ export class SaveChart extends Vue {
       this.value.downloadType = null
     }
 
-    this.value.buildJson()
-    const resp = await this.value.save()
-    this.value.lastSavedJson = this.value.relevantToSave
+    const resp = await this.value.buildAndSave()
+    this.value.idUserChartPk = resp.data as ID
     this.$emit('userSavedChart', resp.data)
   }
 }

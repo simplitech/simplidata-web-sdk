@@ -14,7 +14,12 @@ const template = `
       <span class="label">{{ $t('view.chart.periodicity') }}</span>
       <div class="horiz items-left-center">
         <span class="value weight-1 mr-10">
-          {{ value.periodicity ? value.periodicity.$tag : notTransformedPeriodicity.$tag }}
+          <template v-if="value.periodicity">
+            {{ value.periodicity.$tag }}
+          </template>
+          <template v-else-if="notTransformedPeriodicity">
+            {{ notTransformedPeriodicity.$tag }}
+          </template>
         </span>
         <div class="chevron w-8 h-5"></div>
       </div>

@@ -74,9 +74,6 @@ export class UserSavedChart extends Resource {
   @ValidationMaxLength(255)
   json: string = ''
 
-  @RequestExclude() // only to check if needs saving
-  lastSavedJson = ''
-
   @RequestExclude() // json property
   graphics: ChartGraphic[] = []
 
@@ -134,12 +131,8 @@ export class UserSavedChart extends Resource {
     Vue.set(this.colorsMap, title, color)
   }
 
-  buildJson() {
-    this.json = this.unsavedJson
-  }
-
-  get unsavedJson() {
-    return JSON.stringify({
+  async buildAndSave() {
+    this.json = JSON.stringify({
       version,
       graphics: this.graphics,
       chartType: this.chartType,
@@ -150,16 +143,8 @@ export class UserSavedChart extends Resource {
       itensRFU: this.itensRFUForJson,
       colorsMap: this.colorsMap,
     })
-  }
 
-  get relevantToSave() {
-    return JSON.stringify({
-      graphics: this.graphics,
-      startDtLimiter: this.startDtLimiter,
-      endDtLimiter: this.endDtLimiter,
-      periodicity: this.periodicity,
-      periodicityTransformation: this.periodicityTransformation,
-    })
+    return await this.save()
   }
 
   async parseJson() {

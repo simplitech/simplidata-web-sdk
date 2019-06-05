@@ -37,7 +37,6 @@ export class DrawingState {
   graphicSelected: ChartGraphic | null = null
 
   showEditCommentButtons = false
-  warningAboutSavingEmmited = false
 
   historyToUndo: ChartGraphic[][] = []
   historyToRedo: ChartGraphic[][] = []

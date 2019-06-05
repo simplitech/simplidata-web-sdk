@@ -124,7 +124,6 @@ export default class EChart extends Vue {
   @Watch('value.colorsMap', { deep: true })
   @Watch('value.graphics', { deep: true })
   @Watch('dataZoom')
-  @Watch('chartGraphics')
   @Watch('drawingState.graphicBeingBuilt')
   @Watch('drawingState.graphicBeingBuilt.text')
   updateChartData() {

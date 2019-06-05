@@ -4,7 +4,7 @@ const template = `
   <div class="toolbuttons verti w-40">
 
     <a v-if="showSaveButton" v-popover.right="{ name: 'sg-save' + _uid }" class="chart-save h-40 mb-8 items-center"
-      :class="{ 'needs-saving': needsSaving }" :title="$t('view.chart.tooltip.save')"></a>
+      :title="$t('view.chart.tooltip.save')"></a>
 
     <popover :name="'sg-save' + _uid" ref="savepopover">
       <save-chart v-model="value" @userSavedChart="onUserSavedChart($event)"/>
@@ -93,7 +93,6 @@ import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
 import Popover from 'vue-js-popover'
 import { UserSavedChart } from '../../models'
 import { SaveChart } from '../SaveChart'
-import { warning } from '../../simpli'
 
 @Component({
   components: { SaveChart },
@@ -128,15 +127,6 @@ export default class ToolButtons extends Vue {
   @Prop({ type: Boolean, default: true })
   showCommentButton?: boolean
 
-  get needsSaving() {
-    return (
-      this.showSaveButton &&
-      this.value &&
-      this.value.lastSavedJson.length &&
-      this.value.lastSavedJson !== this.value.relevantToSave
-    )
-  }
-
   @Watch('drawingState.graphicOfWork')
   hidePopovers() {
     // @ts-ignore
@@ -146,14 +136,6 @@ export default class ToolButtons extends Vue {
     // @ts-ignore
     const calcpopover = this.$refs.calcpopover as Popover
     calcpopover.visible = false
-  }
-
-  @Watch('needsSaving')
-  warnIfNeedsSavingForFirstTime() {
-    if (!this.drawingState.warningAboutSavingEmmited && this.needsSaving) {
-      warning('view.chart.dontFogetToSaveYourChanges')
-      this.drawingState.warningAboutSavingEmmited = true
-    }
   }
 
   onUserSavedChart(e: any) {

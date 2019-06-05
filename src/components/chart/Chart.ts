@@ -58,6 +58,7 @@ const template = `
 `
 
 import { Component, Prop, Watch, Vue } from 'vue-property-decorator'
+import { debounce } from 'lodash'
 import { ObjectOfAnalysis, UserSavedChart, ItemRFU, ObjectOfAnalysisRFU, ChartType } from '../../models'
 import { colors } from '../../const/colors.const'
 import ToolButtons from './ToolButtons'
@@ -139,8 +140,11 @@ export class Chart extends Vue {
   @Prop({ type: Array, default: () => colors })
   colors!: string[]
 
+  readonly DEBOUNCE_TIMER = 300
+
   drawingState = new DrawingState(this.value)
   dataLoaded = false
+  debounceAutosave = debounce(async () => await this.autosave(), this.DEBOUNCE_TIMER)
 
   get selectedOaRfu() {
     return this.getRfuAsOaRfu(this.selectedDatasetIndexOrTheOnly)
@@ -282,8 +286,6 @@ export class Chart extends Vue {
       }
     }
 
-    this.value.lastSavedJson = this.value.relevantToSave
-
     if (somethingLoaded) {
       this.dataLoaded = true
       this.$emit('dataLoaded')
@@ -298,5 +300,18 @@ export class Chart extends Vue {
   @Watch('colors', { immediate: true })
   updateColors() {
     this.value.availableColors = this.colors
+  }
+
+  @Watch('value.itensRFU')
+  @Watch('value.colorsMap', { deep: true })
+  @Watch('value.graphics', { deep: true })
+  async checkForAutosave() {
+    if (this.dataLoaded && this.value.collection) {
+      await this.debounceAutosave()
+    }
+  }
+
+  async autosave() {
+    await this.value.buildAndSave()
   }
 }
