@@ -26,4 +26,9 @@ export class MenuResponse extends Model {
     const fetch = async () => await this.GET(`/User/Menu`)
     return await $.await.run(fetch, spinner)
   }
+
+  async getMenuPublic(spinner = 'getMenu'): Promise<Resp<MenuResponse>> {
+    const fetch = async () => await this.GET(`/User/MenuPublic`)
+    return await $.await.run(fetch, spinner)
+  }
 }
