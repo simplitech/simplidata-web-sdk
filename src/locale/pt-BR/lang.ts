@@ -158,6 +158,14 @@ export default {
         idAddressFk: 'ID Endereço',
       },
     },
+    MissingOaComplain: {
+      title: 'Sugestão de indicador que está faltando',
+      columns: {
+        idMissingOaComplainPk: 'ID',
+        text: 'Mensagem da sugestão',
+        createdDate: 'Data de envio',
+      },
+    },
   },
 
   view: {
