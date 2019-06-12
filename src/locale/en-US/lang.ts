@@ -152,6 +152,14 @@ export default {
         idAddressFk: 'ID Address',
       },
     },
+    MissingOaComplain: {
+      title: 'Suggestion of a missing indicator',
+      columns: {
+        idMissingOaComplainPk: 'ID',
+        text: 'Suggestion message',
+        createdDate: 'Sent date',
+      },
+    },
   },
 
   view: {
