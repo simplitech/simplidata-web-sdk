@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="9.16.0"></a>
+# [9.16.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.15.0...v9.16.0) (2019-06-12)
+
+
+### Features
+
+* **MissingOaComplain:** implement missingOaComplain for sending suggestions ([7c7f235](https://github.com/simplitech/simplidata-web-sdk/commit/7c7f235))
+
+
+
 <a name="9.15.0"></a>
 # [9.15.0](https://github.com/simplitech/simplidata-web-sdk/compare/v9.14.0...v9.15.0) (2019-06-05)
 
