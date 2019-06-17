@@ -45,7 +45,7 @@ const template = `
       </div>
   
       <!-- VERSION CHOOSER -->
-      <version-chooser v-model="value" v-if="showOaVersionControl"
+      <version-chooser v-model="value" v-if="showOaVersionControl && moreThanOneVersion"
         :selectedOaRfu="selectedOaRfu" :selectedDatasetIndexOrTheOnly="selectedDatasetIndexOrTheOnly"
         class="rightpanel-screen"/>
       
@@ -112,5 +112,9 @@ export default class RightPanel extends Vue {
 
   set oaColor(val: string) {
     this.value.setColor(this.selectedOaRfu.contentTitleWithTransformation, val)
+  }
+
+  get moreThanOneVersion() {
+    return this.selectedOaRfu.objectOfAnalysis && this.selectedOaRfu.objectOfAnalysis.oaVersions.length > 1
   }
 }
